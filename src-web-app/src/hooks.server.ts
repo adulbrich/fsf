@@ -1,11 +1,15 @@
-import { PUBLIC_SUPABASE_URL, PUBLIC_SUPABASE_ANON_KEY } from '$env/static/public';
+import { PUBLIC_SUPABASE_URL, PUBLIC_SUPABASE_ANON_KEY, PUBLIC_DEV_SUPABASE_URL, PUBLIC_DEV_SUPABASE_ANON_KEY } from '$env/static/public';
 import { createServerClient } from '@supabase/ssr';
 import { error, redirect, type Handle } from '@sveltejs/kit';
 import { sequence } from '@sveltejs/kit/hooks';
+import { dev } from '$app/environment';
 
 // Supabase init function for server
 const supabase = async ({ event, resolve }: { event: any, resolve: any }) => {
-  event.locals.supabase = createServerClient(PUBLIC_SUPABASE_URL, PUBLIC_SUPABASE_ANON_KEY, {
+  event.locals.supabase = createServerClient(
+    dev ? PUBLIC_DEV_SUPABASE_URL : PUBLIC_SUPABASE_URL,
+    dev ? PUBLIC_DEV_SUPABASE_ANON_KEY : PUBLIC_SUPABASE_ANON_KEY,
+    {
     cookies: {
       get: (key) => event.cookies.get(key),
       set: (key, value, options) => {
