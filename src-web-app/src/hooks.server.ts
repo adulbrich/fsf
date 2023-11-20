@@ -42,8 +42,8 @@ const supabase = async ({ event, resolve }: { event: any, resolve: any }) => {
 
 // Auth checker for all pages but root '/'
 const authorization = async ({ event, resolve }: { event: any, resolve: any }) => {
-  // Protect requests to all routes that aren't '/'
-  if (event.url.pathname !== '/') {
+  // Protect requests to all routes that aren't '/' or start with /auth
+  if (event.url.pathname !== '/' && !event.url.pathname.startsWith('/auth')) {
     const session = await event.locals.getSession();
 
     // Is the user not logged in?
@@ -51,8 +51,8 @@ const authorization = async ({ event, resolve }: { event: any, resolve: any }) =
       throw redirect(303, '/');
   }
 
-  // Protect POST requests to all routes that aren't '/'
-  if (event.url.pathname !== '/' && event.request.method === 'POST') {
+  // Protect POST requests to all routes that aren't '/' or start with /auth
+  if (event.url.pathname !== '/' && !event.url.pathname.startsWith('/auth') && event.request.method === 'POST') {
     const session = await event.locals.getSession();
     // Is the user not logged in?
     if (!session)
