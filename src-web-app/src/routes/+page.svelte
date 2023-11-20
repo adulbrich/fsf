@@ -57,6 +57,10 @@
   }
 </script>
 
+<svelte:head>
+  <title>Login | DamFit</title>
+</svelte:head>
+
 <!-- Centered container -->
 <div class="flex flex-col h-full justify-center mx-auto max-w-sm">
 

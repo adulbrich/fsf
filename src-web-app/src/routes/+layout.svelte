@@ -11,10 +11,6 @@
   $: pathname = data.pathname;
 </script>
 
-<svelte:head>
-  <title>Login | DamFit</title>
-</svelte:head>
-  
 <!-- Top level container -->
 <main>
   <!-- key is used for triggering page transitions -->
