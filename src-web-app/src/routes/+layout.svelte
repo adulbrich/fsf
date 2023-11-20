@@ -1,24 +1,29 @@
 <script lang="ts">
+  import { fade } from "svelte/transition";
   import "../app.css";
-  import { invalidate } from '$app/navigation'
-  import { onMount } from 'svelte'
+  import { Toaster } from 'svelte-french-toast';
 
-  export let data
+  export let data;
+  let { supabase } = data;
+  $: ({ supabase } = data);
 
-  let { supabase, session } = data
-  $: ({ supabase, session } = data)
-
-  onMount(() => {
-    const {
-      data: { subscription },
-    } = supabase.auth.onAuthStateChange((event, _session) => {
-      if (_session?.expires_at !== session?.expires_at) {
-        invalidate('supabase:auth')
-      }
-    })
-
-    return () => subscription.unsubscribe()
-  });
+  // Pathname used for page transition key
+  $: pathname = data.pathname;
 </script>
+
+<svelte:head>
+  <title>Login | DamFit</title>
+</svelte:head>
   
-<slot />
+<!-- Top level container -->
+<main>
+  <!-- key is used for triggering page transitions -->
+  {#key pathname}
+    <div class="absolute h-screen min-h-screen w-full" in:fade={{ duration: 150, delay: 150 }} out:fade={{ duration: 150, delay: 0 }}>
+      <slot />
+    </div>
+  {/key}
+</main>
+
+<!-- svelte-french-toast -->
+<Toaster position="top-right" toastOptions={{ className: 'svelte-toast-message' }} />

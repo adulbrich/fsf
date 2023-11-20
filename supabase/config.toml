@@ -127,7 +127,7 @@ redirect_uri = ""
 url = ""
 
 [auth.external.github]
-enabled = true
+enabled = false 
 client_id = "env(SUPABASE_AUTH_GITHUB_CLIENT_ID)"
 secret = "env(SUPABASE_AUTH_GITHUB_SECRET)"
 redirect_uri = "http://localhost:54321/auth/v1/callback"
