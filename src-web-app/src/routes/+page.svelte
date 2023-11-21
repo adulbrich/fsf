@@ -5,9 +5,7 @@
   import { afterNavigate, goto, invalidateAll } from '$app/navigation';
   import toast from 'svelte-french-toast';
   import { tick } from 'svelte';
-  import { dev } from '$app/environment';
-  import githubLogo from '$lib/images/GitHub_Logo.png'
-  
+    
   // Page data and form data
   export let form;
   export let data;
@@ -21,12 +19,12 @@
   $: signInDisabled = email === '' || password === '' || actionSubmitted;
 
   // Auth form user / password refs
-  let usernameRef: HTMLInputElement | undefined;
+  let emailRef: HTMLInputElement | undefined;
   let passwordRef: HTMLInputElement | undefined;
 
   // On page enter, auto focus the username input
   afterNavigate(({ type }) => {
-    if (type === 'enter') usernameRef?.focus();
+    if (type === 'enter') emailRef?.focus();
   });
 
   function getFormValue(form: FormData, id: string) {
@@ -76,126 +74,103 @@
       DamFit Management Login
     </div>
     
-    {#if dev}
-      <!-- Dev environment sign in button (GitHub OAuth) -->
-      <div class="h-72 flex flex-col justify-center items-center gap-8">
-        <p class="text-3xl font-bold text-red-400">DEV MODE</p>
-        <button
-          on:click={() => signInWithGitHub()}
-          class="flex justify-center items-center relative text-white disabled:text-gray-300 ring-1 ring-orange-400/75 disabled:ring-0 bg-orange-400 hover:bg-orange-500 disabled:bg-gray-100 transition-all ease-in-out disabled:cursor-not-allowed h-10 px- w-40 rounded"
-          disabled={actionSubmitted}
-          >
-          {#if actionSubmitted}
-            <div class="absolute" in:fade={{ delay: 50 , duration: 50  }} out:fade={{ duration: 50 }}>
-              <svg class="animate-spin w-6 h-6 text-orange-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-              </svg>
-            </div>
-          {:else}
-            <img src={githubLogo} class="absolute w-2/3" alt="Dev sign in button" />
-          {/if}
-        </button>
-      </div>
-    {:else}
-      <!-- Sign in form -->
-      <form
-        class="flex flex-col gap-4 p-8"
-        method="post"
-        use:enhance={({ formData }) => {
-          // Disable form submission for now
-          actionSubmitted = true;
-          return async ({ update, result }) => {
-            // Act based on the result type
-            switch (result.type) {
-              case 'redirect':
-                // If the form returns with a redirect (shouldn't happen) we handle it
-                goto(result.location);
-                break;
-              case 'success':
-                // Call invalidateAll(), which triggers a new page load
-                // The load function in +page.server.ts will throw a redirect
-                // to /events because a session now exists!
-                invalidateAll();
-                break;
-              default:
-                // This is for 'failure' and other types
-                // If you don't add a timeout, immediately trying to focus the password element breaks stuff.
-                // This is an ugly hack, I know.
-                // Reference: https://github.com/sveltejs/kit/issues/8439
-                // BONUS: Prevents auth spamming
-                setTimeout(() => refocus(), 500);
-            }
+    <!-- Sign in form -->
+    <form
+      class="flex flex-col gap-4 p-8"
+      method="post"
+      use:enhance={({ formData }) => {
+        // Disable form submission for now
+        actionSubmitted = true;
+        return async ({ update, result }) => {
+          // Act based on the result type
+          switch (result.type) {
+            case 'redirect':
+              // If the form returns with a redirect (shouldn't happen) we handle it
+              goto(result.location);
+              break;
+            case 'success':
+              // Call invalidateAll(), which triggers a new page load
+              // The load function in +page.server.ts will throw a redirect
+              // to /events because a session now exists!
+              invalidateAll();
+              break;
+            default:
+              // This is for 'failure' and other types
+              // If you don't add a timeout, immediately trying to focus the password element breaks stuff.
+              // This is an ugly hack, I know.
+              // Reference: https://github.com/sveltejs/kit/issues/8439
+              // BONUS: Prevents auth spamming
+              setTimeout(() => refocus(), 500);
+          }
 
-            // Define our refocus function which is explained above
-            const refocus = async () => {
-              // Update our form data variable
-              await applyAction(result);
+          // Define our refocus function which is explained above
+          const refocus = async () => {
+            // Update our form data variable
+            await applyAction(result);
 
-              // Reset form values
-              email = getFormValue(formData, 'email') || '';
-              password = '';
+            // Reset form values
+            email = getFormValue(formData, 'email') || '';
+            password = '';
 
-              // Allow the form to be submitted again
-              actionSubmitted = false;
+            // Allow the form to be submitted again
+            actionSubmitted = false;
 
-              // Issue a toast!
-              if (form && !form.success && form.errorMessage)
-                toast.error(form.errorMessage);
+            // Issue a toast!
+            if (form && !form.success && form.errorMessage)
+              toast.error(form.errorMessage);
 
-              // Apply focus back to the password field
-              // await tick() is ugly but focus breaks without it :(
-              await tick();
-              passwordRef?.focus();
-            }
+            // Apply focus back to the password field
+            // await tick() is ugly but focus breaks without it :(
+            await tick();
+            passwordRef?.focus();
           }
         }
-      }>
-        <!-- Email input -->
-        <div class="flex flex-col gap-2">
-          <label for="email" class="text-gray-500 font-medium text-sm">EMAIL</label>
-          <input
-            bind:this={usernameRef}
-            bind:value="{email}"
-            disabled={actionSubmitted}
-            name="email"
-            autocomplete="off"
-            class="ring-1 ring-black/10 rounded outline-none focus:ring-2 focus:ring-orange-400 transition-all ease-in-out px-3 h-10"
-            />
-        </div>
+      }
+    }>
+      <!-- Email input -->
+      <div class="flex flex-col gap-2">
+        <label for="email" class="text-gray-500 font-medium text-sm">EMAIL</label>
+        <input
+          bind:this={emailRef}
+          bind:value="{email}"
+          disabled={actionSubmitted}
+          name="email"
+          autocomplete="email"
+          class="ring-1 ring-black/10 rounded outline-none focus:ring-2 focus:ring-orange-400 transition-all ease-in-out px-3 h-10"
+          />
+      </div>
 
-        <!-- Password input -->
-        <div class="flex flex-col gap-2">
-          <label for="password" class="text-gray-500 font-medium text-sm">PASSWORD</label>
-          <input
-            bind:this={passwordRef}
-            bind:value="{password}"
-            disabled={actionSubmitted}
-            type="password"
-            name="password"
-            autocomplete="off"
-            class="ring-1 ring-black/10 rounded outline-none focus:ring-2 focus:ring-orange-400 transition-all ease-in-out px-3 h-10"
-            />
-        </div>
+      <!-- Password input -->
+      <div class="flex flex-col gap-2">
+        <label for="password" class="text-gray-500 font-medium text-sm">PASSWORD</label>
+        <input
+          bind:this={passwordRef}
+          bind:value="{password}"
+          disabled={actionSubmitted}
+          type="password"
+          name="password"
+          autocomplete="current-password"
+          class="ring-1 ring-black/10 rounded outline-none focus:ring-2 focus:ring-orange-400 transition-all ease-in-out px-3 h-10"
+          />
+      </div>
 
-        <!-- Sign in button -->
-        <button
-          class="flex justify-center items-center text-white disabled:text-gray-300 ring-1 ring-orange-400/75 disabled:ring-0 bg-orange-400 hover:bg-orange-500 disabled:bg-gray-100 transition-all ease-in-out disabled:cursor-not-allowed h-10 w-32 mt-4 rounded"
-          disabled={signInDisabled}
-          >
-          <!-- Conditional that shows a spinner IF we are processing a sign in request -->
-          {#if actionSubmitted}
-            <div class="absolute" in:fade={{ delay: 50 , duration: 50  }} out:fade={{ duration: 50 }}>
-              <svg class="animate-spin w-6 h-6 text-orange-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-              </svg>
-            </div>
-          {:else}
-            <span in:fade={{ delay: 50 , duration: 50  }} out:fade={{ duration: 50 }} class="absolute text-md font-bold">SIGN IN</span>
-          {/if}
-        </button>
-      </form>
-    {/if}
+      <!-- Sign in button -->
+      <button
+        class="flex justify-center items-center text-white disabled:text-gray-300 ring-1 ring-orange-400/75 disabled:ring-0 bg-orange-400 hover:bg-orange-500 disabled:bg-gray-100 transition-all ease-in-out disabled:cursor-not-allowed h-10 w-32 mt-4 rounded"
+        disabled={signInDisabled}
+        >
+        <!-- Conditional that shows a spinner IF we are processing a sign in request -->
+        {#if actionSubmitted}
+          <div class="absolute" in:fade={{ delay: 50 , duration: 50  }} out:fade={{ duration: 50 }}>
+            <svg class="animate-spin w-6 h-6 text-orange-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+              <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+              <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+            </svg>
+          </div>
+        {:else}
+          <span in:fade={{ delay: 50 , duration: 50  }} out:fade={{ duration: 50 }} class="absolute text-md font-bold">SIGN IN</span>
+        {/if}
+      </button>
+    </form>
   </div>
 </div>
