@@ -5,21 +5,22 @@ import { sequence } from '@sveltejs/kit/hooks';
 import { dev } from '$app/environment';
 
 // Supabase init function for server
-const supabase = async ({ event, resolve }: { event: any, resolve: any }) => {
+const supabase: Handle = async function ({ event, resolve }) {
   event.locals.supabase = createServerClient(
     dev ? PUBLIC_DEV_SUPABASE_URL : PUBLIC_SUPABASE_URL,
     dev ? PUBLIC_DEV_SUPABASE_ANON_KEY : PUBLIC_SUPABASE_ANON_KEY,
     {
-    cookies: {
-      get: (key) => event.cookies.get(key),
-      set: (key, value, options) => {
-        event.cookies.set(key, value, options);
-      },
-      remove: (key, options) => {
-        event.cookies.delete(key, options);
+      cookies: {
+        get: (key) => event.cookies.get(key),
+        set: (key, value, options) => {
+          event.cookies.set(key, value, options);
+        },
+        remove: (key, options) => {
+          event.cookies.delete(key, options);
+        }
       }
     }
-  });
+  );
 
   /**
    * A little helper that is written for convenience so that instead
@@ -27,21 +28,19 @@ const supabase = async ({ event, resolve }: { event: any, resolve: any }) => {
    * you just call this `await getSession()`
    */
   event.locals.getSession = async () => {
-    const {
-      data: { session },
-    } = await event.locals.supabase.auth.getSession();
+    const { data: { session } } = await event.locals.supabase.auth.getSession();
     return session;
   }
 
   return resolve(event, {
-    filterSerializedResponseHeaders(name: string) {
+    filterSerializedResponseHeaders: (name, string) => {
       return name === 'content-range';
     }
   });
 }
 
 // Auth checker for all pages but root '/'
-const authorization = async ({ event, resolve }: { event: any, resolve: any }) => {
+const authGuard: Handle = async function ({ event, resolve }) {
   // Protect requests to all routes that aren't '/' or start with /auth
   if (event.url.pathname !== '/' && !event.url.pathname.startsWith('/auth')) {
     const session = await event.locals.getSession();
@@ -62,4 +61,4 @@ const authorization = async ({ event, resolve }: { event: any, resolve: any }) =
   return resolve(event);
 }
 
-export const handle: Handle = sequence(supabase, authorization);
+export const handle: Handle = sequence(supabase, authGuard);
