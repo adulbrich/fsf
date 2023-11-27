@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   userContainer: {
-    flexDirection: 'row',
+    flexDirection: 'column',
     justifyContent: 'space-between',
     alignItems: 'center',
     paddingVertical: 10,
@@ -52,6 +52,7 @@ const styles = StyleSheet.create({
   },
   name: {
     fontSize: 14,
+    color: 'orange',
   },
   steps: {
     fontSize: 16,
