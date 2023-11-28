@@ -24,6 +24,8 @@ The scope for this product will be limited to faculty being able to start and ho
 
 Walktober is a community-wide challenge event in October that promotes physical fitness offering fun walking events and encouraging participants to move and get active. Joining the Walktober event connects you with a community of participants, allows you to track walking steps to contribute to your team to gain points for rewards, and incentivizes healthy behavior.  Currently, the Walktober event is hosted on the Health Enhancement Systems (HES) website. An organization may host a walktober event through the HES website by paying a setup fee, and the cost of one of three programs for each participant. The program options are as follows:
 
+![](https://holocron.so/uploads/72197925-stakeholders.jpg.jpeg)
+
 These prices are very unreasonable for the services that HES provides. Our project will come at very little cost and will be more customized for the OSU faculty experience.  
 
 # **Purpose and Vision (Background)**
@@ -79,6 +81,8 @@ We need a way to request data from IdealLogic.  If users register through that 
 # **Market Assessment and Competition Analysis**
 
 Our primary competition is the Health Enhancement Systems application. It is proprietary and costly for FSF at OSU.
+
+![](https://holocron.so/uploads/102e9092-other-app-stuff.jpg.jpeg)
 
 ## **Target Demographics (User Persona)**
 
@@ -266,9 +270,14 @@ _"Fitness events should be dynamic, engaging, and accessible to all. Let's creat
 
 ### Priority: 1 = Low and 3 = High
 
-#### **Epic 1**
+![](https://holocron.so/uploads/3a791a8d-user-stories1.jpg.jpeg)
 
-#### **Epic 2**
+
+![](https://holocron.so/uploads/54c9219b-us2.jpg.jpeg)
+
+#### 
+
+![](https://holocron.so/uploads/dbe78f21-us3.jpg.jpeg)
 
 ## **Non-Functional Requirements**
 
@@ -551,6 +560,8 @@ Main Features/Activities:
 - Fix flaws/bugs seen by users 
 
 # **Goals and Success Metrics**
+
+![](https://holocron.so/uploads/ba93ec25-goal-and-success-met.jpg.jpeg)
 
 # **FAQ’s**
 
