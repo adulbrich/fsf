@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View } from 'react-native';
 import RankItem from '../components/RankItem';
 import React from 'react';
-import { createClient } from 'supabase/supabase-js';
+//import { createClient } from 'supabase/supabase-js';
 import { ScrollViewStyleReset } from 'expo-router/html';
 
 /* 
@@ -40,6 +40,42 @@ class StepCountLeaderboardService {
       teamMembers: []
     };
   }
+
+  // Fetch the step data from Supabase
+  async fetchStepData(): Promise<void> {
+    let { data, error } = await supabase
+      .from('step_counts') // table name put here
+      .select('*')
+      .eq('event', this.event);
+
+    if (error) {
+      console.error('Error fetching step data:', error);
+      return;
+    }
+
+    if (data) {
+      this.leaderboard.teamMembers = data as TeamMemberStepCount[];
+      this.calculateTeamTotalSteps();
+      this.sortLeaderboard();
+    }
+  }
+
+  // Calculate the total steps for the team
+  private calculateTeamTotalSteps(): void {
+    this.leaderboard.teamTotalSteps = this.leaderboard.teamMembers.reduce((total, member) => total + member.steps, 0);
+  }
+
+  // Sort the leaderboard by step count in descending order
+  private sortLeaderboard(): void {
+    this.leaderboard.teamMembers.sort((a, b) => b.steps - a.steps);
+  }
+
+  // Get the leaderboard data
+  getLeaderboard(): Leaderboard {
+    return this.leaderboard;
+  }
+}
+
 
 export default function RankView() {
   // test example data
