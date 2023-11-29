@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native'; 
 import RankItem from '../components/RankItem';
 import React from 'react';
 //import { createClient } from 'supabase/supabase-js';
