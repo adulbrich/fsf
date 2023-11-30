@@ -156,7 +156,7 @@
 
       <!-- Forgot password -->
       <div class="flex">
-        <a href="/forgotPassword" class="text-gray-500">Forgot password?</a>
+        <a href="/auth/forgotPassword" class="text-gray-500">Forgot password?</a>
       </div>
 
       <!-- Sign in button -->
