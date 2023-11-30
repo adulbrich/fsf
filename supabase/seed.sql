@@ -1,3 +1,6 @@
+-- Create a test user for dev use
+select utils.create_user('amy@testuser.com', 'damfit');
+
 --
 -- PostgreSQL database dump
 --

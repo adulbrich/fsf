@@ -4,18 +4,21 @@ alter table "public"."Profiles" alter column "Name" set not null;
 
 set check_function_bodies = off;
 
-CREATE OR REPLACE FUNCTION public.handle_new_user()
- RETURNS trigger
- LANGUAGE plpgsql
- SECURITY DEFINER
-AS $$
+create or replace function public.handle_new_user()
+ returns trigger
+ language plpgsql
+ security definer
+as $$
 begin
   insert into public."Profiles"("ProfileID", "Name", "Email")
-  values (new.id, new.raw_user_meta_data->>'full_name', new.raw_user_meta_data->>'email');
-
+  values (
+    new.id,
+    coalesce(new.raw_user_meta_data->>'full_name', split_part(new.email, '@', 1), 'New User'),
+    new.email
+  );
   return new;
 end;
 $$;
 
-CREATE TRIGGER on_auth_user_created AFTER INSERT ON auth.users
-FOR EACH ROW EXECUTE FUNCTION public.handle_new_user();
+create trigger on_auth_user_created after insert on auth.users
+for each row execute function public.handle_new_user();

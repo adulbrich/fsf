@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "@supabase/auth-ui-svelte": "^0.2.8",
     "node": "^21.1.0"
   }
 }
