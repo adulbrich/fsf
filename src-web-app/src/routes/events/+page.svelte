@@ -18,6 +18,6 @@
 <Layout>
 
   <p class="flex justify-center">This is the events page</p>
-  <button class="rounded border bg-orange-300 flex flex-col justify-center h-full max-w-md mx-auto" on:click={() => handleSignOut()}>Logout</button>
+  <button class="rounded border bg-orange-300 flex flex-col justify-center max-w-md mx-auto" on:click={() => handleSignOut()}>Logout</button>
   
 </Layout>
