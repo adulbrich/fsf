@@ -23,8 +23,7 @@ The scope for this product will be limited to faculty being able to start and ho
 ### Walktober
 
 Walktober is a community-wide challenge event in October that promotes physical fitness offering fun walking events and encouraging participants to move and get active. Joining the Walktober event connects you with a community of participants, allows you to track walking steps to contribute to your team to gain points for rewards, and incentivizes healthy behavior.  Currently, the Walktober event is hosted on the Health Enhancement Systems (HES) website. An organization may host a walktober event through the HES website by paying a setup fee, and the cost of one of three programs for each participant. The program options are as follows:
-
-![](https://holocron.so/uploads/72197925-stakeholders.jpg.jpeg)
+![prices](https://github.com/OregonStateUniversity/osu-fsf/assets/102546859/57b04220-6ec9-4fcc-9791-3567d20ff9c8)
 
 These prices are very unreasonable for the services that HES provides. Our project will come at very little cost and will be more customized for the OSU faculty experience.  
 
@@ -37,6 +36,8 @@ We envision a future where faculty and staff at OSU not only lead healthier life
 Unlike the current system, HES, which is both expensive and generic, our fitness application will be accessible at no cost to users, offering innovative features that leverage the unique location and geography of the University to further enrich the wellness journey of our community.
 
 ## **Stakeholders**
+![ioqijd](https://github.com/OregonStateUniversity/osu-fsf/assets/102546859/686d29dd-3291-4994-b338-4c36e08223f8)
+
 
 ## **Preliminary Context**
 
