@@ -1,7 +1,7 @@
 <!-- This Div contains everything for the base layout of the site -->
-<nav class="view-events">
 
-    <div class="flex">
+
+    <div class="flex h-full relative">
         <!-- Black Vertical Banner -->
         <div class="h-screen bg-light-black fixed top-0 left-0 p-2" style="width: 16%">
             <!--Logo and Faculty Fitness Text-->
@@ -24,14 +24,17 @@
                     <img class="h-[65%] max-w-[65%] mt-2.5"  style="margin-left: 1.65rem;" src="../../settings_icon.png" alt="settings icon">
                     <p class="text-white mt-1" style="margin-left: .4rem">Settings</p>
                 </div>
-
-
-
-                </div>
-           </div>
-    </div>
-</nav>
+            </div>
+        
+        </div>
+        
 <!-- This is where your content will go if you use the layout -->
-<slot>
 
-</slot>
+        <slot>
+
+        </slot>
+
+
+          
+    </div>
+
