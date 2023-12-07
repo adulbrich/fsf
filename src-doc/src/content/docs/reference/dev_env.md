@@ -29,6 +29,8 @@ PUBLIC_DEV_SUPABASE_ANON_KEY=...
 When running the projects in development, they will look for a local instance of Supabase. Ensure
 the local Docker verison of Supabase is running. All commands are run from the root repo folder, `/`.
 
+A testing account exists with the email `amy@testuser.com` and password `damfit`.
+
 ### Start Local Supabase
 `npx supabase start`
 
