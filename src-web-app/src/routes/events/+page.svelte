@@ -78,9 +78,9 @@
         <!-- Past Events -->
         <div class = "flex flex-col w-[90%] h-1/2  ml-[5.9%] mt-7 flex-grow-0">
           <!-- Ongoing events Label above card -->
-          <p class = "inline-block max-w-full  px-0 mt-5" style="font-size: 18px; font-weight:628;">Past Events</p>
+          <p class = "inline-block max-w-full  px-0" style="font-size: 18px; font-weight:628;">Past Events</p>
           <!-- Card container -->
-          <div class="flex flex-row h-80 w-[100%] drop-shadow-xl flex-grow-0">
+          <div class="flex flex-row h-80 w-[100%] drop-shadow-xl flex-grow-0 pt-4">
             <!-- Image for card -->
             <div class = "w-[40%] flex-shrink-0 h-full">
               <img class="h-[100%] w-[100%]" style = "border-top-left-radius: 10px; border-bottom-left-radius: 10px;" src="../../aerial_3.jpg" alt="Scenery">
