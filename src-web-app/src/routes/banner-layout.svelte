@@ -29,12 +29,8 @@
         </div>
         
 <!-- This is where your content will go if you use the layout -->
+    <slot>
 
-        <slot>
-
-        </slot>
-
-
-          
-    </div>
+    </slot>
+</div>
 
