@@ -238,8 +238,6 @@
       
     </div>
   </div>
-  <!-- Outer container that holds events -->
-  
   
 
 
