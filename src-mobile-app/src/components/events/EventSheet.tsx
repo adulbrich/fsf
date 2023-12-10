@@ -1,19 +1,42 @@
-import { ChevronDown, ChevronUp } from '@tamagui/lucide-icons';
-import { Sheet, setupNativeSheet } from '@tamagui/sheet';
-import { useState } from 'react';
+import { ChevronDown } from '@tamagui/lucide-icons';
+import { Sheet } from '@tamagui/sheet';
+import { useEffect, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { Button } from 'tamagui';
-import * as rn from 'react-native-ios-modal';
+import { Tables } from '../../lib/supabase-types';
+import { EventsState, setActiveEvent } from '../../store/events';
+import { RootState } from '../../store/store';
 
-setupNativeSheet('ios', ModalView)
+export default function EventDetailsSheet() {
+  const activeEvent = useSelector<RootState, EventsState>(state => state.events).activeEvent;
+  const dispatch = useDispatch();
 
-export default function EventSheet() {
+  useEffect(() => {
+    if (activeEvent)
+      setEvent(activeEvent);
+  }, [activeEvent])
+
+  const [event, setEvent] = useState<Tables<'Events'>>();
+
   return (
-    <Sheet native>
-      {/* The rest of your sheet views, see Anatomy, example and props API */}
+    <Sheet
+      native
+      modal
+      animation="medium"
+      open={activeEvent !== null}
+      dismissOnSnapToBottom
+      onOpenChange={(open: boolean) => { if (!open) dispatch(setActiveEvent(null)) }}
+    >
+      <Sheet.Overlay animation="lazy" enterStyle={{ opacity: 0 }} exitStyle={{ opacity: 0 }} />
+      <Sheet.Frame ai="center" jc="center">
+        <Sheet.Handle />
+        <Button
+          size="$6"
+          circular
+          icon={ChevronDown}
+          onPress={() => dispatch(setActiveEvent(null))}
+        />
+      </Sheet.Frame>
     </Sheet>
   )
-}
-
-function SheetDemo() {
-  
 }

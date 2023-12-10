@@ -1,5 +1,5 @@
 import { Slot, SplashScreen } from "expo-router";
-import { AuthProvider } from "../lib/supabase";
+import { AuthSessionProvider } from "../lib/supabase";
 import React, { ReactNode, useCallback, useEffect, useMemo, useState } from "react";
 import { TamaguiProvider, View } from 'tamagui'
 import config from '../../tamagui.config';
@@ -36,18 +36,17 @@ export default function RootLayout() {
     <AnimatedAppLoader image={{ uri: assets[0].uri }}>
       <TamaguiProvider config={config} defaultTheme={'light' ?? 'dark'}>
         <Provider store={store}>
-          <AuthProvider>
+          <AuthSessionProvider>
             <StatusBar style={statusBarStyle} />
             <View backgroundColor={"$background"} flex={1}>
               <Slot />
             </View>
-          </AuthProvider>
+          </AuthSessionProvider>
         </Provider>
       </TamaguiProvider>
     </AnimatedAppLoader>
   );
 }
-
 
 function AnimatedAppLoader({ children, image }: AnimatedAppLoaderProps) {
   const [isSplashReady, setSplashReady] = useState(false);
@@ -78,11 +77,13 @@ function AnimatedSplashScreen({ children, image }: AnimatedAppLoaderProps) {
 
   useEffect(() => {
     if (isAppReady) {
-      Animated.timing(animation, {
-        toValue: 0,
-        duration: 1000,
-        useNativeDriver: true,
-      }).start(() => setAnimationComplete(true));
+      setTimeout(() => {
+        Animated.timing(animation, {
+          toValue: 0,
+          duration: 1000,
+          useNativeDriver: true,
+        }).start(() => setAnimationComplete(true));
+      }, 1000);
     }
   }, [isAppReady]);
 
@@ -115,8 +116,8 @@ function AnimatedSplashScreen({ children, image }: AnimatedAppLoaderProps) {
             StyleSheet.absoluteFill,
             {
               backgroundColor: Constants.expoConfig!.splash!.backgroundColor,
-              opacity: animation,
-            },
+              opacity: animation
+            }
           ]}
         >
           <Animated.Image
@@ -124,11 +125,12 @@ function AnimatedSplashScreen({ children, image }: AnimatedAppLoaderProps) {
               width: "100%",
               height: "100%",
               resizeMode: Constants.expoConfig!.splash!.resizeMode || "contain",
+              opacity: animation,
               transform: [
                 {
-                  scale: animation,
-                },
-              ],
+                  scale: animation
+                }
+              ]
             }}
             source={image}
             onLoadEnd={onImageLoaded}

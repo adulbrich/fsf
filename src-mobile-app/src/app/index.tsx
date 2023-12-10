@@ -1,15 +1,14 @@
-import { useEffect } from "react";
+import { Text } from "tamagui";
 import { useAuth } from "../lib/supabase";
-import { Spinner, YStack } from "tamagui";
-import { Redirect, router } from "expo-router";
+import { Redirect } from "expo-router";
 
 export default function Index() {
-  const { session, user, isReady } = useAuth();
+  const { session, user, isReady, getSession } = useAuth();
 
-  useEffect(() => {
-    if (isReady)
-      user ? router.replace('/(tabs)/home') : router.replace('/(auth)/sign-in')
-  }, [session])
+  if (!isReady) {
+    getSession();
+    return <Text>Loading</Text>;
+  }
 
   if (!session)
     return <Redirect href={'/(auth)/sign-in'} />;

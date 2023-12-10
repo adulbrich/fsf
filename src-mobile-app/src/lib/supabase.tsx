@@ -1,9 +1,10 @@
 import 'react-native-url-polyfill/auto';
 import * as SecureStore from 'expo-secure-store';
 import { Session, User, createClient } from '@supabase/supabase-js';
-import { createContext, useContext, useEffect, useState } from 'react';
+import { createContext, useContext, useState } from 'react';
 import { PUBLIC_SUPABASE_URL, PUBLIC_SUPABASE_ANON_KEY } from "@env";
 import { Database } from './supabase-types';
+import { Alert } from 'react-native';
 
 const supabaseUrl = PUBLIC_SUPABASE_URL;
 const supabaseAnonKey = PUBLIC_SUPABASE_ANON_KEY;
@@ -29,31 +30,81 @@ export const supabase = createClient<Database>(supabaseUrl, supabaseAnonKey, {
   }
 });
 
+export interface AuthSessionState {
+  session: Session | null
+  user: User | null,
+  isReady: boolean
+  signIn: (email: string, pass: string) => Promise<void>
+  signOut: () => Promise<void>
+  getSession: () => Promise<void>
+}
+
 const initialState = {
   session: null as Session | null,
   user: null as User | null,
-  isReady: false
-}
-export const AuthContext = createContext(initialState);
+  isReady: false,
+} as AuthSessionState
 
-export function AuthProvider({ children }: { children: React.ReactNode }) {
+
+export const AuthSessionContext = createContext(initialState);
+
+export function AuthSessionProvider({ children }: { children: React.ReactNode }) {
   const [state, setState] = useState(initialState);
 
-  useEffect(() => {
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      setState({ session, user: session?.user ?? null, isReady: true });
-    });
-  }, []);
+  return(
+    <AuthSessionContext.Provider
+      value={{
+        ...state,
+        signIn: async (email, password) => {
 
-  supabase.auth.onAuthStateChange((event, session) => {
-    setState({ session, user: session?.user ?? null, isReady: true });
-  });
+          const { data, error } = await supabase.auth.signInWithPassword({
+            email,
+            password
+          });
 
-  return <AuthContext.Provider value={state}>{children}</AuthContext.Provider>;
+          if (error) {
+            Alert.alert(error.message);
+            return;
+          }
+
+          setState({
+            ...state,
+            session: data.session,
+            user: data.user,
+            isReady: true
+          });
+        },
+        signOut: async () => {
+          await supabase.auth.signOut();
+          setState({
+            ...state,
+            session: null,
+            user: null,
+            isReady: true
+          });
+        },
+        getSession: async () => {
+          const { data, error } = await supabase.auth.getSession();
+          if (error) {
+            Alert.alert(error.message);
+            return;
+          }
+
+          setState({
+            ...state,
+            session: data.session,
+            isReady: true
+          });
+        }
+      }}
+    >
+      {children}
+    </AuthSessionContext.Provider>
+  )
 }
 
 export function useAuth() {
-  const context = useContext(AuthContext);
+  const context = useContext(AuthSessionContext);
   if (context === undefined)
     throw Error('useAuth must be used within AuthProvider');
   return context;

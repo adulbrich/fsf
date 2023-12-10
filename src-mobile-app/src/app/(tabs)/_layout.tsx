@@ -1,19 +1,20 @@
-import { Tabs, router } from "expo-router";
+import { Redirect, Tabs } from "expo-router";
 import { useAuth } from "../../lib/supabase";
-import { useEffect } from "react";
 import IconHome from "../../../assets/icons/IconHome";
 import IconCalendar from "../../../assets/icons/IconCalendar";
 import IconProfile from "../../../assets/icons/IconProfile";
 import IconSettings from "../../../assets/icons/IconSettings";
-import { H4, Text, useTheme } from "tamagui";
+import { Text, useTheme } from "tamagui";
 
 export default function ProtectedLayout() {
   const theme = useTheme();
   const { session, isReady } = useAuth();
 
-  useEffect(() => {
-    if (!session && isReady) router.replace("/(auth)/sign-in");
-  }, [session]);
+  if (!isReady)
+    return null;
+
+  if (!session)
+    return <Redirect href={"/(auth)/sign-in"} />;
 
   return (
     <Tabs screenOptions={{

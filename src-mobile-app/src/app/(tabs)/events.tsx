@@ -1,39 +1,12 @@
 import { supabase } from "../../lib/supabase";
-import React, { createContext, useContext, useEffect, useRef, useState } from "react";
-import { ScrollView, YStack, Spinner, useTheme, XStack, Tabs, Separator, Text, AnimatePresence, Circle, Sheet, Button } from "tamagui";
+import React, { useEffect, useRef, useState } from "react";
+import { ScrollView, YStack, Spinner, useTheme, XStack, AnimatePresence, Circle, Input } from "tamagui";
 import { NativeScrollEvent, NativeSyntheticEvent, RefreshControl } from "react-native";
-import { SBEvent, Tables } from "../../lib/supabase-types";
-import EventCard from "../../components/events/EventCard";
-import ThemedInput from "../../components/ThemedInput";
-import { ArrowUp, ChevronDown } from '@tamagui/lucide-icons';
+import { Tables } from "../../lib/supabase-types";
+import { ArrowUp } from '@tamagui/lucide-icons';
 import { ScrollView as RN_ScrollView } from "react-native";
-import { useDispatch, useSelector, useStore } from "react-redux";
-import { RootState, store } from "../../store/store";
-import { EventsState, setActiveEvent } from "../../store/events";
-
-export enum SBEventStatus {
-  UPCOMING,
-  ONGOING,
-  PAST
-}
-
-function filterSBEventsByStatus(events: SBEvent[], status: SBEventStatus): SBEvent[] {
-  const currentTime = new Date().getTime();
-
-  return events.filter(ev => {
-    const eventStarts = new Date(ev.StartsAt).getTime();
-    const eventEnds = new Date(ev.EndsAt).getTime();
-
-    switch (status) {
-      case SBEventStatus.UPCOMING:
-        return currentTime < eventStarts;
-      case SBEventStatus.ONGOING:
-        return currentTime < eventEnds && currentTime > eventStarts;
-      case SBEventStatus.PAST:
-        return currentTime > eventEnds;
-    }
-  });
-}
+import EventList from "../../components/events/EventList";
+import EventDetailsSheet from "../../components/events/EventSheet";
 
 export default function Events() {
   const [refreshing, setRefreshing] = useState(false);
@@ -89,41 +62,8 @@ export default function Events() {
         onScroll={(ev) => handleScroll(ev)}
         scrollEventThrottle={2}
         >
-        <ThemedInput placeholder="Search..." />
-        <Tabs
-          defaultValue="ongoing"
-          orientation="horizontal"
-          flexDirection="column"
-          marginBottom={"$16"}
-          >
-          <Tabs.List
-            separator={<Separator vertical />}
-            >
-            <Tabs.Tab flex={1} value="ongoing"><Text>Ongoing</Text></Tabs.Tab>
-            <Tabs.Tab flex={1} value="upcoming"><Text>Upcoming</Text></Tabs.Tab>
-            <Tabs.Tab flex={1} value="past"><Text>Past</Text></Tabs.Tab>
-          </Tabs.List>
-
-        
-          <Tabs.Content value="ongoing">
-            <YStack flex={1} space paddingTop={"$4"}>
-              {filterSBEventsByStatus(events, SBEventStatus.ONGOING).map(ev => <EventCard key={ev.EventID} event={ev} /> )}
-            </YStack>
-          </Tabs.Content>
-
-          <Tabs.Content value="upcoming">
-            <YStack flex={1} space paddingTop={"$4"}>
-              {filterSBEventsByStatus(events, SBEventStatus.UPCOMING).map(ev => <EventCard key={ev.EventID} event={ev} /> )}
-            </YStack>
-          </Tabs.Content>
-
-          <Tabs.Content value="past">
-            <YStack flex={1} space paddingTop={"$4"}>
-              {filterSBEventsByStatus(events, SBEventStatus.PAST).map(ev => <EventCard key={ev.EventID} event={ev} /> )}
-            </YStack>
-          </Tabs.Content>
-
-        </Tabs>
+        <Input placeholder="Search..." />
+        <EventList events={events} />
       </ScrollView>
       <XStack position="absolute" bottom={2} paddingBottom="$4" justifyContent="center" alignItems="center" width={'100%'}>
           <AnimatePresence>
@@ -137,40 +77,4 @@ export default function Events() {
       <EventDetailsSheet />
     </>
   );
-}
-
-function EventDetailsSheet() {
-  const [position, setPosition] = useState(0);
-  const activeEvent = useSelector<RootState, EventsState>(state => state.events).activeEvent;
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    if (activeEvent)
-      setEvent(activeEvent);
-  }, [activeEvent])
-
-  const [event, setEvent] = useState<Tables<'Events'>>();
-
-  return (
-    <Sheet
-      modal
-      animation="medium"
-      open={activeEvent !== null}
-      snapPoints={[80]}
-      position={position}
-      onPositionChange={setPosition}
-      dismissOnSnapToBottom
-    >
-      <Sheet.Overlay animation="lazy" enterStyle={{ opacity: 0 }} exitStyle={{ opacity: 0 }} />
-      <Sheet.Frame ai="center" jc="center">
-        <Sheet.Handle />
-        <Button
-          size="$6"
-          circular
-          icon={ChevronDown}
-          onPress={() => dispatch(setActiveEvent(null))}
-        />
-      </Sheet.Frame>
-    </Sheet>
-  )
 }

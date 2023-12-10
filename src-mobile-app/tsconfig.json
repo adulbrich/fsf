@@ -9,5 +9,5 @@
     "**/*.tsx",
     ".expo/types/**/*.ts",
     "expo-env.d.ts"
-, "src/components/Splash.jsx"  ]
+  ]
 }

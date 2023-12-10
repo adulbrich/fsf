@@ -33,7 +33,7 @@ export default function EventCard({ event }: Props) {
 
   const pressCallback = React.useCallback(() => {
     dispatch(setActiveEvent(event));
-  }, []);
+  }, [event]);
 
   // function getGradientColors() {
   //   if (colorScheme === 'light')

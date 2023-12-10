@@ -1,15 +1,14 @@
-import { useEffect } from "react";
 import { useAuth } from "../../lib/supabase";
-import { Slot, router } from "expo-router";
-import { Stack } from "tamagui";
+import { Redirect, Slot } from "expo-router";
 
 export default function AuthLayout() {
   const { session, isReady } = useAuth();
 
-  useEffect(() => {
-    if (session && isReady)
-      router.replace('/(tabs)/events');
-  }, [session]);
+  if (!isReady)
+    return null;
+
+  if (session)
+    return <Redirect href={"/(tabs)/events"} />;
 
   return <Slot />;
 }
