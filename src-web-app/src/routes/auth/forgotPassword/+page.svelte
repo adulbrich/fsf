@@ -49,7 +49,7 @@
         </div>
 
         <p class="p-8 pb-0">
-            Did you forget your password? Well that sucks.
+            To reset your password, please enter your e-mail address below. A password reset email will be sent to you. 
         </p>
 
         <!-- Forgot password form  -->
