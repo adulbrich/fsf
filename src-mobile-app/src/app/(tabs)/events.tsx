@@ -1,17 +1,38 @@
 import { supabase } from "../../lib/supabase";
-import React, { useEffect, useRef, useState } from "react";
-import { ScrollView, YStack, Spinner, useTheme, XStack, Tabs, Separator, Text, Square, AnimatePresence } from "tamagui";
-import { RefreshControl } from "react-native";
+import React, { createContext, useContext, useEffect, useRef, useState } from "react";
+import { ScrollView, YStack, Spinner, useTheme, XStack, Tabs, Separator, Text, AnimatePresence, Circle, Sheet, Button } from "tamagui";
+import { NativeScrollEvent, NativeSyntheticEvent, RefreshControl } from "react-native";
 import { SBEvent, Tables } from "../../lib/supabase-types";
 import EventCard from "../../components/events/EventCard";
 import ThemedInput from "../../components/ThemedInput";
-import { ArrowUp } from '@tamagui/lucide-icons';
-import { ScrollView as RNScrollView } from "react-native";
+import { ArrowUp, ChevronDown } from '@tamagui/lucide-icons';
+import { ScrollView as RN_ScrollView } from "react-native";
+import { useDispatch, useSelector, useStore } from "react-redux";
+import { RootState, store } from "../../store/store";
+import { EventsState, setActiveEvent } from "../../store/events";
 
 export enum SBEventStatus {
   UPCOMING,
   ONGOING,
   PAST
+}
+
+function filterSBEventsByStatus(events: SBEvent[], status: SBEventStatus): SBEvent[] {
+  const currentTime = new Date().getTime();
+
+  return events.filter(ev => {
+    const eventStarts = new Date(ev.StartsAt).getTime();
+    const eventEnds = new Date(ev.EndsAt).getTime();
+
+    switch (status) {
+      case SBEventStatus.UPCOMING:
+        return currentTime < eventStarts;
+      case SBEventStatus.ONGOING:
+        return currentTime < eventEnds && currentTime > eventStarts;
+      case SBEventStatus.PAST:
+        return currentTime > eventEnds;
+    }
+  });
 }
 
 export default function Events() {
@@ -21,7 +42,7 @@ export default function Events() {
   const [scrollHint, setScrollHint] = useState(false);
   const theme = useTheme();
 
-  const scrollRef = useRef<ScrollView>(null);
+  const scrollRef = useRef<RN_ScrollView>(null);
 
   async function getEvents() {
     const { data } = await supabase
@@ -34,31 +55,10 @@ export default function Events() {
     setRefreshing(false);
   }
 
-  function filterSBEventsByStatus(events: SBEvent[], status: SBEventStatus): SBEvent[] {
-    const currentTime = new Date().getTime();
-
-    return events.filter(ev => {
-      const eventStarts = new Date(ev.StartsAt).getTime();
-      const eventEnds = new Date(ev.EndsAt).getTime();
-
-      switch (status) {
-        case SBEventStatus.UPCOMING:
-          return currentTime < eventStarts;
-        case SBEventStatus.ONGOING:
-          return currentTime < eventEnds && currentTime > eventStarts;
-        case SBEventStatus.PAST:
-          return currentTime > eventEnds;
-      }
-    });
-  }
-
-  function handleScroll(event: any) {
+  function handleScroll(event: NativeSyntheticEvent<NativeScrollEvent>) {
     const yOffset = event.nativeEvent.contentOffset.y;
-
-    if (yOffset > 200)
-      setScrollHint(true);
-    else
-      setScrollHint(false);
+    if (yOffset > 200) setScrollHint(true);
+    else setScrollHint(false);
   }
 
   const onRefresh = React.useCallback(async () => {
@@ -83,7 +83,7 @@ export default function Events() {
       <ScrollView
         ref={scrollRef}
         backgroundColor={theme.backgroundStrong}
-        refreshControl={<RefreshControl refreshing={refreshing} onRefresh={() => onRefresh()} title="Refresh!" />}
+        refreshControl={<RefreshControl refreshing={refreshing} onRefresh={() => onRefresh()} title="Refresh!" titleColor={'black'} />}
         padding={"$4"}
         space
         onScroll={(ev) => handleScroll(ev)}
@@ -128,12 +128,49 @@ export default function Events() {
       <XStack position="absolute" bottom={2} paddingBottom="$4" justifyContent="center" alignItems="center" width={'100%'}>
           <AnimatePresence>
             { scrollHint && (
-              <Square borderRadius={"$4"} onPress={() => scrollRef.current?.scrollTo({ y: 0, animated: true })} enterStyle={{ opacity: 0, y: 100 }} exitStyle={{ opacity: 0, y: 100 }} animation="medium" backgroundColor={"#D3832B"} padding={"$3"}>
+              <Circle onPress={() => scrollRef.current?.scrollTo({ y: 0, animated: true })} enterStyle={{ opacity: 0, y: 100 }} exitStyle={{ opacity: 0, y: 100 }} animation="medium" backgroundColor={"#D3832B"} padding={"$3"}>
                 <ArrowUp />
-              </Square>
+              </Circle>
             )}
           </AnimatePresence>
       </XStack>
+      <EventDetailsSheet />
     </>
   );
+}
+
+function EventDetailsSheet() {
+  const [position, setPosition] = useState(0);
+  const activeEvent = useSelector<RootState, EventsState>(state => state.events).activeEvent;
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (activeEvent)
+      setEvent(activeEvent);
+  }, [activeEvent])
+
+  const [event, setEvent] = useState<Tables<'Events'>>();
+
+  return (
+    <Sheet
+      modal
+      animation="medium"
+      open={activeEvent !== null}
+      snapPoints={[80]}
+      position={position}
+      onPositionChange={setPosition}
+      dismissOnSnapToBottom
+    >
+      <Sheet.Overlay animation="lazy" enterStyle={{ opacity: 0 }} exitStyle={{ opacity: 0 }} />
+      <Sheet.Frame ai="center" jc="center">
+        <Sheet.Handle />
+        <Button
+          size="$6"
+          circular
+          icon={ChevronDown}
+          onPress={() => dispatch(setActiveEvent(null))}
+        />
+      </Sheet.Frame>
+    </Sheet>
+  )
 }
