@@ -1,6 +1,5 @@
-import { Text } from "react-native";
 import { supabase } from "../../lib/supabase";
-import { Button } from "react-native-elements";
+import { Button, YStack, Text } from "tamagui";
 
 function signOut() {
   supabase.auth.signOut();
@@ -8,9 +7,9 @@ function signOut() {
 
 export default function Settings() {
   return (
-    <>
-    <Text>Settings!</Text>
-    <Button onPress={() => signOut()} title="Sign Out" />
-    </>
+    <YStack>
+      <Text>Settings</Text>
+      <Button onPress={() => signOut()}>Sign out</Button>
+    </YStack>
   );
 }

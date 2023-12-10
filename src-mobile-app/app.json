@@ -8,9 +8,9 @@
     "scheme": "osu.fsf",
     "userInterfaceStyle": "automatic",
     "splash": {
-      "image": "./assets/images/splash.png",
+      "image": "./assets/images/osu_badge.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#D73F09"
     },
     "assetBundlePatterns": [
       "**/*"

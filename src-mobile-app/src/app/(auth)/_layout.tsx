@@ -1,14 +1,15 @@
 import { useEffect } from "react";
 import { useAuth } from "../../lib/supabase";
-import { Stack, router } from "expo-router";
+import { Slot, router } from "expo-router";
+import { Stack } from "tamagui";
 
 export default function AuthLayout() {
-  const { session } = useAuth();
+  const { session, isReady } = useAuth();
 
   useEffect(() => {
-    if (session)
-      router.replace('/(tabs)/home');
+    if (session && isReady)
+      router.replace('/(tabs)/events');
   }, [session]);
 
-  return <Stack />
+  return <Slot />;
 }

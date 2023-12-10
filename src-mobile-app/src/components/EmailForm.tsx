@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
-import { Alert, StyleSheet, View } from 'react-native'
+import { Alert } from 'react-native'
 import { supabase } from '../lib/supabase'
-import { Button, Input } from 'react-native-elements'
+import { Button, Form, Input, Label, YStack } from 'tamagui';
+import { router } from 'expo-router';
 
 export default function EmailForm() {
   const [email, setEmail] = useState('')
@@ -17,32 +18,33 @@ export default function EmailForm() {
 
     if (error) Alert.alert(error.message);
     setLoading(false);
+    router.push('/(tabs)/home');
   }
 
   return (
-    <View className="flex flex-col space-y-12 mx-auto w-3/4 justify-center h-full">
-      <View className="flex flex-col space-y-8">
+    <YStack padding={50}>
+      <Form onSubmit={signInWithEmail}>
+        <Label htmlFor="email">Email</Label>
         <Input
-          label="Email"
-          leftIcon={{ type: 'font-awesome', name: 'envelope' }}
+          id="email"
           onChangeText={(text) => setEmail(text)}
           value={email}
-          placeholder="email@address.com"
+          placeholder="my@oregonstate.edu"
           autoCapitalize={'none'}
         />
+        <Label htmlFor="password">Password</Label>
         <Input
-          label="Password"
-          leftIcon={{ type: 'font-awesome', name: 'lock' }}
+          id="password"
           onChangeText={(text) => setPassword(text)}
           value={password}
           secureTextEntry={true}
-          placeholder="Password"
+          placeholder="********"
           autoCapitalize={'none'}
         />
-      </View>
-      <View>
-        <Button title="Sign in" disabled={loading} onPress={() => signInWithEmail()} />
-      </View>
-    </View>
+        <Form.Trigger asChild marginTop={35}>
+          <Button disabled={loading}>Sign in</Button>
+        </Form.Trigger>
+      </Form>
+    </YStack>
   )
 }

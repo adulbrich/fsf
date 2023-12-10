@@ -1,8 +1,9 @@
 import 'react-native-url-polyfill/auto';
 import * as SecureStore from 'expo-secure-store';
 import { Session, User, createClient } from '@supabase/supabase-js';
-import React, { createContext, useContext, useEffect, useState } from 'react';
+import { createContext, useContext, useEffect, useState } from 'react';
 import { PUBLIC_SUPABASE_URL, PUBLIC_SUPABASE_ANON_KEY } from "@env";
+import { Database } from './supabase-types';
 
 const supabaseUrl = PUBLIC_SUPABASE_URL;
 const supabaseAnonKey = PUBLIC_SUPABASE_ANON_KEY;
@@ -19,7 +20,7 @@ const ExpoSecureStoreAdapter = {
   },
 }
 
-export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
+export const supabase = createClient<Database>(supabaseUrl, supabaseAnonKey, {
   auth: {
     storage: ExpoSecureStoreAdapter,
     autoRefreshToken: true,
@@ -28,7 +29,11 @@ export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
   }
 });
 
-const initialState = { session: null as Session | null, user: null as User | null }
+const initialState = {
+  session: null as Session | null,
+  user: null as User | null,
+  isReady: false
+}
 export const AuthContext = createContext(initialState);
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
@@ -36,12 +41,12 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
-      setState({ session, user: session?.user ?? null });
+      setState({ session, user: session?.user ?? null, isReady: true });
     });
   }, []);
 
   supabase.auth.onAuthStateChange((event, session) => {
-    setState({ session, user: session?.user ?? null });
+    setState({ session, user: session?.user ?? null, isReady: true });
   });
 
   return <AuthContext.Provider value={state}>{children}</AuthContext.Provider>;

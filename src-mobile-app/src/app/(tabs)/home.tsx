@@ -1,17 +1,12 @@
-import { Text } from "react-native";
 import { supabase } from "../../lib/supabase";
-import { Button } from "react-native-elements";
-import { View } from "react-native";
-
-function signOut() {
-  supabase.auth.signOut();
-}
+import { YStack, Text, useTheme } from "tamagui";
 
 export default function Home() {
+  const theme = useTheme();
+  
   return (
-    <View>
-      <Text>Home!</Text>
-      <Button onPress={() => signOut()} title="Sign Out" />
-    </View>
+    <YStack backgroundColor={theme.backgroundStrong} justifyContent="center" alignItems="center" flex={1}>
+      <Text>Home Page</Text>
+    </YStack>
   );
 }
