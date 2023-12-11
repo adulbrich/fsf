@@ -31,10 +31,10 @@
   
   <div class="flex flex-col w-[100%] h-[100%]">
     <div class="flex flex-row w-[90%] h-[10%] ml-[5%]">
-      <p class = "flex event-word mt-[2.8%] ml-[3%]">Events</p>
+      <p class = "flex event-word ml-[3%]" style="margin-top:36px">Events</p>
       <form class = "relative ml-16">   
-        <div class="absolute left-0 start-0 flex items-center ps-3" style="top: 54px;">
-          <svg width="16" height="16" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <div class="absolute left-0 start-0 flex items-center ps-3" style="top: 48px;">
+          <svg width="16" height="16" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-top: 5px;">
             <path d="M9 17C13.4183 17 17 13.4183 17 9C17 4.58172 13.4183 1 9 1C4.58172 1 1 4.58172 1 9C1 13.4183 4.58172 17 9 17Z" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
             <path d="M18.9999 19L14.6499 14.65" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
@@ -53,12 +53,12 @@
 
     </div>
 
-    <div class="flex flex-row h-[80%] w-[90%] ml-[5%] mt-[0.5%]">
+    <div class="flex flex-row h-[80%] w-[90%] ml-[5%] mt-[1.3%]">
 
       <!-- Left container that holds the past and ongoing events -->
       <div class = "flex flex-col h-[100%] w-[50%]  ml-[0%]">
-        <!-- Ongoing events -->
-        <div class = "flex flex-col w-[90%] ml-[5.9%]" style="height: 250px;">
+        <!-- Ongoing/Past events -->
+        <div class = "flex flex-col w-[90%] ml-[5.9%] h-full">
           <!-- Ongoing events Label above card -->
           <p class = "inline-block max-w-full  px-0 py-4" style="font-size: 18px; font-weight:628;">Ongoing Events</p>
           <!-- Card container -->
@@ -74,11 +74,10 @@
               <p class="pt-2 px-2 overflow-hidden" style="font-size: 12px;"> {card_text}</p>
             </div>
           </div>
-        </div>
-        <!-- Past Events -->
-        <div class = "flex flex-col w-[90%] h-1/2  ml-[5.9%] mt-7 flex-grow-0">
-          <!-- Ongoing events Label above card -->
-          <p class = "inline-block max-w-full  px-0" style="font-size: 18px; font-weight:628;">Past Events</p>
+        
+        
+          <!-- Label above card -->
+          <p class = "inline-block max-w-full  pt-4 px-0" style="font-size: 18px; font-weight:628;">Past Events</p>
           <!-- Card container -->
           <div class="flex flex-row h-80 w-[100%] drop-shadow-xl flex-grow-0 pt-4">
             <!-- Image for card -->
@@ -94,7 +93,7 @@
             
   
           </div>
-          <div class="flex flex-row h-[80%] w-[100%] drop-shadow-xl flex-grow-0 mt-2">
+          <div class="flex flex-row h-80 w-[100%] drop-shadow-xl flex-grow-0 mt-2">
             <!-- Image for card -->
             <div class = "w-[40%] h-[100%] flex-shrink-0">
               <img class="h-[100%] w-[100%]" style = "border-top-left-radius: 10px; border-bottom-left-radius: 10px;" src="../../aerial_shot.jpg" alt="Scenery">
@@ -108,13 +107,13 @@
             
   
           </div>
+        
         </div>
-  
       </div>
       <!-- Right container that holds upcoming events  -->
       <div class="flex flex-col w-[50%] h-[100%]">
         
-        <div class = "flex flex-col w-[90%] h-[60%]  ml-[5.9%] flex-grow-0">
+        <div class = "flex flex-col w-[90%] h-[64.5%]  ml-[5.9%] flex-grow-0">
           <!-- Ongoing events Label above card -->
           <p class = "inline-block max-w-full  px-0 py-4" style="font-size: 18px; font-weight:628;">Upcoming Events</p>
           <!-- Card container -->
