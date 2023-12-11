@@ -2,7 +2,7 @@ import { ChevronDown } from '@tamagui/lucide-icons';
 import { Sheet } from '@tamagui/sheet';
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Button } from 'tamagui';
+import { Button, H1 } from 'tamagui';
 import { Tables } from '../../lib/supabase-types';
 import { EventsState, setActiveEvent } from '../../store/events';
 import { RootState } from '../../store/store';
@@ -29,7 +29,7 @@ export default function EventDetailsSheet() {
     >
       <Sheet.Overlay animation="lazy" enterStyle={{ opacity: 0 }} exitStyle={{ opacity: 0 }} />
       <Sheet.Frame ai="center" jc="center">
-        <Sheet.Handle />
+        <Sheet.Handle><H1>Hello</H1></Sheet.Handle>
         <Button
           size="$6"
           circular

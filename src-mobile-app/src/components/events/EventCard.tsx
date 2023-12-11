@@ -1,4 +1,4 @@
-import { Card, H3, Image, Text, View, XStack, useTheme } from "tamagui";
+import { Card, H3, Image, Text, View, XStack, YStack, useTheme } from "tamagui";
 import { Tables } from "../../lib/supabase-types";
 import { useAssets } from "expo-asset";
 import { LinearGradient } from 'tamagui/linear-gradient'
@@ -40,40 +40,46 @@ export default function EventCard({ event }: Props) {
   // }
 
   return (
-    <View enterStyle={{ y: 15, opacity: 0 }} animation="slow">
+    <YStack flex={1} justifyContent="flex-end" elevation={"$0.25"} enterStyle={{ y: 15, opacity: 0 }} animation="slow">
       <Card height={"$15"} overflow="hidden" pressStyle={{ opacity: 0.8 }} animation="medium" onPress={pressCallback}>
-
         { assets && (
-          <View width={'100%'} height={'75%'} enterStyle={{ opacity: 0 }} animation={"slow"}>
+          <YStack fullscreen enterStyle={{ opacity: 0 }} animation={"slow"}>
             <Image
-              width={'100%'}
+              width={'101%'}
               height={'100%'}
               marginLeft={-1}
               resizeMode="stretch"
               source={{ uri: assets[1].uri, width: assets[1].width!, height: assets[1].height! }}
               />
-          </View>
+          </YStack>
         )}
 
         <LinearGradient
           width={'100%'}
-          height={'75%'}
-          colors={[theme.shadowColor.get(), 'transparent']}
+          height={'77%'}
+          colors={['#00000033', 'transparent']}
           start={[0.5, 1]}
           end={[0.5, 0]}
           position="absolute"
           />
 
+        
+
         <XStack
-          flex={1}
+          position="absolute"
           justifyContent="space-between"
           alignItems="center"
-          paddingHorizontal={"$4"}
+          paddingVertical={"$2"}
+          paddingHorizontal={"$3"}
+          bottom={0}
+          left={0}
+          right={0}
+          backgroundColor={"#EEEEEEEE"}
         >
           <H3>{event.Name}</H3>
-          <Text fontSize={"$1"}>{ getDateString() }</Text>
+          <Text marginTop={"$2"} fontSize={"$1"}>{ getDateString() }</Text>
         </XStack>
       </Card>
-    </View>
+    </YStack>
   );
 }

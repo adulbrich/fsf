@@ -1,6 +1,6 @@
 import { supabase } from "../../lib/supabase";
 import React, { useEffect, useRef, useState } from "react";
-import { ScrollView, YStack, Spinner, useTheme, XStack, AnimatePresence, Circle, Input } from "tamagui";
+import { ScrollView, YStack, Spinner, useTheme, XStack, AnimatePresence, Circle, Input, View } from "tamagui";
 import { NativeScrollEvent, NativeSyntheticEvent, RefreshControl } from "react-native";
 import { Tables } from "../../lib/supabase-types";
 import { ArrowUp } from '@tamagui/lucide-icons';
@@ -46,33 +46,48 @@ export default function Events() {
   }, []);
 
   if (!loaded) {
-    return <YStack backgroundColor={theme.backgroundStrong} flex={1} justifyContent="center" alignItems="center">
+    return <YStack
+      backgroundColor={theme.backgroundStrong}
+      flex={1}
+      justifyContent="center"
+      alignItems="center"
+    >
       <Spinner />
     </YStack>
   }
 
   return (
     <>
-      <ScrollView
-        ref={scrollRef}
+      <YStack
+        fullscreen
         backgroundColor={theme.backgroundStrong}
-        refreshControl={<RefreshControl refreshing={refreshing} onRefresh={() => onRefresh()} title="Refresh!" titleColor={'black'} />}
-        padding={"$4"}
+        flex={1}
         space
-        onScroll={(ev) => handleScroll(ev)}
-        scrollEventThrottle={2}
         >
-        <Input placeholder="Search..." />
         <EventList events={events} />
-      </ScrollView>
-      <XStack position="absolute" bottom={2} paddingBottom="$4" justifyContent="center" alignItems="center" width={'100%'}>
-          <AnimatePresence>
-            { scrollHint && (
-              <Circle onPress={() => scrollRef.current?.scrollTo({ y: 0, animated: true })} enterStyle={{ opacity: 0, y: 100 }} exitStyle={{ opacity: 0, y: 100 }} animation="medium" backgroundColor={"#D3832B"} padding={"$3"}>
-                <ArrowUp />
-              </Circle>
-            )}
-          </AnimatePresence>
+      </YStack>
+      <XStack
+        position="absolute"
+        bottom={2}
+        paddingBottom="$4"
+        justifyContent="center"
+        alignItems="center"
+        width={'100%'}
+      >
+        <AnimatePresence>
+          { scrollHint && (
+            <Circle
+              onPress={() => scrollRef.current?.scrollTo({ y: 0, animated: true })}
+              enterStyle={{ opacity: 0, y: 100 }}
+              exitStyle={{ opacity: 0, y: 100 }}
+              animation="medium"
+              backgroundColor={"#D3832B"}
+              padding={"$3"}
+            >
+              <ArrowUp />
+            </Circle>
+          )}
+        </AnimatePresence>
       </XStack>
       <EventDetailsSheet />
     </>
