@@ -1,4 +1,4 @@
-import { Slot, SplashScreen } from "expo-router";
+import { Slot, SplashScreen, useRootNavigationState } from "expo-router";
 import { AuthSessionProvider } from "../lib/supabase";
 import React, { ReactNode, useCallback, useEffect, useMemo, useState } from "react";
 import { TamaguiProvider, View } from 'tamagui'
@@ -12,7 +12,8 @@ import Constants from "expo-constants";
 import { View as RN_View } from "react-native";
 import { StyleSheet } from "react-native";
 import { Provider } from 'react-redux';
-import { store } from "../store/store";
+import { persistor, store } from "../store/store";
+import { PersistGate } from 'redux-persist/integration/react';
 
 // Instruct SplashScreen not to hide yet, we want to do this manually
 SplashScreen.preventAutoHideAsync();
@@ -26,22 +27,28 @@ export default function RootLayout() {
   // Get the system's theme
   const systemTheme = useColorScheme();
 
+  
+
+  
+  
   // This is for the text in the status bar, it needs to be the opposite!
   const statusBarStyle = systemTheme === 'light' ? 'dark' : 'light';
 
-  const [assets] = useAssets([require('../../assets/images/osu_badge.png')])
+  const [assets] = useAssets([require('../../assets/images/osu_badge.png')]);
   if (!assets) return null;
 
   return (
     <AnimatedAppLoader image={{ uri: assets[0].uri }}>
-      <TamaguiProvider config={config} defaultTheme={'light' ?? 'dark'}>
+      <TamaguiProvider config={config} defaultTheme={systemTheme ?? 'dark'}>
         <Provider store={store}>
-          <AuthSessionProvider>
-            <StatusBar style={statusBarStyle} />
-            <View backgroundColor={"$background"} flex={1}>
-              <Slot />
-            </View>
-          </AuthSessionProvider>
+          <PersistGate persistor={persistor}>
+            <AuthSessionProvider>
+              <StatusBar style={statusBarStyle} />
+              <View backgroundColor={"$background"} flex={1}>
+                <Slot />
+              </View>
+            </AuthSessionProvider>
+          </PersistGate>
         </Provider>
       </TamaguiProvider>
     </AnimatedAppLoader>

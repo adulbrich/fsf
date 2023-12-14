@@ -14,7 +14,7 @@ export default function ProtectedLayout() {
     return null;
 
   if (!session)
-    return <Redirect href={"/(auth)/sign-in"} />;
+    return <Redirect href={"/"} />;
 
   return (
     <Tabs screenOptions={{
@@ -23,10 +23,7 @@ export default function ProtectedLayout() {
         borderBlockColor: theme.borderColorHover.get()
       },
       tabBarActiveTintColor: '#D3832B',
-      headerStyle: {
-        backgroundColor: theme.background.get(),
-        shadowColor: theme.borderColorHover.get()
-      },
+      headerShown: false,
       headerTintColor: '#FFF',
       headerTitleAlign: 'left',
       headerTitle: '',

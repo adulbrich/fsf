@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Button, H1 } from 'tamagui';
 import { Tables } from '../../lib/supabase-types';
-import { EventsState, setActiveEvent } from '../../store/events';
+import { EventsState, setActiveEvent } from '../../store/eventsSlice';
 import { RootState } from '../../store/store';
 
 export default function EventDetailsSheet() {

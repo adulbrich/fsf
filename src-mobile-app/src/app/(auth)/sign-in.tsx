@@ -1,5 +1,5 @@
 import { Image, YStack } from "tamagui";
-import EmailForm from "../../components/sign-in/EmailForm";
+import EmailForm from "../../features/sign-in/EmailForm";
 import React from "react";
 import { useAnimatedKeyboard, useAnimatedStyle } from 'react-native-reanimated';
 import Animated from "react-native-reanimated";
@@ -32,7 +32,7 @@ export default function SignIn() {
         justifyContent="flex-end"
       >
         { headerImage && (
-          <Image position="absolute" bottom={-78} width={width} height={headerImage[0].height!} resizeMode="contain" source={headerImage[0] as ImageURISource} />
+          <Image position="absolute" bottom={-80.5} width={width} height={headerImage[0].height!} resizeMode="contain" source={headerImage[0] as ImageURISource} />
         )}
       </YStack>
 

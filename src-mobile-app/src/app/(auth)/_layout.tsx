@@ -8,7 +8,7 @@ export default function AuthLayout() {
     return null;
 
   if (session)
-    return <Redirect href={"/(tabs)/events"} />;
+    return <Redirect href={"/"} />;
 
   return <Slot />;
 }
