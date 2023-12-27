@@ -6,15 +6,17 @@ import EventDetailsSheet from "../../../features/events/EventSheet";
 import { fetchEvents } from "../../../store/eventsSlice";
 import { useTypedDispatch, useTypedSelector } from "../../../store/store";
 import { Stack } from "expo-router";
+import { fetchTeamStats } from "../../../store/teamStatsSlice";
 
 export default function EventsList() {
   const theme = useTheme();
   const dispatch = useTypedDispatch();
-  const events = useTypedSelector<SBEvent[]>(state => state.events.events)
+  const events = useTypedSelector<SBEvent[]>(state => state.eventsSlice.events)
   
   // Get the initial data loaded
   useEffect(() => {
     dispatch(fetchEvents());
+    dispatch(fetchTeamStats());
   }, [dispatch]);
 
   if (!events || events.length === 0) {

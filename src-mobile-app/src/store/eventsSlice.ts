@@ -70,8 +70,8 @@ export const { setActiveEvent, setSelectedStatus } = eventsSlice.actions;
 export default eventsSlice.reducer;
 
 export const selectFilteredEvents = createSelector(
-  (state: RootState) => state.events.events,
-  (state: RootState) => state.events.selectedStatus,
+  (state: RootState) => state.eventsSlice.events,
+  (state: RootState) => state.eventsSlice.selectedStatus,
   (events, status) => {
     return filterSBEventsByStatus(events, status);
   }

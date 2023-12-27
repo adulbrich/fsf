@@ -7,6 +7,7 @@ import { ScrollView as RN_ScrollView } from "react-native";
 import { RootState, useTypedDispatch } from "../../store/store";
 import { SBEventStatus, fetchEvents, selectFilteredEvents, setSelectedStatus } from "../../store/eventsSlice";
 import { useSelector } from "react-redux";
+import { fetchTeamStats } from "../../store/teamStatsSlice";
 
 export default function Events() {
   const dispatch = useTypedDispatch();
@@ -17,7 +18,7 @@ export default function Events() {
 
   // Get events to display based on user selected status (ongoing, past, etc)
   const events = useSelector(selectFilteredEvents);
-  const selectedStatus = useSelector<RootState, SBEventStatus>(state => state.events.selectedStatus);
+  const selectedStatus = useSelector<RootState, SBEventStatus>(state => state.eventsSlice.selectedStatus);
 
   const handleScroll = React.useCallback((event: NativeSyntheticEvent<NativeScrollEvent>) => {
     const yOffset = event.nativeEvent.contentOffset.y;
@@ -28,6 +29,7 @@ export default function Events() {
   const onRefresh = React.useCallback(async () => {
     setRefreshing(true);
     await dispatch(fetchEvents());
+    await dispatch(fetchTeamStats());
     setRefreshing(false);
   }, [dispatch, setRefreshing]);
 

@@ -8,7 +8,7 @@ import { EventsState, setActiveEvent } from '../../store/eventsSlice';
 import { RootState } from '../../store/store';
 
 export default function EventDetailsSheet() {
-  const activeEvent = useSelector<RootState, EventsState>(state => state.events).activeEvent;
+  const activeEvent = useSelector<RootState, EventsState>(state => state.eventsSlice).activeEvent;
   const dispatch = useDispatch();
 
   useEffect(() => {

@@ -1,5 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 import eventsReducer from "./eventsSlice";
+import teamStatsReducer from "./teamStatsSlice";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { persistCombineReducers, persistStore } from "redux-persist";
 import { FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from 'redux-persist';
@@ -8,7 +9,8 @@ import { useDispatch, useSelector, useStore } from "react-redux";
 const persistConfig = { key: 'redux-root', storage: AsyncStorage };
 
 const rootReducer = persistCombineReducers(persistConfig, {
-  events: eventsReducer
+  eventsSlice: eventsReducer,
+  teamStatsSlice: teamStatsReducer
 });
 
 export const store = configureStore({
