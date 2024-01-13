@@ -55,7 +55,7 @@ export default function EventDetails() {
             </XStack>
           )}
           { teamStats.slice(0, 5).map(ts =>
-            <XStack width={'100%'} justifyContent="space-between" alignItems="flex-end">
+            <XStack key={ts.TeamID} width={'100%'} justifyContent="space-between" alignItems="flex-end">
               <Text>{ ts.Name }</Text>
               <RN_Text ellipsizeMode="clip" numberOfLines={1} style={[{ flex: 1, marginHorizontal: 12 }]}>
                 .........................................................................
