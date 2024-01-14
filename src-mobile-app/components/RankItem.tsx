@@ -1,6 +1,5 @@
 import React from "react";
 import { StyleSheet, View, Text } from "react-native";
-import { createClient } from '@supabase/supabase-js';
 
 /**
  * Rank Item Component
@@ -9,7 +8,7 @@ import { createClient } from '@supabase/supabase-js';
 type RankItemProps = {
     rank: number; // Rank Number
     name: string; // Rank Name / Text
-    score: number; // Rank Score
+    score: number; // Rank Score 
 }
 
 export default function RankItem(props: RankItemProps) {
@@ -45,4 +44,5 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
     },
 });
+
 
