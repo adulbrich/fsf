@@ -49,7 +49,7 @@
         </div>
 
         <p class="p-8 pb-0">
-            To reset your password, please enter your e-mail address below. A password reset email will be sent to you. 
+            To reset your password, please enter your e-mail address below. A password reset email will be sent to you.  
         </p>
 
         <!-- Forgot password form  -->
