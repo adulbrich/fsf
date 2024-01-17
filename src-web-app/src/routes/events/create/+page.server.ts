@@ -4,12 +4,12 @@ export const load = async ({locals: {supabase, getSession }}: {locals: {supabase
     const session = await getSession()
 
     if(!session) {
-        throw redirect(303, '/events')
+        throw redirect(303, '/')
     }
 
     const { data: event } = await supabase
      .from('event')
-     .select(`event_name, event_type, event_start_date, event_end_date, event_description, event_banner`)
+     .select(`event_name, event_type, event_start_date, event_end_date, event_description`)
      .eq('id', session.user.id)
      .single()
 
@@ -17,7 +17,7 @@ export const load = async ({locals: {supabase, getSession }}: {locals: {supabase
 }
 
 export const actions = {
-    create: async ({
+    update: async ({
       request,
       locals: { supabase, getSession },
     }: {
@@ -30,7 +30,6 @@ export const actions = {
       const startDate = formData.get('startDate') as string;
       const endDate = formData.get('endDate') as string;
       const eventDescription = formData.get('eventDescription') as string;
-      const eventBanner = formData.get('eventBanner') as string;
   
       const session = await getSession();
   
@@ -41,7 +40,6 @@ export const actions = {
         event_start_date: startDate,
         event_end_date: endDate,
         event_description: eventDescription,
-        event_banner: eventBanner,
         updated_at: new Date(),
       });
   
@@ -52,7 +50,6 @@ export const actions = {
           startDate,
           endDate,
           eventDescription,
-          eventBanner,
         });
       }
   
@@ -62,7 +59,6 @@ export const actions = {
         startDate,
         endDate,
         eventDescription,
-        eventBanner,
       };
     },
   };
