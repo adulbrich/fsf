@@ -1,7 +1,8 @@
 <script lang='ts'>
   import Layout from "../../banner-layout.svelte";
   import { enhance } from '$app/forms';
-  import type { SubmitFunction } from '@sveltejs/kit'; ;
+  import type { SubmitFunction } from '@sveltejs/kit';
+  import EventBanner from './eventbanner.svelte'
 
   export let data
   export let form: {
@@ -10,6 +11,7 @@
     startDate?: string;
     endDate?: string;
     eventDescription?: string;
+    eventBanner?: string
   } = {};
 
   let { session, supabase, event } = data
@@ -22,6 +24,7 @@
   let startDate: string = event?.event_start_date ?? ''
   let endDate: string = event?.event_end_date ?? ''
   let eventDescription: string = event?.event_description ?? ''
+  let eventBanner:string = event?.event_banner ?? ''
 
   const handleSubmit: SubmitFunction = () => {
 		loading = true
@@ -38,7 +41,7 @@
         <form
          class= "form-widget flex-1 ml-[16%]" 
          method= "post"
-         action = "?/events"
+         action = "?/create"
          use:enhance={handleSubmit}
          bind:this={createEventForm}>
          
@@ -112,11 +115,24 @@
             </div>
             
             <!--Container for Event Description Input-->
-            <div class=" md:w-3/4 px-5 mb-6 md:mb-0">
+            <div class="md:w-3/4 px-5 mb-0 md:mb-0">
               <label for="eventDescription" class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
                 Event Details
               </label>
               <textarea id="eventDescription" name="eventDescription" value={form?.eventDescription ?? eventDescription} required rows="4" class="block p-2.5 w-1/2 text-sm text-black bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 light:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Write details about the event here!"></textarea>
+            </div>
+
+            <!-- Container for Event Banner Uploading -->
+            <div class = "px-5 py-0 md:w-3/4 my-0">
+              <EventBanner
+              {supabase}
+              bind:url={eventBanner}
+              size={10}
+              on:upload={() => {
+                createEventForm.requestSubmit();
+              }}
+              >
+              </EventBanner>
             </div>
       
           </div>

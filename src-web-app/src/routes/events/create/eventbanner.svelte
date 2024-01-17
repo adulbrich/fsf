@@ -78,22 +78,14 @@
     			style="height: {size}em; width: {size}em;"
     		/>
     	{:else}
-            <!-- Not sure why this is here.  Not displaying anything on page -->
-    		<!-- <div class="banner no-image" style="height: 3em; width: 3em;" /> -->
+    		<div class="banner no-image" style="height: 3em; width: 3em;" />
     	{/if}
     	<input type="hidden" name="bannerUrl" value={url} />
     
-    	<div style= "width: 15em;">
-    		<label class="btn primary bg-beaver-orange text-white hover:bg-dark-orange" for="single">
-    			{uploading ? 'Uploading ...' : 'Upload Banner'}
-                <svg width="20" height="20" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <circle cx="25" cy="25" r="23" stroke="#FEFAFA" stroke-width="4"/>
-                    <rect x="12" y="23" width="26" height="4" rx="1" fill="#FFFCFC"/>
-                    <rect x="27" y="12" width="26" height="4" rx="1" transform="rotate(90 27 12)" fill="#FFFDFD"/>
-                    </svg>
-                    
+    	<div style= "width: 15em; ">
+    		<label class="button primary block" for="single">
+    			{uploading ? 'Uploading ...' : 'Click here to upload a banner!'}
     		</label>
-        
     		<input
     			style="position:absolute; visibility:hidden;"
     			type="file"
