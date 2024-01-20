@@ -82,7 +82,7 @@
     	{/if}
     	<input type="hidden" name="bannerUrl" value={url} />
     
-    	<div style= "width: 15em; ">
+    	<div style= "width: 15em;">
     		<label class="button primary block" for="single">
     			{uploading ? 'Uploading ...' : 'Click here to upload a banner!'}
     		</label>
