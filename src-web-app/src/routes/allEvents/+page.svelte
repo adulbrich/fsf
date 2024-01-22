@@ -23,11 +23,11 @@
   
   <Layout>
   
-  <div class = "flex-1 ml-[16%]">
+  <div class = "flex ml-[16%]">
     <!-- Cotnainer for all entities to the right of the navbar -->
     <div class="flex flex-col w-[100%] h-[100%]">
       <!-- Top container that holds searchbar, "Events", search icon, and the create event button -->
-      <div class="flex flex-row w-[90%] h-[10%]">
+      <div class="flex flex-row w-[90%] h-[10%] custom-border">
         <!-- Back button and Type of event container-->
         <div class="flex flex-row mt-3 ml-8">
             <svg class= "mr-3" style = "margin-top:5.7px" width="60" height="30" viewBox="0 0 91 40" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -43,33 +43,33 @@
   
       </div>
       <!-- Container that holds current, past, and previous events -->
-      <div class="flex flex-row h-[80%] w-[90%] ml-[5%] mt-[1.3%]">
+      <div class="flex flex-row h-[75%] w-[90%] ml-[5%] mt-[.5%] custom-border">
   
         <!-- Left container that holds the past and ongoing events -->
-        <div class = "flex flex-col h-[100%] w-[50%]  ml-[0%]">
+        <div class = "flex flex-col h-[90%] w-[50%]  ml-[0%] custom-border">
           <!-- Ongoing/Past events -->
           <div class = "flex flex-col w-[90%] ml-[5.9%] h-full">
             <!-- Ongoing events Label above card -->
             
             <!-- Card container -->
-            <div class="flex flex-row h-80 w-[100%] drop-shadow-xl flex-grow-0">
-              <!-- Image for card -->
-              <div class = "w-[40%] h-full flex-shrink-0">
-                <img class="h-[100%] w-[100%]" style = "border-top-left-radius: 10px; border-bottom-left-radius: 10px;" src="../../aerial_2.jpg" alt="Scenery">
+            <div class="flex flex-row h-80 w-[100%] drop-shadow-xl flex-grow-0 pt-2">
+                <!-- Image for card -->
+                <div class = "w-[40%] flex-shrink-0 h-full">
+                  <img class="h-[100%] w-[100%]" style = "border-top-left-radius: 10px; border-bottom-left-radius: 10px;" src="../../aerial_3.jpg" alt="Scenery">
+                </div>
+                <!-- Text section for card -->
+                <div class="flex flex-col h-full w-[100%] card-border flex-grow-0 overflow-hidden">
+                  <p class = "pt-1 px-2 font-semibold">Walktober 2023</p>
+                  <p class = "pt-1 px-2" style="font-size: 12px;">From 10/01/2023 to 10/31/2023</p>
+                  <p class="pt-2 px-2 overflow-hidden" style="font-size: 12px;"> {card_text}</p>
+                </div>
               </div>
-              <!-- Text section for card -->
-              <div class="flex flex-col h-full w-[100%] card-border flex-grow-0 overflow-hidden">
-                <p class = "pt-1 px-2 font-semibold">Walktober 2023</p>
-                <p class = "pt-1 px-2" style="font-size: 12px;">From 10/01/2023 to 10/31/2023</p>
-                <p class="pt-2 px-2 overflow-hidden" style="font-size: 12px;"> {card_text}</p>
-              </div>
-            </div>
           
             
             <!-- Past Events Label above card -->
             
             <!-- Card container -->
-            <div class="flex flex-row h-80 w-[100%] drop-shadow-xl flex-grow-0 pt-4">
+            <div class="flex flex-row h-80 w-[100%] drop-shadow-xl flex-grow-0 pt-2">
               <!-- Image for card -->
               <div class = "w-[40%] flex-shrink-0 h-full">
                 <img class="h-[100%] w-[100%]" style = "border-top-left-radius: 10px; border-bottom-left-radius: 10px;" src="../../aerial_3.jpg" alt="Scenery">
@@ -96,6 +96,8 @@
               
     
             </div>
+           
+            
           
           </div>
         </div>
@@ -137,6 +139,12 @@
         </div>
         
       </div>
+      <!-- Container that holds page numbers-->
+    <div class="flex flex-row ml-[40%] custom-border" style="margin-bottom: 15px; margin-top: 20px">
+        <div class="mb-0 mx-1 w-10 h-10 bg-beaver-orange rounded-full flex items-center justify-center text-white">1</div>
+        <div class="mb-0 mx-1 w-10 h-10 bg-light-black rounded-full flex items-center justify-center text-white">2</div>
+        <div class=" mb-0 mx-1 w-10 h-10 bg-light-black rounded-full flex items-center justify-center text-white">3</div>
+    </div>
     </div>
     
   
@@ -165,5 +173,8 @@
       border-top-right-radius: 10px;
       border-bottom-right-radius: 10px;
   
+    }
+    .custom-border {
+    border: 1px solid #ccc; /* Customize the border style and color */
     }
   </style>

@@ -8,7 +8,8 @@ export default {
         'beaver-orange': '#D73F09',
         'moondust': '#C6DAE7',
         'luminance': '#FFB500',
-        'stratosphere': '#006A8E'
+        'stratosphere': '#006A8E',
+        
       }
     },
   },
