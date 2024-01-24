@@ -1,5 +1,4 @@
-import { dev } from '$app/environment';
-import { PUBLIC_SUPABASE_URL, PUBLIC_SUPABASE_ANON_KEY, PUBLIC_DEV_SUPABASE_ANON_KEY, PUBLIC_DEV_SUPABASE_URL } from '$env/static/public';
+import { PUBLIC_SUPABASE_URL, PUBLIC_SUPABASE_ANON_KEY } from '$env/static/public';
 import type { LayoutLoad } from './$types';
 import { combineChunks, createBrowserClient, isBrowser, parse } from '@supabase/ssr';
 
@@ -7,8 +6,8 @@ export const load: LayoutLoad = async ({ url, fetch, data, depends }) => {
   depends('supabase:auth');
 
   const supabase = createBrowserClient(
-    dev ? PUBLIC_DEV_SUPABASE_URL : PUBLIC_SUPABASE_URL,
-    dev ? PUBLIC_DEV_SUPABASE_ANON_KEY : PUBLIC_SUPABASE_ANON_KEY,
+    PUBLIC_SUPABASE_URL,
+    PUBLIC_SUPABASE_ANON_KEY,
     {
       global: {
         fetch
