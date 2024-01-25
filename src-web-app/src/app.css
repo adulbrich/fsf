@@ -1,3 +1,15 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  .svelte-toast-message {
+    @apply !ring-1 !ring-black/5 !shadow-lg;
+  }
+}
+
+/* Scroll bar flicker fix */
+/* https://css-tricks.com/elegant-fix-jumping-scrollbar-issue/ */
+html {
+  margin-left: calc(100vw - 100%);
+}
