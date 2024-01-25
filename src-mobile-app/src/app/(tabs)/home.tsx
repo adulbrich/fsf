@@ -1,17 +1,15 @@
-import { Text } from "react-native";
-import { supabase } from "../../lib/supabase";
-import { Button } from "react-native-elements";
-import { View } from "react-native";
-
-function signOut() {
-  supabase.auth.signOut();
-}
+import { TrafficCone } from "@tamagui/lucide-icons";
+import { YStack, useTheme, XStack, H3 } from "tamagui";
 
 export default function Home() {
+  const theme = useTheme();
+  
   return (
-    <View>
-      <Text>Home!</Text>
-      <Button onPress={() => signOut()} title="Sign Out" />
-    </View>
+    <YStack backgroundColor={theme.backgroundStrong} justifyContent="center" alignItems="center" flex={1} space>
+      <XStack>
+        <TrafficCone size={"$4"} />
+      </XStack>
+      <H3>Home Page</H3>
+    </YStack>
   );
 }
