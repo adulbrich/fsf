@@ -158,6 +158,7 @@
       <div class="flex">
         <a href="/auth/forgotPassword" class="text-gray-500">Forgot password?</a>
       </div>
+      
 
       <!-- Sign in button -->
       <button
@@ -179,3 +180,4 @@
     </form>
   </div>
 </div>
+
