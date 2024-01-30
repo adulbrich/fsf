@@ -21,7 +21,6 @@ export default function EventsList() {
 
   if (!events || events.length === 0) {
     return <YStack
-      backgroundColor={theme.background}
       flex={1}
       justifyContent="center"
       alignItems="center"
@@ -34,9 +33,8 @@ export default function EventsList() {
     <>
       <YStack
         fullscreen
-        backgroundColor={theme.background}
         flex={1}
-        space
+        gap={'$4'}
       >
         <Stack.Screen options={{ title: 'Events', headerShown: false }} />
         <EventList />
