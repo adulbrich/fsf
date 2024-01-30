@@ -782,3 +782,8 @@ export type Enums<
   : PublicEnumNameOrOptions extends keyof Database["public"]["Enums"]
   ? Database["public"]["Enums"][PublicEnumNameOrOptions]
   : never
+
+
+export type SBEvent = Tables<'Events'>;
+export type SBTeamStats = Tables<'TeamStats'>;
+export type SBTeam = Tables<'Teams'>;
