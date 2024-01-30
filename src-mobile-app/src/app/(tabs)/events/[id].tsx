@@ -3,13 +3,15 @@ import { useAuth } from "../../../features/system/Auth";
 import { supabase } from "../../../lib/supabase";
 import { useAssets } from "expo-asset";
 import { useLocalSearchParams, Stack } from "expo-router";
-import { YStack, XStack, H3, Image, Text, Button } from "tamagui";
+import { YStack, XStack, H3, Image, Text, Button, useTheme } from "tamagui";
 import { getDateString } from "../../../lib/helpers";
 import { SBEvent, SBTeamStats } from "../../../lib/supabase-types";
 import { useTypedSelector } from "../../../store/store";
 import { Text as RN_Text } from "react-native";
 
 export default function EventDetails() {
+  const theme = useTheme();  
+
   const slugEventID = useLocalSearchParams().id;
   const event = useTypedSelector<SBEvent[]>(store => store.eventsSlice.events)
     .find(ev => ev.EventID === slugEventID);
@@ -25,36 +27,40 @@ export default function EventDetails() {
     require('../../../../assets/images/preview_wide.jpg')
   ]);
 
-  const joinEventCallback = React.useCallback(async () => {
-    const createTeamResult = await supabase
-      .from('Teams')
-      .upsert({
-        Name: session!.user.email!,
-        BelongsToEventID: event!.EventID
-      })
-      .select()
-      .single();
+  const joinEventCallback = React.useCallback(() => {
+    const joinEvent = async () => {
+      const createTeamResult = await supabase
+        .from('Teams')
+        .upsert({
+          Name: session!.user.email!,
+          BelongsToEventID: event!.EventID
+        })
+        .select()
+        .single();
 
-    if (createTeamResult.error) {
-      console.log(createTeamResult.error);
-      return;
+      if (createTeamResult.error) {
+        console.log(createTeamResult.error);
+        return;
+      }
+
+      const joinTeamResult = await supabase
+        .from('TeamsProfiles')
+        .upsert({
+          ProfileID: session!.user.id,
+          TeamID: createTeamResult.data.TeamID
+        })
+        .select()
+        .single();
+
+      if (joinTeamResult.error) {
+        console.log(joinTeamResult.error);
+        return;
+      }
+
+      console.log('Joined Event');
     }
 
-    const joinTeamResult = await supabase
-      .from('TeamsProfiles')
-      .upsert({
-        ProfileID: session!.user.id,
-        TeamID: createTeamResult.data.TeamID
-      })
-      .select()
-      .single();
-
-    if (joinTeamResult.error) {
-      console.log(joinTeamResult.error);
-      return;
-    }
-
-    console.log('Joined Event');
+    joinEvent();
   }, [session, event])
 
   if (!event || !assets) return null;
@@ -65,10 +71,13 @@ export default function EventDetails() {
         options={{
           title: event.Name,
           headerShown: true,
-          headerBackTitle: 'Events'
+          headerBackTitle: 'Events',
+          headerStyle: {
+            backgroundColor: theme.background.get()
+          },
         }}
         />
-      <YStack flex={1} justifyContent="flex-start" alignItems="flex-start" padding="$4" space>
+      <YStack flex={1} justifyContent="flex-start" alignItems="flex-start" padding="$4" gap={'$4'}>
         
         <YStack borderRadius={"$4"} overflow="hidden" width={'100%'} height={'$12'}>
 
@@ -87,10 +96,10 @@ export default function EventDetails() {
         </XStack>
 
         <YStack width={'100%'}>
-          <Button onPress={joinEventCallback} width={'100%'} themeInverse={true}>Join Event</Button>
+          <Button onPress={joinEventCallback}>Register</Button>
         </YStack>
 
-        <YStack space>
+        <YStack gap={'$4'}>
           <H3>Top 5 Teams</H3>
           { teamStats.length === 0 && (
             <XStack width={'100%'} justifyContent="center">

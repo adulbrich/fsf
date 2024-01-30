@@ -1,7 +1,6 @@
 import { Slot, SplashScreen } from "expo-router";
 import React, { ReactNode, useCallback, useEffect, useMemo, useState } from "react";
-import { TamaguiProvider, View } from 'tamagui'
-import config from '../../tamagui.config';
+import { TamaguiProvider, View } from 'tamagui';
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { Asset, useAssets } from 'expo-asset';
 import { Animated, ImageURISource, useColorScheme } from "react-native";
@@ -13,6 +12,7 @@ import { StyleSheet } from "react-native";
 import { Provider } from 'react-redux';
 import { persistor, store } from "../store/store";
 import { PersistGate } from 'redux-persist/integration/react';
+import { config as tamaguiConfig } from '../../tamagui.config';
 import { AuthSessionProvider } from "../features/system/Auth";
 import ProgressService from "../features/system/ProgressService";
 
@@ -36,7 +36,7 @@ export default function RootLayout() {
 
   return (
     <AnimatedAppLoader image={{ uri: assets[0].uri }}>
-      <TamaguiProvider config={config} defaultTheme={systemTheme ?? 'dark'}>
+      <TamaguiProvider config={tamaguiConfig} defaultTheme={systemTheme ?? 'dark'}>
         <Provider store={store}>
           <PersistGate persistor={persistor}>
             <AuthSessionProvider>
