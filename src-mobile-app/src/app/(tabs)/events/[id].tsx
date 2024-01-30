@@ -1,16 +1,20 @@
 import { Stack, useLocalSearchParams } from "expo-router";
 import { useEffect } from "react";
-import { H3, YStack, Image, XStack, Text, View } from "tamagui";
+import { H3, YStack, Image, XStack, Text, View, Button } from "tamagui";
 import { Text as RN_Text } from 'react-native';
 import { useTypedSelector } from "../../../store/store";
-import { SBEvent, SBTeamStats } from "../../../lib/supabase-types";
+import { SBEvent, SBTeam, SBTeamStats } from "../../../lib/supabase-types";
 import { useAssets } from "expo-asset";
 import { getDateString } from "../../../lib/helpers";
+import { supabase, useAuth } from "../../../lib/supabase";
+import React from "react";
 
 export default function EventDetails() {
   const slugEventID = useLocalSearchParams().id;
   const event = useTypedSelector<SBEvent[]>(store => store.eventsSlice.events)
     .find(ev => ev.EventID === slugEventID);
+
+  const { user, session } = useAuth();
 
   const teamStats = useTypedSelector<SBTeamStats[]>(store => store.teamStatsSlice.teamStats)
     .filter(ts => ts.BelongsToEventID === slugEventID)
@@ -20,6 +24,38 @@ export default function EventDetails() {
     require('../../../../assets/images/preview_square.jpg'),
     require('../../../../assets/images/preview_wide.jpg')
   ]);
+
+  const joinEventCallback = React.useCallback(async () => {
+    const createTeamResult = await supabase
+      .from('Teams')
+      .upsert({
+        Name: session!.user.email!,
+        BelongsToEventID: event!.EventID
+      })
+      .select()
+      .single();
+
+    if (createTeamResult.error) {
+      console.log(createTeamResult.error);
+      return;
+    }
+
+    const joinTeamResult = await supabase
+      .from('TeamsProfiles')
+      .upsert({
+        ProfileID: session!.user.id,
+        TeamID: createTeamResult.data.TeamID
+      })
+      .select()
+      .single();
+
+    if (joinTeamResult.error) {
+      console.log(joinTeamResult.error);
+      return;
+    }
+
+    console.log('Joined Event');
+  }, [session, event])
 
   if (!event || !assets) return null;
 
@@ -35,6 +71,7 @@ export default function EventDetails() {
       <YStack flex={1} justifyContent="flex-start" alignItems="flex-start" padding="$4" space>
         
         <YStack borderRadius={"$4"} overflow="hidden" width={'100%'} height={'$12'}>
+
           <Image
             width={'100%'}
             height={'100%'}
@@ -42,11 +79,17 @@ export default function EventDetails() {
             source={{ uri: assets[1].uri, width: assets[1].width!, height: assets[1].height! }}
             />
         </YStack>
+
         <XStack width={'100%'} justifyContent="space-between" alignItems="center">
           <Text>Starts: { getDateString(event.StartsAt) }</Text>
           <Text>Ends: { getDateString(event.EndsAt) }</Text>
           <Text>Type: { event.Type }</Text>
         </XStack>
+
+        <YStack width={'100%'}>
+          <Button onPress={joinEventCallback} width={'100%'} themeInverse={true}>Join Event</Button>
+        </YStack>
+
         <YStack space>
           <H3>Top 5 Teams</H3>
           { teamStats.length === 0 && (
