@@ -1,8 +1,10 @@
 <!-- This .svelte file contains the content for the view events page, which is seen right after logging in -->
 <script lang="ts">
   import { goto } from '$app/navigation';
+  import { onMount } from 'svelte';
   import Layout from '../banner-layout.svelte'
   export let data;
+  import {fail, redirect } from '@sveltejs/kit'
   let { supabase } = data;
   $: ({ supabase } = data);
   let card_text = "Walktober is your chance to embrace the beauty of autumn while taking strides toward a healthier you. Join us in October for a month of enjoyable walks, scenic hikes, and the camaraderie of fellow...";
@@ -11,10 +13,65 @@
     ? card_text.slice(0, char_lim) + '...'
     : card_text;
   
-  const handleSignOut = async () => {
-    await supabase.auth.signOut();
-    goto('/');
+  
+  
+
+  interface Event {
+    Name: string;
+    Type: string;
+    StartsAt: string;
+    EndsAt: string;
+    Status: string;
+    Description: string;
+
   }
+  interface RelevantEvents {
+    pastEvents: Event[];
+    ongoingEvent: Event | null;
+    upcomingEvent: Event | null;
+  }
+  let relevantEvents : RelevantEvents = {
+    pastEvents: [],
+    ongoingEvent: null,
+    upcomingEvent: null,
+  };
+  let events: Event[] = [];
+  const fetchEvents = async () => {
+    try {
+      
+      const { data, error } = await supabase.from('Events').select('*');
+      if (error) throw error;
+      events = data;
+      console.log("events: ", events)
+
+      events.forEach(event => {
+        console.log("event status: ", event.Status);
+        if(event.Status == 'Ongoing'){
+           relevantEvents.ongoingEvent = event;
+           console.log("Ongoing Event: ", relevantEvents.ongoingEvent);
+        } else if(event.Status == 'Upcoming'){
+          relevantEvents.upcomingEvent = event;
+          console.log("Upcoming Event: ", relevantEvents.upcomingEvent);
+        } else if(event.Status == 'Past'){
+          relevantEvents.pastEvents.push(event);
+          console.log("Past Events: ", relevantEvents.pastEvents);
+        }
+      });
+    } catch (error) {
+      console.error('Error fetching events:', error as any);
+    }
+  };
+
+  console.log("before onMount");
+  onMount(() => {
+    console.log("onMount begins");
+    fetchEvents();
+    console.log("onMount completed");
+  });
+  console.log("after onMount");
+
+    
+  
 </script>
 
 <svelte:head>
@@ -69,9 +126,9 @@
             </div>
             <!-- Text section for card -->
             <div class="flex flex-col h-full w-[100%] card-border flex-grow-0 overflow-hidden">
-              <p class = "pt-1 px-2 font-semibold">Walktober 2023</p>
-              <p class = "pt-1 px-2" style="font-size: 12px;">From 10/01/2023 to 10/31/2023</p>
-              <p class="pt-2 px-2 overflow-hidden" style="font-size: 12px;"> {card_text}</p>
+              <p class = "pt-1 px-2 font-semibold">{relevantEvents.ongoingEvent?.Name}</p>
+              <p class = "pt-1 px-2" style="font-size: 12px;">{relevantEvents.ongoingEvent?.StartsAt} to {relevantEvents.ongoingEvent?.EndsAt}</p>
+              <p class="pt-2 px-2 overflow-hidden" style="font-size: 12px;"> {relevantEvents.ongoingEvent?.Description}</p>
             </div>
           </div>
         
