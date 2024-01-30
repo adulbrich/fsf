@@ -2,34 +2,38 @@
   import Layout from "../../banner-layout.svelte";
   import { enhance } from '$app/forms';
   import type { SubmitFunction } from '@sveltejs/kit';
-  import EventBanner from './eventbanner.svelte'
+  import toast from "svelte-french-toast";
+  
+  export let data;
+  export let form;
 
-  export let data
-  export let form: {
-    eventName?: string;
-    eventType?: string;
-    startDate?: string;
-    endDate?: string;
-    eventDescription?: string;
-    eventBanner?: string
-  } = {};
+  let { session, supabase, event } = data;
+  $: ({ session, supabase, event } = data);
 
-  let { session, supabase, event } = data
-  $: ({ session, supabase, event } = data)
+  // Error message toast
+  $: if (form) {
+    if (form.errorMessage)
+      toast.error(form.errorMessage);
+    else
+      toast.success('Event created!');
+  }
 
   let createEventForm: HTMLFormElement
   let loading = false
-  let eventName: string = event?.event_name ?? ''
-  let eventType: string = event?.event_type ?? ''
-  let startDate: string = event?.event_start_date ?? ''
-  let endDate: string = event?.event_end_date ?? ''
-  let eventDescription: string = event?.event_description ?? ''
-  let eventBanner:string = event?.event_banner ?? ''
+  let eventName: string = event?.event_name ?? '';
+  let eventType: string = event?.event_type ?? '';
+  let startDate: string = event?.event_start_date ?? '';
+  let endDate: string = event?.event_end_date ?? '';
+  let eventDescription: string = event?.event_description ?? '';
 
   const handleSubmit: SubmitFunction = () => {
-		loading = true
-  	return async () => {
-			loading = false
+		loading = true;
+  	return async ({ update }) => {
+			loading = false;
+
+      // Update form variable so we can do stuff like display
+      // an error message (if applicable).
+      update();
 		}
 	}
 </script>
@@ -39,9 +43,10 @@
 
       <!--Form Attributes-->
         <form
-         class= "form-widget flex-1 ml-[16%]" 
-         method= "post"
-         action = "?/create"
+         class="flex-1 ml-[16%]" 
+         enctype="multipart/form-data"
+         method="post"
+         action="?/createEvent"
          use:enhance={handleSubmit}
          bind:this={createEventForm}>
          
@@ -71,8 +76,8 @@
 
               <div class="relative">
                 <select required id="eventType" name="eventType" value={form?.eventType ?? eventType} class="block appearance-none w-1/4 bg-gray-200 border border-black-500 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
-                  <option>Walk</option>
-                  <option>Run</option>
+                  <option>Steps</option>
+                  <option>Distance</option>
                 </select>
 
               </div>
@@ -104,15 +109,16 @@
 
             <!-- Container for Event Banner Uploading -->
             <div class = "px-5 py-0 md:w-3/4 my-0">
-              <EventBanner
-              {supabase}
-              bind:url={eventBanner}
-              size={10}
-              on:upload={() => {
-                createEventForm.requestSubmit();
-              }}
-              >
-              </EventBanner>
+              <label class="button  primary block" for="eventBanner">
+                Click here to upload a banner!
+              </label>
+              <input
+                style="position:absolute; visibility:hidden;"
+                type="file"
+                id="eventBanner"
+                name="eventBanner"
+                accept="image/*"
+              />
             </div>
       
           </div>
@@ -120,7 +126,7 @@
         <div class='px-2'>
           <input
           type='submit'
-          class="button block primary appearance-none block bg-gray-200 text-gray-700 border border-black-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+          class="button primary appearance-none block bg-gray-200 text-gray-700 border border-black-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
           value={loading ? 'Loading..' : 'Create Event'}
           disabled={loading}>
         </div>

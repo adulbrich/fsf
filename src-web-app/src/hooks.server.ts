@@ -7,8 +7,8 @@ import { dev } from '$app/environment';
 // Supabase init function for server
 const supabase: Handle = async function ({ event, resolve }) {
   event.locals.supabase = createServerClient(
-    dev ? PUBLIC_DEV_SUPABASE_URL : PUBLIC_SUPABASE_URL,
-    dev ? PUBLIC_DEV_SUPABASE_ANON_KEY : PUBLIC_SUPABASE_ANON_KEY,
+    PUBLIC_SUPABASE_URL,
+    PUBLIC_SUPABASE_ANON_KEY,
     {
       cookies: {
         get: (key) => event.cookies.get(key),
