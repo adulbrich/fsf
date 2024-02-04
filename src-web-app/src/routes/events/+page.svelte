@@ -115,6 +115,7 @@
     upcomingEvent: null,
   };
   let events: Event[] = [];
+  
   const fetchEvents = async () => {
     try {
       
@@ -123,32 +124,54 @@
       events = data;
       console.log("events: ", events)
 
-      events.forEach(event => {
-        console.log("event status: ", event.Status);
-        if(event.Status == 'Ongoing'){
-           relevantEvents.ongoingEvent = event;
-           console.log("Ongoing Event: ", relevantEvents.ongoingEvent);
-        } else if(event.Status == 'Upcoming'){
-          relevantEvents.upcomingEvent = event;
-          console.log("Upcoming Event: ", relevantEvents.upcomingEvent);
-        } else if(event.Status == 'Past'){
-          relevantEvents.pastEvents.push(event);
-          console.log("Past Events: ", relevantEvents.pastEvents);
-        }
-      });
+      
     } catch (error) {
       console.error('Error fetching events:', error as any);
     }
   };
 
-  console.log("before onMount");
-  onMount(() => {
-    console.log("onMount begins");
-    fetchEvents();
-    console.log("onMount completed");
-  });
-  console.log("after onMount");
+  onMount(async () => {
+    await fetchEvents();
+    console.log("Events are fetched ");
+    events.forEach(event => {
+      console.log("Event status checking")
+      determineEventStatus(event,event.StartsAt, event.EndsAt);
+      console.log("Event status checked")
+    });
+    console.log("Relevant events: ", relevantEvents);
 
+  });
+  
+
+
+  // This function takes in the start and end date of an event and determines if it is ongoing, upcoming, or past
+  function determineEventStatus(event : Event, startDate: string, endDate: string) {
+    const date = new Date();
+    
+    startDate = startDate.split('T')[0];
+    endDate = endDate.split('T')[0];
+    event.StartsAt = startDate;
+    event.EndsAt = endDate;
+    const startDateObj  = new Date(startDate);
+    const endDateObj = new Date(endDate);
+    console.log("Start date: ", startDateObj);
+    console.log("End date: ", endDateObj);
+    if (startDateObj <= date && endDateObj >= date) {
+      relevantEvents.ongoingEvent = event;
+      event.Status = "Ongoing";
+    } else if (startDateObj > date) {
+      relevantEvents.upcomingEvent = event;
+      event.Status = "Upcoming";
+    } else {
+      relevantEvents.pastEvents.push(event);
+      event.Status = "Past";
+    }
+  
+    
+    
+  }
+
+  
     
   
 </script>
