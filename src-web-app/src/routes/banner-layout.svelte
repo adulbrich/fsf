@@ -1,5 +1,5 @@
 <!-- This Div contains everything for the base layout of the site -->
-<div class="flex h-full relative">
+
     <!-- Black Vertical Navbar -->
     <div class="h-screen bg-light-black fixed top-0 left-0 p-2" style="width: 16%">
         <!--Logo and Faculty Fitness Text-->
@@ -24,7 +24,8 @@
         </div>
     </div>
     <!-- This is where your content will go if you use the layout -->
-    <slot>
+    
 
-    </slot>
-</div>
+<slot>
+
+</slot>
