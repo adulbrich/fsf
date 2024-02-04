@@ -1,12 +1,13 @@
 -- Create a test user for dev use
-select utils.create_user('amy@testuser.com', 'damfit');
+select utils.create_user('amy@test.com', 'damfit');
+SET session_replication_role = replica;
 
 --
 -- PostgreSQL database dump
 --
 
 -- Dumped from database version 15.1 (Ubuntu 15.1-1.pgdg20.04+1)
--- Dumped by pg_dump version 15.4 (Ubuntu 15.4-1.pgdg20.04+1)
+-- Dumped by pg_dump version 15.5 (Ubuntu 15.5-1.pgdg20.04+1)
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -19,80 +20,9 @@ SET xmloption = content;
 SET client_min_messages = warning;
 SET row_security = off;
 
--- Disable triggers
-SET session_replication_role = replica;
-
 --
 -- Data for Name: audit_log_entries; Type: TABLE DATA; Schema: auth; Owner: supabase_auth_admin
 --
-
-INSERT INTO "auth"."audit_log_entries" ("instance_id", "id", "payload", "created_at", "ip_address") VALUES
-	('00000000-0000-0000-0000-000000000000', 'e67ee9da-e89d-445e-838c-d6ae461b1d07', '{"action":"user_signedup","actor_id":"00000000-0000-0000-0000-000000000000","actor_username":"service_role","actor_via_sso":false,"log_type":"team","traits":{"user_email":"fikes@oregonstate.edu","user_id":"df3cb711-d4ac-418d-9ee9-83efe5a289ae","user_phone":""}}', '2023-10-26 00:59:22.569871+00', ''),
-	('00000000-0000-0000-0000-000000000000', 'ff53bf96-08b6-485d-a1e8-1277ae96ef47', '{"action":"user_signedup","actor_id":"00000000-0000-0000-0000-000000000000","actor_username":"service_role","actor_via_sso":false,"log_type":"team","traits":{"user_email":"fikes+2@oregonstate.edu","user_id":"f1c2c14d-7cb8-4a1b-9ad2-1312fed3ad2f","user_phone":""}}', '2023-10-26 00:59:33.840648+00', ''),
-	('00000000-0000-0000-0000-000000000000', '8ddd6083-c507-49cc-92e4-babd138fc5bf', '{"action":"user_signedup","actor_id":"00000000-0000-0000-0000-000000000000","actor_username":"service_role","actor_via_sso":false,"log_type":"team","traits":{"user_email":"fikes+3@oregonstate.edu","user_id":"d708f318-0a31-43f5-addd-095c527673ed","user_phone":""}}', '2023-10-26 00:59:53.814202+00', '');
-
-
---
--- Data for Name: flow_state; Type: TABLE DATA; Schema: auth; Owner: supabase_auth_admin
---
-
-
-
---
--- Data for Name: users; Type: TABLE DATA; Schema: auth; Owner: supabase_auth_admin
---
-
-INSERT INTO "auth"."users" ("instance_id", "id", "aud", "role", "email", "encrypted_password", "email_confirmed_at", "invited_at", "confirmation_token", "confirmation_sent_at", "recovery_token", "recovery_sent_at", "email_change_token_new", "email_change", "email_change_sent_at", "last_sign_in_at", "raw_app_meta_data", "raw_user_meta_data", "is_super_admin", "created_at", "updated_at", "phone", "phone_confirmed_at", "phone_change", "phone_change_token", "phone_change_sent_at", "email_change_token_current", "email_change_confirm_status", "banned_until", "reauthentication_token", "reauthentication_sent_at", "is_sso_user", "deleted_at") VALUES
-	('00000000-0000-0000-0000-000000000000', 'df3cb711-d4ac-418d-9ee9-83efe5a289ae', 'authenticated', 'authenticated', 'fikes@oregonstate.edu', '$2a$10$rPB18qnnnGG/T.D/KidheOtaIjlUoYL6Zzt4i1jySFD2P/MyGwexe', '2023-10-26 00:59:22.571555+00', NULL, '', NULL, '', NULL, '', '', NULL, NULL, '{"provider": "email", "providers": ["email"]}', '{}', NULL, '2023-10-26 00:59:22.562115+00', '2023-10-26 00:59:22.574095+00', NULL, NULL, '', '', NULL, '', 0, NULL, '', NULL, false, NULL),
-	('00000000-0000-0000-0000-000000000000', 'f1c2c14d-7cb8-4a1b-9ad2-1312fed3ad2f', 'authenticated', 'authenticated', 'fikes+2@oregonstate.edu', '$2a$10$x/p67DaP209DQW6pjYwMQuJOyfY81hPbuHLcWRt.Zklp3RfEYGhwW', '2023-10-26 00:59:33.841829+00', NULL, '', NULL, '', NULL, '', '', NULL, NULL, '{"provider": "email", "providers": ["email"]}', '{}', NULL, '2023-10-26 00:59:33.838741+00', '2023-10-26 00:59:33.842036+00', NULL, NULL, '', '', NULL, '', 0, NULL, '', NULL, false, NULL),
-	('00000000-0000-0000-0000-000000000000', 'd708f318-0a31-43f5-addd-095c527673ed', 'authenticated', 'authenticated', 'fikes+3@oregonstate.edu', '$2a$10$Bq5JKZsG2GoCxST1PUXVJOJuWpnZGGCHW2iabjThw0pzkjfHa7vom', '2023-10-26 00:59:53.815174+00', NULL, '', NULL, '', NULL, '', '', NULL, NULL, '{"provider": "email", "providers": ["email"]}', '{}', NULL, '2023-10-26 00:59:53.812547+00', '2023-10-26 00:59:53.81537+00', NULL, NULL, '', '', NULL, '', 0, NULL, '', NULL, false, NULL);
-
-
---
--- Data for Name: identities; Type: TABLE DATA; Schema: auth; Owner: supabase_auth_admin
---
-
-INSERT INTO "auth"."identities" ("id", "user_id", "identity_data", "provider", "last_sign_in_at", "created_at", "updated_at") VALUES
-	('df3cb711-d4ac-418d-9ee9-83efe5a289ae', 'df3cb711-d4ac-418d-9ee9-83efe5a289ae', '{"sub": "df3cb711-d4ac-418d-9ee9-83efe5a289ae", "email": "fikes@oregonstate.edu"}', 'email', '2023-10-26 00:59:22.568597+00', '2023-10-26 00:59:22.568647+00', '2023-10-26 00:59:22.568647+00'),
-	('f1c2c14d-7cb8-4a1b-9ad2-1312fed3ad2f', 'f1c2c14d-7cb8-4a1b-9ad2-1312fed3ad2f', '{"sub": "f1c2c14d-7cb8-4a1b-9ad2-1312fed3ad2f", "email": "fikes+2@oregonstate.edu"}', 'email', '2023-10-26 00:59:33.839758+00', '2023-10-26 00:59:33.839804+00', '2023-10-26 00:59:33.839804+00'),
-	('d708f318-0a31-43f5-addd-095c527673ed', 'd708f318-0a31-43f5-addd-095c527673ed', '{"sub": "d708f318-0a31-43f5-addd-095c527673ed", "email": "fikes+3@oregonstate.edu"}', 'email', '2023-10-26 00:59:53.813487+00', '2023-10-26 00:59:53.813526+00', '2023-10-26 00:59:53.813526+00');
-
-
---
--- Data for Name: instances; Type: TABLE DATA; Schema: auth; Owner: supabase_auth_admin
---
-
-
-
---
--- Data for Name: sessions; Type: TABLE DATA; Schema: auth; Owner: supabase_auth_admin
---
-
-
-
---
--- Data for Name: mfa_amr_claims; Type: TABLE DATA; Schema: auth; Owner: supabase_auth_admin
---
-
-
-
---
--- Data for Name: mfa_factors; Type: TABLE DATA; Schema: auth; Owner: supabase_auth_admin
---
-
-
-
---
--- Data for Name: mfa_challenges; Type: TABLE DATA; Schema: auth; Owner: supabase_auth_admin
---
-
-
-
---
--- Data for Name: refresh_tokens; Type: TABLE DATA; Schema: auth; Owner: supabase_auth_admin
---
-
-
 
 --
 -- Data for Name: sso_providers; Type: TABLE DATA; Schema: auth; Owner: supabase_auth_admin
@@ -128,19 +58,27 @@ INSERT INTO "auth"."identities" ("id", "user_id", "identity_data", "provider", "
 -- Data for Name: Profiles; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO "public"."Profiles" ("ProfileID", "CreatedAt", "UpdatedAt", "Name", "Email") VALUES
-	('df3cb711-d4ac-418d-9ee9-83efe5a289ae', '2023-10-26 01:00:39.247643+00', '2023-10-26 01:00:39.247643+00', 'Stephen', 'fikes@oregonstate.edu'),
-	('f1c2c14d-7cb8-4a1b-9ad2-1312fed3ad2f', '2023-10-26 01:00:48.921172+00', '2023-10-26 01:00:48.921172+00', 'Jeremy', 'fikes+2@oregonstate.edu'),
-	('d708f318-0a31-43f5-addd-095c527673ed', '2023-10-26 01:00:56.203421+00', '2023-10-26 01:00:56.203421+00', 'Stan', 'fikes+3@oregonstate.edu');
+INSERT INTO "public"."Profiles" ("ProfileID", "CreatedAt", "UpdatedAt", "Name") VALUES
+	('df3cb711-d4ac-418d-9ee9-83efe5a289ae', '2023-10-26 01:00:39.247643+00', '2023-10-26 01:00:39.247643+00', 'Stephen'),
+	('f1c2c14d-7cb8-4a1b-9ad2-1312fed3ad2f', '2023-10-26 01:00:48.921172+00', '2023-10-26 01:00:48.921172+00', 'Jeremy'),
+	('d708f318-0a31-43f5-addd-095c527673ed', '2023-10-26 01:00:56.203421+00', '2023-10-26 01:00:56.203421+00', 'Stan'),
+	('5c89889f-71f0-43ab-b382-b3b94c292054', '2024-01-30 00:48:04.957377+00', '2024-01-30 00:48:04.957377+00', 'Amy');
 
 
 --
 -- Data for Name: Events; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO "public"."Events" ("EventID", "CreatedAt", "UpdatedAt", "Name", "Type", "CreatedByUserID", "StartsAt", "EndsAt") VALUES
-	('00981168-c525-466b-997c-3d8ab72a610d', '2023-10-26 01:01:43.197519+00', '2023-10-26 01:01:43.197519+00', 'Only Steps', 'Steps', 'df3cb711-d4ac-418d-9ee9-83efe5a289ae', '2023-10-23 01:01:37+00', '2023-10-29 01:01:41+00'),
-	('6615ed49-13c3-413d-b1f4-0be13d6bc837', '2023-10-26 01:34:39.16545+00', '2023-10-26 01:34:39.16545+00', 'Distance-thon', 'Distance', 'df3cb711-d4ac-418d-9ee9-83efe5a289ae', '2023-10-23 01:34:35+00', '2023-10-29 01:34:36+00');
+INSERT INTO "public"."Events" ("EventID", "CreatedAt", "UpdatedAt", "Name", "Type", "CreatedByUserID", "StartsAt", "EndsAt", "Description") VALUES
+	('00981168-c525-466b-997c-3d8ab72a610d', '2023-10-26 01:01:43.197519+00', '2023-10-26 01:01:43.197519+00', 'Only Steps', 'Steps', 'df3cb711-d4ac-418d-9ee9-83efe5a289ae', '2023-10-23 01:01:37+00', '2023-10-29 01:01:41+00', 'Embark on a fitness journey where every movement counts. In the "Only Steps" event, participants challenge themselves to take only steps throughout the course. Whether it''s a brisk walk or a light jog, every step contributes to a healthier lifestyle, making this event a celebration of physical activity and personal progress.'),
+	('6615ed49-13c3-413d-b1f4-0be13d6bc837', '2023-10-26 01:34:39.16545+00', '2023-10-26 01:34:39.16545+00', 'Distance-thon', 'Distance', 'df3cb711-d4ac-418d-9ee9-83efe5a289ae', '2023-10-23 01:34:35+00', '2023-10-29 01:34:36+00', 'Lace up your sneakers for the Distance-thon, a challenge that pushes participants to cover as much ground as possible. Whether walking, running, or a combination of both, this event measures success by the distance covered. It''s a test of endurance and determination as participants strive to reach their personal bests or conquer a set distance goal.'),
+	('67884941-0a70-4ee9-81d0-b5a929316f38', '2023-12-08 23:50:54.597225+00', '2023-12-08 23:50:54.597225+00', 'Walk of the Century', 'Steps', 'df3cb711-d4ac-418d-9ee9-83efe5a289ae', '2024-01-01 23:50:33+00', '2024-12-31 23:50:39+00', 'Step into the past with the Walk of the Century, a historical journey on foot. Participants explore significant landmarks and moments from the 20th century while enjoying a leisurely stroll. This event not only promotes physical activity but also offers a unique opportunity for participants to connect with the past in an engaging and memorable way.'),
+	('7a3ad57c-9cdd-4a03-8f21-fe54da1fe772', '2023-12-09 00:08:46.306042+00', '2023-12-09 00:08:46.306042+00', 'Merry Walk-mas', 'Steps', 'df3cb711-d4ac-418d-9ee9-83efe5a289ae', '2023-12-02 00:08:40+00', '2024-01-01 00:08:43+00', 'Spread holiday cheer through motion in the Merry Walk-mas event. Participants don festive attire and embark on a spirited walk, celebrating the joy of the season. Whether it''s a winter wonderland or a sunny day, this event combines fitness and festivity, creating a memorable experience for all who participate.'),
+	('e4604583-c7ca-4de2-abb2-8b74f6f7837e', '2023-12-10 01:58:06.963309+00', '2023-12-10 01:58:06.963309+00', 'Sprint to New Years', 'Distance', 'df3cb711-d4ac-418d-9ee9-83efe5a289ae', '2023-12-02 01:57:55+00', '2024-01-02 01:58:00+00', 'Gear up for an energetic transition into the new year with the Sprint to New Years event. Participants sprint towards the upcoming year, symbolizing a fresh start and a commitment to an active and healthy lifestyle. It''s a high-energy celebration that sets the tone for a year filled with fitness and positive momentum.'),
+	('3938cecc-1d29-49e6-9e24-a476b29b985a', '2023-12-10 01:58:48.738297+00', '2023-12-10 01:58:48.738297+00', 'Only Go Backwards', 'Steps', 'df3cb711-d4ac-418d-9ee9-83efe5a289ae', '2023-12-07 01:58:42+00', '2023-12-22 01:58:45+00', 'Challenge your routine with the Only Go Backwards event, where participants navigate the course exclusively by moving backward. This playful and unconventional challenge adds a twist to traditional walking or running, testing coordination and agility. It''s a fun and lighthearted way to promote physical activity with a unique flair.'),
+	('cdc4f0e0-19ec-418d-a5d4-90a1023a6bb6', '2023-12-10 02:51:16.907144+00', '2023-12-10 02:51:16.907144+00', 'Campus Strides', 'Steps', 'df3cb711-d4ac-418d-9ee9-83efe5a289ae', '2023-10-04 01:45:00+00', '2023-11-03 01:45:04+00', 'Explore the educational environment with the Campus Strides event. Participants traverse the campus, enjoying the scenery while engaging in a physical activity that promotes well-being. This event fosters a sense of community among students, faculty, and staff, emphasizing the importance of incorporating movement into the daily routine.'),
+	('135f0a7e-2c35-494b-9208-e36e96bff492', '2024-01-25 02:20:09.319219+00', '2024-01-25 02:20:09.319219+00', 'Cupid Shuffle', 'Distance', 'df3cb711-d4ac-418d-9ee9-83efe5a289ae', '2024-02-02 02:19:30+00', '2024-02-15 02:19:57+00', 'Get into the rhythm of fitness and love with the Cupid Shuffle event. This lively and upbeat gathering encourages participants to dance and move in the spirit of Cupid. Whether walking, jogging, or dancing, everyone can join in the celebration of heart-healthy activities. It''s a social and heartwarming event that promotes both physical and emotional well-being.'),
+	('9008d14a-5033-47c9-98f0-f4510f2e74ae', '2024-01-30 04:33:16.711159+00', '2024-01-30 04:33:16.711159+00', 'Test Event', 'Steps', '5c89889f-71f0-43ab-b382-b3b94c292054', '2024-01-31 00:00:00+00', '2024-02-10 00:00:00+00', 'This is a description.');
 
 
 --
@@ -150,7 +88,12 @@ INSERT INTO "public"."Events" ("EventID", "CreatedAt", "UpdatedAt", "Name", "Typ
 INSERT INTO "public"."Teams" ("TeamID", "CreatedAt", "UpdatedAt", "Name", "BelongsToEventID") VALUES
 	('0e420a5b-4bed-477f-a8f1-41a7f24b98fe', '2023-10-26 01:07:35.782847+00', '2023-10-26 01:07:35.782847+00', 'Big Steppers', '00981168-c525-466b-997c-3d8ab72a610d'),
 	('6bfb8e4d-7a52-4b42-acd9-3a56ceef1b27', '2023-10-26 01:08:05.669602+00', '2023-10-26 01:08:05.669602+00', 'Stan the Man', '00981168-c525-466b-997c-3d8ab72a610d'),
-	('eee6fd13-fc22-4269-a873-5032be404436', '2023-10-26 01:35:33.68709+00', '2023-10-26 01:35:33.68709+00', 'Walkie Talkies', '6615ed49-13c3-413d-b1f4-0be13d6bc837');
+	('eee6fd13-fc22-4269-a873-5032be404436', '2023-10-26 01:35:33.68709+00', '2023-10-26 01:35:33.68709+00', 'Walkie Talkies', '6615ed49-13c3-413d-b1f4-0be13d6bc837'),
+	('ed04c360-4482-4a49-ab0a-488b9214489a', '2023-12-27 11:03:13.920824+00', '2023-12-27 11:03:13.920824+00', 'Test Team 1', '00981168-c525-466b-997c-3d8ab72a610d'),
+	('a64bbc77-667c-43a0-b90e-ca056acb817a', '2023-12-27 11:05:34.330584+00', '2023-12-27 11:05:34.330584+00', 'Test Team 2', '00981168-c525-466b-997c-3d8ab72a610d'),
+	('58408dad-60e6-481f-9c25-1b718a199da6', '2023-12-27 11:05:44.961103+00', '2023-12-27 11:05:44.961103+00', 'Test Team 3', '00981168-c525-466b-997c-3d8ab72a610d'),
+	('795908bc-5a75-49ca-97b6-eb44393a7802', '2023-12-27 11:06:23.121269+00', '2023-12-27 11:06:23.121269+00', 'Test Team 4', '00981168-c525-466b-997c-3d8ab72a610d'),
+	('2dbbc286-3a49-441d-bc95-3097f079f75c', '2024-01-30 01:08:10.478267+00', '2024-01-30 01:08:10.478267+00', 'amy@test.com', '135f0a7e-2c35-494b-9208-e36e96bff492');
 
 
 --
@@ -175,19 +118,24 @@ INSERT INTO "public"."TeamsProfiles" ("TeamID", "ProfileID") VALUES
 	('0e420a5b-4bed-477f-a8f1-41a7f24b98fe', 'df3cb711-d4ac-418d-9ee9-83efe5a289ae'),
 	('6bfb8e4d-7a52-4b42-acd9-3a56ceef1b27', 'd708f318-0a31-43f5-addd-095c527673ed'),
 	('0e420a5b-4bed-477f-a8f1-41a7f24b98fe', 'f1c2c14d-7cb8-4a1b-9ad2-1312fed3ad2f'),
-	('eee6fd13-fc22-4269-a873-5032be404436', 'd708f318-0a31-43f5-addd-095c527673ed');
+	('eee6fd13-fc22-4269-a873-5032be404436', 'd708f318-0a31-43f5-addd-095c527673ed'),
+	('2dbbc286-3a49-441d-bc95-3097f079f75c', '5c89889f-71f0-43ab-b382-b3b94c292054');
 
 
 --
 -- Data for Name: buckets; Type: TABLE DATA; Schema: storage; Owner: supabase_storage_admin
 --
 
+INSERT INTO "storage"."buckets" ("id", "name", "owner", "created_at", "updated_at", "public", "avif_autodetection", "file_size_limit", "allowed_mime_types", "owner_id") VALUES
+	('EventAssets', 'EventAssets', NULL, '2024-01-30 04:04:01.434155+00', '2024-01-30 04:04:01.434155+00', false, false, 5242880, '{image/*}', NULL);
 
 
 --
 -- Data for Name: objects; Type: TABLE DATA; Schema: storage; Owner: supabase_storage_admin
 --
 
+INSERT INTO "storage"."objects" ("id", "bucket_id", "name", "owner", "created_at", "updated_at", "last_accessed_at", "metadata", "version", "owner_id") VALUES
+	('c0109a87-b82e-4e49-b8b9-3a5222b2bd06', 'EventAssets', 'Banners/9008d14a-5033-47c9-98f0-f4510f2e74ae', '5c89889f-71f0-43ab-b382-b3b94c292054', '2024-01-30 04:33:18.880082+00', '2024-01-30 04:33:18.880082+00', '2024-01-30 04:33:18.880082+00', '{"eTag": "\"eac1605075757e93a055a1c3834617cb\"", "size": 862598, "mimetype": "image/png", "cacheControl": "max-age=3600", "lastModified": "2024-01-30T04:33:19.000Z", "contentLength": 862598, "httpStatusCode": 200}', '7f47174e-e5eb-405d-a0f7-10837f66a7cb', '5c89889f-71f0-43ab-b382-b3b94c292054');
 
 
 --
@@ -200,7 +148,7 @@ INSERT INTO "public"."TeamsProfiles" ("TeamID", "ProfileID") VALUES
 -- Name: refresh_tokens_id_seq; Type: SEQUENCE SET; Schema: auth; Owner: supabase_auth_admin
 --
 
-SELECT pg_catalog.setval('"auth"."refresh_tokens_id_seq"', 1, false);
+SELECT pg_catalog.setval('"auth"."refresh_tokens_id_seq"', 215, true);
 
 
 --
@@ -215,6 +163,3 @@ SELECT pg_catalog.setval('"pgsodium"."key_key_id_seq"', 1, false);
 --
 
 RESET ALL;
-
--- Enable triggers
-SET session_replication_role = DEFAULT;

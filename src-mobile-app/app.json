@@ -1,16 +1,16 @@
 {
   "expo": {
-    "name": "OSUFitness",
-    "slug": "OSUFitness",
+    "name": "DamFit",
+    "slug": "damfit",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "myapp",
+    "scheme": "osu.fsf",
     "userInterfaceStyle": "automatic",
     "splash": {
-      "image": "./assets/images/splash.png",
+      "image": "./assets/images/osu_badge.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#D73F09"
     },
     "assetBundlePatterns": [
       "**/*"
@@ -34,6 +34,15 @@
     ],
     "experiments": {
       "typedRoutes": true
-    }
+    },
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "119fc5fe-3acb-4b22-845d-bda6a913a54a"
+      }
+    },
+    "owner": "traveno"
   }
 }
