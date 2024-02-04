@@ -156,7 +156,7 @@
       <!-- Left container that holds the past and ongoing events -->
       <div class = " flex flex-col h-[100%] w-[50%] ml-[0%]">
         <!-- Ongoing/Past events -->
-        <div class = "flex flex-col w-[90%] ml-[5.9%] h-full">
+        <div class = "flex flex-col w-[90%] ml-[5.9%] h-full shrink-0">
           <!-- Ongoing events Label above card -->
           <p class = "inline-block max-w-full  px-0 py-4" style="font-size: 18px; font-weight:628;">Ongoing Events</p>
           
@@ -185,7 +185,7 @@
           <!-- Past Events Label above card -->
           <p class = "inline-block max-w-full  pt-4 px-0" style="font-size: 18px; font-weight:628;">Past Events</p>
           <!-- Card container -->
-          <div class="flex flex-row w-[100%] drop-shadow-xl pt-4" style="height: 146px">
+          <div class="flex flex-row w-[100%] drop-shadow-xl pt-4 shrink-0" style="height: 146px">
             <!-- Image for card -->
             <div class = "w-[40%] flex-shrink-0 h-full">
               <img class="h-[100%] w-[100%]" style = "border-top-left-radius: 10px; border-bottom-left-radius: 10px;" src="../../aerial_3.jpg" alt="Scenery">
@@ -242,9 +242,9 @@
             <!-- Text section for card -->
             {#if relevantEvents.upcomingEvent}
             <div class="flex flex-col h-full w-[100%] card-border overflow-hidden">
-              <p class = "pt-1 px-2 font-semibold">Walktober 2023</p>
-              <p class = "pt-1 px-2" style="font-size: 12px;">From 10/01/2023 to 10/31/2023</p>
-              <p class="pt-2 px-2 overflow-hidden" style="font-size: 12px;"> {card_text}</p>
+              <p class = "pt-1 px-2 font-semibold">{relevantEvents.upcomingEvent.Name}</p>
+              <p class = "pt-1 px-2" style="font-size: 12px;">{relevantEvents.upcomingEvent.StartsAt} to {relevantEvents.upcomingEvent.EndsAt}</p>
+              <p class="pt-2 px-2 overflow-hidden" style="font-size: 12px;"> {relevantEvents.upcomingEvent.Description}</p>
             </div>
             {:else}
             <div class="flex flex-col h-full w-[100%] card-border overflow-hidden">
