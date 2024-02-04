@@ -36,7 +36,7 @@
     upcomingEvent: null,
   };
   let events: Event[] = [];
-  
+  let loading = true;
   const fetchEvents = async () => {
     try {
       
@@ -48,22 +48,27 @@
       
     } catch (error) {
       console.error('Error fetching events:', error as any);
+    }finally {
+      loading = false;
     }
   };
 
   onMount(async () => {
     await fetchEvents();
-    console.log("Events are fetched ");
     events.forEach(event => {
-      console.log("Event status checking")
       determineEventStatus(event,event.StartsAt, event.EndsAt);
-      console.log("Event status checked")
+      event.Description = trimDescription(event.Description);
     });
     console.log("Relevant events: ", relevantEvents);
 
   });
   
-
+  function trimDescription(description: string) {
+    if (description.length > 140) {
+      return description.slice(0, 140) + "...";
+    }
+    return description;
+  }
 
   // This function takes in the start and end date of an event and determines if it is ongoing, upcoming, or past
   function determineEventStatus(event : Event, startDate: string, endDate: string) {
@@ -103,11 +108,19 @@
 
 <Layout>
 
-<div class = "flex-1 ml-[16%]">
   <!-- Cotnainer for all entities to the right of the navbar -->
-  <div class="flex flex-col w-[100%] h-[100%]">
+  {#if loading}
+    <div role="status">
+      <svg aria-hidden="true" class="ml-[55%] mt-[10%] inline w-10 h-10 text-gray-200 animate-spin dark:text-gray-600 fill-beaver-orange" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="currentColor"/>
+          <path d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z" fill="currentFill"/>
+      </svg>
+      <span class="sr-only">Loading...</span>
+    </div>
+  {:else}
+  <div class="flex flex-col w-[80%] h-full ml-[16%]">
     <!-- Top container that holds searchbar, "Events", search icon, and the create event button -->
-    <div class="flex flex-row w-[90%] h-[10%] ml-[5%]">
+    <div class="flex flex-row ml-[5%]">
       <p class = "flex event-word ml-[3%]" style="margin-top:36px">Events</p>
       <!-- Searchbar -->
       <form class = "relative ml-16">   
@@ -141,54 +154,73 @@
     <div class="flex flex-row h-[80%] w-[90%] ml-[5%] mt-[1.3%]">
 
       <!-- Left container that holds the past and ongoing events -->
-      <div class = "flex flex-col h-[100%] w-[50%]  ml-[0%]">
+      <div class = " flex flex-col h-[100%] w-[50%] ml-[0%]">
         <!-- Ongoing/Past events -->
         <div class = "flex flex-col w-[90%] ml-[5.9%] h-full">
           <!-- Ongoing events Label above card -->
           <p class = "inline-block max-w-full  px-0 py-4" style="font-size: 18px; font-weight:628;">Ongoing Events</p>
-          <!-- Card container -->
-          <div class="flex flex-row h-80 w-[100%] drop-shadow-xl flex-grow-0">
-            <!-- Image for card -->
-            <div class = "w-[40%] h-full flex-shrink-0">
-              <img class="h-[100%] w-[100%]" style = "border-top-left-radius: 10px; border-bottom-left-radius: 10px;" src="../../aerial_2.jpg" alt="Scenery">
+          
+            <!-- Card container -->
+            <div class="flex flex-row w-[100%] drop-shadow-xl" style="height: 146px">
+              <!-- Image for card -->
+              <div class = "w-[40%] h-full flex-shrink-0">
+                <img class="h-[100%] w-[100%]" style = "border-top-left-radius: 10px; border-bottom-left-radius: 10px;" src="../../aerial_2.jpg" alt="Scenery">
+              </div>
+              {#if relevantEvents.ongoingEvent}
+              <!-- Text section for card -->
+              <div class="flex flex-col h-full w-[100%] card-border flex-grow-0 overflow-hidden">
+                <p class = "pt-1 px-2 font-semibold">{relevantEvents.ongoingEvent?.Name}</p>
+                <p class = "pt-1 px-2" style="font-size: 12px;">{relevantEvents.ongoingEvent?.StartsAt} to {relevantEvents.ongoingEvent?.EndsAt}</p>
+                <p class="pt-2 px-2 overflow-hidden" style="font-size: 12px;"> {relevantEvents.ongoingEvent?.Description}</p>
+              </div>
+
+              {:else}
+              <div class="flex flex-col h-full w-[100%] card-border flex-grow-0 overflow-hidden">
+                <p class = "pt-1 px-2 font-semibold">Empty</p>
+              </div>
+              {/if}
             </div>
-            <!-- Text section for card -->
-            <div class="flex flex-col h-full w-[100%] card-border flex-grow-0 overflow-hidden">
-              <p class = "pt-1 px-2 font-semibold">{relevantEvents.ongoingEvent?.Name}</p>
-              <p class = "pt-1 px-2" style="font-size: 12px;">{relevantEvents.ongoingEvent?.StartsAt} to {relevantEvents.ongoingEvent?.EndsAt}</p>
-              <p class="pt-2 px-2 overflow-hidden" style="font-size: 12px;"> {relevantEvents.ongoingEvent?.Description}</p>
-            </div>
-          </div>
-        
+          
           
           <!-- Past Events Label above card -->
           <p class = "inline-block max-w-full  pt-4 px-0" style="font-size: 18px; font-weight:628;">Past Events</p>
           <!-- Card container -->
-          <div class="flex flex-row h-80 w-[100%] drop-shadow-xl flex-grow-0 pt-4">
+          <div class="flex flex-row w-[100%] drop-shadow-xl pt-4" style="height: 146px">
             <!-- Image for card -->
             <div class = "w-[40%] flex-shrink-0 h-full">
               <img class="h-[100%] w-[100%]" style = "border-top-left-radius: 10px; border-bottom-left-radius: 10px;" src="../../aerial_3.jpg" alt="Scenery">
             </div>
             <!-- Text section for card -->
+            {#if relevantEvents.pastEvents[0]}
             <div class="flex flex-col h-full w-[100%] card-border flex-grow-0 overflow-hidden">
-              <p class = "pt-1 px-2 font-semibold">Walktober 2023</p>
-              <p class = "pt-1 px-2" style="font-size: 12px;">From 10/01/2023 to 10/31/2023</p>
-              <p class="pt-2 px-2 overflow-hidden" style="font-size: 12px;"> {card_text}</p>
+              <p class = "pt-1 px-2 font-semibold">{relevantEvents.pastEvents[0].Name}</p>
+              <p class = "pt-1 px-2" style="font-size: 12px;">From {relevantEvents.pastEvents[0].StartsAt} to {relevantEvents.pastEvents[0].EndsAt}</p>
+              <p class="pt-2 px-2 overflow-hidden" style="font-size: 12px;"> {relevantEvents.pastEvents[0].Description}</p>
             </div>
+            {:else}
+            <div class="flex flex-col h-full w-[100%] card-border flex-grow-0 overflow-hidden">
+              <p class = "pt-1 px-2 font-semibold">Empty</p>
+            </div>
+            {/if}
           </div>
           <!-- Second card in past events -->
-          <div class="flex flex-row h-80 w-[100%] drop-shadow-xl flex-grow-0 mt-2">
+          <div class="flex flex-row w-[100%] drop-shadow-xl flex-grow-0 mt-2" style="height: 146px">
             <!-- Image for card -->
             <div class = "w-[40%] h-[100%] flex-shrink-0">
               <img class="h-[100%] w-[100%]" style = "border-top-left-radius: 10px; border-bottom-left-radius: 10px;" src="../../aerial_shot.jpg" alt="Scenery">
             </div>
             <!-- Text section for card -->
+            {#if relevantEvents.pastEvents[1]}
             <div class="flex flex-col h-[100%] w-[100%] card-border flex-grow-0 overflow-hidden">
-              <p class = "pt-1 px-2 font-semibold">Walktober 2023</p>
-              <p class = "pt-1 px-2" style="font-size: 12px;">From 10/01/2023 to 10/31/2023</p>
-              <p class="pt-2 px-2 overflow-hidden" style="font-size: 12px;"> {card_text}</p>
+              <p class = "pt-1 px-2 font-semibold">{relevantEvents.pastEvents[1].Name}</p>
+              <p class = "pt-1 px-2" style="font-size: 12px;">From {relevantEvents.pastEvents[0].StartsAt} to {relevantEvents.pastEvents[0].EndsAt}</p>
+              <p class="pt-2 px-2 overflow-hidden" style="font-size: 12px;"> {relevantEvents.pastEvents[0].Description}</p>
             </div>
-            
+            {:else}
+            <div class="flex flex-col h-full w-[100%] card-border flex-grow-0 overflow-hidden">
+              <p class = "pt-1 px-2 font-semibold">Empty</p>
+            </div>
+            {/if}
   
           </div>
         
@@ -196,49 +228,43 @@
       </div>
       
       <!-- Right container that holds upcoming events  -->
-      <div class="flex flex-col w-[50%] h-[100%]">
+      <div class="flex flex-col w-[45%]">
         <!-- Ongoing events container -->
-        <div class = "flex flex-col w-[90%] h-[64.5%]  ml-[5.9%] flex-grow-0">
+        <div class = "flex flex-col  ml-[5.9%]">
           <!-- Ongoing events Label above card -->
           <p class = "inline-block max-w-full  px-0 py-4" style="font-size: 18px; font-weight:628;">Upcoming Events</p>
           <!-- Card container -->
-          <div class="flex flex-row h-80 w-[100%] drop-shadow-xl flex-grow-0">
+          <div class="flex flex-row w-[100%] drop-shadow-xl" style="height: 146px">
             <!-- Image for card -->
             <div class = "w-[40%] flex-shrink-0 h-full">
               <img class="h-[100%] w-[100%]" style = "border-top-left-radius: 10px; border-bottom-left-radius: 10px;" src="../../aerial_4.jpg" alt="Scenery">
             </div>
             <!-- Text section for card -->
-            <div class="flex flex-col h-full w-[100%] card-border flex-grow-0 overflow-hidden">
+            {#if relevantEvents.upcomingEvent}
+            <div class="flex flex-col h-full w-[100%] card-border overflow-hidden">
               <p class = "pt-1 px-2 font-semibold">Walktober 2023</p>
               <p class = "pt-1 px-2" style="font-size: 12px;">From 10/01/2023 to 10/31/2023</p>
               <p class="pt-2 px-2 overflow-hidden" style="font-size: 12px;"> {card_text}</p>
             </div>
+            {:else}
+            <div class="flex flex-col h-full w-[100%] card-border overflow-hidden">
+              <p class = "pt-1 px-2 font-semibold">Empty</p>
+            </div>
+            {/if}
           </div>
           <!-- Second card in ongoing events -->
-          <div class="flex flex-row h-80 w-[100%] drop-shadow-xl flex-grow-0 mt-2">
-            <!-- Image for card -->
-            <div class = "w-[40%] h-full flex-shrink-0">
-              <img class="h-[100%] w-[100%]" style = "border-top-left-radius: 10px; border-bottom-left-radius: 10px;" src="../../aerial_5.jpg" alt="Scenery">
-            </div>
-            <!-- Text section for card -->
-            <div class="flex flex-col h-full w-[100%] card-border flex-grow-0 overflow-hidden">
-              <p class = "pt-1 px-2 font-semibold">Walktober 2023</p>
-              <p class = "pt-1 px-2" style="font-size: 12px;">From 10/01/2023 to 10/31/2023</p>
-              <p class="pt-2 px-2 overflow-hidden" style="font-size: 12px;"> {card_text}</p>
-            </div>
-            
-          </div>
+          
         </div>
       </div>
       
     </div>
   </div>
-  
+  {/if}
 
 
 
 
-</div>
+
   
   
 </Layout>
