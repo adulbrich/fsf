@@ -7,15 +7,10 @@
   import {fail, redirect } from '@sveltejs/kit'
   let { supabase } = data;
   $: ({ supabase } = data);
-  let card_text = "Walktober is your chance to embrace the beauty of autumn while taking strides toward a healthier you. Join us in October for a month of enjoyable walks, scenic hikes, and the camaraderie of fellow...";
-  let char_lim = 140;
-  $: card_text = card_text.length > char_lim
-    ? card_text.slice(0, char_lim) + '...'
-    : card_text;
   
   
   
-
+  // Blue print for the event object
   interface Event {
     Name: string;
     Type: string;
@@ -25,22 +20,27 @@
     Description: string;
 
   }
+  // Blue print for the relevant events object
   interface RelevantEvents {
     pastEvents: Event[];
     ongoingEvent: Event | null;
     upcomingEvent: Event | null;
   }
+  // Object that holds the relevant events for the event page
   let relevantEvents : RelevantEvents = {
     pastEvents: [],
     ongoingEvent: null,
     upcomingEvent: null,
   };
-  let events: Event[] = [];
-  let loading = true;
+  
+  let events: Event[] = [];  // Array that holds all the events
+  let loading = true; // Boolean that determines if the page is still loading
+  
+  // Function that fetches all the events from the database
   const fetchEvents = async () => {
     try {
       
-      const { data, error } = await supabase.from('Events').select('*');
+      const { data, error } = await supabase.from('Events').select('*'); //Selects all  rows from the Events table
       if (error) throw error;
       events = data;
       console.log("events: ", events)
@@ -49,20 +49,22 @@
     } catch (error) {
       console.error('Error fetching events:', error as any);
     }finally {
-      loading = false;
+      loading = false; // Set loading to false after fetching the events
     }
   };
 
+  // thie runs after the component firt renders in the DOM
   onMount(async () => {
-    await fetchEvents();
+    await fetchEvents(); // Fetch all the events but wait for function to finish before continuing
+    
     events.forEach(event => {
-      determineEventStatus(event,event.StartsAt, event.EndsAt);
-      event.Description = trimDescription(event.Description);
+      determineEventStatus(event,event.StartsAt, event.EndsAt); // Determine the status of each event based on dates
+      event.Description = trimDescription(event.Description); // Trim the description of each event
     });
     console.log("Relevant events: ", relevantEvents);
 
   });
-  
+  // This function trims the description of an event to 140 characters
   function trimDescription(description: string) {
     if (description.length > 140) {
       return description.slice(0, 140) + "...";
@@ -74,21 +76,22 @@
   function determineEventStatus(event : Event, startDate: string, endDate: string) {
     const date = new Date();
     
-    startDate = startDate.split('T')[0];
+    startDate = startDate.split('T')[0]; // Split the date and time and only take the date
     endDate = endDate.split('T')[0];
+    
     event.StartsAt = startDate;
     event.EndsAt = endDate;
-    const startDateObj  = new Date(startDate);
+
+    const startDateObj  = new Date(startDate); // Convert the date string to a date object
     const endDateObj = new Date(endDate);
-    console.log("Start date: ", startDateObj);
-    console.log("End date: ", endDateObj);
-    if (startDateObj <= date && endDateObj >= date) {
+    
+    if (startDateObj <= date && endDateObj >= date) { // If the start date is less than or equal to the current date and the end date is greater than or equal to the current date, then the event is ongoing
       relevantEvents.ongoingEvent = event;
       event.Status = "Ongoing";
-    } else if (startDateObj > date) {
+    } else if (startDateObj > date) { // If the start date is greater than the current date, then the event is upcoming
       relevantEvents.upcomingEvent = event;
       event.Status = "Upcoming";
-    } else {
+    } else { // If the start date is less than the current date and the end date is less than the current date, then the event is past
       relevantEvents.pastEvents.push(event);
       event.Status = "Past";
     }
@@ -107,7 +110,7 @@
 </svelte:head>
 <Layout>
 
-  <!-- Cotnainer for all entities to the right of the navbar -->
+  <!-- If loading is true, then display the spinner -->
   {#if loading}
     <div role="status">
       <svg aria-hidden="true" class="ml-[55%] mt-[10%] inline w-10 h-10 text-gray-200 animate-spin dark:text-gray-600 fill-beaver-orange" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -117,6 +120,8 @@
       <span class="sr-only">Loading...</span>
     </div>
   {:else}
+  
+  <!-- If finished loading, dipsplay the page -->
   <div class="flex flex-col w-[80%] h-full ml-[16%]">
     <!-- Top container that holds searchbar, "Events", search icon, and the create event button -->
     <div class="flex flex-row ml-[5%]">
