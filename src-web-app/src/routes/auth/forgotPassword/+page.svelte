@@ -10,7 +10,7 @@
     $: sendEmailDisabled = email === '' || actionSubmitted;
 
     // Page data and form data
-    // export let form;
+    export let form;
     export let data;
     let { supabase } = data;
     $: ({ supabase } = data);

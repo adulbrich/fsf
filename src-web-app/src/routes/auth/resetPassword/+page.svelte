@@ -77,6 +77,12 @@
                 />
             </div>
 
+            <!-- retrieve the token -->
+            <!-- <input type="hidden" name="token" value={token} />
+            {#if form?.errors?.token}
+                <span class="text-red-500">{form?.errors?.token[0]}</span>
+            {/if} -->
+
             <button type="submit" >Send</button>
 
 
@@ -100,7 +106,9 @@
         -->
 
         </form> 
-
+        
+        <!-- Verification for success/unsuccessful password change  -->
+<!-- 
     {#if form && form.success === true }
         <div class="bg-green-300 p-2">
             <p>Your password was changed.</p>
@@ -111,7 +119,7 @@
         <div class="bg-red-300 p-2">
             <p>Could not change password.</p>
         </div>
-    {/if}
+    {/if} -->
 
     </div>
 </div>
