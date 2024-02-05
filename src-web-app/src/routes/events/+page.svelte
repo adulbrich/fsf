@@ -190,6 +190,8 @@
 
 <svelte:head>
   <title>Events | DamFit</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.css" rel="stylesheet" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.js"></script>
 </svelte:head>
 <Layout>
 
@@ -201,7 +203,9 @@
           <path d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z" fill="currentFill"/>
       </svg>
       <span class="sr-only">Loading...</span>
+      
     </div>
+    
   {:else}
   
   <!-- If finished loading, dipsplay the page -->
@@ -246,7 +250,16 @@
         <!-- Ongoing/Past events -->
         <div class = "flex flex-col w-[90%] ml-[5.9%] h-full shrink-0">
           <!-- Ongoing events Label above card -->
-          <p class = "inline-block max-w-full  px-0 py-4" style="font-size: 18px; font-weight:628;">Ongoing Events</p>
+          <div class="flex flex-row">
+            <p class = "inline-block max-w-full  px-0 py-4" style="font-size: 18px; font-weight:628;">Ongoing Events</p>
+            <a href="/events/moreEvents">
+              <button type="button" style="background-color: light-black; font-size: 10px;" class="mt-[14%] ml-[9%] flex items-center justify-center text-white h-6 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 rounded-full text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">
+                More
+              </button>
+            </a>
+            
+          </div>
+          
           
             <!-- Card container -->
             <div class="flex flex-row w-[100%] drop-shadow-xl" style="height: 146px">
