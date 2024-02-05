@@ -4,11 +4,9 @@
   import { onMount } from 'svelte';
   import Layout from '../banner-layout.svelte'
   export let data;
-  import {fail, redirect } from '@sveltejs/kit'
+  import { setContext } from 'svelte';
   let { supabase } = data;
   $: ({ supabase } = data);
-  
-  
   
   // Blue print for the event object
   interface Event {
@@ -20,6 +18,10 @@
     Description: string;
 
   }
+  let events: Event[] = [];  // Array that holds all the events
+  
+  let num = '5';
+  setContext('num', num);
   // Blue print for the relevant events object
   interface RelevantEvents {
     pastEvents: Event[];
@@ -33,7 +35,7 @@
     upcomingEvent: null,
   };
   
-  let events: Event[] = [];  // Array that holds all the events
+  
   let loading = true; // Boolean that determines if the page is still loading
   
   // Function that fetches all the events from the database
@@ -96,19 +98,20 @@
       event.Status = "Past";
     }
   
-    
+    function goToEventList(){
+      const myVariable = '5';
+      goto('/events/moreEvents', { state: { myVariable } });
+    }
     
   }
 
-  
+   
     
   
 </script>
 
 <svelte:head>
   <title>Events | DamFit</title>
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.css" rel="stylesheet" />
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.js"></script>
 </svelte:head>
 <Layout>
 
@@ -169,7 +172,7 @@
           <div class="flex flex-row">
             <p class = "inline-block max-w-full  px-0 py-4" style="font-size: 18px; font-weight:628;">Ongoing Events</p>
             <a href="/events/moreEvents">
-              <button type="button" style="background-color: light-black; font-size: 10px;" class="mt-[14%] ml-[9%] flex items-center justify-center text-white h-6 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 rounded-full text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">
+              <button style = "font-size: 10px" class="flex items-center bg-light-black mt-[32%] ml-[20%] h-6 hover:bg-dark-black text-white py-2 px-4 rounded-full">
                 More
               </button>
             </a>
@@ -200,7 +203,14 @@
           
           
           <!-- Past Events Label above card -->
-          <p class = "inline-block max-w-full  pt-4 px-0" style="font-size: 18px; font-weight:628;">Past Events</p>
+          <div class="flex flex-row">
+            <p class = "inline-block max-w-full  pt-4 px-0" style="font-size: 18px; font-weight:628;">Past Events</p>
+            
+            <button style = "font-size: 10px" class="flex items-center bg-light-black mt-[3.7%] ml-[3%] h-6 hover:bg-dark-black text-white py-2 px-4 rounded-full">
+                More
+              </button>
+            
+          </div>
           <!-- Card container -->
           <div class="flex flex-row w-[100%] drop-shadow-xl pt-4 shrink-0" style="height: 146px">
             <!-- Image for card -->
@@ -230,8 +240,8 @@
             {#if relevantEvents.pastEvents[1]}
             <div class="flex flex-col h-[100%] w-[100%] card-border flex-grow-0 overflow-hidden">
               <p class = "pt-1 px-2 font-semibold">{relevantEvents.pastEvents[1].Name}</p>
-              <p class = "pt-1 px-2" style="font-size: 12px;">From {relevantEvents.pastEvents[0].StartsAt} to {relevantEvents.pastEvents[0].EndsAt}</p>
-              <p class="pt-2 px-2 overflow-hidden" style="font-size: 12px;"> {relevantEvents.pastEvents[0].Description}</p>
+              <p class = "pt-1 px-2" style="font-size: 12px;">From {relevantEvents.pastEvents[1].StartsAt} to {relevantEvents.pastEvents[1].EndsAt}</p>
+              <p class="pt-2 px-2 overflow-hidden" style="font-size: 12px;"> {relevantEvents.pastEvents[1].Description}</p>
             </div>
             {:else}
             <div class="flex flex-col h-full w-[100%] card-border flex-grow-0 overflow-hidden">
@@ -249,7 +259,15 @@
         <!-- Ongoing events container -->
         <div class = "flex flex-col  ml-[5.9%]">
           <!-- Ongoing events Label above card -->
-          <p class = "inline-block max-w-full  px-0 py-4" style="font-size: 18px; font-weight:628;">Upcoming Events</p>
+          <div class="flex flex-row">
+            <p class = "inline-block max-w-full  px-0 py-4" style="font-size: 18px; font-weight:628;">Upcoming Events</p>
+            <a href="/events/moreEvents">
+              <button style = "font-size: 10px" class="flex items-center bg-light-black mt-[32%] ml-[20%] h-6 hover:bg-dark-black text-white py-2 px-4 rounded-full">
+                More
+              </button>
+            </a>
+          </div>
+          
           <!-- Card container -->
           <div class="flex flex-row w-[100%] drop-shadow-xl" style="height: 146px">
             <!-- Image for card -->
@@ -316,4 +334,11 @@
   .light-black {
     background-color: theme('colors.light-black');
   }
+<<<<<<< HEAD
 </style>
+=======
+  .custom-border {
+  border: 2px solid black;
+}
+</style>
+>>>>>>> 119ff6d (Building moreEvents page)
