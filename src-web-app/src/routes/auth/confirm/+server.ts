@@ -16,22 +16,22 @@ export const GET = async (event) => {
   }
 
   // redirect user to password reset page (after receiving email)
-  if (token_hash) {
-    const { error } = await supabase.auth.resetPasswordForEmail('', {
-      redirectTo: `/resetPassword`
-    });
-    if (!error) {
-      throw redirect(303, `/${next.slice(1)}`);
-    }
-  }
+  // if (token_hash) {
+  //   const { data, error } = await supabase.auth.resetPasswordForEmail('', {
+  //     redirectTo: `localhost:5137/auth/resetPassword`
+  //   });
+  //   if (!error) {
+  //     throw redirect(303, `/${next.slice(1)}`);
+  //   }
+  // }
 
-  // update user's password
-  if (token_hash) {
-    const { error } = await supabase.auth.updateUser({ password: new_password});
-    if (!error) {
-      throw redirect(303, `/${next.slice(1)}`);
-    }
-  }
+  // // update user's password
+  // if (token_hash) {
+  //   const { error } = await supabase.auth.updateUser({ password: new_password});
+  //   if (!error) {
+  //     throw redirect(303, `/${next.slice(1)}`);
+  //   }
+  // }
 
   // return the user to an error page with some instructions
   throw redirect(303, '/auth/auth-code-error');

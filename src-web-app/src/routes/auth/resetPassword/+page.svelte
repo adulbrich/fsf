@@ -1,5 +1,6 @@
 <script lang="ts">
     import { applyAction, enhance } from '$app/forms';
+    import { page } from '$app/stores';
     import { fade } from 'svelte/transition';
     import osuLogo from '$lib/images/OSU_horizontal_2C_O_over_B.png';
     import { afterNavigate, goto, invalidateAll } from '$app/navigation';
@@ -12,22 +13,19 @@
     $: sendEmailDisabled = email === '' || actionSubmitted;
 
     // Page data and form data
-    // export let form;
+    export let form;
+    const { url } = $page;
+    const { searchParams } = url;
+
+    const token = searchParams.get('token');
+
     export let data;
     let { supabase } = data;
     $: ({ supabase } = data);
 
     // Auth form user
     let emailRef: HTMLInputElement | undefined;
-    
-    function getFormValue(form: FormData, id: string) {
-    return form.get(id) as string;
-  }
 
-    const handleSignOut = async () => {
-        await supabase.auth.signOut();
-        goto('/');
-    }
 </script>
 
 <svelte:head>
@@ -56,57 +54,13 @@
         <form
         class="flex flex-col gap-4 p-8"
         method="post"
-        use:enhance={({ formData }) => {
-            // Disable form submission for now
-            actionSubmitted = true;
-            return async ({ update, result }) => {
-                // Act based on the result type
-                switch (result.type) {
-                    case 'redirect':
-                        // If the form returns with a redirect (shouldn't happen) we handle it
-                        goto(result.location);
-                        break;
-                    case 'success':
-                        // Call invalidateAll(), which triggers a new page load
-                        // The load function in +page.server.ts will throw a redirect
-                        // to /events because a session now exists!
-                        invalidateAll();
-                        break;
-                    default:
-                        // This is for 'failure' and other types
-                        // If you don't add a timeout, immediately trying to focus the password element breaks stuff.
-                        // This is an ugly hack, I know.
-                        // Reference: https://github.com/sveltejs/kit/issues/8439
-                        // BONUS: Prevents auth spamming
-                        setTimeout(() => refocus(), 500);
-                }
-
-                // Define our refocus function which is explained above
-                const refocus = async () => {
-                    // Update our form data variable
-                    await applyAction(result);
-
-                    // Reset form values
-                    email = getFormValue(formData, 'email') || '';
-
-                    // Allow the form to be submitted again
-                    actionSubmitted = false;
-
-                    // // Issue a toast!
-                    // if (form && !form.success && form.errorMessage)
-                    //     toast.error(form.errorMessage);
-
-                }
-            }
-            }
-        }>
+        action="?/resetPassword"
+        use:enhance
+        >
             <!-- Prompt for NEW PASSWORD  -->
             <div class="flex flex-col gap-2">
                 <label for="email" class="text-gray-500 font-medium text-sm"> NEW PASSWORD</label>
                 <input
-                bind:this={emailRef}
-                bind:value="{email}"
-                disabled={actionSubmitted}
                 name="new_password"
                 autocomplete="new_password"
                 class="ring-1 ring-black/10 rounded outline-none focus:ring-2 focus:ring-orange-400 transition-all ease-in-out px-3 h-10"
@@ -117,22 +71,21 @@
             <div class="flex flex-col gap-2">
                 <label for="email" class="text-gray-500 font-medium text-sm">CONFIRM PASSWORD</label>
                 <input
-                bind:this={emailRef}
-                bind:value="{email}"
-                disabled={actionSubmitted}
                 name="reconfirm_password"
                 autocomplete="reconfirm_password"
                 class="ring-1 ring-black/10 rounded outline-none focus:ring-2 focus:ring-orange-400 transition-all ease-in-out px-3 h-10"
                 />
             </div>
 
+            <button type="submit" >Send</button>
+
 
             <!-- Send email button -->
+           <!-- 
             <button
                 class="flex justify-center items-center text-white disabled:text-gray-300 ring-1 ring-orange-400/75 disabled:ring-0 bg-orange-400 hover:bg-orange-500 disabled:bg-gray-100 transition-all ease-in-out disabled:cursor-not-allowed h-10 w-32 mt-4 rounded"
                 disabled={sendEmailDisabled}
                 >
-                <!-- Conditional that shows a spinner IF we are processing a sign in request -->
                 {#if actionSubmitted}
                 <div class="absolute" in:fade={{ delay: 50 , duration: 50  }} out:fade={{ duration: 50 }}>
                     <svg class="animate-spin w-6 h-6 text-orange-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
@@ -143,8 +96,22 @@
                 {:else}
                 <span in:fade={{ delay: 50 , duration: 50  }} out:fade={{ duration: 50 }} class="absolute text-md font-bold">Reset Password</span>
                 {/if}
-            </button>
+            </button> 
+        -->
+
         </form> 
+
+    {#if form && form.success === true }
+        <div class="bg-green-300 p-2">
+            <p>Your password was changed.</p>
+        </div>
+    {/if}
+
+    {#if form && form.success === false }
+        <div class="bg-red-300 p-2">
+            <p>Could not change password.</p>
+        </div>
+    {/if}
 
     </div>
 </div>

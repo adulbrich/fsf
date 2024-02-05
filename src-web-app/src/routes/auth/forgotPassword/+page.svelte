@@ -3,9 +3,7 @@
     import { fade } from 'svelte/transition';
     import osuLogo from '$lib/images/OSU_horizontal_2C_O_over_B.png';
     import { afterNavigate, goto, invalidateAll } from '$app/navigation';
-    import toast from 'svelte-french-toast';
-    import { tick } from 'svelte';
-
+ 
     // Variables related to the auth form
     let email: string = '';
     let actionSubmitted: boolean = false;
@@ -59,48 +57,10 @@
         use:enhance={({ formData }) => {
             // Disable form submission for now
             actionSubmitted = true;
-            return async ({ update, result }) => {
-                // Act based on the result type
-                switch (result.type) {
-                    case 'redirect':
-                        // If the form returns with a redirect (shouldn't happen) we handle it
-                        goto(result.location);
-                        break;
-                    case 'success':
-                        // Call invalidateAll(), which triggers a new page load
-                        // The load function in +page.server.ts will throw a redirect
-                        // to /events because a session now exists!
-                        invalidateAll();
-                        break;
-                    default:
-                        // This is for 'failure' and other types
-                        // If you don't add a timeout, immediately trying to focus the password element breaks stuff.
-                        // This is an ugly hack, I know.
-                        // Reference: https://github.com/sveltejs/kit/issues/8439
-                        // BONUS: Prevents auth spamming
-                        setTimeout(() => refocus(), 500);
-                }
-
-                // Define our refocus function which is explained above
-                const refocus = async () => {
-                    // Update our form data variable
-                    await applyAction(result);
-
-                    // Reset form values
-                    email = getFormValue(formData, 'email') || '';
-
-                    // Allow the form to be submitted again
-                    actionSubmitted = false;
-
-                    // // Issue a toast!
-                    // if (form && !form.success && form.errorMessage)
-                    //     toast.error(form.errorMessage);
-
-                }
+            
             }
             }
-        }>
-            <!-- Prompt for email to send reset link  -->
+        >   <!-- Prompt for email to send reset link  -->
             <div class="flex flex-col gap-2">
                 <label for="email" class="text-gray-500 font-medium text-sm">EMAIL</label>
                 <input
