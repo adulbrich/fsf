@@ -65,7 +65,7 @@ export default function EventDetails() {
         </XStack>
 
         <YStack width={'100%'}>
-          <Button onPress={registerCallback}>Register</Button>
+          <Button bg={'#eb7434'} color={'white'} onPress={registerCallback}>Register</Button>
         </YStack>
 
         <YStack gap={'$4'}>
