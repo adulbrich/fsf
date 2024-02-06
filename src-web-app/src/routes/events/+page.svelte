@@ -181,7 +181,8 @@
           
           
             <!-- Card container -->
-            <div class="flex flex-row w-[100%] drop-shadow-xl" style="height: 146px">
+            <a href="/events/detailEvent">
+              <div class="flex flex-row w-[100%] drop-shadow-xl" style="height: 146px">
               <!-- Image for card -->
               <div class = "w-[40%] h-full flex-shrink-0">
                 <img class="h-[100%] w-[100%]" style = "border-top-left-radius: 10px; border-bottom-left-radius: 10px;" src="../../aerial_2.jpg" alt="Scenery">
@@ -200,15 +201,19 @@
               </div>
               {/if}
             </div>
+            </a>
+            
           
           
           <!-- Past Events Label above card -->
           <div class="flex flex-row">
             <p class = "inline-block max-w-full  pt-4 px-0" style="font-size: 18px; font-weight:628;">Past Events</p>
             
-            <button style = "font-size: 10px" class="flex items-center bg-light-black mt-[3.7%] ml-[3%] h-6 hover:bg-dark-black text-white py-2 px-4 rounded-full">
+            <button style = "font-size: 10px" class="flex items-center bg-light-black mt-[3.7%] ml-[2%] h-6 hover:bg-dark-black text-white py-2 px-4 rounded-full">
+              <a href="/events/moreEvents" class="flex items-center text-white">
                 More
-              </button>
+              </a>
+            </button>
             
           </div>
           <!-- Card container -->
@@ -283,7 +288,7 @@
             </div>
             {:else}
             <div class="flex flex-col h-full w-[100%] card-border overflow-hidden">
-              <p class = "pt-1 px-2 font-semibold">Empty</p>
+              <p class = "pt-1 px-2 font-semibold">No Upcoming Events</p>
             </div>
             {/if}
           </div>
