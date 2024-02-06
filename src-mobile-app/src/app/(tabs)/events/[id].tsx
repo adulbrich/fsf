@@ -6,11 +6,13 @@ import { useLocalSearchParams, Stack } from "expo-router";
 import { YStack, XStack, H3, Image, Text, Button, useTheme } from "tamagui";
 import { getDateString } from "../../../lib/helpers";
 import { SBEvent, SBTeamStats } from "../../../lib/supabase-types";
-import { useTypedSelector } from "../../../store/store";
+import { useTypedDispatch, useTypedSelector } from "../../../store/store";
 import { Text as RN_Text } from "react-native";
+import { setActiveEvent } from "../../../store/eventsSlice";
 
 export default function EventDetails() {
-  const theme = useTheme();  
+  const theme = useTheme();
+  const dispatch = useTypedDispatch();
 
   const slugEventID = useLocalSearchParams().id;
   const event = useTypedSelector<SBEvent[]>(store => store.eventsSlice.events)
@@ -27,41 +29,9 @@ export default function EventDetails() {
     require('../../../../assets/images/preview_wide.jpg')
   ]);
 
-  const joinEventCallback = React.useCallback(() => {
-    const joinEvent = async () => {
-      const createTeamResult = await supabase
-        .from('Teams')
-        .upsert({
-          Name: session!.user.email!,
-          BelongsToEventID: event!.EventID
-        })
-        .select()
-        .single();
-
-      if (createTeamResult.error) {
-        console.log(createTeamResult.error);
-        return;
-      }
-
-      const joinTeamResult = await supabase
-        .from('TeamsProfiles')
-        .upsert({
-          ProfileID: session!.user.id,
-          TeamID: createTeamResult.data.TeamID
-        })
-        .select()
-        .single();
-
-      if (joinTeamResult.error) {
-        console.log(joinTeamResult.error);
-        return;
-      }
-
-      console.log('Joined Event');
-    }
-
-    joinEvent();
-  }, [session, event])
+  const registerCallback = React.useCallback(() => {
+    dispatch(setActiveEvent(event));
+  }, [session, event]);
 
   if (!event || !assets) return null;
 
@@ -96,7 +66,7 @@ export default function EventDetails() {
         </XStack>
 
         <YStack width={'100%'}>
-          <Button onPress={joinEventCallback}>Register</Button>
+          <Button onPress={registerCallback}>Register</Button>
         </YStack>
 
         <YStack gap={'$4'}>
