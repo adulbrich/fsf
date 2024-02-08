@@ -1,16 +1,23 @@
 import { Stack, useLocalSearchParams } from "expo-router";
-import { useEffect } from "react";
-import { H3, YStack, Image, XStack, Text, View } from "tamagui";
+import { H3, YStack, Image, XStack, Text, Button, useTheme } from "tamagui";
 import { Text as RN_Text } from 'react-native';
-import { useTypedSelector } from "../../../store/store";
+import { useTypedDispatch, useTypedSelector } from "../../../store/store";
 import { SBEvent, SBTeamStats } from "../../../lib/supabase-types";
 import { useAssets } from "expo-asset";
 import { getDateString } from "../../../lib/helpers";
+import { useAuth } from "../../../lib/supabase";
+import React from "react";
+import { setActiveEvent } from "../../../store/eventsSlice";
 
 export default function EventDetails() {
+  const theme = useTheme();
+  const dispatch = useTypedDispatch();
+
   const slugEventID = useLocalSearchParams().id;
   const event = useTypedSelector<SBEvent[]>(store => store.eventsSlice.events)
     .find(ev => ev.EventID === slugEventID);
+
+  const { user, session } = useAuth();
 
   const teamStats = useTypedSelector<SBTeamStats[]>(store => store.teamStatsSlice.teamStats)
     .filter(ts => ts.BelongsToEventID === slugEventID)
@@ -21,6 +28,10 @@ export default function EventDetails() {
     require('../../../../assets/images/preview_wide.jpg')
   ]);
 
+  const registerCallback = React.useCallback(() => {
+    dispatch(setActiveEvent(event));
+  }, [session, event]);
+
   if (!event || !assets) return null;
 
   return (
@@ -29,12 +40,16 @@ export default function EventDetails() {
         options={{
           title: event.Name,
           headerShown: true,
-          headerBackTitle: 'Events'
+          headerBackTitle: 'Events',
+          headerStyle: {
+            backgroundColor: theme.background.get()
+          },
         }}
         />
-      <YStack flex={1} justifyContent="flex-start" alignItems="flex-start" padding="$4" space>
+      <YStack flex={1} justifyContent="flex-start" alignItems="flex-start" padding="$4" gap={'$4'}>
         
         <YStack borderRadius={"$4"} overflow="hidden" width={'100%'} height={'$12'}>
+
           <Image
             width={'100%'}
             height={'100%'}
@@ -42,12 +57,18 @@ export default function EventDetails() {
             source={{ uri: assets[1].uri, width: assets[1].width!, height: assets[1].height! }}
             />
         </YStack>
+
         <XStack width={'100%'} justifyContent="space-between" alignItems="center">
           <Text>Starts: { getDateString(event.StartsAt) }</Text>
           <Text>Ends: { getDateString(event.EndsAt) }</Text>
           <Text>Type: { event.Type }</Text>
         </XStack>
-        <YStack space>
+
+        <YStack width={'100%'}>
+          <Button bg={'#eb7434'} color={'white'} onPress={registerCallback}>Register</Button>
+        </YStack>
+
+        <YStack gap={'$4'}>
           <H3>Top 5 Teams</H3>
           { teamStats.length === 0 && (
             <XStack width={'100%'} justifyContent="center">

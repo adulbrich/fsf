@@ -407,3 +407,4 @@ export type Enums<
 
 export type SBEvent = Tables<'Events'>;
 export type SBTeamStats = Tables<'TeamStats'>;
+export type SBTeam = Tables<'Teams'>;
