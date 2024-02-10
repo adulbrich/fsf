@@ -25,6 +25,7 @@
 	"dependencies": {
 		"@supabase/ssr": "^0.0.10",
 		"@supabase/supabase-js": "^2.38.4",
+		"daisyui": "^4.6.2",
 		"svelte-french-toast": "^1.2.0"
 	}
 }
