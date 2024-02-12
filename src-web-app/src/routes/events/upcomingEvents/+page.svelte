@@ -126,14 +126,14 @@
 
 <Layout>
 
-  <div class="flex flex-row justify-between items-center ml-[16%] w-[20%] mt-3">
+  <div class="flex flex-row justify-start ml-[16%] w-[20%] mt-3 grow-1">
     <button style = "font-size: 10px" class="flex items-center bg-beaver-orange ml-[3%] mt-1 h-6 hover:bg-dark-black text-white py-2 px-4 rounded-full">
       <a href="/events" class="flex items-center text-white">
         Back
     </a>
     
     </button>
-    <p class="mr-[30%] font-semibold text-lg pt-1">Upcoming Events</p>
+    <p class="ml-5 font-semibold text-lg" style="padding-top: 2px;">Upcoming Events</p>
     
     
     
