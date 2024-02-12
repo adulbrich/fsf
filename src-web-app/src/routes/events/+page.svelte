@@ -98,10 +98,7 @@
       event.Status = "Past";
     }
   
-    function goToEventList(){
-      const myVariable = '5';
-      goto('/events/moreEvents', { state: { myVariable } });
-    }
+    
     
   }
 
