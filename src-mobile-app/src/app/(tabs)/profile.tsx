@@ -1,5 +1,9 @@
 import React from 'react';
 import { ScrollView, View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
+// For a named export (as your code suggests)
+import { useAuth } from '../../(auth)/useAuth'; 
+
+
 
 interface ProfileProps {
   username: string;
@@ -9,6 +13,7 @@ interface ProfileProps {
 
 const Profile: React.FC<ProfileProps> = ({ username, email, profilePictureUrl }) => {
   const phoneNumber = 'Phone +1 234 567 890'; // Dummy data for demonstration
+  
 
   // The relative path to your image.jpg file
   const localImagePath = '../../../assets/images/image.jpg';
