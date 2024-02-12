@@ -10,7 +10,7 @@
   </script>
   
  
-<div class="w-1/3 pt-1 h-[25%] custom-border drop-shadow-xl flex flex-column grow-0"
+<div class="w-[37%] pt-1 h-[25%] custom-border drop-shadow-xl flex flex-column grow-0"
 class:mr-[10%]={index % 2 != 0} 
 class:ml-[10%]={index % 2 == 0}
 >
