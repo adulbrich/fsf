@@ -254,11 +254,7 @@
           <!-- Ongoing events Label above card -->
           <div class="flex flex-row">
             <p class = "inline-block max-w-full  px-0 py-4" style="font-size: 18px; font-weight:628;">Ongoing Events</p>
-            <a href="/events/moreEvents">
-              <button style = "font-size: 10px" class="flex items-center bg-light-black mt-[32%] ml-[20%] h-6 hover:bg-dark-black text-white py-2 px-4 rounded-full">
-                More
-              </button>
-            </a>
+
             
           </div>
           
@@ -293,7 +289,7 @@
             <p class = "inline-block max-w-full  pt-4 px-0" style="font-size: 18px; font-weight:628;">Past Events</p>
             
             <button style = "font-size: 10px" class="flex items-center bg-light-black mt-[3.7%] ml-[2%] h-6 hover:bg-dark-black text-white py-2 px-4 rounded-full">
-              <a href="/events/moreEvents" class="flex items-center text-white">
+              <a href="/events/pastEvents" class="flex items-center text-white">
                 More
               </a>
             </button>
@@ -359,7 +355,7 @@
           <!-- Ongoing events Label above card -->
           <div class="flex flex-row">
             <p class = "inline-block max-w-full  px-0 py-4" style="font-size: 18px; font-weight:628;">Upcoming Events</p>
-            <a href="/events/moreEvents">
+            <a href="/events/upcomingEvents">
               <button style = "font-size: 10px" class="flex items-center bg-light-black mt-[32%] ml-[20%] h-6 hover:bg-dark-black text-white py-2 px-4 rounded-full">
                 More
               </button>
