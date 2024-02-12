@@ -76,8 +76,8 @@
   });
   // This function trims the description of an event to 140 characters
   function trimDescription(description: string) {
-    if (description.length > 100) {
-      return description.slice(0, 100) + "...";
+    if (description.length > 140) {
+      return description.slice(0, 140) + "...";
     }
     return description;
   }
@@ -133,7 +133,7 @@
     </a>
     
     </button>
-    <p class="mr-[40%] font-semibold text-lg pt-1">Past Events</p>
+    <p class="mr-[45%] font-semibold text-lg pt-1">Past Events</p>
     
     
     
@@ -165,7 +165,7 @@
     
   </div>
   <!-- Container that holds page numbers-->
-  <div class="flex pt-1 justify-between ml-[47.85%] custom-border w-1/5" style="margin-bottom: 15px; margin-top: 20px">
+  <div class="flex justify-between ml-[47.85%] custom-border w-1/5" style="margin-bottom: 15px; margin-top: 34px">
     <div class=" mb-0 ml-20 w-10 h-10 bg-beaver-orange rounded-full flex items-center justify-center text-white">1</div>
     <div class=" mb-0 mx-1 w-10 h-10 bg-light-black rounded-full flex items-center justify-center text-white">2</div>
     <div class=" mb-0 mr-20 w-10 h-10 bg-light-black rounded-full flex items-center justify-center text-white">3</div>
