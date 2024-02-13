@@ -1,6 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
 import eventsReducer from "./eventsSlice";
 import teamStatsReducer from "./teamStatsSlice";
+import eventStatsSlice from "./eventStatsSlice";
+import profilesSlice from "./profilesSlice";
+import teamsSlice from "./teamsSlice";
+import profileStatsSlice from "./profileStatsSlice";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { persistCombineReducers, persistStore } from "redux-persist";
 import { FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from 'redux-persist';
@@ -9,8 +13,17 @@ import { useDispatch, useSelector, useStore } from "react-redux";
 const persistConfig = { key: 'redux-root', storage: AsyncStorage };
 
 const rootReducer = persistCombineReducers(persistConfig, {
+  // Events
   eventsSlice: eventsReducer,
-  teamStatsSlice: teamStatsReducer
+
+  // Teams and Profiles
+  profilesSlice: profilesSlice,
+  teamsSlice: teamsSlice,
+
+  // Stats
+  teamStatsSlice: teamStatsReducer,
+  eventStatsSlice: eventStatsSlice,
+  profileStatsSlice: profileStatsSlice
 });
 
 export const store = configureStore({
