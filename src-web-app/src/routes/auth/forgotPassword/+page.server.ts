@@ -1,13 +1,13 @@
-// import { z } from 'zod';
+import { z } from 'zod';
 
 export const load = (async ({ locals: { supabase, getSession } }) => {
     const session = await getSession();
     return { session };
   });
 
-// const changeEmailSchema = z.object({
-//   email: z.string().email(),
-// });
+const changeEmailSchema = z.object({
+  email: z.string().email(),
+});
 
 export const actions = {
 
@@ -21,9 +21,9 @@ export const actions = {
     const { email } = obj;
 
     try {
-      // const result = changeEmailSchema.parse(obj);
+      const result = changeEmailSchema.parse(obj);
 
-      const { data: user, error } = await supabase.auth.resetPasswordForEmail(email.toString(), {
+      const { data: user, error } = await supabase.auth.resetPasswordForEmail(result.email, {
         redirectTo: 'http://localhost:5173/auth/resetPassword'
       });
 

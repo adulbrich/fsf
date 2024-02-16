@@ -14,6 +14,7 @@
 
     // Page data and form data
     export let form;
+    
     const { url } = $page;
     const { searchParams } = url;
 
@@ -87,7 +88,6 @@
 
 
             <!-- Send email button -->
-           <!-- 
             <button
                 class="flex justify-center items-center text-white disabled:text-gray-300 ring-1 ring-orange-400/75 disabled:ring-0 bg-orange-400 hover:bg-orange-500 disabled:bg-gray-100 transition-all ease-in-out disabled:cursor-not-allowed h-10 w-32 mt-4 rounded"
                 disabled={sendEmailDisabled}
@@ -103,8 +103,7 @@
                 <span in:fade={{ delay: 50 , duration: 50  }} out:fade={{ duration: 50 }} class="absolute text-md font-bold">Reset Password</span>
                 {/if}
             </button> 
-        -->
-
+     
         </form> 
         
         <!-- Verification for success/unsuccessful password change  -->
