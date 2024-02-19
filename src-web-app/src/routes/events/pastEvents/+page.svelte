@@ -1,11 +1,8 @@
 
 <script lang="ts">
-    import Layout from '../../banner-layout.svelte';
-    
-    import { getContext } from 'svelte';
-    import { onMount } from 'svelte';
-    import { page } from '$app/stores'
-    import Card from '../Card.svelte';
+  import Layout from '../../banner-layout.svelte';
+  import { onMount } from 'svelte';
+  import Card from '../Card.svelte';
     
     
 
