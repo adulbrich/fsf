@@ -281,7 +281,7 @@ const navigateList = (e: KeyboardEvent) => {
 		hiLiteIndex === null ? hiLiteIndex = 0 : hiLiteIndex += 1
 	} else if (e.key === "ArrowUp" && hiLiteIndex !== null) {
 		hiLiteIndex === 0 ? hiLiteIndex = filteredNames.length-1 : hiLiteIndex -= 1
-	} else if (e.key === "Enter") {
+	} else if (e.key === "Tab") {
 		setInputVal(filteredNames[hiLiteIndex]);
 	} else {
 		return;
@@ -573,9 +573,12 @@ const navigateList = (e: KeyboardEvent) => {
 	width: auto;
 	border: 1px solid #ddd;
 	background-color: #ddd;
+  z-index: 1000;
   
 }	
 
-
+*:focus {
+  outline: none;
+}
 
 </style>
