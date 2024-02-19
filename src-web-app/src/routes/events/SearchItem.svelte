@@ -25,13 +25,13 @@
   
   li.autocomplete-items:active {
     /*when navigating through the items using the arrow keys:*/
-    background-color: DodgerBlue !important;
+    background-color: #D73F09 !important;
     color: #ffffff;
   }	
       
   .autocomplete-active {
     /*when navigating through the items using the arrow keys:*/
-    background-color: DodgerBlue !important;
+    background-color: #D73F09 !important;
     color: #ffffff;
   }
   </style>
