@@ -4,6 +4,7 @@ import teamStatsReducer from "./teamStatsSlice";
 import eventStatsSlice from "./eventStatsSlice";
 import profilesSlice from "./profilesSlice";
 import teamsSlice from "./teamsSlice";
+import systemSlice from "./systemSlice";
 import profileStatsSlice from "./profileStatsSlice";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { persistCombineReducers, persistStore } from "redux-persist";
@@ -23,7 +24,10 @@ const rootReducer = persistCombineReducers(persistConfig, {
   // Stats
   teamStatsSlice: teamStatsReducer,
   eventStatsSlice: eventStatsSlice,
-  profileStatsSlice: profileStatsSlice
+  profileStatsSlice: profileStatsSlice,
+
+  // System
+  systemSlice: systemSlice
 });
 
 export const store = configureStore({

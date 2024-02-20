@@ -10,13 +10,33 @@ const initialState: TeamsState = {
   teams: []
 }
 
-export const fetchTeams = createAsyncThunk<SBTeam[], undefined, { rejectValue: string }>('events/fetchTeams', async (_, { rejectWithValue }) => {
+export const fetchTeams = createAsyncThunk<
+  SBTeam[],
+  undefined,
+  { rejectValue: string }
+>('events/fetchTeams', async (_, { rejectWithValue }) => {
   const { data, error } = await supabase
     .from('Teams')
     .select('*')
-    .returns<SBTeam[] | null>();
   if (error) return rejectWithValue(error.message);
   return data ?? [];
+});
+
+export const createTeam = createAsyncThunk<
+  SBTeam,
+  { name: string, eventID: string },
+  { rejectValue: string }
+>('events/createTeam', async ({ name, eventID }, { rejectWithValue }) => {
+  const { data, error } = await supabase
+    .from('Teams')
+    .insert({
+      Name: name,
+      BelongsToEventID: eventID
+    })
+    .select()
+    .single();
+  if (error) return rejectWithValue(error.message);
+  return data;
 });
 
 const teamsSlice = createSlice({
