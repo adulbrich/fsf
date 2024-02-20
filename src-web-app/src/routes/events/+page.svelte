@@ -198,7 +198,10 @@ const navigateList = (e: KeyboardEvent) => {
 		hiLiteIndex === 0 ? hiLiteIndex = filteredNames.length-1 : hiLiteIndex -= 1
 	} else if (e.key === "Tab") {
 		setInputVal(filteredNames[hiLiteIndex]);
-	} else {
+
+	}else if(e.key === "Enter") {
+    e.preventDefault();
+  } else {
 		return;
 	}
 } 
@@ -467,11 +470,12 @@ const navigateList = (e: KeyboardEvent) => {
 	margin: 0;
   margin-left: 8px;
 	padding: 0;
-	top: 66px;
+	top: 67px;
 	width: auto;
 	border: 1px solid #ddd;
 	background-color: #ddd;
   z-index: 1000;
+  
   
 }	
 
