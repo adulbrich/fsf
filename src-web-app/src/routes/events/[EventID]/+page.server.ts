@@ -17,6 +17,7 @@ where[eventID] is some selected event that the user wants to see:
 export const load = (async({locals: { supabase, getSession } , params }) => {
   
   const {EventID} = params;
+  console.log(EventID);
   //console.log(EventID);
 
   //create a session for the user
@@ -27,18 +28,31 @@ export const load = (async({locals: { supabase, getSession } , params }) => {
         throw redirect(303 , '/events');
     }
 
-    //grab all the events
-    const { data: event_data } = await supabase 
-    .from('Events')
-    .select('Name')
-    .eq('EventID', EventID)
-    .single()
+  const {data: eventDetails} = await supabase 
+  .from('Events')
+  .select('*')
+  .eq('EventID', EventID)
+  .single();
 
-    //grab all the teams associated with that event
-    const { data: team_event_connection } = await supabase
-    .from('Teams')
-    .select('Name')
-    .eq('BelongsToEventID', EventID)
+  const { data: testsigned } = await supabase
+  .storage
+  .from('EventAssets')
+  .createSignedUrl(`Banners/${EventID}`, 300)
 
-  return { session , event_data, team_event_connection};
+  /*
+  const { data: eventImage } = await supabase
+  .storage
+  .from('EventAssets/Banners')
+  .getPublicUrl(EventID)
+  */
+
+  const { data: teamsWithMembers } = await supabase
+  .from('Teams')
+  .select(`
+    TeamID,
+    Name, 
+    Profiles (ProfileID, Name)`)
+  .eq('BelongsToEventID', EventID);
+  
+  return { session ,eventDetails, teamsWithMembers, testsigned};
 });
