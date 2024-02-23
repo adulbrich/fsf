@@ -1,19 +1,13 @@
 import {fail, redirect } from '@sveltejs/kit'
 
-/* 
 
-Purpose of Page:
-
-url = "event/[eventID]/teams"
-
-displays the teams enlisted in the event specified by eventID
-
-*/
 
 export const load = (async({locals: { supabase, getSession } , params }) => {
   
-  const {EventID} = params;
-  console.log(EventID);
+
+  const {EventID} = params.EventID;
+  const {TeamID} = params.TeamID;
+
   //console.log(EventID);
 
   //create a session for the user
@@ -24,18 +18,19 @@ export const load = (async({locals: { supabase, getSession } , params }) => {
         throw redirect(303 , '/events');
     }
 
+
+    //grab the teams that are enlisted in the event
+    const { data: Team} = await supabase 
+    .from('Teams')
+    .select('*')
+    .eq('TeamID', TeamID);
+
     //grab the event details
     const { data: Event } = await supabase
     .from('Events')
     .select('*')
     .eq('EventID', EventID)
     .single();
-
-    //grab the teams that are enlisted in the event
-    const { data: Teams } = await supabase 
-    .from('Teams')
-    .select('*')
-    .eq('BelongsToEventID', EventID);
     
    // console.log(Event)
     //console.log(Teams);
@@ -50,6 +45,8 @@ export const load = (async({locals: { supabase, getSession } , params }) => {
 
     */
 
+    //console.log(Event)
+    //console.log(Team);
   
-  return { session , Teams, Event};
+  return { session , Team, Event};
 });
