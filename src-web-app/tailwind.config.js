@@ -11,6 +11,7 @@ export default {
         'moondust': '#C6DAE7',
         'luminance': '#FFB500',
         'stratosphere': '#006A8E',
+        'dark-orange': '#A94623',
         
       }
     },

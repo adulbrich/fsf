@@ -1,3 +1,4 @@
+<!-- This represent a list item on the auto complete bar -->
 <script lang="ts">
     export let itemLabel = '';
     export let highlighted : Boolean = false;
