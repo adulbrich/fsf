@@ -10,7 +10,7 @@
   export let index = 1;
 </script>
 
-<div class="w-[37%] pt-1 h-[25%] custom-border drop-shadow-xl flex flex-column grow-0" class:mr-[10%]={index % 2 != 0} class:ml-[10%]={index % 2 == 0}>
+<div class="w-[80%] pt-1 h-[100%] custom-border drop-shadow-xl flex flex-column grow-0" class:mr-[10%]={index % 2 != 0} class:ml-[10%]={index % 2 == 0}>
   <!-- Event Banner  -->
   <div class="w-[40%] h-full">
     <img class="h-[100%] w-[100%]" style="border-top-left-radius: 10px; border-bottom-left-radius: 10px;" src="../../aerial_2.jpg" alt="Scenery" />
