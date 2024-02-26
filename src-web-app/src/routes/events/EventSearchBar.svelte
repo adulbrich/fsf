@@ -45,9 +45,7 @@
     inputValue = removeBold(eventName);
     filteredNames = [];
     hiLiteIndex = 0;
-    const eventSearchElement = document.querySelector(
-      "#event-search"
-    ) as HTMLInputElement;
+    const eventSearchElement = document.querySelector("#event-search") as HTMLInputElement;
     if (eventSearchElement) {
       eventSearchElement.focus();
     }
@@ -57,9 +55,7 @@
     if (e.key === "ArrowDown" && hiLiteIndex <= filteredNames.length - 1) {
       hiLiteIndex === null ? (hiLiteIndex = 0) : (hiLiteIndex += 1);
     } else if (e.key === "ArrowUp" && hiLiteIndex !== null) {
-      hiLiteIndex === 0
-        ? (hiLiteIndex = filteredNames.length - 1)
-        : (hiLiteIndex -= 1);
+      hiLiteIndex === 0 ? (hiLiteIndex = filteredNames.length - 1) : (hiLiteIndex -= 1);
     } else if (e.key === "Tab") {
       setInputVal(filteredNames[hiLiteIndex]);
     } else if (e.key === "Enter") {
@@ -93,9 +89,7 @@
   // clear the input value and focus on the input
   const clearInput = () => {
     inputValue = "";
-    const searchInputEl = document.querySelector(
-      "#event-search"
-    ) as HTMLInputElement;
+    const searchInputEl = document.querySelector("#event-search") as HTMLInputElement;
     searchInputEl.focus();
   };
 </script>
@@ -114,14 +108,7 @@
     on:input={filterEvents}
   />
   <!-- Search Icon -->
-  <svg
-    width="16"
-    height="16"
-    viewBox="0 0 20 20"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-    style="position: absolute; margin-top: 9px; margin-left: 8px"
-  >
+  <svg width="16" height="16" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" style="position: absolute; margin-top: 9px; margin-left: 8px">
     <path
       d="M9 17C13.4183 17 17 13.4183 17 9C17 4.58172 13.4183 1 9 1C4.58172 1 1 4.58172 1 9C1 13.4183 4.58172 17 9 17Z"
       stroke="black"
@@ -129,24 +116,14 @@
       stroke-linecap="round"
       stroke-linejoin="round"
     />
-    <path
-      d="M18.9999 19L14.6499 14.65"
-      stroke="black"
-      stroke-width="2"
-      stroke-linecap="round"
-      stroke-linejoin="round"
-    />
+    <path d="M18.9999 19L14.6499 14.65" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
   </svg>
 </div>
 <!-- Auto complete list that shows event names -->
 {#if filteredNames.length > 0}
   <ul id="autocomplete-items-list">
     {#each filteredNames as eventName, i}
-      <SearchItem
-        itemLabel={eventName}
-        highlighted={i + 1 === hiLiteIndex}
-        on:click={() => setInputVal(eventName)}
-      />
+      <SearchItem itemLabel={eventName} highlighted={i + 1 === hiLiteIndex} on:click={() => setInputVal(eventName)} />
     {/each}
   </ul>
 {/if}
