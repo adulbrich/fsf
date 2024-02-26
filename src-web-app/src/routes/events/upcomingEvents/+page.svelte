@@ -5,7 +5,7 @@
     import { getContext } from 'svelte';
     import { onMount } from 'svelte';
     import { page } from '$app/stores'
-    import Card from '../Card.svelte';
+    import Card from '../ListEventCard.svelte';
     
     
 
