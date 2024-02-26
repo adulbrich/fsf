@@ -182,11 +182,14 @@
     </div>
   {:else}
     <!--  -->
-    <div class="container ml-[16%] w-auto h-[75%] mt-8 flex flex-wrap justify-between">
+    <div class="grid grid-cols-2 grid-rows-4 gap-1 container ml-[17%] w-auto h-[75%] mt-3 ">
       {#if pastEvents.length > 0}
         {#each loadedEvents as event, index (event.Name)}
           {#if index <= 7}
+          <div class = "flex justify-center items-center">
             <Card {...event} {index} />
+          </div>
+            
           {/if}
         {/each}
       {:else}
@@ -194,7 +197,7 @@
       {/if}
     </div>
     <!-- Pagination buttons -->
-    <div class="ml-[52.5%] mt-5 join">
+    <div class="ml-[17%] w-auto flex justify-center items-center container mt-9 join">
       <button class:btn-disabled={pageNum == 1} class:bg-unavailable={pageNum == 1} class="class: join-item btn bg-light-black text-beaver-orange text-lg hover:bg-light-blackSelected" on:click={loadPreviousEvents}>«</button>
       <button class="join-item bg-light-black hover:bg-light-black btn text-white">Page {pageNum}</button>
       <button class:btn-disabled={!pagesLeft} class:unavailable={!pagesLeft} class="join-item btn bg-light-black text-beaver-orange text-lg hover:bg-light-blackSelected" on:click={loadNextEvents}>»</button>
