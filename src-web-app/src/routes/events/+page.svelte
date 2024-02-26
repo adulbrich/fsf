@@ -25,7 +25,7 @@
     ongoingEvent: Event | null;
     upcomingEvent: Event | null;
   }
-  
+
   // Blue print for the event name and ID object
   interface EventNameAndID {
     Name: string;
@@ -78,11 +78,7 @@
   }
 
   // This function takes in the start and end date of an event and determines if it is ongoing, upcoming, or past
-  function determineEventStatus(
-    event: Event,
-    startDate: string,
-    endDate: string
-  ) {
+  function determineEventStatus(event: Event, startDate: string, endDate: string) {
     const date = new Date(); // Get the current date
 
     startDate = startDate.split("T")[0]; // Split the date and time and only take the date
@@ -141,15 +137,14 @@
       <p class="flex event-word ml-[3%]" style="margin-top:25px">Events</p>
       <!-- Searchbar -->
       <form class="relative ml-20" style="margin-top: 13px;" autocomplete="off">
+        <!-- Search Bar -->
         <SearchBar events={eventNamesAndID} />
       </form>
       <!-- Create Event button -->
       <a href="/events/create" style="margin-left: 60px; margin-top: 19px;">
-        <button
-          class="btn btn-sm font-normal h-9 font-sans bg-beaver-orange hover:bg-dark-orange text-white rounded-full"
-          style="position: absolute; margin-top: 9px; margin-left: 8px"
-          >Create Event</button
-        >
+        <button class="btn btn-sm font-normal h-9 font-sans bg-beaver-orange hover:bg-dark-orange text-white rounded-full" style="position: absolute; margin-top: 9px; margin-left: 8px">
+          Create Event
+        </button>
       </a>
     </div>
 
@@ -159,12 +154,7 @@
       <div class="flex flex-col w-[50%] custom-border">
         <!-- Container for ONGOING events -->
         <div class="flex flex-col w-auto custom-border h-fit pt-3">
-          <p
-            class="inline-block max-w-full px-0 pb-4"
-            style="font-size: 18px; font-weight:628;"
-          >
-            Ongoing Events
-          </p>
+          <p class="inline-block max-w-full px-0 pb-4" style="font-size: 18px; font-weight:628;">Ongoing Events</p>
           <Card
             existsTF={relevantEvents.ongoingEvent?.Exists}
             ImagePath="../../aerial_2.jpg"
@@ -177,12 +167,13 @@
 
         <!-- Container for PAST events -->
         <div class="flex flex-col w-auto custom-border h-fit pt-5">
-          <p
-            class="inline-block max-w-full px-0 pb-4"
-            style="font-size: 18px; font-weight:628;"
-          >
-            Past Events
-          </p>
+          <div class="flex flex-row w-[100%] pb-4">
+            <p class="inline-block" style="font-size: 18px; font-weight:628;">Past Events</p>
+            <a href="/events/pastEvents" style="margin-left: 10px;">
+              <button class="btn btn-xs font-normal font-sans bg-light-black hover:bg-light-blackSelected text-white rounded-full">View All</button>
+            </a>
+          </div>
+
           <div class="pb-2">
             <Card
               existsTF={relevantEvents.pastEvents[0]?.Exists}
@@ -208,18 +199,19 @@
 
       <!-- Container for UPCOMING events -->
       <div class="flex ml-4 flex-col custom-border h-fit w-[50%] pt-3">
-        <p
-          class="inline-block max-w-full px-0 pb-4"
-          style="font-size: 18px; font-weight:628;"
-        >
-          Upcoming Events
-        </p>
+        <div class="flex flex-row w-[100%] pb-4">
+          <p class="inline-block" style="font-size: 18px; font-weight:628;">Upcoming Events</p>
+          <a href="/events/upcomingEvents" style="margin-left: 10px;">
+            <button class="btn btn-xs font-normal font-sans bg-light-black hover:bg-light-blackSelected text-white rounded-full">View All</button>
+          </a>
+        </div>
         <Card
+          existsTF={relevantEvents.upcomingEvent?.Exists}
           ImagePath="../../aerial_5.jpg"
-          Name={relevantEvents.ongoingEvent?.Name}
-          StartsAt={relevantEvents.ongoingEvent?.StartsAt}
-          EndsAt={relevantEvents.ongoingEvent?.EndsAt}
-          Description={relevantEvents?.ongoingEvent?.Description}
+          Name={relevantEvents.upcomingEvent?.Name}
+          StartsAt={relevantEvents.upcomingEvent?.StartsAt}
+          EndsAt={relevantEvents.upcomingEvent?.EndsAt}
+          Description={relevantEvents?.upcomingEvent?.Description}
         />
       </div>
     </div>
