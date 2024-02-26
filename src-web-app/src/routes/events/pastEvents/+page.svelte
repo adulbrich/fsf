@@ -2,7 +2,7 @@
 <script lang="ts">
   import Layout from '../../banner-layout.svelte';
   import { onMount } from 'svelte';
-  import Card from '../Card.svelte';
+  import Card from '../ListEventCard.svelte';
     
     
 
@@ -136,7 +136,7 @@
     
     
     </div>
-  <!-- Container for Events -->
+  <!-- Display spinner when page isn't done loading -->
   {#if loading}
     <div role="status">
       <svg aria-hidden="true" class="ml-[55%] mt-[10%] inline w-10 h-10 text-gray-200 animate-spin dark:text-gray-600 fill-beaver-orange" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -147,6 +147,7 @@
       
     </div>
   {:else}
+  <!--  -->
   <div class="container ml-[16%] w-auto h-[75%] mt-8 flex flex-wrap justify-between">
     
     {#if pastEvents.length > 0}
