@@ -28,23 +28,12 @@
   <!-- Cotnainer for all entities to the right of the navbar -->
   <div class="flex flex-col w-[100%] h-[100%]">
     <!-- Top container that holds searchbar, "Events", search icon, and the create event button -->
-    <div class="flex flex-row w-[90%] h-[10%] ml-[5%]">
-      <p class = "flex event-word ml-[3%]" style="margin-top:36px">Events</p>
-      <!-- Searchbar/Create Event button  -->
-      <form class = "relative ml-16">   
-        <div class="absolute left-0 start-0 flex items-center ps-3" style="top: 48px;">
-          <svg width="16" height="16" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-top: 5px;">
-            <path d="M9 17C13.4183 17 17 13.4183 17 9C17 4.58172 13.4183 1 9 1C4.58172 1 1 4.58172 1 9C1 13.4183 4.58172 17 9 17Z" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M18.9999 19L14.6499 14.65" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </div>
-        <!-- Text box -->
-        <input type="search" 
-          id="default-search" 
-          class="mt-[9%] block p-2 ps-10 outline-none text-sm bg-white rounded-md border-black border" 
-          style="width: 30rem; -webkit-appearance: none; -moz-appearance: none; appearance: none;"
-          placeholder="Type to search for an event" 
-          required>
+    <div class="flex justify-start ml-[18%]">
+      <p class="flex event-word ml-[3%]" style="margin-top:25px">Events</p>
+      <!-- Searchbar Container -->
+      <form class="relative ml-20" style="margin-top: 13px;" autocomplete="off">
+        <!-- Search Bar -->
+        <SearchBar events={eventNamesAndID} />
       </form>
       <!-- Search icon -->
       <svg class = "mt-9 ml-4" width="100" height="50" viewBox="0 0 140 45" fill="none" xmlns="http://www.w3.org/2000/svg">
