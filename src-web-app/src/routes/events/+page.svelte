@@ -135,7 +135,7 @@
     <!-- Top container that holds searchbar, "Events", search icon, and the create event button -->
     <div class="flex justify-start ml-[18%]">
       <p class="flex event-word ml-[3%]" style="margin-top:25px">Events</p>
-      <!-- Searchbar -->
+      <!-- Searchbar Container -->
       <form class="relative ml-20" style="margin-top: 13px;" autocomplete="off">
         <!-- Search Bar -->
         <SearchBar events={eventNamesAndID} />
