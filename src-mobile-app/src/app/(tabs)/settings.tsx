@@ -1,5 +1,5 @@
-import { useAuth } from "../../lib/supabase";
 import { Button, YStack, Text } from "tamagui";
+import { useAuth } from "../../lib/auth";
 
 
 export default function Settings() {

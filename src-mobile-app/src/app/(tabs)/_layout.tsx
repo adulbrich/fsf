@@ -1,10 +1,10 @@
 import { Redirect, Tabs } from "expo-router";
-import { useAuth } from "../../lib/supabase";
 import IconHome from "../../../assets/icons/IconHome";
 import IconCalendar from "../../../assets/icons/IconCalendar";
 import IconProfile from "../../../assets/icons/IconProfile";
 import IconSettings from "../../../assets/icons/IconSettings";
 import { Text, useTheme } from "tamagui";
+import { useAuth } from "../../lib/auth";
 
 export default function ProtectedLayout() {
   const theme = useTheme();

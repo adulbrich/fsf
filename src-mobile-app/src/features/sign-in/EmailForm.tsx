@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
-import { useAuth } from '../../lib/supabase'
 import { Button, Input, Separator, XStack, YStack } from 'tamagui';
 import { Lock, Mail } from '@tamagui/lucide-icons';
+import { useAuth } from '../../lib/auth';
 
 export default function EmailForm() {
   const [email, setEmail] = useState('')
