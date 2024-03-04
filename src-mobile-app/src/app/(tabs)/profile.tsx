@@ -1,6 +1,5 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { ScrollView, View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
-import { useAuth } from '../../(auth)/useAuth';
 
 interface ProfileProps {
   username: string;
@@ -9,18 +8,16 @@ interface ProfileProps {
 }
 
 const Profile: React.FC<ProfileProps> = ({ username, email, profilePictureUrl }) => {
-  const phoneNumber = 'Phone +1 234 567 890'; // Dummy data for demonstration
-  const contactEmail = 'contact@example.com'; // Additional email constant for display
-
-  // The relative path to your image.jpg file
+  const [notificationsEnabled, setNotificationsEnabled] = useState(false);
+  const phoneNumber = 'Phone +1 234 567 890';
+  const contactEmail = 'contact@example.com';
   const localImagePath = '../../../assets/images/image.jpg';
 
   return (
     <ScrollView style={styles.container}>
       <View style={styles.header}>
-        <Text style={styles.headerText}>Damfit</Text>
+        <Text style={styles.headerText}>OSU Damfit</Text>
       </View>
-
       <View style={styles.profileSection}>
         <Image 
           source={profilePictureUrl ? { uri: profilePictureUrl } : require(localImagePath)} 
@@ -31,13 +28,16 @@ const Profile: React.FC<ProfileProps> = ({ username, email, profilePictureUrl })
         <Text style={styles.additionalEmail}>{contactEmail}</Text>
         <Text style={styles.phone}>{phoneNumber}</Text>
       </View>
-
       <View style={styles.buttonSection}>
         <TouchableOpacity style={styles.button}>
           <Text style={styles.buttonText}>Edit Profile Information</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.button}>
-          <Text style={styles.buttonText}>Notifications</Text>
+        <TouchableOpacity 
+          style={styles.button}
+          onPress={() => setNotificationsEnabled(!notificationsEnabled)}>
+          <Text style={styles.buttonText}>
+            {notificationsEnabled ? 'Notifications  (ON)' : 'Notifications (OFF)'}
+          </Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.button}>
           <Text style={styles.buttonText}>Help & Support</Text>
@@ -45,11 +45,11 @@ const Profile: React.FC<ProfileProps> = ({ username, email, profilePictureUrl })
         <TouchableOpacity style={styles.button}>
           <Text style={styles.buttonText}>Privacy Policy</Text>
         </TouchableOpacity>
-        {/* Add more buttons as needed */}
       </View>
     </ScrollView>
   );
 };
+
 
 const styles = StyleSheet.create({
   container: {
