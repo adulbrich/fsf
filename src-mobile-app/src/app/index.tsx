@@ -6,7 +6,7 @@ import { useEffect } from "react";
 import { fetchProfiles } from "../store/profilesSlice";
 
 export default function Index() {
-  const { session, user, isReady, getSession } = useAuth();
+  const { session, isReady, getSession } = useAuth();
   const dispatch = useTypedDispatch();
 
   // We use this to key 
