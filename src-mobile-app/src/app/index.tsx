@@ -1,12 +1,20 @@
 import { Text } from "tamagui";
 import { Redirect, useRootNavigationState } from "expo-router";
 import { useAuth } from "../lib/auth";
+import { useTypedDispatch } from "../store/store";
+import { useEffect } from "react";
+import { fetchProfiles } from "../store/profilesSlice";
 
 export default function Index() {
   const { session, user, isReady, getSession } = useAuth();
+  const dispatch = useTypedDispatch();
 
   // We use this to key 
   const navigationState = useRootNavigationState();
+
+  useEffect(() => {
+    dispatch(fetchProfiles());
+  }, [dispatch]);
 
   if (!isReady) {
     getSession();
