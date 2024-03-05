@@ -20,4 +20,6 @@
   <p class="flex justify-center">This is the events page</p>
   <button class="rounded border bg-orange-300 flex flex-col justify-center max-w-md mx-auto" on:click={() => handleSignOut()}>Logout</button>
   
+  <button class="ml-[50%] btn btn-primary">Daisy UI Test</button>
+
 </Layout>
