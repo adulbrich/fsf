@@ -7,11 +7,19 @@ import { fetchEvents } from "../../../store/eventsSlice";
 import { useTypedDispatch, useTypedSelector } from "../../../store/store";
 import { Stack } from "expo-router";
 import { fetchTeamStats } from "../../../store/teamStatsSlice";
+import { selectUserProfile } from "../../../store/profilesSlice";
 
 export default function EventsList() {
   const theme = useTheme();
   const dispatch = useTypedDispatch();
   const events = useTypedSelector<SBEvent[]>(state => state.eventsSlice.events)
+
+  const userProfile = useTypedSelector(selectUserProfile);
+
+
+  useEffect(() => {
+    console.log(userProfile);
+  }, [userProfile]);
   
   // Get the initial data loaded
   useEffect(() => {
