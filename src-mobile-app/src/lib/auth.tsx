@@ -78,6 +78,9 @@ export function AuthSessionProvider({ children }: { children: React.ReactNode })
             return;
           }
 
+          // Update our Redux store with the new user ID
+          dispatch(setUserID(data?.session?.user?.id));
+
           // Update our local context state
           setState({
             ...state,
