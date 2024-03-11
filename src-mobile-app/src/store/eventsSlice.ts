@@ -31,11 +31,14 @@ export interface EventsState {
   activeEvent: SBEvent | null
   events: SBEvent[]
   selectedStatus: SBEventStatus
+
+  relevantEvents: SBEvent[]
 }
 
 const initialState: EventsState = {
   activeEvent: null,
   events: [],
+  relevantEvents: [],
   selectedStatus: SBEventStatus.ONGOING
 }
 
@@ -47,6 +50,31 @@ export const fetchEvents = createAsyncThunk<SBEvent[], undefined, { rejectValue:
   if (error) return rejectWithValue(error.message);
   return data ?? [];
 });
+
+export const fetchRelevantEvents = createAsyncThunk<SBEvent[], undefined, { rejectValue: string }>(
+  'events/fetchRelevantEvents',
+  async (_, { rejectWithValue, getState }) => {
+    console.log('fetchRelevantEvents()');
+    // Extract user ID from system slice
+    const userID = (getState() as RootState).systemSlice.userID;
+    if (!userID) return rejectWithValue('User ID not found');
+
+    // Find relevent events
+    const { data, error } = await supabase
+      .from('Profiles')
+      .select(`*, Events(*)`)
+      .eq('ProfileID', userID);
+
+    if (error) return rejectWithValue(error.message);
+
+    console.log(data);
+
+    return data?.flatMap(d => d.Events).filter(
+      e => new Date(e.StartsAt).getTime() < new Date().getTime() &&
+           new Date(e.EndsAt).getTime()   > new Date().getTime()
+    ) ?? [];
+  }
+);
 
 const eventsSlice = createSlice({
   name: 'events',
@@ -62,7 +90,11 @@ const eventsSlice = createSlice({
   extraReducers: builder => {
     builder.addCase(fetchEvents.fulfilled, (state, action) => {
       return { ...state, events: action.payload }
-    })
+    });
+
+    builder.addCase(fetchRelevantEvents.fulfilled, (state, action) => {
+      return { ...state, relevantEvents: action.payload }
+    });
   }
 });
 
