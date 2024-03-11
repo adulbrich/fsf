@@ -32,6 +32,7 @@ export interface EventsState {
   events: SBEvent[]
   selectedStatus: SBEventStatus
 
+  // Events that we can submit results for
   relevantEvents: SBEvent[]
 }
 
@@ -51,6 +52,7 @@ export const fetchEvents = createAsyncThunk<SBEvent[], undefined, { rejectValue:
   return data ?? [];
 });
 
+// Fetches events that are current and that the user is participating in
 export const fetchRelevantEvents = createAsyncThunk<SBEvent[], undefined, { rejectValue: string }>(
   'events/fetchRelevantEvents',
   async (_, { rejectWithValue, getState }) => {
@@ -63,19 +65,21 @@ export const fetchRelevantEvents = createAsyncThunk<SBEvent[], undefined, { reje
     const { data, error } = await supabase
       .from('Profiles')
       .select(`*, Events(*)`)
-      .eq('ProfileID', userID);
+      .eq('ProfileID', userID)
+      .maybeSingle();
 
     if (error) return rejectWithValue(error.message);
 
-    console.log(data);
+    console.log('Relevant events', data?.Events.map(e => e.Name));
 
-    return data?.flatMap(d => d.Events).filter(
+    return data?.Events.filter(
       e => new Date(e.StartsAt).getTime() < new Date().getTime() &&
            new Date(e.EndsAt).getTime()   > new Date().getTime()
     ) ?? [];
   }
 );
 
+// Create the events slice
 const eventsSlice = createSlice({
   name: 'events',
   initialState,
@@ -98,9 +102,11 @@ const eventsSlice = createSlice({
   }
 });
 
+// Actions and reducers
 export const { setActiveEvent, setSelectedStatus } = eventsSlice.actions;
 export default eventsSlice.reducer;
 
+// Selectors
 export const selectFilteredEvents = createSelector(
   (state: RootState) => state.eventsSlice.events,
   (state: RootState) => state.eventsSlice.selectedStatus,
