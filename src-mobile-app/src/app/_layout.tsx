@@ -14,6 +14,7 @@ import { Provider } from 'react-redux';
 import { persistor, store } from "../store/store";
 import { PersistGate } from 'redux-persist/integration/react';
 import { AuthSessionProvider } from "../lib/auth";
+import ProgressService from "../features/system/ProgressService";
 
 // Instruct SplashScreen not to hide yet, we want to do this manually
 SplashScreen.preventAutoHideAsync();
@@ -43,6 +44,9 @@ export default function RootLayout() {
               <View backgroundColor={"$background"} flex={1}>
                 <Slot />
               </View>
+
+              {/* Pedometer */}
+              <ProgressService />
             </AuthSessionProvider>
           </PersistGate>
         </Provider>
