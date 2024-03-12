@@ -1,6 +1,8 @@
 <script>
-       export let data;
-       import Layout from '../../banner-layout.svelte';
+  import Layout from '../../banner-layout.svelte';
+  export let data;
+  
+
 </script>
 
 
@@ -10,47 +12,49 @@
        <title>
               Event | Top Teams & Participants
        </title>
+
+       <style>
+        /* Add your custom styles here */
+        .navbar {
+          background-color: white;
+          color: black;
+          transition: background-color 0.3s ease, color 0.3s ease;
+        }
+    
+        .event-picture {
+          object-fit: cover;
+          border-radius: 50%;
+          width: 100%; /* Adjust the width as needed */
+          height: 100%; /* Adjust the height as needed */
+        }
+      </style>
 </svelte:head>
 
-<style type="text/css">
-  .fa{
-  color: 
-  #D73F09
-  }
-  </style>
+
 
 <Layout>
 
        <div class='container ml-[16%]'>
 
-          <div class='max-w-screen-xl max-auto p-4 bg-[#898A8D]'>
-            <span class='dark:text-white self-center px-2 text-2xl font-semibold whitespace-nowrap'>{data.eventDetails.Name}</span>
+          <div class='max-w-screen-xl max-auto p-4 bg-white'>
+            <span class='text-stone-950 self-center px-2 text-2xl font-semibold whitespace-nowrap'>{data.eventDetails.Name}</span>
           </div>
 
-          <!--Navbar-->
-          <nav class='bg-[#898A8D]'>
+          <!-- Navbar -->
+        
+          <nav class='navbar'>
             <div class='hidden w-full md:block md:w-auto' id='navbar-default'>
               <ul class='font-medium flex p-3'>
-            
                 <li>
-                  <a href='#' class='block py-1 px-3 dark:text-white md:text-black underline' aria-current="page">Overview</a>
+                  <a href='#' class='text-lg block py-1 px-3 dark:text-white md:text-black underline' aria-current="page">Overview</a>
                 </li>
-
                 <li>
-                  <a href='{data.eventDetails?.EventID}/Teams' class='block py-1 px-3 dark:text-white md:hover:text-orange-500'>Teams</a>
+                  <a href='{data.eventDetails?.EventID}/Teams' class='text-lg block py-1 px-3 dark:text-white md:text-black'>Teams</a>
                 </li>
-
-                <li>
-                  <a href='{data.eventDetails?.EventID}/Participants' class='block py-1 px-3 dark:text-white md:hover:text-orange-500'>Participants</a>
-                </li>
-
-                <li>
-                  <a href='{data.eventDetails?.EventID}/Achievments' class='block py-1 px-3 dark:text-white md:hover:text-orange-500'>Achievements</a>
-                </li>
-
               </ul>
             </div>
           </nav>
+
 
           <!--Container for Left and Right Columns-->
           <div class='grid grid-cols-2 gap-4 p-4 py-8'>
@@ -114,10 +118,8 @@
             </div>
 
             <!--Container for right side (Event Picture)-->
-            <div>
-
-               <img class='object-scale-down aspect-square rounded-full ' src={data.testsigned?.signedUrl}/> 
-               
+            <div class="flex justify-center items-center">
+              <img class="object-cover w-80 h-80 md:w-110 md:h-110 rounded-full" src={data.testsigned?.signedUrl} />
             </div>
 
           </div>

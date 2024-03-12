@@ -1,18 +1,6 @@
 import {fail, redirect } from '@sveltejs/kit'
 
-/* 
 
-Purpose of Page:
-
-url = "event/[eventID].svelte"
-
-where[eventID] is some selected event that the user wants to see:
-
-  1) All of the teams
-  2) All of the participants
-  3) Other relevant information
-
-*/
 
 export const load = (async({locals: { supabase, getSession } , params }) => {
   
