@@ -13,7 +13,7 @@ import { StyleSheet } from "react-native";
 import { Provider } from 'react-redux';
 import { persistor, store } from "../store/store";
 import { PersistGate } from 'redux-persist/integration/react';
-import { AuthSessionProvider } from "../lib/auth";
+import { AuthSessionProvider } from "../features/system/Auth";
 import ProgressService from "../features/system/ProgressService";
 
 // Instruct SplashScreen not to hide yet, we want to do this manually

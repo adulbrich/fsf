@@ -3,7 +3,7 @@ import { H3, XStack, YStack, useTheme } from "tamagui";
 import { useSelector } from "react-redux";
 import { selectUserProfile } from "../../store/profilesSlice";
 import { useEffect } from "react";
-import { useAuth } from "../../lib/auth";
+import { useAuth } from "../../features/system/Auth";
 
 export default function Profile() {
   const theme = useTheme();

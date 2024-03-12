@@ -1,6 +1,6 @@
 import { Text } from "tamagui";
 import { Redirect, useRootNavigationState } from "expo-router";
-import { useAuth } from "../lib/auth";
+import { useAuth } from "../features/system/Auth";
 import { useTypedDispatch } from "../store/store";
 import { useEffect } from "react";
 import { fetchProfiles } from "../store/profilesSlice";

@@ -4,7 +4,7 @@ import IconCalendar from "../../../assets/icons/IconCalendar";
 import IconProfile from "../../../assets/icons/IconProfile";
 import IconSettings from "../../../assets/icons/IconSettings";
 import { Text, useTheme } from "tamagui";
-import { useAuth } from "../../lib/auth";
+import { useAuth } from "../../features/system/Auth";
 
 export default function ProtectedLayout() {
   const theme = useTheme();

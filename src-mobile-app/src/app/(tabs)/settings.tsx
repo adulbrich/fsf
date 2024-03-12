@@ -1,5 +1,5 @@
 import { Button, YStack, Text } from "tamagui";
-import { useAuth } from "../../lib/auth";
+import { useAuth } from "../../features/system/Auth";
 
 
 export default function Settings() {

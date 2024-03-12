@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Pedometer } from 'expo-sensors';
-import { useAuth } from '../../lib/auth';
+import { useAuth } from './Auth';
 import { useTypedDispatch, useTypedSelector } from '../../store/store';
 import { SBEvent } from '../../lib/supabase-types';
 import { fetchRelevantEvents } from '../../store/eventsSlice';
@@ -34,7 +34,7 @@ export default function ProgressService() {
   useEffect(() => {
     if (fetching) return;
     setFetching(true);
-    
+
     if (session && relevantEvents.length == 0) dispatch(fetchRelevantEvents());
   }, [session]);
 
