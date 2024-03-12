@@ -1,14 +1,6 @@
 import {fail, redirect } from '@sveltejs/kit'
 
-/* 
 
-Purpose of Page:
-
-url = "event/[eventID]/teams"
-
-displays the teams enlisted in the event specified by eventID
-
-*/
 
 export const load = (async({locals: { supabase, getSession } , params }) => {
   
@@ -34,22 +26,28 @@ export const load = (async({locals: { supabase, getSession } , params }) => {
     //grab the teams that are enlisted in the event
     const { data: Teams } = await supabase 
     .from('Teams')
-    .select('*')
+    .select(`
+    TeamID,
+    CreatedAt,
+    Name,
+    Profiles (ProfileID, Name)`)
     .eq('BelongsToEventID', EventID);
-    
-   // console.log(Event)
-    //console.log(Teams);
 
     /*
-    const {data: teamstats} = await supabase
-    .from('TeamStats')
-    .select('*')
-    .eq('BelongsToEventID', EventID);
-
-    console.log(teamstats);
+    const { data: Teams } = await supabase
+    .from('Teams')
+    .select(`
+      TeamID,
+      CreatedAt,
+      Name,
+      Profiles (ProfileID, Name, 
+      ProfileStats: ProfileStats (TotalScore)),
+      TeamStats (TotalScore) `)
+    .eq('BelongsToEventID', EventID)
+    .order('TeamStats.TotalScore', { ascending: false });
 
     */
-
-  
+ 
+ 
   return { session , Teams, Event};
 });
