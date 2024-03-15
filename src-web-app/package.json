@@ -29,7 +29,6 @@
 		"daisyui": "^4.6.2",
 		"frappe-charts": "^1.6.2",
 		"svelte-frappe-charts": "^1.10.0",
-		"svelte-french-toast": "^1.2.0",
-		"zod": "^3.22.4"
+		"svelte-french-toast": "^1.2.0"
 	}
 }
