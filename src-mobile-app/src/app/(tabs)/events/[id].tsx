@@ -2,9 +2,9 @@ import { Stack, useLocalSearchParams } from "expo-router";
 import { H3, YStack, Image, XStack, Text } from "tamagui";
 import { Text as RN_Text } from 'react-native';
 import { useTypedSelector } from "../../../store/store";
-import { SBEvent, SBTeamStats } from "../../../lib/supabase-types";
 import { useAssets } from "expo-asset";
 import { getDateString } from "../../../lib/helpers";
+import { SBEvent, SBTeamStats } from "../../../lib/models";
 
 export default function EventDetails() {
   const slugEventID = useLocalSearchParams().id;
