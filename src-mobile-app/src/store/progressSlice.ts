@@ -1,11 +1,11 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { SBProgress } from '../lib/supabase-types';
 import { supabase } from '../lib/supabase';
 import { RootState } from './store';
 import { Pedometer } from 'expo-sensors';
 import { fetchProfileStats } from './profileStatsSlice';
 import { fetchTeamStats } from './teamStatsSlice';
 import { fetchEventStats } from './eventStatsSlice';
+import { SBProgress } from '../lib/models';
 
 export interface ProgressSlice {
   progress: SBProgress[]

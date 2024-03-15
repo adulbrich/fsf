@@ -1,8 +1,8 @@
 import { createAsyncThunk, createSelector, createSlice } from '@reduxjs/toolkit';
-import { SBTeam } from '../lib/supabase-types';
 import { supabase } from '../lib/supabase';
 import { RootState } from './store';
 import { selectMyOngoingEvents } from './eventsSlice';
+import { SBTeam } from '../lib/models';
 
 export interface TeamsState {
   teams: SBTeam[]

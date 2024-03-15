@@ -1,8 +1,8 @@
 import { createAsyncThunk, createSelector, createSlice } from '@reduxjs/toolkit';
-import { SBProfileStats } from '../lib/supabase-types';
 import { supabase } from '../lib/supabase';
 import { RootState } from './store';
 import { selectUserID } from './systemSlice';
+import { SBProfileStats } from '../lib/models';
 
 export interface ProfileStatsState {
   profileStats: SBProfileStats[]

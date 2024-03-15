@@ -85,6 +85,13 @@ export type Database = {
             referencedColumns: ["TeamID"]
           },
           {
+            foreignKeyName: "ActivityProgress_BelongsToTeamID_fkey"
+            columns: ["BelongsToTeamID"]
+            isOneToOne: false
+            referencedRelation: "TeamStatsBreakdown"
+            referencedColumns: ["TeamID"]
+          },
+          {
             foreignKeyName: "ActivityProgress_CreatedByProfileID_fkey"
             columns: ["CreatedByProfileID"]
             isOneToOne: false
@@ -103,6 +110,13 @@ export type Database = {
             columns: ["CreatedByProfileID"]
             isOneToOne: false
             referencedRelation: "ProfileStats"
+            referencedColumns: ["ProfileID"]
+          },
+          {
+            foreignKeyName: "ActivityProgress_CreatedByProfileID_fkey"
+            columns: ["CreatedByProfileID"]
+            isOneToOne: false
+            referencedRelation: "TeamStatsBreakdown"
             referencedColumns: ["ProfileID"]
           }
         ]
@@ -161,6 +175,13 @@ export type Database = {
             columns: ["CreatedByUserID"]
             isOneToOne: false
             referencedRelation: "ProfileStats"
+            referencedColumns: ["ProfileID"]
+          },
+          {
+            foreignKeyName: "Events_CreatedByUserID_fkey"
+            columns: ["CreatedByUserID"]
+            isOneToOne: false
+            referencedRelation: "TeamStatsBreakdown"
             referencedColumns: ["ProfileID"]
           }
         ]
@@ -276,6 +297,13 @@ export type Database = {
             referencedColumns: ["ProfileID"]
           },
           {
+            foreignKeyName: "TeamsProfiles_ProfileID_fkey"
+            columns: ["ProfileID"]
+            isOneToOne: false
+            referencedRelation: "TeamStatsBreakdown"
+            referencedColumns: ["ProfileID"]
+          },
+          {
             foreignKeyName: "TeamsProfiles_TeamID_fkey"
             columns: ["TeamID"]
             isOneToOne: false
@@ -294,6 +322,13 @@ export type Database = {
             columns: ["TeamID"]
             isOneToOne: false
             referencedRelation: "TeamStats"
+            referencedColumns: ["TeamID"]
+          },
+          {
+            foreignKeyName: "TeamsProfiles_TeamID_fkey"
+            columns: ["TeamID"]
+            isOneToOne: false
+            referencedRelation: "TeamStatsBreakdown"
             referencedColumns: ["TeamID"]
           }
         ]
@@ -403,6 +438,46 @@ export type Database = {
           {
             foreignKeyName: "Team_BelongsToEventID_fkey"
             columns: ["BelongsToEventID"]
+            isOneToOne: false
+            referencedRelation: "EventStats"
+            referencedColumns: ["EventID"]
+          }
+        ]
+      }
+      TeamStatsBreakdown: {
+        Row: {
+          EventID: string | null
+          ProfileID: string | null
+          ProfileName: string | null
+          TeamID: string | null
+          TeamName: string | null
+          TotalScore: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "Profiles_ProfileID_fkey"
+            columns: ["ProfileID"]
+            isOneToOne: true
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "Team_BelongsToEventID_fkey"
+            columns: ["EventID"]
+            isOneToOne: false
+            referencedRelation: "Events"
+            referencedColumns: ["EventID"]
+          },
+          {
+            foreignKeyName: "Team_BelongsToEventID_fkey"
+            columns: ["EventID"]
+            isOneToOne: false
+            referencedRelation: "ActivityProgressLog"
+            referencedColumns: ["EventID"]
+          },
+          {
+            foreignKeyName: "Team_BelongsToEventID_fkey"
+            columns: ["EventID"]
             isOneToOne: false
             referencedRelation: "EventStats"
             referencedColumns: ["EventID"]
@@ -707,11 +782,3 @@ export type Enums<
   : PublicEnumNameOrOptions extends keyof Database["public"]["Enums"]
   ? Database["public"]["Enums"][PublicEnumNameOrOptions]
   : never
-
-export type SBEvent = Tables<'Events'>;
-export type SBTeamStats = Tables<'TeamStats'>;
-export type SBEventStats = Tables<'EventStats'>;
-export type SBProfile = Tables<'Profiles'>;
-export type SBTeam = Tables<'Teams'>;
-export type SBProfileStats = Tables<'ProfileStats'>;
-export type SBProgress = Tables<'ActivityProgress'>;

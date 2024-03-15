@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSelector, createSlice } from '@reduxjs/toolkit';
-import { SBEvent } from '../lib/supabase-types';
 import { supabase } from '../lib/supabase';
 import { RootState } from './store';
+import { SBEvent } from '../lib/models';
 
 export enum SBEventStatus {
   UPCOMING,

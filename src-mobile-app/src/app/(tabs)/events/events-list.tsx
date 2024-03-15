@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import { YStack, Spinner, useTheme } from "tamagui";
-import { SBEvent } from "../../../lib/supabase-types";
 import EventList from "../../../features/events/EventList";
 import EventDetailsSheet from "../../../features/events/EventSheet";
 import { fetchEvents } from "../../../store/eventsSlice";
@@ -8,6 +7,7 @@ import { useTypedDispatch, useTypedSelector } from "../../../store/store";
 import { Stack } from "expo-router";
 import { fetchTeamStats } from "../../../store/teamStatsSlice";
 import { syncMyActivity } from "../../../store/progressSlice";
+import { SBEvent } from "../../../lib/models";
 
 export default function EventsList() {
   const theme = useTheme();

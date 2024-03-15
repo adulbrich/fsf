@@ -1,8 +1,9 @@
 import { useSelector } from "react-redux";
-import { YStack, useTheme, XStack, H3, Text } from "tamagui";
+import { YStack, useTheme, H5, H4 } from "tamagui";
 import { fetchProfileStats, selectMyProfileStats } from "../../store/profileStatsSlice";
 import { useEffect } from "react";
 import { useTypedDispatch } from "../../store/store";
+import { fetchTeamStats } from "../../store/teamStatsSlice";
 
 export default function Home() {
   const theme = useTheme();
@@ -11,15 +12,16 @@ export default function Home() {
 
   useEffect(() => {
     dispatch(fetchProfileStats());
+    dispatch(fetchTeamStats());
   }, []);
 
 
   return (
     <YStack backgroundColor={theme.backgroundStrong} justifyContent="center" alignItems="center" flex={1} space>
-      <XStack width={'100%'}>
-        <H3>My Total Steps</H3>
-        <Text>{ myProfileStats?.TotalScore ?? 0 }</Text>
-      </XStack>
+      <YStack width={'100%'} alignItems="center" padding="$4" backgroundColor={'$background'}>
+        <H5>My Total Steps</H5>
+        <H4>{ myProfileStats?.TotalScore ?? 0 }</H4>
+      </YStack>
     </YStack>
   );
 }
