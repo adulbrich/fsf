@@ -18,6 +18,7 @@
     EndsAt: string;
     Status: string;
     Description: string;
+    EventID: string;
   }
 
   // Blue print for the relevant events object

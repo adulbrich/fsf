@@ -5,6 +5,7 @@
     Name: string;
     ID: string;
   }
+  import { goto } from "$app/navigation";
   import SearchItem from "./SearchItem.svelte";
   let searchInput: HTMLInputElement;
   let inputValue: string = "";
@@ -60,30 +61,22 @@
       setInputVal(filteredNames[hiLiteIndex]);
     } else if (e.key === "Enter") {
       e.preventDefault();
+      let id = findIDByName(inputValue);
+      if (id == "-1") {
+        alert("Event not found")
+      }else{
+        goto(`/events/${id}`);
+      }
     } else {
       return;
     }
   };
-  // submit the input value.  Not being used yet
-  const submitValue = () => {
-    if (inputValue) {
-      console.log(`${inputValue} is submitted!`);
-      let id = findIDByName(inputValue);
-      //goto(`/events/${id}`);
-      setTimeout(clearInput, 1000);
-    } else {
-      alert("You didn't type anything.");
-    }
-  };
-  // find the id of the event based on the name
-  // Used for searching
   const findIDByName = (name: string) => {
-    let id = 0;
-    events.forEach((event, index) => {
-      if (event.Name === name) {
-        return event.ID;
-      }
-    });
+    const eventFound = events.find((event) => event.Name === name);
+    if (eventFound) {
+      return eventFound.ID;
+    }
+    alert("Event not found");
     return "-1";
   };
   // clear the input value and focus on the input
@@ -92,6 +85,7 @@
     const searchInputEl = document.querySelector("#event-search") as HTMLInputElement;
     searchInputEl.focus();
   };
+  console.log("Events inside of search bar component: ", { events });
 </script>
 
 <svelte:window on:keydown={navigateList} />
