@@ -2,13 +2,11 @@
     import { applyAction, enhance } from '$app/forms';
     import { fade } from 'svelte/transition';
     import osuLogo from '$lib/images/OSU_horizontal_2C_O_over_B.png';
-    import { afterNavigate, goto, invalidateAll } from '$app/navigation';
     import toast from 'svelte-french-toast';
  
     // Variables related to the auth form
     let email: string = '';
     let actionSubmitted: boolean = false;
-    $: sendEmailDisabled = email === '' || actionSubmitted;
 
     // Page data and form data
     export let form;
@@ -19,14 +17,6 @@
     // Auth form user
     let emailRef: HTMLInputElement | undefined;
     
-    function getFormValue(form: FormData, id: string) {
-    return form.get(id) as string;
-  }
-
-    const handleSignOut = async () => {
-        await supabase.auth.signOut();
-        goto('/');
-    }
 
     $: if (form) {
         if (form.success)
