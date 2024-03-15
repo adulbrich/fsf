@@ -1,5 +1,6 @@
 <!-- Card.svelte -->
 <!-- This is the card component that will be used to display the events in the events page -->
+
 <script lang="ts">
   // Props
   export let Name: string = "";

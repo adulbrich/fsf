@@ -70,7 +70,7 @@
 
 <Layout>
 
-    <div class='container ml-[16%]'>
+    <div class='container ml-[16%] w-auto'>
 
         <div class='max-w-screen-xl max-auto p-4 bg-white'>
             <span class='text-stone-950 self-center px-2 text-2xl font-semibold whitespace-nowrap'>{data.Event?.Name}</span>
