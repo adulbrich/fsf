@@ -1,5 +1,5 @@
 <script>
-  import Layout from '../../banner-layout.svelte';
+  import Layout from '../../../banner-layout.svelte';
   export let data;
   
 
@@ -36,25 +36,9 @@
 
        <div class='container ml-[16%] w-auto'>
 
-          <div class='max-w-screen-xl max-auto p-4 bg-white'>
-            <span class='text-stone-950 self-center px-2 text-2xl font-semibold whitespace-nowrap'>{data.eventDetails.Name}</span>
-          </div>
-
           <!-- Navbar -->
         
-          <nav class='navbar'>
-            <div class='hidden w-full md:block md:w-auto' id='navbar-default'>
-              <ul class='font-medium flex p-3'>
-                <li>
-                  <a href='#' class='text-lg block py-1 px-3 dark:text-white md:text-black underline' aria-current="page">Overview</a>
-                </li>
-                <li>
-                  <a href='{data.eventDetails?.EventID}/Teams' class='text-lg block py-1 px-3 dark:text-white md:text-black'>Teams</a>
-                </li>
-              </ul>
-            </div>
-          </nav>
-
+        
 
           <!--Container for Left and Right Columns-->
           <div class='grid grid-cols-2 gap-4 p-4 py-8'>
