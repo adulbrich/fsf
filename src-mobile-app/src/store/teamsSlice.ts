@@ -1,13 +1,17 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSelector, createSlice } from '@reduxjs/toolkit';
 import { SBTeam } from '../lib/supabase-types';
 import { supabase } from '../lib/supabase';
+import { RootState } from './store';
+import { selectMyOngoingEvents } from './eventsSlice';
 
 export interface TeamsState {
   teams: SBTeam[]
+  myTeams: SBTeam[]
 }
 
 const initialState: TeamsState = {
-  teams: []
+  teams: [],
+  myTeams: []
 }
 
 export const fetchTeams = createAsyncThunk<
@@ -18,6 +22,26 @@ export const fetchTeams = createAsyncThunk<
   const { data, error } = await supabase
     .from('Teams')
     .select('*')
+  if (error) return rejectWithValue(error.message);
+  return data ?? [];
+});
+
+export const fetchMyTeams = createAsyncThunk<
+  SBTeam[],
+  undefined,
+  { rejectValue: string }
+>('events/fetchMyTeams', async (_, { rejectWithValue, getState }) => {
+  const userID = (getState() as RootState).systemSlice.userID;
+  if (!userID) return rejectWithValue('User ID not found');
+
+  const { data, error } = await supabase
+    .from('Teams')
+    .select(`
+      *,
+      Profiles(ProfileID)
+    `)
+    .eq('ProfileID', userID);
+
   if (error) return rejectWithValue(error.message);
   return data ?? [];
 });
@@ -46,8 +70,33 @@ const teamsSlice = createSlice({
   extraReducers: builder => {
     builder.addCase(fetchTeams.fulfilled, (state, action) => {
       return { ...state, teams: action.payload }
-    })
+    });
+    builder.addCase(fetchMyTeams.fulfilled, (state, action) => {
+      return { ...state, myTeams: action.payload }
+    });
   }
 });
 
 export default teamsSlice.reducer;
+
+// Select this slice
+const selectSelf = (state: RootState) => state.teamsSlice;
+
+// Select the current user profile
+export const selectTeams = createSelector(
+  selectSelf,
+  (state) => state.teams
+);
+
+export const selectMyTeams = createSelector(
+  selectSelf,
+  (state) => state.myTeams
+);
+
+export const selectMyOngoingTeams = createSelector(
+  selectMyTeams,
+  selectMyOngoingEvents,
+  (myTeams, events) => {
+    return myTeams.filter(t => events.some(e => e.EventID === t.BelongsToEventID));
+  }
+);

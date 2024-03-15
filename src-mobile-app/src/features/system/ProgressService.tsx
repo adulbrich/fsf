@@ -3,14 +3,14 @@ import { Pedometer } from 'expo-sensors';
 import { useAuth } from './Auth';
 import { useTypedDispatch, useTypedSelector } from '../../store/store';
 import { SBEvent } from '../../lib/supabase-types';
-import { fetchRelevantEvents } from '../../store/eventsSlice';
+import { fetchMyEvents } from '../../store/eventsSlice';
 
 export default function ProgressService() {
   const { session } = useAuth();
   const [pastStepCount, setPastStepCount] = useState(0);
   const [fetching, setFetching] = useState(false);
   const dispatch = useTypedDispatch();
-  const relevantEvents = useTypedSelector<SBEvent[]>(state => state.eventsSlice.relevantEvents);
+  const relevantEvents = useTypedSelector<SBEvent[]>(state => state.eventsSlice.myEvents);
 
   const uploadSteps = async () => {
     const isAvailable = await Pedometer.isAvailableAsync();
@@ -35,7 +35,7 @@ export default function ProgressService() {
     if (fetching) return;
     setFetching(true);
 
-    if (session && relevantEvents.length == 0) dispatch(fetchRelevantEvents());
+    if (session && relevantEvents.length == 0) dispatch(fetchMyEvents());
   }, [session]);
 
   // Upload steps

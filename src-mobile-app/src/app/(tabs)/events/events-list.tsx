@@ -7,6 +7,7 @@ import { fetchEvents } from "../../../store/eventsSlice";
 import { useTypedDispatch, useTypedSelector } from "../../../store/store";
 import { Stack } from "expo-router";
 import { fetchTeamStats } from "../../../store/teamStatsSlice";
+import { syncMyActivity } from "../../../store/progressSlice";
 
 export default function EventsList() {
   const theme = useTheme();
@@ -17,6 +18,7 @@ export default function EventsList() {
   useEffect(() => {
     dispatch(fetchEvents());
     dispatch(fetchTeamStats());
+    dispatch(syncMyActivity());
   }, [dispatch]);
 
   if (!events || events.length === 0) {

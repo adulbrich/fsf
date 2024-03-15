@@ -6,6 +6,7 @@ import profilesSlice from "./profilesSlice";
 import teamsSlice from "./teamsSlice";
 import systemSlice from "./systemSlice";
 import profileStatsSlice from "./profileStatsSlice";
+import progressSlice from "./progressSlice";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { persistCombineReducers, persistStore } from "redux-persist";
 import { FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from 'redux-persist';
@@ -27,7 +28,10 @@ const rootReducer = persistCombineReducers(persistConfig, {
   profileStatsSlice: profileStatsSlice,
 
   // System
-  systemSlice: systemSlice
+  systemSlice: systemSlice,
+
+  // ActivityProgress
+  progressSlice: progressSlice
 });
 
 export const store = configureStore({

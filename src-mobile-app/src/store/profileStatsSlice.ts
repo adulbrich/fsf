@@ -1,6 +1,8 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSelector, createSlice } from '@reduxjs/toolkit';
 import { SBProfileStats } from '../lib/supabase-types';
 import { supabase } from '../lib/supabase';
+import { RootState } from './store';
+import { selectUserID } from './systemSlice';
 
 export interface ProfileStatsState {
   profileStats: SBProfileStats[]
@@ -31,3 +33,12 @@ const profileStatsSlice = createSlice({
 });
 
 export default profileStatsSlice.reducer;
+
+// Select this slice
+const selectSelf = (state: RootState) => state.profileStatsSlice;
+
+export const selectMyProfileStats = createSelector(
+  selectSelf,
+  selectUserID,
+  (state, userID) => state.profileStats.find(ps => ps.ProfileID === userID)
+); 
