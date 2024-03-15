@@ -16,6 +16,7 @@ export const load = async ({ locals: { supabase, getSession }, params }) => {
   //grab the event details
   const { data: Event } = await supabase.from("Events").select("*").eq("EventID", EventID).single();
 
+  //grab the teams that are enlisted in the event
   
   return { session, Event };
 };

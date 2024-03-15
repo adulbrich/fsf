@@ -72,25 +72,7 @@
 
     <div class='container ml-[16%] w-auto'>
 
-        <div class='max-w-screen-xl max-auto p-4 bg-white'>
-            <span class='text-stone-950 self-center px-2 text-2xl font-semibold whitespace-nowrap'>{data.Event?.Name}</span>
-          </div>
-
-          <nav class='bg-white'>
-            <div class='hidden w-full md:block md:w-auto' id='navbar-default'>
-              <ul class='font-medium flex p-3'>
-            
-                <li>
-                  <a href='/events/{data.Event?.EventID}' class='text-lg block py-1 px-3 dark:text-white md:text-black'>Overview</a>
-                </li>
-
-                <li>
-                  <a href='/events/{data.Event?.EventID}/Teams' class='text-lg block py-1 px-3 dark:text-white md:text-black underline' aria-current="page">Teams</a>
-                </li>
-
-              </ul>
-            </div>
-          </nav>     
+        
 
           <!--Teams -->
           <!--Table of teams where each row is a team and when you click on team the table expands downwards to show members-->

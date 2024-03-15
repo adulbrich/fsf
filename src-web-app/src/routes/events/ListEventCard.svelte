@@ -11,7 +11,7 @@
 
   export let index = 1;
 </script>
-<a href="/events/{EventID}" class="inline-flex w-[80%] pt-1 h-[100%]">
+<a href="/events/{EventID}/Overview" class="inline-flex w-[80%] pt-1 h-[100%]">
   <div class="custom-border drop-shadow-xl flex flex-column grow-0" class:mr-[10%]={index % 2 != 0} class:ml-[10%]={index % 2 == 0}>
     <!-- Event Banner  -->
     <div class="w-[40%] h-full">

@@ -2,7 +2,7 @@ import { fail, redirect } from "@sveltejs/kit";
 
 export const load = async ({ locals: { supabase, getSession }, params }) => {
   const { EventID } = params;
-  
+  console.log(EventID);
   //console.log(EventID);
 
   //create a session for the user
