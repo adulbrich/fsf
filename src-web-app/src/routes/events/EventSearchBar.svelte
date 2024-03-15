@@ -65,7 +65,7 @@
       if (id == "-1") {
         alert("Event not found")
       }else{
-        goto(`/events/${id}`);
+        goto(`/events/Overview/${id}`);
       }
     } else {
       return;
