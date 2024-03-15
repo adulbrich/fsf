@@ -162,6 +162,7 @@
             StartsAt={relevantEvents.ongoingEvent?.StartsAt}
             EndsAt={relevantEvents.ongoingEvent?.EndsAt}
             Description={relevantEvents?.ongoingEvent?.Description}
+            eventID = {relevantEvents.ongoingEvent?.EventID}
           />
         </div>
 
@@ -182,6 +183,7 @@
               StartsAt={relevantEvents.pastEvents[0]?.StartsAt}
               EndsAt={relevantEvents.pastEvents[0]?.EndsAt}
               Description={relevantEvents.pastEvents[0]?.Description}
+              eventID = {relevantEvents.pastEvents[0]?.EventID}
             />
           </div>
           {#if relevantEvents.pastEvents[1] !== null}
@@ -192,6 +194,7 @@
               StartsAt={relevantEvents.pastEvents[1]?.StartsAt}
               EndsAt={relevantEvents.pastEvents[1]?.EndsAt}
               Description={relevantEvents.pastEvents[1]?.Description}
+              eventID = {relevantEvents.pastEvents[1]?.EventID}
             />
           {/if}
         </div>
@@ -212,6 +215,7 @@
           StartsAt={relevantEvents.upcomingEvent?.StartsAt}
           EndsAt={relevantEvents.upcomingEvent?.EndsAt}
           Description={relevantEvents?.upcomingEvent?.Description}
+          eventID = {relevantEvents.upcomingEvent?.EventID}
         />
       </div>
     </div>

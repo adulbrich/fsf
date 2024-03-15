@@ -6,11 +6,12 @@
     export let Description: string = '';
     export let ImagePath: string = '';
     export let existsTF = false;
+    export let eventID: string = '';
 </script>
     
 
 
-<a href="/events/detailEvent">
+<a href="/events/{eventID}">
     <div class="flex flex-row w-[90%] drop-shadow-xl h-[130px sm:h-[120px] md:h-[125px] lg:h-[130px] xl:h-[140px]" style="">
     <!-- Image for card -->
     <div class = "w-[40%] h-full flex-shrink-0">
