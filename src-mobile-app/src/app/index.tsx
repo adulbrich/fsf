@@ -1,12 +1,20 @@
 import { Text } from "tamagui";
-import { useAuth } from "../lib/supabase";
 import { Redirect, useRootNavigationState } from "expo-router";
+import { useAuth } from "../features/system/Auth";
+import { useTypedDispatch } from "../store/store";
+import { useEffect } from "react";
+import { fetchProfiles } from "../store/profilesSlice";
 
 export default function Index() {
-  const { session, user, isReady, getSession } = useAuth();
+  const { session, isReady, getSession } = useAuth();
+  const dispatch = useTypedDispatch();
 
   // We use this to key 
   const navigationState = useRootNavigationState();
+
+  useEffect(() => {
+    dispatch(fetchProfiles());
+  }, [dispatch]);
 
   if (!isReady) {
     getSession();

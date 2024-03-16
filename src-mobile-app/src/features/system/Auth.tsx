@@ -1,33 +1,10 @@
 import 'react-native-url-polyfill/auto';
-import * as SecureStore from 'expo-secure-store';
 import { Session, User, createClient } from '@supabase/supabase-js';
 import { createContext, useContext, useState } from 'react';
-import { Database } from './supabase-types';
 import { Alert } from 'react-native';
-
-const supabaseUrl = process.env.EXPO_PUBLIC_SUPABASE_URL;
-const supabaseAnonKey = process.env.EXPO_PUBLIC_SUPABASE_ANON_KEY;
-
-const ExpoSecureStoreAdapter = {
-  getItem: (key: string) => {
-    return SecureStore.getItemAsync(key)
-  },
-  setItem: (key: string, value: string) => {
-    SecureStore.setItemAsync(key, value)
-  },
-  removeItem: (key: string) => {
-    SecureStore.deleteItemAsync(key)
-  },
-}
-
-export const supabase = createClient<Database>(supabaseUrl, supabaseAnonKey, {
-  auth: {
-    storage: ExpoSecureStoreAdapter,
-    autoRefreshToken: true,
-    persistSession: true,
-    detectSessionInUrl: false,
-  }
-});
+import { useTypedDispatch } from '../../store/store';
+import { setUserID } from '../../store/systemSlice';
+import { supabase } from '../../lib/supabase';
 
 export interface AuthSessionState {
   session: Session | null
@@ -49,6 +26,7 @@ export const AuthSessionContext = createContext(initialState);
 
 export function AuthSessionProvider({ children }: { children: React.ReactNode }) {
   const [state, setState] = useState(initialState);
+  const dispatch = useTypedDispatch();
 
   return(
     <AuthSessionContext.Provider
@@ -66,6 +44,10 @@ export function AuthSessionProvider({ children }: { children: React.ReactNode })
             return;
           }
 
+          // Update our Redux store with the new user ID
+          dispatch(setUserID(data?.session?.user?.id));
+
+          // Update our local context state
           setState({
             ...state,
             session: data.session,
@@ -75,6 +57,11 @@ export function AuthSessionProvider({ children }: { children: React.ReactNode })
         },
         signOut: async () => {
           await supabase.auth.signOut();
+
+          // Update our Redux store with the new user ID
+          dispatch(setUserID(null));
+
+          // Update our local context state
           setState({
             ...state,
             session: null,
@@ -83,12 +70,18 @@ export function AuthSessionProvider({ children }: { children: React.ReactNode })
           });
         },
         getSession: async () => {
+          // Attempt to get the session from Supabase
           const { data, error } = await supabase.auth.getSession();
+
           if (error) {
             Alert.alert(error.message);
             return;
           }
 
+          // Update our Redux store with the new user ID
+          dispatch(setUserID(data?.session?.user?.id));
+
+          // Update our local context state
           setState({
             ...state,
             session: data.session,

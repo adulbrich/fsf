@@ -3,7 +3,7 @@ import { H3, XStack, YStack, useTheme } from "tamagui";
 
 export default function Profile() {
   const theme = useTheme();
-  
+
   return (
     <YStack backgroundColor={theme.backgroundStrong} justifyContent="center" alignItems="center" flex={1} space>
       <XStack>
