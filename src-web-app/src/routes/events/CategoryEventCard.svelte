@@ -10,7 +10,7 @@
 </script>
     
 
-
+<!-- Card for the events in the category page.  clicking on a card takes you to a detailed event view -->
 <a href="/events/{eventID}/Overview">
     <div class="flex flex-row w-[90%] drop-shadow-xl h-[130px sm:h-[120px] md:h-[125px] lg:h-[130px] xl:h-[140px]" style="">
     <!-- Image for card -->

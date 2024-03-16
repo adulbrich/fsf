@@ -1,10 +1,12 @@
 <!-- This represent a list item on the auto complete bar -->
 <script lang="ts">
-    export let itemLabel = '';
-    export let highlighted : Boolean = false;
-  </script>
-  
-  <style>
+  export let itemLabel = "";
+  export let highlighted: Boolean = false;
+</script>
+
+<li class="autocomplete-items" class:autocomplete-active={highlighted} on:click>{@html itemLabel}</li>
+
+<style>
   li.autocomplete-items {
     list-style: none;
     border-bottom: 1px solid #d4d4d4;
@@ -17,24 +19,22 @@
     cursor: pointer;
     background-color: #fff;
   }
-  
+
   li.autocomplete-items:hover {
     /*when hovering an item:*/
-    background-color: #D73F09;
-      color: white;
+    background-color: #d73f09;
+    color: white;
   }
-  
+
   li.autocomplete-items:active {
     /*when navigating through the items using the arrow keys:*/
-    background-color: #D73F09 !important;
-    color: #ffffff;
-  }	
-      
-  .autocomplete-active {
-    /*when navigating through the items using the arrow keys:*/
-    background-color: #D73F09 !important;
+    background-color: #d73f09 !important;
     color: #ffffff;
   }
-  </style>
-  
-  <li class="autocomplete-items" class:autocomplete-active={highlighted} on:click>{@html itemLabel}</li>
+
+  .autocomplete-active {
+    /*when navigating through the items using the arrow keys:*/
+    background-color: #d73f09 !important;
+    color: #ffffff;
+  }
+</style>
