@@ -8,8 +8,6 @@
   let { supabase } = data;
   $: ({ supabase } = data);
 
-  
-
   // Blue print for the event object
   interface Event {
     Name: string;
@@ -40,11 +38,10 @@
   let loadedEvents: Event[] = []; // Array of events that should be displayed on the page
   let totalPages = 0; // Total number of pages that should be displayed
   let pagesLeft: boolean = false; // Boolean that determines if there are more pages left to be displayed
-  
+
   // Function that fetches all the events from the database
   const fetchEvents = async () => {
     try {
-    
       const { data, error } = await supabase.from("Events").select("*"); //Selects all  rows from the Events table
       if (error) throw error;
       events = data;
@@ -58,7 +55,7 @@
   // thie runs after the component firt renders in the DOM
   onMount(async () => {
     await fetchEvents(); // Fetch all the events but wait for function to finish before continuing
-    
+
     events.forEach((event) => {
       determineEventStatus(event, event.StartsAt, event.EndsAt); // Determine the status of each event based on dates
       event.Description = trimDescription(event.Description); // Trim the description of each event
@@ -110,13 +107,12 @@
     checkPagesLeft();
   }
   function checkPagesLeft() {
-    
     if (pageNum + 1 <= totalPages) {
       pagesLeft = true;
     } else {
       pagesLeft = false;
     }
-    console.log("pages left: ", pagesLeft, "pageNum: ", pageNum, "totalPages: ", totalPages)
+    console.log("pages left: ", pagesLeft, "pageNum: ", pageNum, "totalPages: ", totalPages);
   }
   // This function calculates the number of pages that should be displayed based on the number of events
   function calculatePages() {
@@ -140,8 +136,6 @@
     checkPagesLeft();
     pageNum -= 1;
     loadEventsArray();
-    
-  
   }
 </script>
 
@@ -150,15 +144,21 @@
 </svelte:head>
 
 <Layout>
-  <div class="flex flex-row justify-start ml-[16%] w-[20%] mt-1 grow-1">
-    <a href="/events" style="margin-left: 10px; margin-top: 16px;">
-      <!-- <button style="width:60px;"class="btn btn-xs font-normal font-sans bg-light-black hover:bg-light-blackSelected text-white rounded-full">Back</button> -->
+  <div class="flex items-center justify-start ml-[16%] w-[20%] mt-1 grow-1">
+    <a href="/events" style="margin-left: 10px;" class="mt-[2.65%]">
+      <!-- Back button -->
       <svg width="18" height="14" viewBox="0 0 51 43" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M24.1251 42.4336C23.2836 42.4243 22.4765 42.0987 21.8646 41.5217L0.911133 21.1135L21.8646 0.705341C22.5076 0.308915 23.2685 0.147891 24.0172 0.249796C24.7659 0.351701 25.456 0.710211 25.9694 1.26403C26.4827 1.81785 26.7876 2.5326 26.8318 3.28607C26.876 4.03954 26.6568 4.78496 26.2117 5.39489L10.3011 21.1135L26.4726 36.8322C26.9461 37.2876 27.2708 37.8755 27.404 38.5185C27.5371 39.1616 27.4725 39.8298 27.2186 40.4356C26.9648 41.0413 26.5335 41.5563 25.9815 41.9128C25.4294 42.2694 24.7823 42.4509 24.1251 42.4336Z" fill="black"/>
-        <path d="M47.5996 24.3699H9.25746C8.39275 24.3699 7.56346 24.0268 6.95202 23.4161C6.34057 22.8054 5.99707 21.977 5.99707 21.1133C5.99707 20.2496 6.34057 19.4213 6.95202 18.8105C7.56346 18.1998 8.39275 17.8567 9.25746 17.8567H47.5996C48.4643 17.8567 49.2936 18.1998 49.9051 18.8105C50.5165 19.4213 50.86 20.2496 50.86 21.1133C50.86 21.977 50.5165 22.8054 49.9051 23.4161C49.2936 24.0268 48.4643 24.3699 47.5996 24.3699V24.3699Z" fill="black"/>
+        <path
+          d="M24.1251 42.4336C23.2836 42.4243 22.4765 42.0987 21.8646 41.5217L0.911133 21.1135L21.8646 0.705341C22.5076 0.308915 23.2685 0.147891 24.0172 0.249796C24.7659 0.351701 25.456 0.710211 25.9694 1.26403C26.4827 1.81785 26.7876 2.5326 26.8318 3.28607C26.876 4.03954 26.6568 4.78496 26.2117 5.39489L10.3011 21.1135L26.4726 36.8322C26.9461 37.2876 27.2708 37.8755 27.404 38.5185C27.5371 39.1616 27.4725 39.8298 27.2186 40.4356C26.9648 41.0413 26.5335 41.5563 25.9815 41.9128C25.4294 42.2694 24.7823 42.4509 24.1251 42.4336Z"
+          fill="black"
+        />
+        <path
+          d="M47.5996 24.3699H9.25746C8.39275 24.3699 7.56346 24.0268 6.95202 23.4161C6.34057 22.8054 5.99707 21.977 5.99707 21.1133C5.99707 20.2496 6.34057 19.4213 6.95202 18.8105C7.56346 18.1998 8.39275 17.8567 9.25746 17.8567H47.5996C48.4643 17.8567 49.2936 18.1998 49.9051 18.8105C50.5165 19.4213 50.86 20.2496 50.86 21.1133C50.86 21.977 50.5165 22.8054 49.9051 23.4161C49.2936 24.0268 48.4643 24.3699 47.5996 24.3699V24.3699Z"
+          fill="black"
+        />
       </svg>
     </a>
-  
+    <!-- Event Category name -->
     <h1 class=" ml-5 font-semibold text-xl" style="margin-top:9.8px; font-size:18px;">Past Events</h1>
   </div>
   <!-- Display spinner when page isn't done loading -->
@@ -183,15 +183,14 @@
       <span class="sr-only">Loading...</span>
     </div>
   {:else}
-    <!--  -->
-    <div class="grid grid-cols-2 grid-rows-4 gap-1 container ml-[17%] w-auto h-[75%] mt-3 ">
+    <!-- Else, display the events -->
+    <div class="grid grid-cols-2 grid-rows-4 gap-1 container ml-[17%] w-auto h-[75%] mt-3">
       {#if pastEvents.length > 0}
         {#each loadedEvents as event, index (event.Name)}
           {#if index <= 7}
-          <div class = "flex justify-center items-center">
-            <Card {...event} {index} />
-          </div>
-            
+            <div class="flex justify-center items-center">
+              <Card {...event} {index} />
+            </div>
           {/if}
         {/each}
       {:else}
@@ -200,19 +199,18 @@
     </div>
     <!-- Pagination buttons -->
     <div class="ml-[17%] w-auto flex justify-center items-center container mt-9 join">
-      <button class:btn-disabled={pageNum == 1} class:bg-unavailable={pageNum == 1} class="class: join-item btn bg-light-black text-beaver-orange text-lg hover:bg-light-blackSelected" on:click={loadPreviousEvents}>«</button>
+      <button
+        class:btn-disabled={pageNum == 1}
+        class:bg-unavailable={pageNum == 1}
+        class="class: join-item btn bg-light-black text-beaver-orange text-lg hover:bg-light-blackSelected"
+        on:click={loadPreviousEvents}>«</button>
       <button class="join-item bg-light-black hover:bg-light-black btn text-white">Page {pageNum}</button>
-      <button class:btn-disabled={!pagesLeft} class:unavailable={!pagesLeft} class="join-item btn bg-light-black text-beaver-orange text-lg hover:bg-light-blackSelected" on:click={loadNextEvents}>»</button>
+      <button class:btn-disabled={!pagesLeft} class:unavailable={!pagesLeft} class="join-item btn bg-light-black text-beaver-orange text-lg hover:bg-light-blackSelected" on:click={loadNextEvents}>
+        »
+      </button>
     </div>
   {/if}
 </Layout>
 
 <style>
-
-  .custom-border {
-    /* box-sizing: border-box;
-      background: #FFFFFF; 
-      border: 0.5px solid #c7c7cd;
-      border-radius: 10px;  */
-  }
 </style>
