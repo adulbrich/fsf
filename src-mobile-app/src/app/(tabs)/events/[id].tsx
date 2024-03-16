@@ -1,6 +1,5 @@
 import React from "react";
 import { useAuth } from "../../../features/system/Auth";
-import { supabase } from "../../../lib/supabase";
 import { useAssets } from "expo-asset";
 import { useLocalSearchParams, Stack } from "expo-router";
 import { YStack, XStack, H3, Image, Text, Button, useTheme } from "tamagui";

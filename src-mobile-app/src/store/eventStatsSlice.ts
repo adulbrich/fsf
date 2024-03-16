@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { SBEventStats } from '../lib/supabase-types';
 import { supabase } from '../lib/supabase';
+import { SBEventStats } from '../lib/models';
 
 export interface EventStatsState {
   eventStats: SBEventStats[]
