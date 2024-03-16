@@ -15,7 +15,7 @@ export default function Home() {
 
   useEffect(() => {
     dispatch(fetchTeamStatsBreakdown());
-  });
+  }, []);
 
   const vm = myTeamStats.map(ts => ({
       ...ts,
