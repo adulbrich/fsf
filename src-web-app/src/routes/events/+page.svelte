@@ -45,7 +45,7 @@
   const fetchEvents = async () => {
     try {
       const { data, error } = await supabase.from("Events").select("*"); // Selects all  rows from the Events table
-      if (error) throw error;
+      if (error) console.error("Error fetching events:");
       events = data;
       console.log("events: ", events);
     } catch (error) {
