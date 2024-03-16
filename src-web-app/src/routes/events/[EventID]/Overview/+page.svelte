@@ -112,7 +112,7 @@
       </div>
       
       <div class="flex items-center mt-1">
-        <p class="mr-3">Level 1 - 6000 Steps   </p>
+        <p class="mr-3">Level 2 - 6000 Steps   </p>
         <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
           <rect width="22" height="22" fill="url(#pattern0)"/>
           <rect width="22" height="22" fill="url(#pattern1)"/>
@@ -129,7 +129,7 @@
           
       </div>
       <div class="flex items-center mt-1">
-        <p class="mr-3">Level 1 - 12000 Steps   </p>
+        <p class="mr-3">Level 3 - 12000 Steps   </p>
         <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
           <rect width="22" height="22" fill="url(#pattern0)"/>
           <rect width="22" height="22" fill="url(#pattern1)"/>

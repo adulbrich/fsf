@@ -7,15 +7,102 @@
   import SearchBar from "./EventSearchBar.svelte";
   let { supabase } = data;
   $: ({ supabase } = data);
-  let card_text = "Walktober is your chance to embrace the beauty of autumn while taking strides toward a healthier you. Join us in October for a month of enjoyable walks, scenic hikes, and the camaraderie of fellow...";
-  let char_lim = 140;
-  $: card_text = card_text.length > char_lim
-    ? card_text.slice(0, char_lim) + '...'
-    : card_text;
-  
-  const handleSignOut = async () => {
-    await supabase.auth.signOut();
-    goto('/');
+
+  // Blue print for the event object
+  interface Event {
+    Name: string;
+    Type: string;
+    StartsAt: string;
+    EndsAt: string;
+    Status: string;
+    Description: string;
+    Exists: boolean;
+    EventID: string;
+  }
+  // Blue print for the relevant events object
+  interface RelevantEvents {
+    pastEvents: Event[];
+    ongoingEvent: Event | null;
+    upcomingEvent: Event | null;
+  }
+
+  // Blue print for the event name and ID object
+  interface EventNameAndID {
+    Name: string;
+    ID: string;
+  }
+  // Object that holds the relevant events for the event page
+  let relevantEvents: RelevantEvents = {
+    pastEvents: [],
+    ongoingEvent: null,
+    upcomingEvent: null,
+  };
+  let eventNamesAndID: EventNameAndID[] = []; // Array that holds all the event names and IDs assocaite with the events
+  let loading = true; // Boolean that determines if the page is still loading
+  let events: Event[] = []; // Array that holds all of the event objects
+
+  // Function that fetches all the events from the database.  Site will not load until this function is finished
+  const fetchEvents = async () => {
+    try {
+      const { data, error } = await supabase.from("Events").select("*"); // Selects all  rows from the Events table
+      if (error) console.error("Error fetching events:");
+      events = data;
+      console.log("events: ", events);
+    } catch (error) {
+      console.error("Error fetching events:", error as any);
+    } finally {
+      loading = false; // Set loading to false after fetching the events
+    }
+  };
+
+  // This runs after the component firt renders in the DOM
+  onMount(async () => {
+    await fetchEvents(); // Fetch all the events but wait for function to finish before continuing
+    events.forEach((event) => {
+      eventNamesAndID.push({ Name: event.Name, ID: event.EventID }); // Push the name and ID of each event to the eventNamesAndID array
+    });
+    // For each event, determine the status of the event, trim the description, and set the Exists property to true
+    events.forEach((event) => {
+      determineEventStatus(event, event.StartsAt, event.EndsAt); // Determine the status of each event based on dates
+      event.Description = trimDescription(event.Description); // Trim the description of each event
+      event.Exists = true;
+    });
+    console.log("Relevant events: ", relevantEvents);
+  });
+  // This function trims the description of an event to 140 characters
+  function trimDescription(description: string) {
+    if (description.length > 140) {
+      return description.slice(0, 140) + "...";
+    }
+    return description;
+  }
+
+  // This function takes in the start and end date of an event and determines if it is ongoing, upcoming, or past
+  function determineEventStatus(event: Event, startDate: string, endDate: string) {
+    const date = new Date(); // Get the current date
+
+    startDate = startDate.split("T")[0]; // Split the date and time and only take the date
+    endDate = endDate.split("T")[0];
+
+    event.StartsAt = startDate;
+    event.EndsAt = endDate;
+
+    const startDateObj = new Date(startDate); // Convert the date string to a date object
+    const endDateObj = new Date(endDate);
+
+    if (startDateObj <= date && endDateObj >= date) {
+      // If the start date is less than or equal to the current date and the end date is greater than or equal to the current date, then the event is ongoing
+      relevantEvents.ongoingEvent = event;
+      event.Status = "Ongoing";
+    } else if (startDateObj > date) {
+      // If the start date is greater than the current date, then the event is upcoming
+      relevantEvents.upcomingEvent = event;
+      event.Status = "Upcoming";
+    } else {
+      // If the start date is less than the current date and the end date is less than the current date, then the event is past
+      relevantEvents.pastEvents.push(event);
+      event.Status = "Past";
+    }
   }
 </script>
 
