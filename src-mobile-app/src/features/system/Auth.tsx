@@ -1,5 +1,5 @@
 import 'react-native-url-polyfill/auto';
-import { Session, User } from '@supabase/supabase-js';
+import { Session, User, createClient } from '@supabase/supabase-js';
 import { createContext, useContext, useState } from 'react';
 import { Alert } from 'react-native';
 import { useTypedDispatch } from '../../store/store';
