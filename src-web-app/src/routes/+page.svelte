@@ -154,6 +154,11 @@
           />
       </div>
 
+      <!-- Forgot password -->
+      <div class="flex">
+        <a href="/auth/forgotPassword" class="text-gray-500">Forgot password?</a>
+      </div>
+
       <!-- Sign in button -->
       <button
         class="flex justify-center items-center text-white disabled:text-gray-300 ring-1 ring-orange-400/75 disabled:ring-0 bg-orange-400 hover:bg-orange-500 disabled:bg-gray-100 transition-all ease-in-out disabled:cursor-not-allowed h-10 w-32 mt-4 rounded"
