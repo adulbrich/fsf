@@ -1,15 +1,16 @@
 import { Check, ChevronDown, ChevronUp } from '@tamagui/lucide-icons';
 import { Sheet } from '@tamagui/sheet';
 import { useEffect, useMemo, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { Adapt, Button, H1, H2, Select, YStack } from 'tamagui';
-import { SBTeam, Tables } from '../../lib/supabase-types';
+import { useSelector } from 'react-redux';
+import { Adapt, Button, H2, Select, YStack } from 'tamagui';
+import { Tables } from '../../lib/supabase-types';
 import { EventsState, setActiveEvent } from '../../store/eventsSlice';
 import { RootState, useTypedDispatch } from '../../store/store';
 import { TeamsState, fetchTeams } from '../../store/teamsSlice';
 import { LinearGradient } from 'tamagui/linear-gradient';
 import React from 'react';
-import { supabase, useAuth } from '../../lib/supabase';
+import { supabase } from '../../lib/supabase';
+import { useAuth } from '../system/Auth';
 
 export default function EventDetailsSheet() {
   const activeEvent = useSelector<RootState, EventsState>(state => state.eventsSlice).activeEvent;
@@ -25,10 +26,6 @@ export default function EventDetailsSheet() {
 
     dispatch(fetchTeams());
   }, [activeEvent]);
-
-  useEffect(() => {
-    console.log(eventTeams);
-  }, [eventTeams]);
 
   const [event, setEvent] = useState<Tables<'Events'>>();
   const [teamID, setTeamID] = useState<string>('New');
@@ -78,8 +75,6 @@ export default function EventDetailsSheet() {
           return;
         }
       }
-
-      console.log('Joined Event');
     }
 
     joinEvent();
