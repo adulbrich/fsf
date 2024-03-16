@@ -74,13 +74,10 @@ function toggleTeamMembers(teamID) {
 
 
 <Layout>
-
+    <!--This container should keep eveythgint on the right of the vertical navbar-->
     <div class='container ml-[16%] w-auto'>
 
-        
-
           <!--Teams -->
-          <!--Table of teams where each row is a team and when you click on team the table expands downwards to show members-->
           <div class="max-w-full p-4 mx-auto">
             <!-- Search Bar -->
             <input
@@ -91,9 +88,9 @@ function toggleTeamMembers(teamID) {
                 on:input={() => filterTeamsAndMembers()}
             />
 
-            <!--Table showing the teams and their members when you click on the team, should also show the teams score-->
-            <!--the members should be hidden until a user clicks on the team-->
+            <!--Table showing the teams and their members when you click on the team, should also show the teams members-->
             <table class="table-auto text-left w-full bg-white border border-gray-300 shadow-md rounded-lg">
+              <!--Table Header-->
               <thead>
                   <tr class="bg-gray-200">
                       <th class="px-4 py-2">Team Name</th>
@@ -102,16 +99,19 @@ function toggleTeamMembers(teamID) {
                   </tr>
               </thead>
               <tbody>
+                <!--Loop through each team-->
                 {#each data.Teams as team (team.TeamID)}
                   <tr class="border border-gray-300 team-row w-full" data-id={team.TeamID} style="transition: all 0.3s ease-out;">
 
                     <td class="px-4 py-2 cursor-pointer" on:click={() => toggleTeamMembers(team.TeamID)}>
 
+                      <!--Team Name and chevron to expand-->
                       <div class='w-full'>
                         <span class="text-lg">{team.Name}</span>
                         <i class="fa fa-chevron-down ml-2"></i>
                       </div>
 
+                      <!--Hidden until chevron icon clicked-->
                       <div class="hidden mt-2">
                             <ul class="list-none ml-8">
                                 {#each team.Profiles as member}
@@ -122,6 +122,7 @@ function toggleTeamMembers(teamID) {
 
                     </td>
 
+                    <!--Team Score-->
                     <td class="px-4 py-2">
                         {team.TeamStats.TotalScore}
                     </td>
