@@ -28,20 +28,24 @@ export const load = async ({ locals: { supabase, getSession }, params }) => {
     )
     .eq("BelongsToEventID", EventID);
 
-  /*
-    const { data: Teams } = await supabase
-    .from('Teams')
+    //grab the scores for each teams
+    const { data: TeamStats } = await supabase
+    .from("TeamStats")
     .select(`
       TeamID,
-      CreatedAt,
-      Name,
-      Profiles (ProfileID, Name, 
-      ProfileStats: ProfileStats (TotalScore)),
-      TeamStats (TotalScore) `)
+      TotalScore
+    `)
     .eq('BelongsToEventID', EventID)
-    .order('TeamStats.TotalScore', { ascending: false });
 
-    */
+    //loop through the list of teams objects and add the team stats to each team obejct
+    Teams.forEach((team) => {
+      team.TeamStats = TeamStats.find((stats) => stats.TeamID === team.TeamID)
+    })
+
+    //sort the list of team objects by team score
+    Teams.sort((a, b) => b.TeamStats.TotalScore - a.TeamStats.TotalScore)
+
+    console.log(Teams)
 
   return { session, Teams, Event };
 };
