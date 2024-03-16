@@ -3,7 +3,7 @@ import { supabase } from '../lib/supabase';
 import { RootState } from './store';
 import { Pedometer } from 'expo-sensors';
 import { fetchProfileStats } from './profileStatsSlice';
-import { fetchTeamStats } from './teamStatsSlice';
+import { fetchTeamStats, fetchTeamStatsBreakdown } from './teamStatsSlice';
 import { fetchEventStats } from './eventStatsSlice';
 import { SBProgress } from '../lib/models';
 
@@ -85,6 +85,7 @@ export const syncMyActivity = createAsyncThunk<void, undefined, { rejectValue: s
     dispatch(fetchProfileStats());
     dispatch(fetchTeamStats());
     dispatch(fetchEventStats());
+    dispatch(fetchTeamStatsBreakdown()); 
   }
 );
 

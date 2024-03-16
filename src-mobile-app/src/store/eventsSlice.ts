@@ -109,6 +109,11 @@ export default eventsSlice.reducer;
 // Select this slice
 const selectSelf = (state: RootState) => state.eventsSlice;
 
+export const selectActiveEvent = createSelector(
+  selectSelf,
+  (state) => state.activeEvent
+);
+
 // Selectors
 export const selectFilteredEvents = createSelector(
   selectSelf,
