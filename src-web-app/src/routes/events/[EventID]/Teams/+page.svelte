@@ -103,12 +103,15 @@ function toggleTeamMembers(teamID) {
               </thead>
               <tbody>
                 {#each data.Teams as team (team.TeamID)}
-                  <tr class="border-b border-gray-300 team-row" data-id={team.TeamID} style="transition: all 0.3s ease-out;">
+                  <tr class="border border-gray-300 team-row w-full" data-id={team.TeamID} style="transition: all 0.3s ease-out;">
+
                     <td class="px-4 py-2 cursor-pointer" on:click={() => toggleTeamMembers(team.TeamID)}>
-                      <div class="flex items-center justify-between">
+
+                      <div class='w-full'>
                         <span class="text-lg">{team.Name}</span>
                         <i class="fa fa-chevron-down ml-2"></i>
                       </div>
+
                       <div class="hidden mt-2">
                             <ul class="list-none ml-8">
                                 {#each team.Profiles as member}
@@ -116,7 +119,13 @@ function toggleTeamMembers(teamID) {
                                 {/each}
                             </ul>
                         </div>
-                      </td>
+
+                    </td>
+
+                    <td class="px-4 py-2">
+                        {team.TeamStats.TotalScore}
+                    </td>
+
                   </tr>
                   {/each}
               </tbody>
