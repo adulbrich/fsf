@@ -81,6 +81,11 @@ export const syncMyActivity = createAsyncThunk<void, undefined, { rejectValue: s
 
       if (error) return rejectWithValue(error.message);
     }
+
+    dispatch(fetchProfileStats());
+    dispatch(fetchTeamStats());
+    dispatch(fetchEventStats());
+    dispatch(fetchTeamStatsBreakdown()); 
   }
 );
 
