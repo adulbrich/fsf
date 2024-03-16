@@ -8,19 +8,11 @@
         <!-- This contains the Home,Events, Settings icons and text -->
         <div class="flex-1 flex flex-col h-full space-y-1">
             <!-- Each flex container inside contains the Text and the icon next to each other -->
-            <div class="flex items-center">
-                <img class="h-[50%] max-w-[50%] mt-2.5 ml-8" src="../../home_icon.png" alt="home icon">
-                <p class="text-white mx-3 mt-3">Home</p>
-            </div>
             <a href="/events" class="flex items-center">
-                <img class="h-[50%] max-w-[50%] mt-2.5 ml-8" src="../../calendar_icon.png" alt="calendar icon">
-                <p class="text-white mx-3 mt-3">Events</p>
+               <img class="h-[50%] max-w-[50%] mt-2.5 ml-8" src="../../home_icon.png" alt="home icon">
+                <p class="text-white mx-3 mt-3">Home</p>
             </a>
             <!-- The settings icon was more fidgety than other icons, so the style is more custom -->
-            <a href="/settings" class="flex items-center">
-                <img class="h-[65%] max-w-[65%] mt-2.5" style="margin-left: 1.65rem;" src="../../settings_icon.png" alt="settings icon">
-                <p class="text-white mt-1" style="margin-left: .4rem">Settings</p>
-            </a>
         </div>
     </div>
     <!-- This is where your content will go if you use the layout -->
