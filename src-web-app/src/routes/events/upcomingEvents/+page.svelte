@@ -182,7 +182,7 @@
     </div>
   {:else}
     <!-- Grid that displays the events for this category  -->
-    <div class="grid grid-cols-2 grid-rows-4 gap-1 container ml-[17%] w-auto h-[75%] mt-3 ">
+    <div class="grid grid-cols-2 grid-rows-4 gap-1 container ml-[17%] w-auto sm:h-[70%] md:[60%] mt-3 ">
       {#if upcomingEvents.length > 0}
         {#each loadedEvents as event, index (event.Name)}
           {#if index <= 7}

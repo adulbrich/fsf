@@ -144,8 +144,8 @@
 </svelte:head>
 
 <Layout>
-  <div class="flex flex-row justify-start ml-[16%] w-[20%] mt-1 grow-1">
-    <a href="/events" style="margin-left: 10px; margin-top: 16px;">
+  <div class="flex items-center justify-start ml-[16%] w-[20%] mt-1 grow-1">
+    <a href="/events" style="margin-left: 10px;" class="mt-[2.65%]">
       <!-- Back button -->
       <svg width="18" height="14" viewBox="0 0 51 43" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path
