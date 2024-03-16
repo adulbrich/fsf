@@ -1,9 +1,7 @@
-import { AnimatePresence, Card, H3, Image, Text, View, XStack, YStack, useTheme } from "tamagui";
+import { AnimatePresence, Card, H3, Image, Text, XStack, YStack } from "tamagui";
 import { Tables } from "../../lib/supabase-types";
 import { useAssets } from "expo-asset";
 import { LinearGradient } from 'tamagui/linear-gradient'
-import { useDispatch } from "react-redux";
-import { setActiveEvent } from "../../store/eventsSlice";
 import React from "react";
 import { router } from "expo-router";
 
@@ -12,9 +10,6 @@ type Props = {
 }
 
 export default function EventCard({ event }: Props) {
-  const theme = useTheme();
-  const dispatch = useDispatch();
-
   const [assets] = useAssets([
     require('../../../assets/images/preview_square.jpg'),
     require('../../../assets/images/preview_wide.jpg')
@@ -35,10 +30,6 @@ export default function EventCard({ event }: Props) {
   const pressCallback = React.useCallback(() => {
     router.push(`/events/${event.EventID}`);
   }, [event]);
-
-  // function getGradientColors() {
-  //   if (colorScheme === 'light')
-  // }
 
   return (
     <AnimatePresence exitBeforeEnter>

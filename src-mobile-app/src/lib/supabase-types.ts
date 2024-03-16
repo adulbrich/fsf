@@ -6,7 +6,32 @@ export type Json =
   | { [key: string]: Json | undefined }
   | Json[]
 
-export interface Database {
+export type Database = {
+  graphql_public: {
+    Tables: {
+      [_ in never]: never
+    }
+    Views: {
+      [_ in never]: never
+    }
+    Functions: {
+      graphql: {
+        Args: {
+          operationName?: string
+          query?: string
+          variables?: Json
+          extensions?: Json
+        }
+        Returns: Json
+      }
+    }
+    Enums: {
+      [_ in never]: never
+    }
+    CompositeTypes: {
+      [_ in never]: never
+    }
+  }
   public: {
     Tables: {
       ActivityProgress: {
@@ -42,6 +67,13 @@ export interface Database {
             foreignKeyName: "ActivityProgress_BelongsToTeamID_fkey"
             columns: ["BelongsToTeamID"]
             isOneToOne: false
+            referencedRelation: "ActivityProgressLog"
+            referencedColumns: ["TeamID"]
+          },
+          {
+            foreignKeyName: "ActivityProgress_BelongsToTeamID_fkey"
+            columns: ["BelongsToTeamID"]
+            isOneToOne: false
             referencedRelation: "Teams"
             referencedColumns: ["TeamID"]
           },
@@ -51,6 +83,20 @@ export interface Database {
             isOneToOne: false
             referencedRelation: "TeamStats"
             referencedColumns: ["TeamID"]
+          },
+          {
+            foreignKeyName: "ActivityProgress_BelongsToTeamID_fkey"
+            columns: ["BelongsToTeamID"]
+            isOneToOne: false
+            referencedRelation: "TeamStatsBreakdown"
+            referencedColumns: ["TeamID"]
+          },
+          {
+            foreignKeyName: "ActivityProgress_CreatedByProfileID_fkey"
+            columns: ["CreatedByProfileID"]
+            isOneToOne: false
+            referencedRelation: "ActivityProgressLog"
+            referencedColumns: ["ProfileID"]
           },
           {
             foreignKeyName: "ActivityProgress_CreatedByProfileID_fkey"
@@ -65,6 +111,13 @@ export interface Database {
             isOneToOne: false
             referencedRelation: "ProfileStats"
             referencedColumns: ["ProfileID"]
+          },
+          {
+            foreignKeyName: "ActivityProgress_CreatedByProfileID_fkey"
+            columns: ["CreatedByProfileID"]
+            isOneToOne: false
+            referencedRelation: "TeamStatsBreakdown"
+            referencedColumns: ["ProfileID"]
           }
         ]
       }
@@ -72,6 +125,7 @@ export interface Database {
         Row: {
           CreatedAt: string
           CreatedByUserID: string
+          Description: string | null
           EndsAt: string
           EventID: string
           Name: string
@@ -82,6 +136,7 @@ export interface Database {
         Insert: {
           CreatedAt?: string
           CreatedByUserID: string
+          Description?: string | null
           EndsAt: string
           EventID?: string
           Name: string
@@ -92,6 +147,7 @@ export interface Database {
         Update: {
           CreatedAt?: string
           CreatedByUserID?: string
+          Description?: string | null
           EndsAt?: string
           EventID?: string
           Name?: string
@@ -104,6 +160,13 @@ export interface Database {
             foreignKeyName: "Events_CreatedByUserID_fkey"
             columns: ["CreatedByUserID"]
             isOneToOne: false
+            referencedRelation: "ActivityProgressLog"
+            referencedColumns: ["ProfileID"]
+          },
+          {
+            foreignKeyName: "Events_CreatedByUserID_fkey"
+            columns: ["CreatedByUserID"]
+            isOneToOne: false
             referencedRelation: "Profiles"
             referencedColumns: ["ProfileID"]
           },
@@ -112,6 +175,13 @@ export interface Database {
             columns: ["CreatedByUserID"]
             isOneToOne: false
             referencedRelation: "ProfileStats"
+            referencedColumns: ["ProfileID"]
+          },
+          {
+            foreignKeyName: "Events_CreatedByUserID_fkey"
+            columns: ["CreatedByUserID"]
+            isOneToOne: false
+            referencedRelation: "TeamStatsBreakdown"
             referencedColumns: ["ProfileID"]
           }
         ]
@@ -172,6 +242,13 @@ export interface Database {
             foreignKeyName: "Team_BelongsToEventID_fkey"
             columns: ["BelongsToEventID"]
             isOneToOne: false
+            referencedRelation: "ActivityProgressLog"
+            referencedColumns: ["EventID"]
+          },
+          {
+            foreignKeyName: "Team_BelongsToEventID_fkey"
+            columns: ["BelongsToEventID"]
+            isOneToOne: false
             referencedRelation: "Events"
             referencedColumns: ["EventID"]
           },
@@ -202,6 +279,13 @@ export interface Database {
             foreignKeyName: "TeamsProfiles_ProfileID_fkey"
             columns: ["ProfileID"]
             isOneToOne: false
+            referencedRelation: "ActivityProgressLog"
+            referencedColumns: ["ProfileID"]
+          },
+          {
+            foreignKeyName: "TeamsProfiles_ProfileID_fkey"
+            columns: ["ProfileID"]
+            isOneToOne: false
             referencedRelation: "Profiles"
             referencedColumns: ["ProfileID"]
           },
@@ -211,6 +295,20 @@ export interface Database {
             isOneToOne: false
             referencedRelation: "ProfileStats"
             referencedColumns: ["ProfileID"]
+          },
+          {
+            foreignKeyName: "TeamsProfiles_ProfileID_fkey"
+            columns: ["ProfileID"]
+            isOneToOne: false
+            referencedRelation: "TeamStatsBreakdown"
+            referencedColumns: ["ProfileID"]
+          },
+          {
+            foreignKeyName: "TeamsProfiles_TeamID_fkey"
+            columns: ["TeamID"]
+            isOneToOne: false
+            referencedRelation: "ActivityProgressLog"
+            referencedColumns: ["TeamID"]
           },
           {
             foreignKeyName: "TeamsProfiles_TeamID_fkey"
@@ -225,11 +323,40 @@ export interface Database {
             isOneToOne: false
             referencedRelation: "TeamStats"
             referencedColumns: ["TeamID"]
+          },
+          {
+            foreignKeyName: "TeamsProfiles_TeamID_fkey"
+            columns: ["TeamID"]
+            isOneToOne: false
+            referencedRelation: "TeamStatsBreakdown"
+            referencedColumns: ["TeamID"]
           }
         ]
       }
     }
     Views: {
+      ActivityProgressLog: {
+        Row: {
+          EventEndsAt: string | null
+          EventID: string | null
+          EventName: string | null
+          EventStartsAt: string | null
+          LatestActivityDate: string | null
+          ProfileID: string | null
+          ProfileName: string | null
+          TeamID: string | null
+          TeamName: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "Profiles_ProfileID_fkey"
+            columns: ["ProfileID"]
+            isOneToOne: true
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          }
+        ]
+      }
       EventStats: {
         Row: {
           EventID: string | null
@@ -305,6 +432,53 @@ export interface Database {
             foreignKeyName: "Team_BelongsToEventID_fkey"
             columns: ["BelongsToEventID"]
             isOneToOne: false
+            referencedRelation: "ActivityProgressLog"
+            referencedColumns: ["EventID"]
+          },
+          {
+            foreignKeyName: "Team_BelongsToEventID_fkey"
+            columns: ["BelongsToEventID"]
+            isOneToOne: false
+            referencedRelation: "EventStats"
+            referencedColumns: ["EventID"]
+          }
+        ]
+      }
+      TeamStatsBreakdown: {
+        Row: {
+          EventID: string | null
+          ProfileID: string | null
+          ProfileName: string | null
+          TeamID: string | null
+          TeamName: string | null
+          TotalScore: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "Profiles_ProfileID_fkey"
+            columns: ["ProfileID"]
+            isOneToOne: true
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "Team_BelongsToEventID_fkey"
+            columns: ["EventID"]
+            isOneToOne: false
+            referencedRelation: "Events"
+            referencedColumns: ["EventID"]
+          },
+          {
+            foreignKeyName: "Team_BelongsToEventID_fkey"
+            columns: ["EventID"]
+            isOneToOne: false
+            referencedRelation: "ActivityProgressLog"
+            referencedColumns: ["EventID"]
+          },
+          {
+            foreignKeyName: "Team_BelongsToEventID_fkey"
+            columns: ["EventID"]
+            isOneToOne: false
             referencedRelation: "EventStats"
             referencedColumns: ["EventID"]
           }
@@ -312,11 +486,216 @@ export interface Database {
       }
     }
     Functions: {
-      [_ in never]: never
+      getActiveUsersBetweenDates: {
+        Args: {
+          start_date_param: string
+          end_date_param: string
+        }
+        Returns: {
+          active_date: string
+          user_count: number
+        }[]
+      }
+      getusersupdatedprogresscountforevent: {
+        Args: {
+          eventid: string
+          datetoupdate: string
+        }
+        Returns: number
+      }
+      test1: {
+        Args: {
+          start_date_param: string
+          end_date_param: string
+        }
+        Returns: {
+          active_date: string
+          user_count: number
+        }[]
+      }
     }
     Enums: {
       activitytypes: "Steps" | "Distance"
       ActivityTypes: "Steps" | "Distance"
+    }
+    CompositeTypes: {
+      [_ in never]: never
+    }
+  }
+  storage: {
+    Tables: {
+      buckets: {
+        Row: {
+          allowed_mime_types: string[] | null
+          avif_autodetection: boolean | null
+          created_at: string | null
+          file_size_limit: number | null
+          id: string
+          name: string
+          owner: string | null
+          owner_id: string | null
+          public: boolean | null
+          updated_at: string | null
+        }
+        Insert: {
+          allowed_mime_types?: string[] | null
+          avif_autodetection?: boolean | null
+          created_at?: string | null
+          file_size_limit?: number | null
+          id: string
+          name: string
+          owner?: string | null
+          owner_id?: string | null
+          public?: boolean | null
+          updated_at?: string | null
+        }
+        Update: {
+          allowed_mime_types?: string[] | null
+          avif_autodetection?: boolean | null
+          created_at?: string | null
+          file_size_limit?: number | null
+          id?: string
+          name?: string
+          owner?: string | null
+          owner_id?: string | null
+          public?: boolean | null
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
+      migrations: {
+        Row: {
+          executed_at: string | null
+          hash: string
+          id: number
+          name: string
+        }
+        Insert: {
+          executed_at?: string | null
+          hash: string
+          id: number
+          name: string
+        }
+        Update: {
+          executed_at?: string | null
+          hash?: string
+          id?: number
+          name?: string
+        }
+        Relationships: []
+      }
+      objects: {
+        Row: {
+          bucket_id: string | null
+          created_at: string | null
+          id: string
+          last_accessed_at: string | null
+          metadata: Json | null
+          name: string | null
+          owner: string | null
+          owner_id: string | null
+          path_tokens: string[] | null
+          updated_at: string | null
+          version: string | null
+        }
+        Insert: {
+          bucket_id?: string | null
+          created_at?: string | null
+          id?: string
+          last_accessed_at?: string | null
+          metadata?: Json | null
+          name?: string | null
+          owner?: string | null
+          owner_id?: string | null
+          path_tokens?: string[] | null
+          updated_at?: string | null
+          version?: string | null
+        }
+        Update: {
+          bucket_id?: string | null
+          created_at?: string | null
+          id?: string
+          last_accessed_at?: string | null
+          metadata?: Json | null
+          name?: string | null
+          owner?: string | null
+          owner_id?: string | null
+          path_tokens?: string[] | null
+          updated_at?: string | null
+          version?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "objects_bucketId_fkey"
+            columns: ["bucket_id"]
+            isOneToOne: false
+            referencedRelation: "buckets"
+            referencedColumns: ["id"]
+          }
+        ]
+      }
+    }
+    Views: {
+      [_ in never]: never
+    }
+    Functions: {
+      can_insert_object: {
+        Args: {
+          bucketid: string
+          name: string
+          owner: string
+          metadata: Json
+        }
+        Returns: undefined
+      }
+      extension: {
+        Args: {
+          name: string
+        }
+        Returns: string
+      }
+      filename: {
+        Args: {
+          name: string
+        }
+        Returns: string
+      }
+      foldername: {
+        Args: {
+          name: string
+        }
+        Returns: unknown
+      }
+      get_size_by_bucket: {
+        Args: Record<PropertyKey, never>
+        Returns: {
+          size: number
+          bucket_id: string
+        }[]
+      }
+      search: {
+        Args: {
+          prefix: string
+          bucketname: string
+          limits?: number
+          levels?: number
+          offsets?: number
+          search?: string
+          sortcolumn?: string
+          sortorder?: string
+        }
+        Returns: {
+          name: string
+          id: string
+          updated_at: string
+          created_at: string
+          last_accessed_at: string
+          metadata: Json
+        }[]
+      }
+    }
+    Enums: {
+      [_ in never]: never
     }
     CompositeTypes: {
       [_ in never]: never
@@ -403,7 +782,3 @@ export type Enums<
   : PublicEnumNameOrOptions extends keyof Database["public"]["Enums"]
   ? Database["public"]["Enums"][PublicEnumNameOrOptions]
   : never
-
-
-export type SBEvent = Tables<'Events'>;
-export type SBTeamStats = Tables<'TeamStats'>;

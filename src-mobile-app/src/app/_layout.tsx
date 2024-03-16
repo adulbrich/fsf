@@ -1,5 +1,4 @@
-import { Slot, SplashScreen, useRootNavigationState } from "expo-router";
-import { AuthSessionProvider } from "../lib/supabase";
+import { Slot, SplashScreen } from "expo-router";
 import React, { ReactNode, useCallback, useEffect, useMemo, useState } from "react";
 import { TamaguiProvider, View } from 'tamagui'
 import config from '../../tamagui.config';
@@ -14,6 +13,8 @@ import { StyleSheet } from "react-native";
 import { Provider } from 'react-redux';
 import { persistor, store } from "../store/store";
 import { PersistGate } from 'redux-persist/integration/react';
+import { AuthSessionProvider } from "../features/system/Auth";
+import ProgressService from "../features/system/ProgressService";
 
 // Instruct SplashScreen not to hide yet, we want to do this manually
 SplashScreen.preventAutoHideAsync();
@@ -26,10 +27,6 @@ export {
 export default function RootLayout() {
   // Get the system's theme
   const systemTheme = useColorScheme();
-
-  
-
-  
   
   // This is for the text in the status bar, it needs to be the opposite!
   const statusBarStyle = systemTheme === 'light' ? 'dark' : 'light';
@@ -47,6 +44,9 @@ export default function RootLayout() {
               <View backgroundColor={"$background"} flex={1}>
                 <Slot />
               </View>
+
+              {/* Pedometer */}
+              <ProgressService />
             </AuthSessionProvider>
           </PersistGate>
         </Provider>
