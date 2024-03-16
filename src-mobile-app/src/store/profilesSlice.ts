@@ -1,8 +1,8 @@
-import { createAsyncThunk, createDraftSafeSelector, createSlice } from '@reduxjs/toolkit';
-import { SBProfile } from '../lib/supabase-types';
+import { createAsyncThunk, createSelector, createSlice } from '@reduxjs/toolkit';
 import { supabase } from '../lib/supabase';
 import { RootState } from './store';
 import { selectUserID } from './systemSlice';
+import { SBProfile } from '../lib/models';
 
 export interface ProfilesState {
   profiles: SBProfile[]
@@ -36,7 +36,7 @@ const profilesSlice = createSlice({
 const selectSelf = (state: RootState) => state.profilesSlice;
 
 // Select the current user profile
-export const selectUserProfile = createDraftSafeSelector(
+export const selectMyProfile = createSelector(
   selectSelf,
   selectUserID,
   (state, userID) => state.profiles.find(profile => profile.ProfileID === userID)

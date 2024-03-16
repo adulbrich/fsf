@@ -85,6 +85,7 @@ export function AuthSessionProvider({ children }: { children: React.ReactNode })
           setState({
             ...state,
             session: data.session,
+            user: data?.session?.user ?? null,
             isReady: true
           });
         }

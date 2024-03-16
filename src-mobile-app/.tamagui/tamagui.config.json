@@ -13,6 +13,7 @@
               "hoverStyle": true,
               "pressStyle": true,
               "focusStyle": true,
+              "disabledStyle": true,
               "backfaceVisibility": true,
               "borderBottomEndRadius": true,
               "borderBottomStartRadius": true,
@@ -91,7 +92,6 @@
               "borderStartColor": true,
               "shadowColor": true,
               "color": true,
-              "placeholderTextColor": true,
               "textDecorationColor": true,
               "textShadowColor": true,
               "borderRadius": true,
@@ -167,9 +167,6 @@
             },
             "inlineWhenUnflattened": {},
             "variants": {
-              "ellipsizeMode": {
-                "...": "Function"
-              },
               "ellipse": {
                 "true": {
                   "numberOfLines": 1,
@@ -189,6 +186,7 @@
               "hoverStyle": true,
               "pressStyle": true,
               "focusStyle": true,
+              "disabledStyle": true,
               "backfaceVisibility": true,
               "borderBottomEndRadius": true,
               "borderBottomStartRadius": true,
@@ -267,7 +265,6 @@
               "borderStartColor": true,
               "shadowColor": true,
               "color": true,
-              "placeholderTextColor": true,
               "textDecorationColor": true,
               "textShadowColor": true,
               "borderRadius": true,
@@ -354,6 +351,7 @@
               "hoverStyle": true,
               "pressStyle": true,
               "focusStyle": true,
+              "disabledStyle": true,
               "backfaceVisibility": true,
               "borderBottomEndRadius": true,
               "borderBottomStartRadius": true,
@@ -432,7 +430,6 @@
               "borderStartColor": true,
               "shadowColor": true,
               "color": true,
-              "placeholderTextColor": true,
               "textDecorationColor": true,
               "textShadowColor": true,
               "borderRadius": true,
@@ -509,6 +506,7 @@
               "hoverStyle": true,
               "pressStyle": true,
               "focusStyle": true,
+              "disabledStyle": true,
               "backfaceVisibility": true,
               "borderBottomEndRadius": true,
               "borderBottomStartRadius": true,
@@ -587,7 +585,6 @@
               "borderStartColor": true,
               "shadowColor": true,
               "color": true,
-              "placeholderTextColor": true,
               "textDecorationColor": true,
               "textShadowColor": true,
               "borderRadius": true,
@@ -697,9 +694,6 @@
             },
             "inlineWhenUnflattened": {},
             "variants": {
-              "ellipsizeMode": {
-                "...": "Function"
-              },
               "ellipse": {
                 "true": {
                   "numberOfLines": 1,
@@ -729,6 +723,7 @@
               "hoverStyle": true,
               "pressStyle": true,
               "focusStyle": true,
+              "disabledStyle": true,
               "backfaceVisibility": true,
               "borderBottomEndRadius": true,
               "borderBottomStartRadius": true,
@@ -807,7 +802,6 @@
               "borderStartColor": true,
               "shadowColor": true,
               "color": true,
-              "placeholderTextColor": true,
               "textDecorationColor": true,
               "textShadowColor": true,
               "borderRadius": true,
@@ -902,16 +896,10 @@
               "display": "flex",
               "fontSize": 200,
               "children": "wwwwwwwwwwwwwwwwwww",
-              "hoverStyle": {
-                "backgroundColor": "red"
-              },
               "pointerEvents": "none"
             },
             "inlineWhenUnflattened": {},
             "variants": {
-              "ellipsizeMode": {
-                "...": "Function"
-              },
               "ellipse": {
                 "true": {
                   "numberOfLines": 1,
@@ -931,6 +919,7 @@
               "hoverStyle": true,
               "pressStyle": true,
               "focusStyle": true,
+              "disabledStyle": true,
               "backfaceVisibility": true,
               "borderBottomEndRadius": true,
               "borderBottomStartRadius": true,
@@ -1009,7 +998,6 @@
               "borderStartColor": true,
               "shadowColor": true,
               "color": true,
-              "placeholderTextColor": true,
               "textDecorationColor": true,
               "textShadowColor": true,
               "borderRadius": true,
@@ -1102,6 +1090,7 @@
               "hoverStyle": true,
               "pressStyle": true,
               "focusStyle": true,
+              "disabledStyle": true,
               "backfaceVisibility": true,
               "borderBottomEndRadius": true,
               "borderBottomStartRadius": true,
@@ -1180,7 +1169,6 @@
               "borderStartColor": true,
               "shadowColor": true,
               "color": true,
-              "placeholderTextColor": true,
               "textDecorationColor": true,
               "textShadowColor": true,
               "borderRadius": true,
@@ -1258,6 +1246,7 @@
                 "...size": "Function",
                 ":number": "Function"
               },
+              "inset": "Function",
               "horizontal": {
                 "true": {
                   "flexDirection": "row",
@@ -1274,8 +1263,9 @@
         "Input": {
           "staticConfig": {
             "isInput": true,
-            "acceptTokens": {
-              "placeholderTextColor": "color"
+            "accept": {
+              "placeholderTextColor": "color",
+              "selectionColor": "color"
             },
             "variants": {
               "unstyled": {
@@ -1293,10 +1283,12 @@
                     "borderColor": "$borderColorHover"
                   },
                   "focusStyle": {
+                    "borderColor": "$borderColorFocus"
+                  },
+                  "focusVisibleStyle": {
                     "outlineColor": "$outlineColor",
                     "outlineWidth": 2,
-                    "outlineStyle": "solid",
-                    "borderColor": "$borderColorFocus"
+                    "outlineStyle": "solid"
                   }
                 }
               },
@@ -1325,8 +1317,9 @@
         "InputFrame": {
           "staticConfig": {
             "isInput": true,
-            "acceptTokens": {
-              "placeholderTextColor": "color"
+            "accept": {
+              "placeholderTextColor": "color",
+              "selectionColor": "color"
             },
             "variants": {
               "unstyled": {
@@ -1344,10 +1337,12 @@
                     "borderColor": "$borderColorHover"
                   },
                   "focusStyle": {
+                    "borderColor": "$borderColorFocus"
+                  },
+                  "focusVisibleStyle": {
                     "outlineColor": "$outlineColor",
                     "outlineWidth": 2,
-                    "outlineStyle": "solid",
-                    "borderColor": "$borderColorFocus"
+                    "outlineStyle": "solid"
                   }
                 }
               },
@@ -1382,6 +1377,7 @@
               "hoverStyle": true,
               "pressStyle": true,
               "focusStyle": true,
+              "disabledStyle": true,
               "backfaceVisibility": true,
               "borderBottomEndRadius": true,
               "borderBottomStartRadius": true,
@@ -1460,7 +1456,6 @@
               "borderStartColor": true,
               "shadowColor": true,
               "color": true,
-              "placeholderTextColor": true,
               "textDecorationColor": true,
               "textShadowColor": true,
               "borderRadius": true,
@@ -1564,6 +1559,7 @@
               "hoverStyle": true,
               "pressStyle": true,
               "focusStyle": true,
+              "disabledStyle": true,
               "backfaceVisibility": true,
               "borderBottomEndRadius": true,
               "borderBottomStartRadius": true,
@@ -1642,7 +1638,6 @@
               "borderStartColor": true,
               "shadowColor": true,
               "color": true,
-              "placeholderTextColor": true,
               "textDecorationColor": true,
               "textShadowColor": true,
               "borderRadius": true,
@@ -1719,7 +1714,8 @@
               "elevation": {
                 "...size": "Function",
                 ":number": "Function"
-              }
+              },
+              "inset": "Function"
             },
             "isReactNative": false,
             "isText": false,
@@ -1738,6 +1734,7 @@
               "hoverStyle": true,
               "pressStyle": true,
               "focusStyle": true,
+              "disabledStyle": true,
               "backfaceVisibility": true,
               "borderBottomEndRadius": true,
               "borderBottomStartRadius": true,
@@ -1816,7 +1813,6 @@
               "borderStartColor": true,
               "shadowColor": true,
               "color": true,
-              "placeholderTextColor": true,
               "textDecorationColor": true,
               "textShadowColor": true,
               "borderRadius": true,
@@ -1893,9 +1889,6 @@
             },
             "inlineWhenUnflattened": {},
             "variants": {
-              "ellipsizeMode": {
-                "...": "Function"
-              },
               "ellipse": {
                 "true": {
                   "numberOfLines": 1,
@@ -1920,6 +1913,7 @@
               "hoverStyle": true,
               "pressStyle": true,
               "focusStyle": true,
+              "disabledStyle": true,
               "backfaceVisibility": true,
               "borderBottomEndRadius": true,
               "borderBottomStartRadius": true,
@@ -1998,7 +1992,6 @@
               "borderStartColor": true,
               "shadowColor": true,
               "color": true,
-              "placeholderTextColor": true,
               "textDecorationColor": true,
               "textShadowColor": true,
               "borderRadius": true,
@@ -2083,8 +2076,9 @@
         "TextArea": {
           "staticConfig": {
             "isInput": true,
-            "acceptTokens": {
-              "placeholderTextColor": "color"
+            "accept": {
+              "placeholderTextColor": "color",
+              "selectionColor": "color"
             },
             "variants": {
               "unstyled": {
@@ -2102,10 +2096,12 @@
                     "borderColor": "$borderColorHover"
                   },
                   "focusStyle": {
+                    "borderColor": "$borderColorFocus"
+                  },
+                  "focusVisibleStyle": {
                     "outlineColor": "$outlineColor",
                     "outlineWidth": 2,
-                    "outlineStyle": "solid",
-                    "borderColor": "$borderColorFocus"
+                    "outlineStyle": "solid"
                   },
                   "height": "auto"
                 }
@@ -2137,8 +2133,9 @@
         "TextAreaFrame": {
           "staticConfig": {
             "isInput": true,
-            "acceptTokens": {
-              "placeholderTextColor": "color"
+            "accept": {
+              "placeholderTextColor": "color",
+              "selectionColor": "color"
             },
             "variants": {
               "unstyled": {
@@ -2156,10 +2153,12 @@
                     "borderColor": "$borderColorHover"
                   },
                   "focusStyle": {
+                    "borderColor": "$borderColorFocus"
+                  },
+                  "focusVisibleStyle": {
                     "outlineColor": "$outlineColor",
                     "outlineWidth": 2,
-                    "outlineStyle": "solid",
-                    "borderColor": "$borderColorFocus"
+                    "outlineStyle": "solid"
                   },
                   "height": "auto"
                 }
@@ -2196,6 +2195,7 @@
               "hoverStyle": true,
               "pressStyle": true,
               "focusStyle": true,
+              "disabledStyle": true,
               "backfaceVisibility": true,
               "borderBottomEndRadius": true,
               "borderBottomStartRadius": true,
@@ -2274,7 +2274,6 @@
               "borderStartColor": true,
               "shadowColor": true,
               "color": true,
-              "placeholderTextColor": true,
               "textDecorationColor": true,
               "textShadowColor": true,
               "borderRadius": true,
@@ -2353,6 +2352,7 @@
               "hoverStyle": true,
               "pressStyle": true,
               "focusStyle": true,
+              "disabledStyle": true,
               "backfaceVisibility": true,
               "borderBottomEndRadius": true,
               "borderBottomStartRadius": true,
@@ -2431,7 +2431,6 @@
               "borderStartColor": true,
               "shadowColor": true,
               "color": true,
-              "placeholderTextColor": true,
               "textDecorationColor": true,
               "textShadowColor": true,
               "borderRadius": true,
@@ -2509,6 +2508,7 @@
                 "...size": "Function",
                 ":number": "Function"
               },
+              "inset": "Function",
               "backgrounded": {
                 "true": {
                   "backgroundColor": "$background"
@@ -2642,6 +2642,7 @@
               "hoverStyle": true,
               "pressStyle": true,
               "focusStyle": true,
+              "disabledStyle": true,
               "backfaceVisibility": true,
               "borderBottomEndRadius": true,
               "borderBottomStartRadius": true,
@@ -2720,7 +2721,6 @@
               "borderStartColor": true,
               "shadowColor": true,
               "color": true,
-              "placeholderTextColor": true,
               "textDecorationColor": true,
               "textShadowColor": true,
               "borderRadius": true,
@@ -2797,7 +2797,8 @@
               "elevation": {
                 "...size": "Function",
                 ":number": "Function"
-              }
+              },
+              "inset": "Function"
             },
             "componentName": "AvatarFallback",
             "isReactNative": false,
@@ -2822,6 +2823,7 @@
               "hoverStyle": true,
               "pressStyle": true,
               "focusStyle": true,
+              "disabledStyle": true,
               "backfaceVisibility": true,
               "borderBottomEndRadius": true,
               "borderBottomStartRadius": true,
@@ -2900,7 +2902,6 @@
               "borderStartColor": true,
               "shadowColor": true,
               "color": true,
-              "placeholderTextColor": true,
               "textDecorationColor": true,
               "textShadowColor": true,
               "borderRadius": true,
@@ -2977,7 +2978,8 @@
               "elevation": {
                 "...size": "Function",
                 ":number": "Function"
-              }
+              },
+              "inset": "Function"
             },
             "componentName": "AvatarFallback",
             "isReactNative": false,
@@ -3001,6 +3003,7 @@
               "hoverStyle": true,
               "pressStyle": true,
               "focusStyle": true,
+              "disabledStyle": true,
               "backfaceVisibility": true,
               "borderBottomEndRadius": true,
               "borderBottomStartRadius": true,
@@ -3079,7 +3082,6 @@
               "borderStartColor": true,
               "shadowColor": true,
               "color": true,
-              "placeholderTextColor": true,
               "textDecorationColor": true,
               "textShadowColor": true,
               "borderRadius": true,
@@ -3157,6 +3159,7 @@
                 "...size": "Function",
                 ":number": "Function"
               },
+              "inset": "Function",
               "backgrounded": {
                 "true": {
                   "backgroundColor": "$background"
@@ -3274,6 +3277,7 @@
               "hoverStyle": true,
               "pressStyle": true,
               "focusStyle": true,
+              "disabledStyle": true,
               "backfaceVisibility": true,
               "borderBottomEndRadius": true,
               "borderBottomStartRadius": true,
@@ -3352,7 +3356,6 @@
               "borderStartColor": true,
               "shadowColor": true,
               "color": true,
-              "placeholderTextColor": true,
               "textDecorationColor": true,
               "textShadowColor": true,
               "borderRadius": true,
@@ -3430,6 +3433,7 @@
                 "...size": "Function",
                 ":number": "Function"
               },
+              "inset": "Function",
               "backgrounded": {
                 "true": {
                   "backgroundColor": "$background"
@@ -3533,7 +3537,7 @@
                   "backgrounded": true,
                   "borderWidth": 1,
                   "borderColor": "transparent",
-                  "focusStyle": {
+                  "focusVisibleStyle": {
                     "outlineColor": "$outlineColor",
                     "outlineStyle": "solid",
                     "outlineWidth": 2
@@ -3553,14 +3557,15 @@
                     "backgroundColor": "transparent",
                     "borderColor": "$borderColorPress"
                   },
-                  "focusStyle": {
+                  "focusVisibleStyle": {
                     "backgroundColor": "transparent",
                     "borderColor": "$borderColorFocus"
                   }
                 }
               },
               "size": {
-                "...size": "Function"
+                "...size": "Function",
+                ":number": "Function"
               },
               "disabled": {
                 "true": {
@@ -3596,6 +3601,7 @@
               "hoverStyle": true,
               "pressStyle": true,
               "focusStyle": true,
+              "disabledStyle": true,
               "backfaceVisibility": true,
               "borderBottomEndRadius": true,
               "borderBottomStartRadius": true,
@@ -3674,7 +3680,6 @@
               "borderStartColor": true,
               "shadowColor": true,
               "color": true,
-              "placeholderTextColor": true,
               "textDecorationColor": true,
               "textShadowColor": true,
               "borderRadius": true,
@@ -3752,6 +3757,7 @@
                 "...size": "Function",
                 ":number": "Function"
               },
+              "inset": "Function",
               "backgrounded": {
                 "true": {
                   "backgroundColor": "$background"
@@ -3855,7 +3861,7 @@
                   "backgrounded": true,
                   "borderWidth": 1,
                   "borderColor": "transparent",
-                  "focusStyle": {
+                  "focusVisibleStyle": {
                     "outlineColor": "$outlineColor",
                     "outlineStyle": "solid",
                     "outlineWidth": 2
@@ -3875,14 +3881,15 @@
                     "backgroundColor": "transparent",
                     "borderColor": "$borderColorPress"
                   },
-                  "focusStyle": {
+                  "focusVisibleStyle": {
                     "backgroundColor": "transparent",
                     "borderColor": "$borderColorFocus"
                   }
                 }
               },
               "size": {
-                "...size": "Function"
+                "...size": "Function",
+                ":number": "Function"
               },
               "disabled": {
                 "true": {
@@ -3912,9 +3919,6 @@
             },
             "inlineWhenUnflattened": {},
             "variants": {
-              "ellipsizeMode": {
-                "...": "Function"
-              },
               "ellipse": {
                 "true": {
                   "numberOfLines": 1,
@@ -3949,6 +3953,7 @@
               "hoverStyle": true,
               "pressStyle": true,
               "focusStyle": true,
+              "disabledStyle": true,
               "backfaceVisibility": true,
               "borderBottomEndRadius": true,
               "borderBottomStartRadius": true,
@@ -4027,7 +4032,6 @@
               "borderStartColor": true,
               "shadowColor": true,
               "color": true,
-              "placeholderTextColor": true,
               "textDecorationColor": true,
               "textShadowColor": true,
               "borderRadius": true,
@@ -4125,6 +4129,7 @@
               "hoverStyle": true,
               "pressStyle": true,
               "focusStyle": true,
+              "disabledStyle": true,
               "backfaceVisibility": true,
               "borderBottomEndRadius": true,
               "borderBottomStartRadius": true,
@@ -4203,7 +4208,6 @@
               "borderStartColor": true,
               "shadowColor": true,
               "color": true,
-              "placeholderTextColor": true,
               "textDecorationColor": true,
               "textShadowColor": true,
               "borderRadius": true,
@@ -4281,6 +4285,7 @@
                 "...size": "Function",
                 ":number": "Function"
               },
+              "inset": "Function",
               "backgrounded": {
                 "true": {
                   "backgroundColor": "$background"
@@ -4406,6 +4411,7 @@
               "hoverStyle": true,
               "pressStyle": true,
               "focusStyle": true,
+              "disabledStyle": true,
               "backfaceVisibility": true,
               "borderBottomEndRadius": true,
               "borderBottomStartRadius": true,
@@ -4484,7 +4490,6 @@
               "borderStartColor": true,
               "shadowColor": true,
               "color": true,
-              "placeholderTextColor": true,
               "textDecorationColor": true,
               "textShadowColor": true,
               "borderRadius": true,
@@ -4562,6 +4567,7 @@
                 "...size": "Function",
                 ":number": "Function"
               },
+              "inset": "Function",
               "backgrounded": {
                 "true": {
                   "backgroundColor": "$background"
@@ -4684,6 +4690,7 @@
               "hoverStyle": true,
               "pressStyle": true,
               "focusStyle": true,
+              "disabledStyle": true,
               "backfaceVisibility": true,
               "borderBottomEndRadius": true,
               "borderBottomStartRadius": true,
@@ -4762,7 +4769,6 @@
               "borderStartColor": true,
               "shadowColor": true,
               "color": true,
-              "placeholderTextColor": true,
               "textDecorationColor": true,
               "textShadowColor": true,
               "borderRadius": true,
@@ -4840,6 +4846,7 @@
                 "...size": "Function",
                 ":number": "Function"
               },
+              "inset": "Function",
               "backgrounded": {
                 "true": {
                   "backgroundColor": "$background"
@@ -4966,6 +4973,7 @@
               "hoverStyle": true,
               "pressStyle": true,
               "focusStyle": true,
+              "disabledStyle": true,
               "backfaceVisibility": true,
               "borderBottomEndRadius": true,
               "borderBottomStartRadius": true,
@@ -5044,7 +5052,6 @@
               "borderStartColor": true,
               "shadowColor": true,
               "color": true,
-              "placeholderTextColor": true,
               "textDecorationColor": true,
               "textShadowColor": true,
               "borderRadius": true,
@@ -5122,6 +5129,7 @@
                 "...size": "Function",
                 ":number": "Function"
               },
+              "inset": "Function",
               "backgrounded": {
                 "true": {
                   "backgroundColor": "$background"
@@ -5247,6 +5255,7 @@
               "hoverStyle": true,
               "pressStyle": true,
               "focusStyle": true,
+              "disabledStyle": true,
               "backfaceVisibility": true,
               "borderBottomEndRadius": true,
               "borderBottomStartRadius": true,
@@ -5325,7 +5334,6 @@
               "borderStartColor": true,
               "shadowColor": true,
               "color": true,
-              "placeholderTextColor": true,
               "textDecorationColor": true,
               "textShadowColor": true,
               "borderRadius": true,
@@ -5403,6 +5411,7 @@
                 "...size": "Function",
                 ":number": "Function"
               },
+              "inset": "Function",
               "backgrounded": {
                 "true": {
                   "backgroundColor": "$background"
@@ -5529,6 +5538,7 @@
               "hoverStyle": true,
               "pressStyle": true,
               "focusStyle": true,
+              "disabledStyle": true,
               "backfaceVisibility": true,
               "borderBottomEndRadius": true,
               "borderBottomStartRadius": true,
@@ -5607,7 +5617,6 @@
               "borderStartColor": true,
               "shadowColor": true,
               "color": true,
-              "placeholderTextColor": true,
               "textDecorationColor": true,
               "textShadowColor": true,
               "borderRadius": true,
@@ -5685,6 +5694,7 @@
                 "...size": "Function",
                 ":number": "Function"
               },
+              "inset": "Function",
               "backgrounded": {
                 "true": {
                   "backgroundColor": "$background"
@@ -5789,7 +5799,9 @@
                     "borderColor": "$borderColorHover"
                   },
                   "focusStyle": {
-                    "borderColor": "$borderColorFocus",
+                    "borderColor": "$borderColorFocus"
+                  },
+                  "focusVisibleStyle": {
                     "outlineStyle": "solid",
                     "outlineWidth": 2,
                     "outlineColor": "$outlineColor"
@@ -5844,6 +5856,7 @@
               "hoverStyle": true,
               "pressStyle": true,
               "focusStyle": true,
+              "disabledStyle": true,
               "backfaceVisibility": true,
               "borderBottomEndRadius": true,
               "borderBottomStartRadius": true,
@@ -5922,7 +5935,6 @@
               "borderStartColor": true,
               "shadowColor": true,
               "color": true,
-              "placeholderTextColor": true,
               "textDecorationColor": true,
               "textShadowColor": true,
               "borderRadius": true,
@@ -6000,6 +6012,7 @@
                 "...size": "Function",
                 ":number": "Function"
               },
+              "inset": "Function",
               "backgrounded": {
                 "true": {
                   "backgroundColor": "$background"
@@ -6104,7 +6117,9 @@
                     "borderColor": "$borderColorHover"
                   },
                   "focusStyle": {
-                    "borderColor": "$borderColorFocus",
+                    "borderColor": "$borderColorFocus"
+                  },
+                  "focusVisibleStyle": {
                     "outlineStyle": "solid",
                     "outlineWidth": 2,
                     "outlineColor": "$outlineColor"
@@ -6144,11 +6159,12 @@
             "neverFlatten": true
           }
         },
-        "DialogClose": {
+        "CheckboxIndicatorFrame": {
           "staticConfig": {
             "acceptsClassName": true,
             "defaultProps": {
-              "tag": "button"
+              "flexDirection": "column",
+              "unstyled": false
             },
             "validStyles": {
               "enterStyle": true,
@@ -6156,6 +6172,7 @@
               "hoverStyle": true,
               "pressStyle": true,
               "focusStyle": true,
+              "disabledStyle": true,
               "backfaceVisibility": true,
               "borderBottomEndRadius": true,
               "borderBottomStartRadius": true,
@@ -6234,7 +6251,280 @@
               "borderStartColor": true,
               "shadowColor": true,
               "color": true,
-              "placeholderTextColor": true,
+              "textDecorationColor": true,
+              "textShadowColor": true,
+              "borderRadius": true,
+              "borderTopLeftRadius": true,
+              "borderTopRightRadius": true,
+              "borderBottomLeftRadius": true,
+              "borderBottomRightRadius": true,
+              "borderStartStartRadius": true,
+              "borderStartEndRadius": true,
+              "borderEndStartRadius": true,
+              "borderEndEndRadius": true,
+              "width": true,
+              "height": true,
+              "minWidth": true,
+              "minHeight": true,
+              "maxWidth": true,
+              "maxHeight": true,
+              "x": true,
+              "y": true,
+              "scale": true,
+              "perspective": true,
+              "scaleX": true,
+              "scaleY": true,
+              "skewX": true,
+              "skewY": true,
+              "matrix": true,
+              "rotate": true,
+              "rotateY": true,
+              "rotateX": true,
+              "rotateZ": true,
+              "WebkitLineClamp": true,
+              "animationIterationCount": true,
+              "aspectRatio": true,
+              "borderImageOutset": true,
+              "borderImageSlice": true,
+              "borderImageWidth": true,
+              "columnCount": true,
+              "flex": true,
+              "flexGrow": true,
+              "flexOrder": true,
+              "flexPositive": true,
+              "flexShrink": true,
+              "flexNegative": true,
+              "fontWeight": true,
+              "gridRow": true,
+              "gridRowEnd": true,
+              "gridRowGap": true,
+              "gridRowStart": true,
+              "gridColumn": true,
+              "gridColumnEnd": true,
+              "gridColumnGap": true,
+              "gridColumnStart": true,
+              "lineClamp": true,
+              "opacity": true,
+              "order": true,
+              "orphans": true,
+              "tabSize": true,
+              "widows": true,
+              "zIndex": true,
+              "zoom": true,
+              "scaleZ": true,
+              "shadowOpacity": true
+            },
+            "variants": {
+              "fullscreen": {
+                "true": {
+                  "position": "absolute",
+                  "top": 0,
+                  "left": 0,
+                  "right": 0,
+                  "bottom": 0
+                }
+              },
+              "elevation": {
+                "...size": "Function",
+                ":number": "Function"
+              },
+              "inset": "Function",
+              "backgrounded": {
+                "true": {
+                  "backgroundColor": "$background"
+                }
+              },
+              "radiused": {
+                "true": "Function"
+              },
+              "hoverTheme": {
+                "true": {
+                  "hoverStyle": {
+                    "backgroundColor": "$backgroundHover",
+                    "borderColor": "$borderColorHover"
+                  }
+                },
+                "false": {}
+              },
+              "pressTheme": {
+                "true": {
+                  "cursor": "pointer",
+                  "pressStyle": {
+                    "backgroundColor": "$backgroundPress",
+                    "borderColor": "$borderColorPress"
+                  }
+                },
+                "false": {}
+              },
+              "focusTheme": {
+                "true": {
+                  "focusStyle": {
+                    "backgroundColor": "$backgroundFocus",
+                    "borderColor": "$borderColorFocus"
+                  }
+                },
+                "false": {}
+              },
+              "circular": {
+                "true": "Function"
+              },
+              "padded": {
+                "true": "Function"
+              },
+              "elevate": {
+                "true": "Function"
+              },
+              "bordered": "Function",
+              "transparent": {
+                "true": {
+                  "backgroundColor": "transparent"
+                }
+              },
+              "chromeless": {
+                "true": {
+                  "backgroundColor": "transparent",
+                  "borderColor": "transparent",
+                  "shadowColor": "transparent",
+                  "hoverStyle": {
+                    "borderColor": "transparent"
+                  }
+                },
+                "all": {
+                  "backgroundColor": "transparent",
+                  "borderColor": "transparent",
+                  "shadowColor": "transparent",
+                  "hoverStyle": {
+                    "backgroundColor": "transparent",
+                    "borderColor": "transparent",
+                    "shadowColor": "transparent",
+                    "hoverStyle": {
+                      "borderColor": "transparent"
+                    }
+                  },
+                  "pressStyle": {
+                    "backgroundColor": "transparent",
+                    "borderColor": "transparent",
+                    "shadowColor": "transparent",
+                    "hoverStyle": {
+                      "borderColor": "transparent"
+                    }
+                  },
+                  "focusStyle": {
+                    "backgroundColor": "transparent",
+                    "borderColor": "transparent",
+                    "shadowColor": "transparent",
+                    "hoverStyle": {
+                      "borderColor": "transparent"
+                    }
+                  }
+                }
+              },
+              "unstyled": {
+                "false": {}
+              }
+            },
+            "defaultVariants": {
+              "unstyled": false
+            },
+            "componentName": "CheckboxIndicator",
+            "isReactNative": false,
+            "isText": false,
+            "context": "Component",
+            "isStyledHOC": false,
+            "neverFlatten": true
+          }
+        },
+        "DialogClose": {
+          "staticConfig": {
+            "acceptsClassName": true,
+            "defaultProps": {
+              "tag": "button"
+            },
+            "validStyles": {
+              "enterStyle": true,
+              "exitStyle": true,
+              "hoverStyle": true,
+              "pressStyle": true,
+              "focusStyle": true,
+              "disabledStyle": true,
+              "backfaceVisibility": true,
+              "borderBottomEndRadius": true,
+              "borderBottomStartRadius": true,
+              "borderBottomWidth": true,
+              "borderLeftWidth": true,
+              "borderRightWidth": true,
+              "borderStyle": true,
+              "borderTopEndRadius": true,
+              "borderTopStartRadius": true,
+              "borderTopWidth": true,
+              "borderWidth": true,
+              "transform": true,
+              "transformOrigin": true,
+              "alignContent": true,
+              "alignItems": true,
+              "alignSelf": true,
+              "borderEndWidth": true,
+              "borderStartWidth": true,
+              "bottom": true,
+              "display": true,
+              "end": true,
+              "flexBasis": true,
+              "flexDirection": true,
+              "flexWrap": true,
+              "gap": true,
+              "columnGap": true,
+              "rowGap": true,
+              "justifyContent": true,
+              "left": true,
+              "margin": true,
+              "marginBlockEnd": true,
+              "marginBlockStart": true,
+              "marginInlineEnd": true,
+              "marginInline": true,
+              "marginInlineStart": true,
+              "marginBottom": true,
+              "marginEnd": true,
+              "marginHorizontal": true,
+              "marginLeft": true,
+              "marginRight": true,
+              "marginStart": true,
+              "marginTop": true,
+              "marginVertical": true,
+              "overflow": true,
+              "padding": true,
+              "paddingBottom": true,
+              "paddingInline": true,
+              "paddingBlock": true,
+              "paddingBlockStart": true,
+              "paddingInlineEnd": true,
+              "paddingInlineStart": true,
+              "paddingEnd": true,
+              "paddingHorizontal": true,
+              "paddingLeft": true,
+              "paddingRight": true,
+              "paddingStart": true,
+              "paddingTop": true,
+              "paddingVertical": true,
+              "position": true,
+              "right": true,
+              "start": true,
+              "top": true,
+              "direction": true,
+              "shadowOffset": true,
+              "shadowRadius": true,
+              "backgroundColor": true,
+              "borderColor": true,
+              "borderBlockStartColor": true,
+              "borderBlockEndColor": true,
+              "borderBlockColor": true,
+              "borderBottomColor": true,
+              "borderTopColor": true,
+              "borderLeftColor": true,
+              "borderRightColor": true,
+              "borderEndColor": true,
+              "borderStartColor": true,
+              "shadowColor": true,
+              "color": true,
               "textDecorationColor": true,
               "textShadowColor": true,
               "borderRadius": true,
@@ -6321,6 +6611,7 @@
               "hoverStyle": true,
               "pressStyle": true,
               "focusStyle": true,
+              "disabledStyle": true,
               "backfaceVisibility": true,
               "borderBottomEndRadius": true,
               "borderBottomStartRadius": true,
@@ -6399,7 +6690,6 @@
               "borderStartColor": true,
               "shadowColor": true,
               "color": true,
-              "placeholderTextColor": true,
               "textDecorationColor": true,
               "textShadowColor": true,
               "borderRadius": true,
@@ -6477,6 +6767,7 @@
                 "...size": "Function",
                 ":number": "Function"
               },
+              "inset": "Function",
               "backgrounded": {
                 "true": {
                   "backgroundColor": "$background"
@@ -6608,9 +6899,6 @@
             },
             "inlineWhenUnflattened": {},
             "variants": {
-              "ellipsizeMode": {
-                "...": "Function"
-              },
               "ellipse": {
                 "true": {
                   "numberOfLines": 1,
@@ -6640,6 +6928,7 @@
               "hoverStyle": true,
               "pressStyle": true,
               "focusStyle": true,
+              "disabledStyle": true,
               "backfaceVisibility": true,
               "borderBottomEndRadius": true,
               "borderBottomStartRadius": true,
@@ -6718,7 +7007,6 @@
               "borderStartColor": true,
               "shadowColor": true,
               "color": true,
-              "placeholderTextColor": true,
               "textDecorationColor": true,
               "textShadowColor": true,
               "borderRadius": true,
@@ -6813,6 +7101,7 @@
               "hoverStyle": true,
               "pressStyle": true,
               "focusStyle": true,
+              "disabledStyle": true,
               "backfaceVisibility": true,
               "borderBottomEndRadius": true,
               "borderBottomStartRadius": true,
@@ -6891,7 +7180,6 @@
               "borderStartColor": true,
               "shadowColor": true,
               "color": true,
-              "placeholderTextColor": true,
               "textDecorationColor": true,
               "textShadowColor": true,
               "borderRadius": true,
@@ -6969,6 +7257,7 @@
                 "...size": "Function",
                 ":number": "Function"
               },
+              "inset": "Function",
               "backgrounded": {
                 "true": {
                   "backgroundColor": "$background"
@@ -7100,6 +7389,7 @@
               "hoverStyle": true,
               "pressStyle": true,
               "focusStyle": true,
+              "disabledStyle": true,
               "backfaceVisibility": true,
               "borderBottomEndRadius": true,
               "borderBottomStartRadius": true,
@@ -7178,7 +7468,6 @@
               "borderStartColor": true,
               "shadowColor": true,
               "color": true,
-              "placeholderTextColor": true,
               "textDecorationColor": true,
               "textShadowColor": true,
               "borderRadius": true,
@@ -7256,6 +7545,7 @@
                 "...size": "Function",
                 ":number": "Function"
               },
+              "inset": "Function",
               "backgrounded": {
                 "true": {
                   "backgroundColor": "$background"
@@ -7377,7 +7667,8 @@
             "acceptsClassName": true,
             "defaultProps": {
               "flexDirection": "column",
-              "unstyled": false
+              "unstyled": false,
+              "pointerEvents": "none"
             },
             "validStyles": {
               "enterStyle": true,
@@ -7385,6 +7676,7 @@
               "hoverStyle": true,
               "pressStyle": true,
               "focusStyle": true,
+              "disabledStyle": true,
               "backfaceVisibility": true,
               "borderBottomEndRadius": true,
               "borderBottomStartRadius": true,
@@ -7463,7 +7755,6 @@
               "borderStartColor": true,
               "shadowColor": true,
               "color": true,
-              "placeholderTextColor": true,
               "textDecorationColor": true,
               "textShadowColor": true,
               "borderRadius": true,
@@ -7541,6 +7832,7 @@
                 "...size": "Function",
                 ":number": "Function"
               },
+              "inset": "Function",
               "unstyled": {
                 "false": {
                   "alignItems": "center",
@@ -7575,9 +7867,6 @@
             },
             "inlineWhenUnflattened": {},
             "variants": {
-              "ellipsizeMode": {
-                "...": "Function"
-              },
               "ellipse": {
                 "true": {
                   "numberOfLines": 1,
@@ -7607,6 +7896,7 @@
               "hoverStyle": true,
               "pressStyle": true,
               "focusStyle": true,
+              "disabledStyle": true,
               "backfaceVisibility": true,
               "borderBottomEndRadius": true,
               "borderBottomStartRadius": true,
@@ -7685,7 +7975,6 @@
               "borderStartColor": true,
               "shadowColor": true,
               "color": true,
-              "placeholderTextColor": true,
               "textDecorationColor": true,
               "textShadowColor": true,
               "borderRadius": true,
@@ -7777,6 +8066,7 @@
               "hoverStyle": true,
               "pressStyle": true,
               "focusStyle": true,
+              "disabledStyle": true,
               "backfaceVisibility": true,
               "borderBottomEndRadius": true,
               "borderBottomStartRadius": true,
@@ -7855,7 +8145,6 @@
               "borderStartColor": true,
               "shadowColor": true,
               "color": true,
-              "placeholderTextColor": true,
               "textDecorationColor": true,
               "textShadowColor": true,
               "borderRadius": true,
@@ -7939,6 +8228,7 @@
               "hoverStyle": true,
               "pressStyle": true,
               "focusStyle": true,
+              "disabledStyle": true,
               "backfaceVisibility": true,
               "borderBottomEndRadius": true,
               "borderBottomStartRadius": true,
@@ -8017,7 +8307,6 @@
               "borderStartColor": true,
               "shadowColor": true,
               "color": true,
-              "placeholderTextColor": true,
               "textDecorationColor": true,
               "textShadowColor": true,
               "borderRadius": true,
@@ -8101,6 +8390,7 @@
               "hoverStyle": true,
               "pressStyle": true,
               "focusStyle": true,
+              "disabledStyle": true,
               "backfaceVisibility": true,
               "borderBottomEndRadius": true,
               "borderBottomStartRadius": true,
@@ -8179,7 +8469,6 @@
               "borderStartColor": true,
               "shadowColor": true,
               "color": true,
-              "placeholderTextColor": true,
               "textDecorationColor": true,
               "textShadowColor": true,
               "borderRadius": true,
@@ -8259,6 +8548,7 @@
               "hoverStyle": true,
               "pressStyle": true,
               "focusStyle": true,
+              "disabledStyle": true,
               "backfaceVisibility": true,
               "borderBottomEndRadius": true,
               "borderBottomStartRadius": true,
@@ -8337,7 +8627,6 @@
               "borderStartColor": true,
               "shadowColor": true,
               "color": true,
-              "placeholderTextColor": true,
               "textDecorationColor": true,
               "textShadowColor": true,
               "borderRadius": true,
@@ -8409,7 +8698,7 @@
             "isHOC": true
           }
         },
-        "GroupFrame": {
+        "Group": {
           "staticConfig": {
             "acceptsClassName": true,
             "defaultProps": {
@@ -8422,6 +8711,7 @@
               "hoverStyle": true,
               "pressStyle": true,
               "focusStyle": true,
+              "disabledStyle": true,
               "backfaceVisibility": true,
               "borderBottomEndRadius": true,
               "borderBottomStartRadius": true,
@@ -8500,7 +8790,6 @@
               "borderStartColor": true,
               "shadowColor": true,
               "color": true,
-              "placeholderTextColor": true,
               "textDecorationColor": true,
               "textShadowColor": true,
               "borderRadius": true,
@@ -8578,6 +8867,285 @@
                 "...size": "Function",
                 ":number": "Function"
               },
+              "inset": "Function",
+              "backgrounded": {
+                "true": {
+                  "backgroundColor": "$background"
+                }
+              },
+              "radiused": {
+                "true": "Function"
+              },
+              "hoverTheme": {
+                "true": {
+                  "hoverStyle": {
+                    "backgroundColor": "$backgroundHover",
+                    "borderColor": "$borderColorHover"
+                  }
+                },
+                "false": {}
+              },
+              "pressTheme": {
+                "true": {
+                  "cursor": "pointer",
+                  "pressStyle": {
+                    "backgroundColor": "$backgroundPress",
+                    "borderColor": "$borderColorPress"
+                  }
+                },
+                "false": {}
+              },
+              "focusTheme": {
+                "true": {
+                  "focusStyle": {
+                    "backgroundColor": "$backgroundFocus",
+                    "borderColor": "$borderColorFocus"
+                  }
+                },
+                "false": {}
+              },
+              "circular": {
+                "true": "Function"
+              },
+              "padded": {
+                "true": "Function"
+              },
+              "elevate": {
+                "true": "Function"
+              },
+              "bordered": "Function",
+              "transparent": {
+                "true": {
+                  "backgroundColor": "transparent"
+                }
+              },
+              "chromeless": {
+                "true": {
+                  "backgroundColor": "transparent",
+                  "borderColor": "transparent",
+                  "shadowColor": "transparent",
+                  "hoverStyle": {
+                    "borderColor": "transparent"
+                  }
+                },
+                "all": {
+                  "backgroundColor": "transparent",
+                  "borderColor": "transparent",
+                  "shadowColor": "transparent",
+                  "hoverStyle": {
+                    "backgroundColor": "transparent",
+                    "borderColor": "transparent",
+                    "shadowColor": "transparent",
+                    "hoverStyle": {
+                      "borderColor": "transparent"
+                    }
+                  },
+                  "pressStyle": {
+                    "backgroundColor": "transparent",
+                    "borderColor": "transparent",
+                    "shadowColor": "transparent",
+                    "hoverStyle": {
+                      "borderColor": "transparent"
+                    }
+                  },
+                  "focusStyle": {
+                    "backgroundColor": "transparent",
+                    "borderColor": "transparent",
+                    "shadowColor": "transparent",
+                    "hoverStyle": {
+                      "borderColor": "transparent"
+                    }
+                  }
+                }
+              },
+              "unstyled": {
+                "false": {
+                  "size": "$true"
+                }
+              },
+              "size": "Function"
+            },
+            "defaultVariants": {
+              "unstyled": false
+            },
+            "componentName": "GroupFrame",
+            "isReactNative": false,
+            "isText": false,
+            "isStyledHOC": false,
+            "neverFlatten": true,
+            "isHOC": true
+          }
+        },
+        "GroupFrame": {
+          "staticConfig": {
+            "acceptsClassName": true,
+            "defaultProps": {
+              "flexDirection": "column",
+              "unstyled": false
+            },
+            "validStyles": {
+              "enterStyle": true,
+              "exitStyle": true,
+              "hoverStyle": true,
+              "pressStyle": true,
+              "focusStyle": true,
+              "disabledStyle": true,
+              "backfaceVisibility": true,
+              "borderBottomEndRadius": true,
+              "borderBottomStartRadius": true,
+              "borderBottomWidth": true,
+              "borderLeftWidth": true,
+              "borderRightWidth": true,
+              "borderStyle": true,
+              "borderTopEndRadius": true,
+              "borderTopStartRadius": true,
+              "borderTopWidth": true,
+              "borderWidth": true,
+              "transform": true,
+              "transformOrigin": true,
+              "alignContent": true,
+              "alignItems": true,
+              "alignSelf": true,
+              "borderEndWidth": true,
+              "borderStartWidth": true,
+              "bottom": true,
+              "display": true,
+              "end": true,
+              "flexBasis": true,
+              "flexDirection": true,
+              "flexWrap": true,
+              "gap": true,
+              "columnGap": true,
+              "rowGap": true,
+              "justifyContent": true,
+              "left": true,
+              "margin": true,
+              "marginBlockEnd": true,
+              "marginBlockStart": true,
+              "marginInlineEnd": true,
+              "marginInline": true,
+              "marginInlineStart": true,
+              "marginBottom": true,
+              "marginEnd": true,
+              "marginHorizontal": true,
+              "marginLeft": true,
+              "marginRight": true,
+              "marginStart": true,
+              "marginTop": true,
+              "marginVertical": true,
+              "overflow": true,
+              "padding": true,
+              "paddingBottom": true,
+              "paddingInline": true,
+              "paddingBlock": true,
+              "paddingBlockStart": true,
+              "paddingInlineEnd": true,
+              "paddingInlineStart": true,
+              "paddingEnd": true,
+              "paddingHorizontal": true,
+              "paddingLeft": true,
+              "paddingRight": true,
+              "paddingStart": true,
+              "paddingTop": true,
+              "paddingVertical": true,
+              "position": true,
+              "right": true,
+              "start": true,
+              "top": true,
+              "direction": true,
+              "shadowOffset": true,
+              "shadowRadius": true,
+              "backgroundColor": true,
+              "borderColor": true,
+              "borderBlockStartColor": true,
+              "borderBlockEndColor": true,
+              "borderBlockColor": true,
+              "borderBottomColor": true,
+              "borderTopColor": true,
+              "borderLeftColor": true,
+              "borderRightColor": true,
+              "borderEndColor": true,
+              "borderStartColor": true,
+              "shadowColor": true,
+              "color": true,
+              "textDecorationColor": true,
+              "textShadowColor": true,
+              "borderRadius": true,
+              "borderTopLeftRadius": true,
+              "borderTopRightRadius": true,
+              "borderBottomLeftRadius": true,
+              "borderBottomRightRadius": true,
+              "borderStartStartRadius": true,
+              "borderStartEndRadius": true,
+              "borderEndStartRadius": true,
+              "borderEndEndRadius": true,
+              "width": true,
+              "height": true,
+              "minWidth": true,
+              "minHeight": true,
+              "maxWidth": true,
+              "maxHeight": true,
+              "x": true,
+              "y": true,
+              "scale": true,
+              "perspective": true,
+              "scaleX": true,
+              "scaleY": true,
+              "skewX": true,
+              "skewY": true,
+              "matrix": true,
+              "rotate": true,
+              "rotateY": true,
+              "rotateX": true,
+              "rotateZ": true,
+              "WebkitLineClamp": true,
+              "animationIterationCount": true,
+              "aspectRatio": true,
+              "borderImageOutset": true,
+              "borderImageSlice": true,
+              "borderImageWidth": true,
+              "columnCount": true,
+              "flex": true,
+              "flexGrow": true,
+              "flexOrder": true,
+              "flexPositive": true,
+              "flexShrink": true,
+              "flexNegative": true,
+              "fontWeight": true,
+              "gridRow": true,
+              "gridRowEnd": true,
+              "gridRowGap": true,
+              "gridRowStart": true,
+              "gridColumn": true,
+              "gridColumnEnd": true,
+              "gridColumnGap": true,
+              "gridColumnStart": true,
+              "lineClamp": true,
+              "opacity": true,
+              "order": true,
+              "orphans": true,
+              "tabSize": true,
+              "widows": true,
+              "zIndex": true,
+              "zoom": true,
+              "scaleZ": true,
+              "shadowOpacity": true
+            },
+            "variants": {
+              "fullscreen": {
+                "true": {
+                  "position": "absolute",
+                  "top": 0,
+                  "left": 0,
+                  "right": 0,
+                  "bottom": 0
+                }
+              },
+              "elevation": {
+                "...size": "Function",
+                ":number": "Function"
+              },
+              "inset": "Function",
               "backgrounded": {
                 "true": {
                   "backgroundColor": "$background"
@@ -8684,12 +9252,12 @@
             "isStyledHOC": false
           }
         },
-        "Article": {
+        "XGroup": {
           "staticConfig": {
             "acceptsClassName": true,
             "defaultProps": {
-              "tag": "article",
-              "flexDirection": "column"
+              "flexDirection": "column",
+              "unstyled": false
             },
             "validStyles": {
               "enterStyle": true,
@@ -8697,6 +9265,7 @@
               "hoverStyle": true,
               "pressStyle": true,
               "focusStyle": true,
+              "disabledStyle": true,
               "backfaceVisibility": true,
               "borderBottomEndRadius": true,
               "borderBottomStartRadius": true,
@@ -8775,7 +9344,562 @@
               "borderStartColor": true,
               "shadowColor": true,
               "color": true,
-              "placeholderTextColor": true,
+              "textDecorationColor": true,
+              "textShadowColor": true,
+              "borderRadius": true,
+              "borderTopLeftRadius": true,
+              "borderTopRightRadius": true,
+              "borderBottomLeftRadius": true,
+              "borderBottomRightRadius": true,
+              "borderStartStartRadius": true,
+              "borderStartEndRadius": true,
+              "borderEndStartRadius": true,
+              "borderEndEndRadius": true,
+              "width": true,
+              "height": true,
+              "minWidth": true,
+              "minHeight": true,
+              "maxWidth": true,
+              "maxHeight": true,
+              "x": true,
+              "y": true,
+              "scale": true,
+              "perspective": true,
+              "scaleX": true,
+              "scaleY": true,
+              "skewX": true,
+              "skewY": true,
+              "matrix": true,
+              "rotate": true,
+              "rotateY": true,
+              "rotateX": true,
+              "rotateZ": true,
+              "WebkitLineClamp": true,
+              "animationIterationCount": true,
+              "aspectRatio": true,
+              "borderImageOutset": true,
+              "borderImageSlice": true,
+              "borderImageWidth": true,
+              "columnCount": true,
+              "flex": true,
+              "flexGrow": true,
+              "flexOrder": true,
+              "flexPositive": true,
+              "flexShrink": true,
+              "flexNegative": true,
+              "fontWeight": true,
+              "gridRow": true,
+              "gridRowEnd": true,
+              "gridRowGap": true,
+              "gridRowStart": true,
+              "gridColumn": true,
+              "gridColumnEnd": true,
+              "gridColumnGap": true,
+              "gridColumnStart": true,
+              "lineClamp": true,
+              "opacity": true,
+              "order": true,
+              "orphans": true,
+              "tabSize": true,
+              "widows": true,
+              "zIndex": true,
+              "zoom": true,
+              "scaleZ": true,
+              "shadowOpacity": true
+            },
+            "variants": {
+              "fullscreen": {
+                "true": {
+                  "position": "absolute",
+                  "top": 0,
+                  "left": 0,
+                  "right": 0,
+                  "bottom": 0
+                }
+              },
+              "elevation": {
+                "...size": "Function",
+                ":number": "Function"
+              },
+              "inset": "Function",
+              "backgrounded": {
+                "true": {
+                  "backgroundColor": "$background"
+                }
+              },
+              "radiused": {
+                "true": "Function"
+              },
+              "hoverTheme": {
+                "true": {
+                  "hoverStyle": {
+                    "backgroundColor": "$backgroundHover",
+                    "borderColor": "$borderColorHover"
+                  }
+                },
+                "false": {}
+              },
+              "pressTheme": {
+                "true": {
+                  "cursor": "pointer",
+                  "pressStyle": {
+                    "backgroundColor": "$backgroundPress",
+                    "borderColor": "$borderColorPress"
+                  }
+                },
+                "false": {}
+              },
+              "focusTheme": {
+                "true": {
+                  "focusStyle": {
+                    "backgroundColor": "$backgroundFocus",
+                    "borderColor": "$borderColorFocus"
+                  }
+                },
+                "false": {}
+              },
+              "circular": {
+                "true": "Function"
+              },
+              "padded": {
+                "true": "Function"
+              },
+              "elevate": {
+                "true": "Function"
+              },
+              "bordered": "Function",
+              "transparent": {
+                "true": {
+                  "backgroundColor": "transparent"
+                }
+              },
+              "chromeless": {
+                "true": {
+                  "backgroundColor": "transparent",
+                  "borderColor": "transparent",
+                  "shadowColor": "transparent",
+                  "hoverStyle": {
+                    "borderColor": "transparent"
+                  }
+                },
+                "all": {
+                  "backgroundColor": "transparent",
+                  "borderColor": "transparent",
+                  "shadowColor": "transparent",
+                  "hoverStyle": {
+                    "backgroundColor": "transparent",
+                    "borderColor": "transparent",
+                    "shadowColor": "transparent",
+                    "hoverStyle": {
+                      "borderColor": "transparent"
+                    }
+                  },
+                  "pressStyle": {
+                    "backgroundColor": "transparent",
+                    "borderColor": "transparent",
+                    "shadowColor": "transparent",
+                    "hoverStyle": {
+                      "borderColor": "transparent"
+                    }
+                  },
+                  "focusStyle": {
+                    "backgroundColor": "transparent",
+                    "borderColor": "transparent",
+                    "shadowColor": "transparent",
+                    "hoverStyle": {
+                      "borderColor": "transparent"
+                    }
+                  }
+                }
+              },
+              "unstyled": {
+                "false": {
+                  "size": "$true"
+                }
+              },
+              "size": "Function"
+            },
+            "defaultVariants": {
+              "unstyled": false
+            },
+            "componentName": "GroupFrame",
+            "isReactNative": false,
+            "isText": false,
+            "isStyledHOC": false,
+            "neverFlatten": true,
+            "isHOC": true
+          }
+        },
+        "YGroup": {
+          "staticConfig": {
+            "acceptsClassName": true,
+            "defaultProps": {
+              "flexDirection": "column",
+              "unstyled": false
+            },
+            "validStyles": {
+              "enterStyle": true,
+              "exitStyle": true,
+              "hoverStyle": true,
+              "pressStyle": true,
+              "focusStyle": true,
+              "disabledStyle": true,
+              "backfaceVisibility": true,
+              "borderBottomEndRadius": true,
+              "borderBottomStartRadius": true,
+              "borderBottomWidth": true,
+              "borderLeftWidth": true,
+              "borderRightWidth": true,
+              "borderStyle": true,
+              "borderTopEndRadius": true,
+              "borderTopStartRadius": true,
+              "borderTopWidth": true,
+              "borderWidth": true,
+              "transform": true,
+              "transformOrigin": true,
+              "alignContent": true,
+              "alignItems": true,
+              "alignSelf": true,
+              "borderEndWidth": true,
+              "borderStartWidth": true,
+              "bottom": true,
+              "display": true,
+              "end": true,
+              "flexBasis": true,
+              "flexDirection": true,
+              "flexWrap": true,
+              "gap": true,
+              "columnGap": true,
+              "rowGap": true,
+              "justifyContent": true,
+              "left": true,
+              "margin": true,
+              "marginBlockEnd": true,
+              "marginBlockStart": true,
+              "marginInlineEnd": true,
+              "marginInline": true,
+              "marginInlineStart": true,
+              "marginBottom": true,
+              "marginEnd": true,
+              "marginHorizontal": true,
+              "marginLeft": true,
+              "marginRight": true,
+              "marginStart": true,
+              "marginTop": true,
+              "marginVertical": true,
+              "overflow": true,
+              "padding": true,
+              "paddingBottom": true,
+              "paddingInline": true,
+              "paddingBlock": true,
+              "paddingBlockStart": true,
+              "paddingInlineEnd": true,
+              "paddingInlineStart": true,
+              "paddingEnd": true,
+              "paddingHorizontal": true,
+              "paddingLeft": true,
+              "paddingRight": true,
+              "paddingStart": true,
+              "paddingTop": true,
+              "paddingVertical": true,
+              "position": true,
+              "right": true,
+              "start": true,
+              "top": true,
+              "direction": true,
+              "shadowOffset": true,
+              "shadowRadius": true,
+              "backgroundColor": true,
+              "borderColor": true,
+              "borderBlockStartColor": true,
+              "borderBlockEndColor": true,
+              "borderBlockColor": true,
+              "borderBottomColor": true,
+              "borderTopColor": true,
+              "borderLeftColor": true,
+              "borderRightColor": true,
+              "borderEndColor": true,
+              "borderStartColor": true,
+              "shadowColor": true,
+              "color": true,
+              "textDecorationColor": true,
+              "textShadowColor": true,
+              "borderRadius": true,
+              "borderTopLeftRadius": true,
+              "borderTopRightRadius": true,
+              "borderBottomLeftRadius": true,
+              "borderBottomRightRadius": true,
+              "borderStartStartRadius": true,
+              "borderStartEndRadius": true,
+              "borderEndStartRadius": true,
+              "borderEndEndRadius": true,
+              "width": true,
+              "height": true,
+              "minWidth": true,
+              "minHeight": true,
+              "maxWidth": true,
+              "maxHeight": true,
+              "x": true,
+              "y": true,
+              "scale": true,
+              "perspective": true,
+              "scaleX": true,
+              "scaleY": true,
+              "skewX": true,
+              "skewY": true,
+              "matrix": true,
+              "rotate": true,
+              "rotateY": true,
+              "rotateX": true,
+              "rotateZ": true,
+              "WebkitLineClamp": true,
+              "animationIterationCount": true,
+              "aspectRatio": true,
+              "borderImageOutset": true,
+              "borderImageSlice": true,
+              "borderImageWidth": true,
+              "columnCount": true,
+              "flex": true,
+              "flexGrow": true,
+              "flexOrder": true,
+              "flexPositive": true,
+              "flexShrink": true,
+              "flexNegative": true,
+              "fontWeight": true,
+              "gridRow": true,
+              "gridRowEnd": true,
+              "gridRowGap": true,
+              "gridRowStart": true,
+              "gridColumn": true,
+              "gridColumnEnd": true,
+              "gridColumnGap": true,
+              "gridColumnStart": true,
+              "lineClamp": true,
+              "opacity": true,
+              "order": true,
+              "orphans": true,
+              "tabSize": true,
+              "widows": true,
+              "zIndex": true,
+              "zoom": true,
+              "scaleZ": true,
+              "shadowOpacity": true
+            },
+            "variants": {
+              "fullscreen": {
+                "true": {
+                  "position": "absolute",
+                  "top": 0,
+                  "left": 0,
+                  "right": 0,
+                  "bottom": 0
+                }
+              },
+              "elevation": {
+                "...size": "Function",
+                ":number": "Function"
+              },
+              "inset": "Function",
+              "backgrounded": {
+                "true": {
+                  "backgroundColor": "$background"
+                }
+              },
+              "radiused": {
+                "true": "Function"
+              },
+              "hoverTheme": {
+                "true": {
+                  "hoverStyle": {
+                    "backgroundColor": "$backgroundHover",
+                    "borderColor": "$borderColorHover"
+                  }
+                },
+                "false": {}
+              },
+              "pressTheme": {
+                "true": {
+                  "cursor": "pointer",
+                  "pressStyle": {
+                    "backgroundColor": "$backgroundPress",
+                    "borderColor": "$borderColorPress"
+                  }
+                },
+                "false": {}
+              },
+              "focusTheme": {
+                "true": {
+                  "focusStyle": {
+                    "backgroundColor": "$backgroundFocus",
+                    "borderColor": "$borderColorFocus"
+                  }
+                },
+                "false": {}
+              },
+              "circular": {
+                "true": "Function"
+              },
+              "padded": {
+                "true": "Function"
+              },
+              "elevate": {
+                "true": "Function"
+              },
+              "bordered": "Function",
+              "transparent": {
+                "true": {
+                  "backgroundColor": "transparent"
+                }
+              },
+              "chromeless": {
+                "true": {
+                  "backgroundColor": "transparent",
+                  "borderColor": "transparent",
+                  "shadowColor": "transparent",
+                  "hoverStyle": {
+                    "borderColor": "transparent"
+                  }
+                },
+                "all": {
+                  "backgroundColor": "transparent",
+                  "borderColor": "transparent",
+                  "shadowColor": "transparent",
+                  "hoverStyle": {
+                    "backgroundColor": "transparent",
+                    "borderColor": "transparent",
+                    "shadowColor": "transparent",
+                    "hoverStyle": {
+                      "borderColor": "transparent"
+                    }
+                  },
+                  "pressStyle": {
+                    "backgroundColor": "transparent",
+                    "borderColor": "transparent",
+                    "shadowColor": "transparent",
+                    "hoverStyle": {
+                      "borderColor": "transparent"
+                    }
+                  },
+                  "focusStyle": {
+                    "backgroundColor": "transparent",
+                    "borderColor": "transparent",
+                    "shadowColor": "transparent",
+                    "hoverStyle": {
+                      "borderColor": "transparent"
+                    }
+                  }
+                }
+              },
+              "unstyled": {
+                "false": {
+                  "size": "$true"
+                }
+              },
+              "size": "Function"
+            },
+            "defaultVariants": {
+              "unstyled": false
+            },
+            "componentName": "GroupFrame",
+            "isReactNative": false,
+            "isText": false,
+            "isStyledHOC": false,
+            "neverFlatten": true,
+            "isHOC": true
+          }
+        },
+        "Article": {
+          "staticConfig": {
+            "acceptsClassName": true,
+            "defaultProps": {
+              "tag": "article",
+              "flexDirection": "column"
+            },
+            "validStyles": {
+              "enterStyle": true,
+              "exitStyle": true,
+              "hoverStyle": true,
+              "pressStyle": true,
+              "focusStyle": true,
+              "disabledStyle": true,
+              "backfaceVisibility": true,
+              "borderBottomEndRadius": true,
+              "borderBottomStartRadius": true,
+              "borderBottomWidth": true,
+              "borderLeftWidth": true,
+              "borderRightWidth": true,
+              "borderStyle": true,
+              "borderTopEndRadius": true,
+              "borderTopStartRadius": true,
+              "borderTopWidth": true,
+              "borderWidth": true,
+              "transform": true,
+              "transformOrigin": true,
+              "alignContent": true,
+              "alignItems": true,
+              "alignSelf": true,
+              "borderEndWidth": true,
+              "borderStartWidth": true,
+              "bottom": true,
+              "display": true,
+              "end": true,
+              "flexBasis": true,
+              "flexDirection": true,
+              "flexWrap": true,
+              "gap": true,
+              "columnGap": true,
+              "rowGap": true,
+              "justifyContent": true,
+              "left": true,
+              "margin": true,
+              "marginBlockEnd": true,
+              "marginBlockStart": true,
+              "marginInlineEnd": true,
+              "marginInline": true,
+              "marginInlineStart": true,
+              "marginBottom": true,
+              "marginEnd": true,
+              "marginHorizontal": true,
+              "marginLeft": true,
+              "marginRight": true,
+              "marginStart": true,
+              "marginTop": true,
+              "marginVertical": true,
+              "overflow": true,
+              "padding": true,
+              "paddingBottom": true,
+              "paddingInline": true,
+              "paddingBlock": true,
+              "paddingBlockStart": true,
+              "paddingInlineEnd": true,
+              "paddingInlineStart": true,
+              "paddingEnd": true,
+              "paddingHorizontal": true,
+              "paddingLeft": true,
+              "paddingRight": true,
+              "paddingStart": true,
+              "paddingTop": true,
+              "paddingVertical": true,
+              "position": true,
+              "right": true,
+              "start": true,
+              "top": true,
+              "direction": true,
+              "shadowOffset": true,
+              "shadowRadius": true,
+              "backgroundColor": true,
+              "borderColor": true,
+              "borderBlockStartColor": true,
+              "borderBlockEndColor": true,
+              "borderBlockColor": true,
+              "borderBottomColor": true,
+              "borderTopColor": true,
+              "borderLeftColor": true,
+              "borderRightColor": true,
+              "borderEndColor": true,
+              "borderStartColor": true,
+              "shadowColor": true,
+              "color": true,
               "textDecorationColor": true,
               "textShadowColor": true,
               "borderRadius": true,
@@ -8858,6 +9982,7 @@
               "hoverStyle": true,
               "pressStyle": true,
               "focusStyle": true,
+              "disabledStyle": true,
               "backfaceVisibility": true,
               "borderBottomEndRadius": true,
               "borderBottomStartRadius": true,
@@ -8936,7 +10061,6 @@
               "borderStartColor": true,
               "shadowColor": true,
               "color": true,
-              "placeholderTextColor": true,
               "textDecorationColor": true,
               "textShadowColor": true,
               "borderRadius": true,
@@ -9019,6 +10143,7 @@
               "hoverStyle": true,
               "pressStyle": true,
               "focusStyle": true,
+              "disabledStyle": true,
               "backfaceVisibility": true,
               "borderBottomEndRadius": true,
               "borderBottomStartRadius": true,
@@ -9097,7 +10222,6 @@
               "borderStartColor": true,
               "shadowColor": true,
               "color": true,
-              "placeholderTextColor": true,
               "textDecorationColor": true,
               "textShadowColor": true,
               "borderRadius": true,
@@ -9181,6 +10305,7 @@
               "hoverStyle": true,
               "pressStyle": true,
               "focusStyle": true,
+              "disabledStyle": true,
               "backfaceVisibility": true,
               "borderBottomEndRadius": true,
               "borderBottomStartRadius": true,
@@ -9259,7 +10384,6 @@
               "borderStartColor": true,
               "shadowColor": true,
               "color": true,
-              "placeholderTextColor": true,
               "textDecorationColor": true,
               "textShadowColor": true,
               "borderRadius": true,
@@ -9342,6 +10466,7 @@
               "hoverStyle": true,
               "pressStyle": true,
               "focusStyle": true,
+              "disabledStyle": true,
               "backfaceVisibility": true,
               "borderBottomEndRadius": true,
               "borderBottomStartRadius": true,
@@ -9420,7 +10545,6 @@
               "borderStartColor": true,
               "shadowColor": true,
               "color": true,
-              "placeholderTextColor": true,
               "textDecorationColor": true,
               "textShadowColor": true,
               "borderRadius": true,
@@ -9503,6 +10627,7 @@
               "hoverStyle": true,
               "pressStyle": true,
               "focusStyle": true,
+              "disabledStyle": true,
               "backfaceVisibility": true,
               "borderBottomEndRadius": true,
               "borderBottomStartRadius": true,
@@ -9581,7 +10706,6 @@
               "borderStartColor": true,
               "shadowColor": true,
               "color": true,
-              "placeholderTextColor": true,
               "textDecorationColor": true,
               "textShadowColor": true,
               "borderRadius": true,
@@ -9665,6 +10789,7 @@
               "hoverStyle": true,
               "pressStyle": true,
               "focusStyle": true,
+              "disabledStyle": true,
               "backfaceVisibility": true,
               "borderBottomEndRadius": true,
               "borderBottomStartRadius": true,
@@ -9743,7 +10868,6 @@
               "borderStartColor": true,
               "shadowColor": true,
               "color": true,
-              "placeholderTextColor": true,
               "textDecorationColor": true,
               "textShadowColor": true,
               "borderRadius": true,
@@ -9837,9 +10961,6 @@
             },
             "inlineWhenUnflattened": {},
             "variants": {
-              "ellipsizeMode": {
-                "...": "Function"
-              },
               "ellipse": {
                 "true": {
                   "numberOfLines": 1,
@@ -9879,6 +11000,7 @@
               "hoverStyle": true,
               "pressStyle": true,
               "focusStyle": true,
+              "disabledStyle": true,
               "backfaceVisibility": true,
               "borderBottomEndRadius": true,
               "borderBottomStartRadius": true,
@@ -9957,7 +11079,6 @@
               "borderStartColor": true,
               "shadowColor": true,
               "color": true,
-              "placeholderTextColor": true,
               "textDecorationColor": true,
               "textShadowColor": true,
               "borderRadius": true,
@@ -10054,9 +11175,6 @@
             },
             "inlineWhenUnflattened": {},
             "variants": {
-              "ellipsizeMode": {
-                "...": "Function"
-              },
               "ellipse": {
                 "true": {
                   "numberOfLines": 1,
@@ -10096,6 +11214,7 @@
               "hoverStyle": true,
               "pressStyle": true,
               "focusStyle": true,
+              "disabledStyle": true,
               "backfaceVisibility": true,
               "borderBottomEndRadius": true,
               "borderBottomStartRadius": true,
@@ -10174,7 +11293,6 @@
               "borderStartColor": true,
               "shadowColor": true,
               "color": true,
-              "placeholderTextColor": true,
               "textDecorationColor": true,
               "textShadowColor": true,
               "borderRadius": true,
@@ -10271,6 +11389,7 @@
               "hoverStyle": true,
               "pressStyle": true,
               "focusStyle": true,
+              "disabledStyle": true,
               "backfaceVisibility": true,
               "borderBottomEndRadius": true,
               "borderBottomStartRadius": true,
@@ -10349,7 +11468,6 @@
               "borderStartColor": true,
               "shadowColor": true,
               "color": true,
-              "placeholderTextColor": true,
               "textDecorationColor": true,
               "textShadowColor": true,
               "borderRadius": true,
@@ -10427,6 +11545,7 @@
                 "...size": "Function",
                 ":number": "Function"
               },
+              "inset": "Function",
               "backgrounded": {
                 "true": {
                   "backgroundColor": "$background"
@@ -10573,6 +11692,7 @@
               "hoverStyle": true,
               "pressStyle": true,
               "focusStyle": true,
+              "disabledStyle": true,
               "backfaceVisibility": true,
               "borderBottomEndRadius": true,
               "borderBottomStartRadius": true,
@@ -10651,7 +11771,6 @@
               "borderStartColor": true,
               "shadowColor": true,
               "color": true,
-              "placeholderTextColor": true,
               "textDecorationColor": true,
               "textShadowColor": true,
               "borderRadius": true,
@@ -10729,6 +11848,7 @@
                 "...size": "Function",
                 ":number": "Function"
               },
+              "inset": "Function",
               "backgrounded": {
                 "true": {
                   "backgroundColor": "$background"
@@ -10870,9 +11990,6 @@
             },
             "inlineWhenUnflattened": {},
             "variants": {
-              "ellipsizeMode": {
-                "...": "Function"
-              },
               "ellipse": {
                 "true": {
                   "numberOfLines": 1,
@@ -10910,6 +12027,7 @@
               "hoverStyle": true,
               "pressStyle": true,
               "focusStyle": true,
+              "disabledStyle": true,
               "backfaceVisibility": true,
               "borderBottomEndRadius": true,
               "borderBottomStartRadius": true,
@@ -10988,7 +12106,6 @@
               "borderStartColor": true,
               "shadowColor": true,
               "color": true,
-              "placeholderTextColor": true,
               "textDecorationColor": true,
               "textShadowColor": true,
               "borderRadius": true,
@@ -11082,9 +12199,6 @@
             },
             "inlineWhenUnflattened": {},
             "variants": {
-              "ellipsizeMode": {
-                "...": "Function"
-              },
               "ellipse": {
                 "true": {
                   "numberOfLines": 1,
@@ -11118,6 +12232,7 @@
               "hoverStyle": true,
               "pressStyle": true,
               "focusStyle": true,
+              "disabledStyle": true,
               "backfaceVisibility": true,
               "borderBottomEndRadius": true,
               "borderBottomStartRadius": true,
@@ -11196,7 +12311,6 @@
               "borderStartColor": true,
               "shadowColor": true,
               "color": true,
-              "placeholderTextColor": true,
               "textDecorationColor": true,
               "textShadowColor": true,
               "borderRadius": true,
@@ -11290,9 +12404,6 @@
             },
             "inlineWhenUnflattened": {},
             "variants": {
-              "ellipsizeMode": {
-                "...": "Function"
-              },
               "ellipse": {
                 "true": {
                   "numberOfLines": 1,
@@ -11326,6 +12437,7 @@
               "hoverStyle": true,
               "pressStyle": true,
               "focusStyle": true,
+              "disabledStyle": true,
               "backfaceVisibility": true,
               "borderBottomEndRadius": true,
               "borderBottomStartRadius": true,
@@ -11404,7 +12516,6 @@
               "borderStartColor": true,
               "shadowColor": true,
               "color": true,
-              "placeholderTextColor": true,
               "textDecorationColor": true,
               "textShadowColor": true,
               "borderRadius": true,
@@ -11497,6 +12608,7 @@
               "hoverStyle": true,
               "pressStyle": true,
               "focusStyle": true,
+              "disabledStyle": true,
               "backfaceVisibility": true,
               "borderBottomEndRadius": true,
               "borderBottomStartRadius": true,
@@ -11575,7 +12687,6 @@
               "borderStartColor": true,
               "shadowColor": true,
               "color": true,
-              "placeholderTextColor": true,
               "textDecorationColor": true,
               "textShadowColor": true,
               "borderRadius": true,
@@ -11653,6 +12764,7 @@
                 "...size": "Function",
                 ":number": "Function"
               },
+              "inset": "Function",
               "unstyled": {
                 "false": {
                   "borderColor": "$borderColor",
@@ -11685,6 +12797,7 @@
               "hoverStyle": true,
               "pressStyle": true,
               "focusStyle": true,
+              "disabledStyle": true,
               "backfaceVisibility": true,
               "borderBottomEndRadius": true,
               "borderBottomStartRadius": true,
@@ -11763,7 +12876,6 @@
               "borderStartColor": true,
               "shadowColor": true,
               "color": true,
-              "placeholderTextColor": true,
               "textDecorationColor": true,
               "textShadowColor": true,
               "borderRadius": true,
@@ -11841,6 +12953,7 @@
                 "...size": "Function",
                 ":number": "Function"
               },
+              "inset": "Function",
               "backgrounded": {
                 "true": {
                   "backgroundColor": "$background"
@@ -11966,6 +13079,7 @@
               "hoverStyle": true,
               "pressStyle": true,
               "focusStyle": true,
+              "disabledStyle": true,
               "backfaceVisibility": true,
               "borderBottomEndRadius": true,
               "borderBottomStartRadius": true,
@@ -12044,7 +13158,6 @@
               "borderStartColor": true,
               "shadowColor": true,
               "color": true,
-              "placeholderTextColor": true,
               "textDecorationColor": true,
               "textShadowColor": true,
               "borderRadius": true,
@@ -12121,7 +13234,8 @@
               "elevation": {
                 "...size": "Function",
                 ":number": "Function"
-              }
+              },
+              "inset": "Function"
             },
             "isReactNative": false,
             "isText": false,
@@ -12143,6 +13257,7 @@
               "hoverStyle": true,
               "pressStyle": true,
               "focusStyle": true,
+              "disabledStyle": true,
               "backfaceVisibility": true,
               "borderBottomEndRadius": true,
               "borderBottomStartRadius": true,
@@ -12221,7 +13336,6 @@
               "borderStartColor": true,
               "shadowColor": true,
               "color": true,
-              "placeholderTextColor": true,
               "textDecorationColor": true,
               "textShadowColor": true,
               "borderRadius": true,
@@ -12299,6 +13413,7 @@
                 "...size": "Function",
                 ":number": "Function"
               },
+              "inset": "Function",
               "unstyled": {
                 "false": {
                   "borderColor": "$borderColor",
@@ -12331,6 +13446,7 @@
               "hoverStyle": true,
               "pressStyle": true,
               "focusStyle": true,
+              "disabledStyle": true,
               "backfaceVisibility": true,
               "borderBottomEndRadius": true,
               "borderBottomStartRadius": true,
@@ -12409,7 +13525,6 @@
               "borderStartColor": true,
               "shadowColor": true,
               "color": true,
-              "placeholderTextColor": true,
               "textDecorationColor": true,
               "textShadowColor": true,
               "borderRadius": true,
@@ -12487,6 +13602,7 @@
                 "...size": "Function",
                 ":number": "Function"
               },
+              "inset": "Function",
               "backgrounded": {
                 "true": {
                   "backgroundColor": "$background"
@@ -12611,6 +13727,7 @@
               "hoverStyle": true,
               "pressStyle": true,
               "focusStyle": true,
+              "disabledStyle": true,
               "backfaceVisibility": true,
               "borderBottomEndRadius": true,
               "borderBottomStartRadius": true,
@@ -12689,7 +13806,6 @@
               "borderStartColor": true,
               "shadowColor": true,
               "color": true,
-              "placeholderTextColor": true,
               "textDecorationColor": true,
               "textShadowColor": true,
               "borderRadius": true,
@@ -12767,6 +13883,7 @@
                 "...size": "Function",
                 ":number": "Function"
               },
+              "inset": "Function",
               "backgrounded": {
                 "true": {
                   "backgroundColor": "$background"
@@ -12892,6 +14009,7 @@
               "hoverStyle": true,
               "pressStyle": true,
               "focusStyle": true,
+              "disabledStyle": true,
               "backfaceVisibility": true,
               "borderBottomEndRadius": true,
               "borderBottomStartRadius": true,
@@ -12970,7 +14088,6 @@
               "borderStartColor": true,
               "shadowColor": true,
               "color": true,
-              "placeholderTextColor": true,
               "textDecorationColor": true,
               "textShadowColor": true,
               "borderRadius": true,
@@ -13048,6 +14165,7 @@
                 "...size": "Function",
                 ":number": "Function"
               },
+              "inset": "Function",
               "backgrounded": {
                 "true": {
                   "backgroundColor": "$background"
@@ -13171,6 +14289,7 @@
               "hoverStyle": true,
               "pressStyle": true,
               "focusStyle": true,
+              "disabledStyle": true,
               "backfaceVisibility": true,
               "borderBottomEndRadius": true,
               "borderBottomStartRadius": true,
@@ -13249,7 +14368,6 @@
               "borderStartColor": true,
               "shadowColor": true,
               "color": true,
-              "placeholderTextColor": true,
               "textDecorationColor": true,
               "textShadowColor": true,
               "borderRadius": true,
@@ -13327,6 +14445,7 @@
                 "...size": "Function",
                 ":number": "Function"
               },
+              "inset": "Function",
               "backgrounded": {
                 "true": {
                   "backgroundColor": "$background"
@@ -13449,6 +14568,7 @@
               "hoverStyle": true,
               "pressStyle": true,
               "focusStyle": true,
+              "disabledStyle": true,
               "backfaceVisibility": true,
               "borderBottomEndRadius": true,
               "borderBottomStartRadius": true,
@@ -13527,7 +14647,6 @@
               "borderStartColor": true,
               "shadowColor": true,
               "color": true,
-              "placeholderTextColor": true,
               "textDecorationColor": true,
               "textShadowColor": true,
               "borderRadius": true,
@@ -13605,6 +14724,7 @@
                 "...size": "Function",
                 ":number": "Function"
               },
+              "inset": "Function",
               "backgrounded": {
                 "true": {
                   "backgroundColor": "$background"
@@ -13724,6 +14844,7 @@
               "hoverStyle": true,
               "pressStyle": true,
               "focusStyle": true,
+              "disabledStyle": true,
               "backfaceVisibility": true,
               "borderBottomEndRadius": true,
               "borderBottomStartRadius": true,
@@ -13802,7 +14923,6 @@
               "borderStartColor": true,
               "shadowColor": true,
               "color": true,
-              "placeholderTextColor": true,
               "textDecorationColor": true,
               "textShadowColor": true,
               "borderRadius": true,
@@ -13880,6 +15000,7 @@
                 "...size": "Function",
                 ":number": "Function"
               },
+              "inset": "Function",
               "backgrounded": {
                 "true": {
                   "backgroundColor": "$background"
@@ -13991,6 +15112,9 @@
         },
         "ScrollView": {
           "staticConfig": {
+            "accept": {
+              "contentContainerStyle": "style"
+            },
             "variants": {
               "fullscreen": {
                 "true": {
@@ -14025,6 +15149,7 @@
               "hoverStyle": true,
               "pressStyle": true,
               "focusStyle": true,
+              "disabledStyle": true,
               "backfaceVisibility": true,
               "borderBottomEndRadius": true,
               "borderBottomStartRadius": true,
@@ -14103,7 +15228,6 @@
               "borderStartColor": true,
               "shadowColor": true,
               "color": true,
-              "placeholderTextColor": true,
               "textDecorationColor": true,
               "textShadowColor": true,
               "borderRadius": true,
@@ -14180,7 +15304,8 @@
               "elevation": {
                 "...size": "Function",
                 ":number": "Function"
-              }
+              },
+              "inset": "Function"
             },
             "componentName": "SelectGroup",
             "isReactNative": false,
@@ -14202,6 +15327,7 @@
               "hoverStyle": true,
               "pressStyle": true,
               "focusStyle": true,
+              "disabledStyle": true,
               "backfaceVisibility": true,
               "borderBottomEndRadius": true,
               "borderBottomStartRadius": true,
@@ -14280,7 +15406,6 @@
               "borderStartColor": true,
               "shadowColor": true,
               "color": true,
-              "placeholderTextColor": true,
               "textDecorationColor": true,
               "textShadowColor": true,
               "borderRadius": true,
@@ -14357,7 +15482,8 @@
               "elevation": {
                 "...size": "Function",
                 ":number": "Function"
-              }
+              },
+              "inset": "Function"
             },
             "componentName": "SelectIcon",
             "isReactNative": false,
@@ -14385,6 +15511,7 @@
               "hoverStyle": true,
               "pressStyle": true,
               "focusStyle": true,
+              "disabledStyle": true,
               "backfaceVisibility": true,
               "borderBottomEndRadius": true,
               "borderBottomStartRadius": true,
@@ -14463,7 +15590,6 @@
               "borderStartColor": true,
               "shadowColor": true,
               "color": true,
-              "placeholderTextColor": true,
               "textDecorationColor": true,
               "textShadowColor": true,
               "borderRadius": true,
@@ -14566,6 +15692,7 @@
               "hoverStyle": true,
               "pressStyle": true,
               "focusStyle": true,
+              "disabledStyle": true,
               "backfaceVisibility": true,
               "borderBottomEndRadius": true,
               "borderBottomStartRadius": true,
@@ -14644,7 +15771,6 @@
               "borderStartColor": true,
               "shadowColor": true,
               "color": true,
-              "placeholderTextColor": true,
               "textDecorationColor": true,
               "textShadowColor": true,
               "borderRadius": true,
@@ -14742,6 +15868,7 @@
               "hoverStyle": true,
               "pressStyle": true,
               "focusStyle": true,
+              "disabledStyle": true,
               "backfaceVisibility": true,
               "borderBottomEndRadius": true,
               "borderBottomStartRadius": true,
@@ -14820,7 +15947,6 @@
               "borderStartColor": true,
               "shadowColor": true,
               "color": true,
-              "placeholderTextColor": true,
               "textDecorationColor": true,
               "textShadowColor": true,
               "borderRadius": true,
@@ -14898,6 +16024,7 @@
                 "...size": "Function",
                 ":number": "Function"
               },
+              "inset": "Function",
               "backgrounded": {
                 "true": {
                   "backgroundColor": "$background"
@@ -15014,6 +16141,7 @@
               "hoverStyle": true,
               "pressStyle": true,
               "focusStyle": true,
+              "disabledStyle": true,
               "backfaceVisibility": true,
               "borderBottomEndRadius": true,
               "borderBottomStartRadius": true,
@@ -15092,7 +16220,6 @@
               "borderStartColor": true,
               "shadowColor": true,
               "color": true,
-              "placeholderTextColor": true,
               "textDecorationColor": true,
               "textShadowColor": true,
               "borderRadius": true,
@@ -15170,6 +16297,7 @@
                 "...size": "Function",
                 ":number": "Function"
               },
+              "inset": "Function",
               "backgrounded": {
                 "true": {
                   "backgroundColor": "$background"
@@ -15284,6 +16412,7 @@
               "hoverStyle": true,
               "pressStyle": true,
               "focusStyle": true,
+              "disabledStyle": true,
               "backfaceVisibility": true,
               "borderBottomEndRadius": true,
               "borderBottomStartRadius": true,
@@ -15362,7 +16491,6 @@
               "borderStartColor": true,
               "shadowColor": true,
               "color": true,
-              "placeholderTextColor": true,
               "textDecorationColor": true,
               "textShadowColor": true,
               "borderRadius": true,
@@ -15440,6 +16568,7 @@
                 "...size": "Function",
                 ":number": "Function"
               },
+              "inset": "Function",
               "unstyled": {
                 "false": {
                   "flex": 1,
@@ -15474,6 +16603,7 @@
               "hoverStyle": true,
               "pressStyle": true,
               "focusStyle": true,
+              "disabledStyle": true,
               "backfaceVisibility": true,
               "borderBottomEndRadius": true,
               "borderBottomStartRadius": true,
@@ -15552,7 +16682,6 @@
               "borderStartColor": true,
               "shadowColor": true,
               "color": true,
-              "placeholderTextColor": true,
               "textDecorationColor": true,
               "textShadowColor": true,
               "borderRadius": true,
@@ -15630,6 +16759,7 @@
                 "...size": "Function",
                 ":number": "Function"
               },
+              "inset": "Function",
               "open": {
                 "true": {
                   "pointerEvents": "auto"
@@ -15676,6 +16806,7 @@
               "hoverStyle": true,
               "pressStyle": true,
               "focusStyle": true,
+              "disabledStyle": true,
               "backfaceVisibility": true,
               "borderBottomEndRadius": true,
               "borderBottomStartRadius": true,
@@ -15754,7 +16885,6 @@
               "borderStartColor": true,
               "shadowColor": true,
               "color": true,
-              "placeholderTextColor": true,
               "textDecorationColor": true,
               "textShadowColor": true,
               "borderRadius": true,
@@ -15832,6 +16962,7 @@
                 "...size": "Function",
                 ":number": "Function"
               },
+              "inset": "Function",
               "backgrounded": {
                 "true": {
                   "backgroundColor": "$background"
@@ -15964,6 +17095,7 @@
               "hoverStyle": true,
               "pressStyle": true,
               "focusStyle": true,
+              "disabledStyle": true,
               "backfaceVisibility": true,
               "borderBottomEndRadius": true,
               "borderBottomStartRadius": true,
@@ -16042,7 +17174,6 @@
               "borderStartColor": true,
               "shadowColor": true,
               "color": true,
-              "placeholderTextColor": true,
               "textDecorationColor": true,
               "textShadowColor": true,
               "borderRadius": true,
@@ -16120,6 +17251,7 @@
                 "...size": "Function",
                 ":number": "Function"
               },
+              "inset": "Function",
               "open": {
                 "true": {
                   "pointerEvents": "auto"
@@ -16166,6 +17298,7 @@
               "hoverStyle": true,
               "pressStyle": true,
               "focusStyle": true,
+              "disabledStyle": true,
               "backfaceVisibility": true,
               "borderBottomEndRadius": true,
               "borderBottomStartRadius": true,
@@ -16244,7 +17377,6 @@
               "borderStartColor": true,
               "shadowColor": true,
               "color": true,
-              "placeholderTextColor": true,
               "textDecorationColor": true,
               "textShadowColor": true,
               "borderRadius": true,
@@ -16322,6 +17454,7 @@
                 "...size": "Function",
                 ":number": "Function"
               },
+              "inset": "Function",
               "backgrounded": {
                 "true": {
                   "backgroundColor": "$background"
@@ -16454,6 +17587,7 @@
               "hoverStyle": true,
               "pressStyle": true,
               "focusStyle": true,
+              "disabledStyle": true,
               "backfaceVisibility": true,
               "borderBottomEndRadius": true,
               "borderBottomStartRadius": true,
@@ -16532,7 +17666,6 @@
               "borderStartColor": true,
               "shadowColor": true,
               "color": true,
-              "placeholderTextColor": true,
               "textDecorationColor": true,
               "textShadowColor": true,
               "borderRadius": true,
@@ -16610,6 +17743,7 @@
                 "...size": "Function",
                 ":number": "Function"
               },
+              "inset": "Function",
               "orientation": {
                 "horizontal": {},
                 "vertical": {}
@@ -16634,6 +17768,7 @@
               "hoverStyle": true,
               "pressStyle": true,
               "focusStyle": true,
+              "disabledStyle": true,
               "backfaceVisibility": true,
               "borderBottomEndRadius": true,
               "borderBottomStartRadius": true,
@@ -16712,7 +17847,6 @@
               "borderStartColor": true,
               "shadowColor": true,
               "color": true,
-              "placeholderTextColor": true,
               "textDecorationColor": true,
               "textShadowColor": true,
               "borderRadius": true,
@@ -16790,6 +17924,7 @@
                 "...size": "Function",
                 ":number": "Function"
               },
+              "inset": "Function",
               "backgrounded": {
                 "true": {
                   "backgroundColor": "$background"
@@ -16918,6 +18053,7 @@
               "hoverStyle": true,
               "pressStyle": true,
               "focusStyle": true,
+              "disabledStyle": true,
               "backfaceVisibility": true,
               "borderBottomEndRadius": true,
               "borderBottomStartRadius": true,
@@ -16996,7 +18132,6 @@
               "borderStartColor": true,
               "shadowColor": true,
               "color": true,
-              "placeholderTextColor": true,
               "textDecorationColor": true,
               "textShadowColor": true,
               "borderRadius": true,
@@ -17074,6 +18209,7 @@
                 "...size": "Function",
                 ":number": "Function"
               },
+              "inset": "Function",
               "orientation": {
                 "horizontal": {},
                 "vertical": {}
@@ -17100,6 +18236,7 @@
               "hoverStyle": true,
               "pressStyle": true,
               "focusStyle": true,
+              "disabledStyle": true,
               "backfaceVisibility": true,
               "borderBottomEndRadius": true,
               "borderBottomStartRadius": true,
@@ -17178,7 +18315,6 @@
               "borderStartColor": true,
               "shadowColor": true,
               "color": true,
-              "placeholderTextColor": true,
               "textDecorationColor": true,
               "textShadowColor": true,
               "borderRadius": true,
@@ -17256,6 +18392,7 @@
                 "...size": "Function",
                 ":number": "Function"
               },
+              "inset": "Function",
               "orientation": {
                 "horizontal": {},
                 "vertical": {}
@@ -17293,6 +18430,7 @@
               "hoverStyle": true,
               "pressStyle": true,
               "focusStyle": true,
+              "disabledStyle": true,
               "backfaceVisibility": true,
               "borderBottomEndRadius": true,
               "borderBottomStartRadius": true,
@@ -17371,7 +18509,6 @@
               "borderStartColor": true,
               "shadowColor": true,
               "color": true,
-              "placeholderTextColor": true,
               "textDecorationColor": true,
               "textShadowColor": true,
               "borderRadius": true,
@@ -17448,7 +18585,8 @@
               "elevation": {
                 "...size": "Function",
                 ":number": "Function"
-              }
+              },
+              "inset": "Function"
             },
             "isReactNative": false,
             "isText": false,
@@ -17467,6 +18605,7 @@
               "hoverStyle": true,
               "pressStyle": true,
               "focusStyle": true,
+              "disabledStyle": true,
               "backfaceVisibility": true,
               "borderBottomEndRadius": true,
               "borderBottomStartRadius": true,
@@ -17545,7 +18684,6 @@
               "borderStartColor": true,
               "shadowColor": true,
               "color": true,
-              "placeholderTextColor": true,
               "textDecorationColor": true,
               "textShadowColor": true,
               "borderRadius": true,
@@ -17622,7 +18760,8 @@
               "elevation": {
                 "...size": "Function",
                 ":number": "Function"
-              }
+              },
+              "inset": "Function"
             },
             "isReactNative": false,
             "isText": false,
@@ -17642,6 +18781,7 @@
               "hoverStyle": true,
               "pressStyle": true,
               "focusStyle": true,
+              "disabledStyle": true,
               "backfaceVisibility": true,
               "borderBottomEndRadius": true,
               "borderBottomStartRadius": true,
@@ -17720,7 +18860,6 @@
               "borderStartColor": true,
               "shadowColor": true,
               "color": true,
-              "placeholderTextColor": true,
               "textDecorationColor": true,
               "textShadowColor": true,
               "borderRadius": true,
@@ -17797,7 +18936,8 @@
               "elevation": {
                 "...size": "Function",
                 ":number": "Function"
-              }
+              },
+              "inset": "Function"
             },
             "isReactNative": false,
             "isText": false,
@@ -17818,6 +18958,7 @@
               "hoverStyle": true,
               "pressStyle": true,
               "focusStyle": true,
+              "disabledStyle": true,
               "backfaceVisibility": true,
               "borderBottomEndRadius": true,
               "borderBottomStartRadius": true,
@@ -17896,7 +19037,6 @@
               "borderStartColor": true,
               "shadowColor": true,
               "color": true,
-              "placeholderTextColor": true,
               "textDecorationColor": true,
               "textShadowColor": true,
               "borderRadius": true,
@@ -17974,6 +19114,7 @@
                 "...size": "Function",
                 ":number": "Function"
               },
+              "inset": "Function",
               "unstyled": {
                 "true": {
                   "hoverTheme": false,
@@ -18040,6 +19181,7 @@
               "hoverStyle": true,
               "pressStyle": true,
               "focusStyle": true,
+              "disabledStyle": true,
               "backfaceVisibility": true,
               "borderBottomEndRadius": true,
               "borderBottomStartRadius": true,
@@ -18118,7 +19260,6 @@
               "borderStartColor": true,
               "shadowColor": true,
               "color": true,
-              "placeholderTextColor": true,
               "textDecorationColor": true,
               "textShadowColor": true,
               "borderRadius": true,
@@ -18196,6 +19337,7 @@
                 "...size": "Function",
                 ":number": "Function"
               },
+              "inset": "Function",
               "backgrounded": {
                 "true": {
                   "backgroundColor": "$background"
@@ -18297,7 +19439,8 @@
             "acceptsClassName": true,
             "defaultProps": {
               "flexDirection": "column",
-              "unstyled": false
+              "unstyled": false,
+              "tag": "button"
             },
             "validStyles": {
               "enterStyle": true,
@@ -18305,6 +19448,7 @@
               "hoverStyle": true,
               "pressStyle": true,
               "focusStyle": true,
+              "disabledStyle": true,
               "backfaceVisibility": true,
               "borderBottomEndRadius": true,
               "borderBottomStartRadius": true,
@@ -18383,7 +19527,6 @@
               "borderStartColor": true,
               "shadowColor": true,
               "color": true,
-              "placeholderTextColor": true,
               "textDecorationColor": true,
               "textShadowColor": true,
               "borderRadius": true,
@@ -18461,14 +19604,14 @@
                 "...size": "Function",
                 ":number": "Function"
               },
+              "inset": "Function",
               "unstyled": {
                 "false": {
-                  "size": "$true",
                   "borderRadius": 1000,
                   "backgroundColor": "$background",
                   "borderWidth": 2,
                   "borderColor": "$background",
-                  "focusStyle": {
+                  "focusVisibleStyle": {
                     "outlineColor": "$outlineColor",
                     "outlineStyle": "solid",
                     "outlineWidth": 2
@@ -18477,9 +19620,6 @@
               },
               "checked": {
                 "true": {}
-              },
-              "frameWidth": {
-                ":number": "Function"
               },
               "size": {
                 "...size": "Function"
@@ -18502,7 +19642,8 @@
             "acceptsClassName": true,
             "defaultProps": {
               "flexDirection": "column",
-              "unstyled": false
+              "unstyled": false,
+              "tag": "button"
             },
             "validStyles": {
               "enterStyle": true,
@@ -18510,6 +19651,7 @@
               "hoverStyle": true,
               "pressStyle": true,
               "focusStyle": true,
+              "disabledStyle": true,
               "backfaceVisibility": true,
               "borderBottomEndRadius": true,
               "borderBottomStartRadius": true,
@@ -18588,7 +19730,6 @@
               "borderStartColor": true,
               "shadowColor": true,
               "color": true,
-              "placeholderTextColor": true,
               "textDecorationColor": true,
               "textShadowColor": true,
               "borderRadius": true,
@@ -18666,14 +19807,14 @@
                 "...size": "Function",
                 ":number": "Function"
               },
+              "inset": "Function",
               "unstyled": {
                 "false": {
-                  "size": "$true",
                   "borderRadius": 1000,
                   "backgroundColor": "$background",
                   "borderWidth": 2,
                   "borderColor": "$background",
-                  "focusStyle": {
+                  "focusVisibleStyle": {
                     "outlineColor": "$outlineColor",
                     "outlineStyle": "solid",
                     "outlineWidth": 2
@@ -18682,9 +19823,6 @@
               },
               "checked": {
                 "true": {}
-              },
-              "frameWidth": {
-                ":number": "Function"
               },
               "size": {
                 "...size": "Function"
@@ -18697,8 +19835,7 @@
             "isReactNative": false,
             "isText": false,
             "context": "Component",
-            "isStyledHOC": false,
-            "neverFlatten": true
+            "isStyledHOC": false
           }
         },
         "SwitchThumb": {
@@ -18714,6 +19851,7 @@
               "hoverStyle": true,
               "pressStyle": true,
               "focusStyle": true,
+              "disabledStyle": true,
               "backfaceVisibility": true,
               "borderBottomEndRadius": true,
               "borderBottomStartRadius": true,
@@ -18792,7 +19930,6 @@
               "borderStartColor": true,
               "shadowColor": true,
               "color": true,
-              "placeholderTextColor": true,
               "textDecorationColor": true,
               "textShadowColor": true,
               "borderRadius": true,
@@ -18870,6 +20007,7 @@
                 "...size": "Function",
                 ":number": "Function"
               },
+              "inset": "Function",
               "backgrounded": {
                 "true": {
                   "backgroundColor": "$background"
@@ -18981,8 +20119,7 @@
             "isReactNative": false,
             "isText": false,
             "context": "Component",
-            "isStyledHOC": false,
-            "neverFlatten": true
+            "isStyledHOC": false
           }
         },
         "Tabs": {
@@ -18997,6 +20134,7 @@
               "hoverStyle": true,
               "pressStyle": true,
               "focusStyle": true,
+              "disabledStyle": true,
               "backfaceVisibility": true,
               "borderBottomEndRadius": true,
               "borderBottomStartRadius": true,
@@ -19075,7 +20213,6 @@
               "borderStartColor": true,
               "shadowColor": true,
               "color": true,
-              "placeholderTextColor": true,
               "textDecorationColor": true,
               "textShadowColor": true,
               "borderRadius": true,
@@ -19153,6 +20290,7 @@
                 "...size": "Function",
                 ":number": "Function"
               },
+              "inset": "Function",
               "unstyled": {
                 "true": {
                   "hoverTheme": false,
@@ -19220,9 +20358,6 @@
             },
             "inlineWhenUnflattened": {},
             "variants": {
-              "ellipsizeMode": {
-                "...": "Function"
-              },
               "ellipse": {
                 "true": {
                   "numberOfLines": 1,
@@ -19252,6 +20387,7 @@
               "hoverStyle": true,
               "pressStyle": true,
               "focusStyle": true,
+              "disabledStyle": true,
               "backfaceVisibility": true,
               "borderBottomEndRadius": true,
               "borderBottomStartRadius": true,
@@ -19330,7 +20466,6 @@
               "borderStartColor": true,
               "shadowColor": true,
               "color": true,
-              "placeholderTextColor": true,
               "textDecorationColor": true,
               "textShadowColor": true,
               "borderRadius": true,
@@ -19428,9 +20563,6 @@
             },
             "inlineWhenUnflattened": {},
             "variants": {
-              "ellipsizeMode": {
-                "...": "Function"
-              },
               "ellipse": {
                 "true": {
                   "numberOfLines": 1,
@@ -19460,6 +20592,7 @@
               "hoverStyle": true,
               "pressStyle": true,
               "focusStyle": true,
+              "disabledStyle": true,
               "backfaceVisibility": true,
               "borderBottomEndRadius": true,
               "borderBottomStartRadius": true,
@@ -19538,7 +20671,6 @@
               "borderStartColor": true,
               "shadowColor": true,
               "color": true,
-              "placeholderTextColor": true,
               "textDecorationColor": true,
               "textShadowColor": true,
               "borderRadius": true,
@@ -19635,9 +20767,6 @@
             },
             "inlineWhenUnflattened": {},
             "variants": {
-              "ellipsizeMode": {
-                "...": "Function"
-              },
               "ellipse": {
                 "true": {
                   "numberOfLines": 1,
@@ -19667,6 +20796,7 @@
               "hoverStyle": true,
               "pressStyle": true,
               "focusStyle": true,
+              "disabledStyle": true,
               "backfaceVisibility": true,
               "borderBottomEndRadius": true,
               "borderBottomStartRadius": true,
@@ -19745,7 +20875,6 @@
               "borderStartColor": true,
               "shadowColor": true,
               "color": true,
-              "placeholderTextColor": true,
               "textDecorationColor": true,
               "textShadowColor": true,
               "borderRadius": true,
@@ -19842,9 +20971,6 @@
             },
             "inlineWhenUnflattened": {},
             "variants": {
-              "ellipsizeMode": {
-                "...": "Function"
-              },
               "ellipse": {
                 "true": {
                   "numberOfLines": 1,
@@ -19874,6 +21000,7 @@
               "hoverStyle": true,
               "pressStyle": true,
               "focusStyle": true,
+              "disabledStyle": true,
               "backfaceVisibility": true,
               "borderBottomEndRadius": true,
               "borderBottomStartRadius": true,
@@ -19952,7 +21079,6 @@
               "borderStartColor": true,
               "shadowColor": true,
               "color": true,
-              "placeholderTextColor": true,
               "textDecorationColor": true,
               "textShadowColor": true,
               "borderRadius": true,
@@ -20049,9 +21175,6 @@
             },
             "inlineWhenUnflattened": {},
             "variants": {
-              "ellipsizeMode": {
-                "...": "Function"
-              },
               "ellipse": {
                 "true": {
                   "numberOfLines": 1,
@@ -20081,6 +21204,7 @@
               "hoverStyle": true,
               "pressStyle": true,
               "focusStyle": true,
+              "disabledStyle": true,
               "backfaceVisibility": true,
               "borderBottomEndRadius": true,
               "borderBottomStartRadius": true,
@@ -20159,7 +21283,6 @@
               "borderStartColor": true,
               "shadowColor": true,
               "color": true,
-              "placeholderTextColor": true,
               "textDecorationColor": true,
               "textShadowColor": true,
               "borderRadius": true,
@@ -20256,9 +21379,6 @@
             },
             "inlineWhenUnflattened": {},
             "variants": {
-              "ellipsizeMode": {
-                "...": "Function"
-              },
               "ellipse": {
                 "true": {
                   "numberOfLines": 1,
@@ -20288,6 +21408,7 @@
               "hoverStyle": true,
               "pressStyle": true,
               "focusStyle": true,
+              "disabledStyle": true,
               "backfaceVisibility": true,
               "borderBottomEndRadius": true,
               "borderBottomStartRadius": true,
@@ -20366,7 +21487,6 @@
               "borderStartColor": true,
               "shadowColor": true,
               "color": true,
-              "placeholderTextColor": true,
               "textDecorationColor": true,
               "textShadowColor": true,
               "borderRadius": true,
@@ -20463,9 +21583,6 @@
             },
             "inlineWhenUnflattened": {},
             "variants": {
-              "ellipsizeMode": {
-                "...": "Function"
-              },
               "ellipse": {
                 "true": {
                   "numberOfLines": 1,
@@ -20495,6 +21612,7 @@
               "hoverStyle": true,
               "pressStyle": true,
               "focusStyle": true,
+              "disabledStyle": true,
               "backfaceVisibility": true,
               "borderBottomEndRadius": true,
               "borderBottomStartRadius": true,
@@ -20573,7 +21691,6 @@
               "borderStartColor": true,
               "shadowColor": true,
               "color": true,
-              "placeholderTextColor": true,
               "textDecorationColor": true,
               "textShadowColor": true,
               "borderRadius": true,
@@ -20670,9 +21787,6 @@
             },
             "inlineWhenUnflattened": {},
             "variants": {
-              "ellipsizeMode": {
-                "...": "Function"
-              },
               "ellipse": {
                 "true": {
                   "numberOfLines": 1,
@@ -20702,6 +21816,7 @@
               "hoverStyle": true,
               "pressStyle": true,
               "focusStyle": true,
+              "disabledStyle": true,
               "backfaceVisibility": true,
               "borderBottomEndRadius": true,
               "borderBottomStartRadius": true,
@@ -20780,7 +21895,6 @@
               "borderStartColor": true,
               "shadowColor": true,
               "color": true,
-              "placeholderTextColor": true,
               "textDecorationColor": true,
               "textShadowColor": true,
               "borderRadius": true,
@@ -20877,9 +21991,6 @@
             },
             "inlineWhenUnflattened": {},
             "variants": {
-              "ellipsizeMode": {
-                "...": "Function"
-              },
               "ellipse": {
                 "true": {
                   "numberOfLines": 1,
@@ -20909,6 +22020,7 @@
               "hoverStyle": true,
               "pressStyle": true,
               "focusStyle": true,
+              "disabledStyle": true,
               "backfaceVisibility": true,
               "borderBottomEndRadius": true,
               "borderBottomStartRadius": true,
@@ -20987,7 +22099,6 @@
               "borderStartColor": true,
               "shadowColor": true,
               "color": true,
-              "placeholderTextColor": true,
               "textDecorationColor": true,
               "textShadowColor": true,
               "borderRadius": true,
@@ -21086,6 +22197,7 @@
               "hoverStyle": true,
               "pressStyle": true,
               "focusStyle": true,
+              "disabledStyle": true,
               "backfaceVisibility": true,
               "borderBottomEndRadius": true,
               "borderBottomStartRadius": true,
@@ -21164,7 +22276,6 @@
               "borderStartColor": true,
               "shadowColor": true,
               "color": true,
-              "placeholderTextColor": true,
               "textDecorationColor": true,
               "textShadowColor": true,
               "borderRadius": true,
@@ -21581,22 +22692,22 @@
           "16": 124
         },
         "lineHeight": {
-          "1": 19.2,
-          "2": 20.4,
-          "3": 21.6,
-          "4": 22.8,
+          "1": 19,
+          "2": 20,
+          "3": 22,
+          "4": 23,
           "5": 24,
-          "6": 25.2,
-          "7": 27.599999999999998,
-          "8": 31.2,
-          "9": 39.6,
-          "10": 56.4,
-          "11": 68.4,
-          "12": 80.39999999999999,
-          "13": 92.39999999999999,
-          "14": 116.39999999999999,
-          "15": 142.79999999999998,
-          "16": 154.79999999999998
+          "6": 25,
+          "7": 28,
+          "8": 31,
+          "9": 40,
+          "10": 56,
+          "11": 68,
+          "12": 80,
+          "13": 92,
+          "14": 116,
+          "15": 143,
+          "16": 155
         },
         "weight": {
           "1": "300",

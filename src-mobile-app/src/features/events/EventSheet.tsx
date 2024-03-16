@@ -1,83 +1,92 @@
 import { Check, ChevronDown, ChevronUp } from '@tamagui/lucide-icons';
 import { Sheet } from '@tamagui/sheet';
 import { useEffect, useMemo, useState } from 'react';
-import { useSelector } from 'react-redux';
-import { Adapt, Button, H2, Select, YStack } from 'tamagui';
-import { Tables } from '../../lib/supabase-types';
-import { EventsState, setActiveEvent } from '../../store/eventsSlice';
-import { RootState, useTypedDispatch } from '../../store/store';
-import { TeamsState, fetchTeams } from '../../store/teamsSlice';
+import { Adapt, Button, H3, Select, Theme, YStack } from 'tamagui';
+import { fetchEvents, selectActiveEvent, setActiveEvent } from '../../store/eventsSlice';
+import { useTypedDispatch, useTypedSelector } from '../../store/store';
+import { fetchTeams, selectTeams } from '../../store/teamsSlice';
 import { LinearGradient } from 'tamagui/linear-gradient';
 import React from 'react';
-import { supabase } from '../../lib/supabase';
 import { useAuth } from '../system/Auth';
+import { fetchTeamStats, fetchTeamStatsBreakdown } from '../../store/teamStatsSlice';
+import { SBEvent } from '../../lib/models';
+import { supabase } from '../../lib/supabase';
 
 export default function EventDetailsSheet() {
-  const activeEvent = useSelector<RootState, EventsState>(state => state.eventsSlice).activeEvent;
-  const eventTeams = useSelector<RootState, TeamsState>(state => state.teamsSlice).teams
+  const activeEvent = useTypedSelector(selectActiveEvent);
+  const eventTeams = useTypedSelector(selectTeams)
     .filter(team => team.BelongsToEventID === activeEvent?.EventID);
 
   const dispatch = useTypedDispatch();
   const { user, session } = useAuth();
 
-  useEffect(() => {
-    if (activeEvent)
-      setEvent(activeEvent);
-
-    dispatch(fetchTeams());
-  }, [activeEvent]);
-
-  const [event, setEvent] = useState<Tables<'Events'>>();
+  const [event, setEvent] = useState<SBEvent | null>();
   const [teamID, setTeamID] = useState<string>('New');
 
-  const joinTeamCallback = React.useCallback(() => {
-    const joinEvent = async () => {
-      if (teamID === 'New') {
-        const createTeamResult = await supabase
-          .from('Teams')
-          .upsert({
-            Name: session!.user.email!,
-            BelongsToEventID: event!.EventID
-          })
-          .select()
-          .single();
+  useEffect(() => {
+    setEvent(activeEvent);
+      
+    dispatch(fetchTeams())
+  }, [activeEvent]);
 
-        if (createTeamResult.error) {
-          console.log(createTeamResult.error);
-          return;
-        }
+  async function joinTeam(eventID: string, joinTeamID: string | null) {
+    console.log(eventID);
+    if (joinTeamID === 'New' || joinTeamID === null) {
+      
+      const createTeamResult = await supabase
+        .from('Teams')
+        .upsert({
+          Name: session!.user.email!,
+          BelongsToEventID: eventID 
+        })
+        .select()
+        .single();
 
-        const joinTeamResult = await supabase
-          .from('TeamsProfiles')
-          .upsert({
-            ProfileID: session!.user.id,
-            TeamID: createTeamResult.data.TeamID
-          })
-          .select()
-          .single();
+      if (createTeamResult.error) {
+        console.log(createTeamResult.error);
+        return;
+      }
 
-        if (joinTeamResult.error) {
-          console.log(joinTeamResult.error);
-          return;
-        }
-      } else {
-        const joinTeamResult = await supabase
-          .from('TeamsProfiles')
-          .upsert({
-            ProfileID: session!.user.id,
-            TeamID: teamID
-          })
-          .select()
-          .single();
+      const joinTeamResult = await supabase
+        .from('TeamsProfiles')
+        .upsert({
+          ProfileID: session!.user.id,
+          TeamID: createTeamResult.data.TeamID
+        })
+        .select()
+        .single();
 
-        if (joinTeamResult.error) {
-          console.log(joinTeamResult.error);
-          return;
-        }
+      if (joinTeamResult.error) {
+        console.log(joinTeamResult.error);
+        return;
+      }
+    } else {
+      const joinTeamResult = await supabase
+        .from('TeamsProfiles')
+        .upsert({
+          ProfileID: session!.user.id,
+          TeamID: joinTeamID
+        })
+        .select()
+        .single();
+
+      if (joinTeamResult.error) {
+        console.log(joinTeamResult.error);
+        return;
       }
     }
 
-    joinEvent();
+    dispatch(setActiveEvent(null));
+    await dispatch(fetchEvents());
+    await dispatch(fetchTeams());
+    await dispatch(fetchTeamStats());
+    await dispatch(fetchTeamStatsBreakdown());
+  }
+
+
+  const joinTeamCallback = React.useCallback(() => {
+    if (activeEvent === null) return;
+    joinTeam(activeEvent.EventID, teamID);
   }, [session, teamID]);
 
   return (
@@ -90,15 +99,18 @@ export default function EventDetailsSheet() {
       onOpenChange={(open: boolean) => { if (!open) dispatch(setActiveEvent(null)) }}
     >
       <Sheet.Overlay animation="lazy" enterStyle={{ opacity: 0 }} exitStyle={{ opacity: 0 }} />
-      <Sheet.Frame ai="center" jc="center">
+      <Sheet.Frame alignItems="center" justifyContent="flex-start">
         <Sheet.Handle />
 
-        <YStack gap="$4">
-          <H2>Select a team</H2>
+        <YStack gap="$4" width={'100%'} padding="$6">
+          <H3>Select a team</H3>
           <Select value={teamID} onValueChange={setTeamID} disablePreventBodyScroll>
-            <Select.Trigger width={220} iconAfter={ChevronDown}>
-              <Select.Value placeholder="Select a team..." />
-            </Select.Trigger>
+            {/* Theme reset stops a warning from popping up, NO idea why */}
+            <Theme reset>
+              <Select.Trigger width={220} iconAfter={ChevronDown}>
+                <Select.Value placeholder="Select a team..." />
+              </Select.Trigger>
+            </Theme>
             <Adapt when="sm" platform="touch">
               <Sheet
                 native={true}
@@ -110,6 +122,7 @@ export default function EventDetailsSheet() {
                   mass: 1.2,
                   stiffness: 250,
                 }}
+                snapPoints={[50]}
               >
                 <Sheet.Frame>
                   <Sheet.ScrollView>
