@@ -170,7 +170,7 @@
         <div class="flex flex-col w-auto custom-border h-fit pt-5">
           <div class="flex flex-row w-[100%] pb-4">
             <p class="inline-block" style="font-size: 18px; font-weight:628;">Past Events</p>
-            <a href="/events/pastEvents" style="margin-left: 10px;">
+            <a href="/events/category/Past" style="margin-left: 10px;">
               <button class="btn btn-xs font-normal font-sans bg-light-black hover:bg-light-blackSelected text-white rounded-full">View All</button>
             </a>
           </div>
@@ -204,7 +204,7 @@
       <div class="flex ml-4 flex-col custom-border h-fit w-[50%] pt-3">
         <div class="flex flex-row w-[100%] pb-4">
           <p class="inline-block" style="font-size: 18px; font-weight:628;">Upcoming Events</p>
-          <a href="/events/upcomingEvents" style="margin-left: 10px;">
+          <a href="/events/category/Upcoming" style="margin-left: 10px;">
             <button class="btn btn-xs font-normal font-sans bg-light-black hover:bg-light-blackSelected text-white rounded-full">View All</button>
           </a>
         </div>

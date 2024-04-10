@@ -1,7 +1,7 @@
 <script>
-  import Layout from "../../../banner-layout.svelte";
+  import Layout from "../../../../banner-layout.svelte";
   export let data;
-  import ph from "../../../../../static/calendar_icon.png";
+  import ph from "../../../../../../static/calendar_icon.png";
 </script>
 
 <svelte:head>

@@ -18,18 +18,18 @@
   </div>
   <!-- Labels for the navbar -->
   <div class="ml-[2%] w-auto flex flex-row h-[40%] mt-5">
-    <a href="/events/{data.Event?.EventID}/Overview" class:navBarSelected={$page.url.pathname === `/events/${data.Event?.EventID}/Overview`} class="navBarLabel">Overview
+    <a href="/events/id/{data.Event?.EventID}/Overview" class:navBarSelected={$page.url.pathname === `/events/id/${data.Event?.EventID}/Overview`} class="navBarLabel">Overview
       <!-- If the current path is this nav option, then bold it and add an underline -->
       {#if $page.url.pathname === `/events/${data.Event?.EventID}/Overview`} 
         <div class="blackLine"></div>
       {/if}
     </a>
-    <a href="/events/{data.Event?.EventID}/Teams" class:navBarSelected={$page.url.pathname === `/events/${data.Event?.EventID}/Teams`} class="navBarLabel ml-9 nav">Teams
+    <a href="/events/id/{data.Event?.EventID}/Teams" class:navBarSelected={$page.url.pathname === `/events/id/${data.Event?.EventID}/Teams`} class="navBarLabel ml-9 nav">Teams
       {#if $page.url.pathname === `/events/${data.Event?.EventID}/Teams`}
         <div class="blackLine"></div>
       {/if}
     </a>
-    <a href="/events/{data.Event?.EventID}/Stats" class:navBarSelected={$page.url.pathname=== `/events/${data.Event?.EventID}/Stats`} class="navBarLabel ml-9 nav">Stats
+    <a href="/events/id/{data.Event?.EventID}/Stats" class:navBarSelected={$page.url.pathname=== `/events/id/${data.Event?.EventID}/Stats`} class="navBarLabel ml-9 nav">Stats
       {#if $page.url.pathname === `/events/${data.Event?.EventID}/Stats`}
         <div class="blackLine"></div>
       {/if}

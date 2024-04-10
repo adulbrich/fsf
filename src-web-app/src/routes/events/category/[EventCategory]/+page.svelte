@@ -1,69 +1,27 @@
+<!-- This file displays all events of a particular category.  Ex. events/category/Past  would display all events in the past -->
 <script lang="ts">
-  import Layout from "../../banner-layout.svelte";
+  import Layout from "../../../banner-layout.svelte";
   import { onMount } from "svelte";
-  import Card from "../ListEventCard.svelte";
-
-  let events: Event[] = [];
+  import Card from "../../ListEventCard.svelte";
+  import type { Event, RelevantEvents } from "../../../../interfaces";
   export let data;
-  let { supabase } = data;
-  $: ({ supabase } = data);
+  let { supabase, events, relevantEvents, category } = data;
+  $: ({ supabase, events, relevantEvents, category } = data);
 
-  // Blue print for the event object
-  interface Event {
-    Name: string;
-    Type: string;
-    StartsAt: string;
-    EndsAt: string;
-    Status: string;
-    Description: string;
-  }
-
-  // Blue print for the relevant events object
-  interface RelevantEvents {
-    pastEvents: Event[];
-    ongoingEvent: Event | null;
-    upcomingEvent: Event | null;
-  }
-  // Object that holds the relevant events for the event page
-  let relevantEvents: RelevantEvents = {
-    pastEvents: [],
-    ongoingEvent: null,
-    upcomingEvent: null,
-  };
-
-  let pastEvents: Event[] = [];
   let loading = true; // Boolean that determines if the page is still loading
   let currentIndex = 0; // Index of the first event to be displayed on the page
   let pageNum = 1; // The current page number
   let loadedEvents: Event[] = []; // Array of events that should be displayed on the page
-  let totalPages = 0; // Total number of pages that should be displayed
+  let totalPages = 0; // Total number of pages for that catgeory
   let pagesLeft: boolean = false; // Boolean that determines if there are more pages left to be displayed
 
-  // Function that fetches all the events from the database
-  const fetchEvents = async () => {
-    try {
-      const { data, error } = await supabase.from("Events").select("*"); //Selects all  rows from the Events table
-      if (error) throw error;
-      events = data;
-      console.log("events: ", events);
-    } catch (error) {
-      console.error("Error fetching events:", error as any);
-    } finally {
-    }
-  };
-
-  // thie runs after the component firt renders in the DOM
+  // this runs after the component firt renders in the DOM
   onMount(async () => {
-    await fetchEvents(); // Fetch all the events but wait for function to finish before continuing
-
-    events.forEach((event) => {
-      determineEventStatus(event, event.StartsAt, event.EndsAt); // Determine the status of each event based on dates
+    relevantEvents.forEach((event) => {
       event.Description = trimDescription(event.Description); // Trim the description of each event
     });
     totalPages = calculatePages(); // Calculate the number of pages that should be displayed
     loadEventsArray(); // Load the events array when the page first loads
-
-    console.log("Past events length: ", pastEvents.length);
     loading = false; // Set loading to false after fetching the events
   });
   // This function trims the description of an event to 140 characters
@@ -74,37 +32,14 @@
     return description;
   }
 
-  // This function takes in the start and end date of an event and determines if it is ongoing, upcoming, or past
-  function determineEventStatus(event: Event, startDate: string, endDate: string) {
-    const date = new Date();
-
-    startDate = startDate.split("T")[0]; // Split the date and time and only take the date
-    endDate = endDate.split("T")[0];
-
-    event.StartsAt = startDate;
-    event.EndsAt = endDate;
-
-    const startDateObj = new Date(startDate); // Convert the date string to a date object
-    const endDateObj = new Date(endDate);
-
-    // if the end date is less than the current date, the event is past
-    if (endDateObj < date) {
-      event.Status = "past";
-      pastEvents.push(event);
-    }
-  }
-  // Create an array of events that should be displayed on the page from the past events array when the page loads
-  // When the user clicks on the next page button the start index will added by 8
-  // When the user clicks on the previous page button the start index will be subtracted by 8
-
-  // This function is called when the page first loads
+  // This function is called when the page first loads.  It loads the first <= 8 events into the loadedEvents array 
   function loadEventsArray() {
-    pastEvents.forEach((event, index) => {
+    relevantEvents.forEach((event, index) => {
       if (index >= currentIndex && index < currentIndex + 8) {
         loadedEvents.push(event);
       }
     });
-    checkPagesLeft();
+    checkPagesLeft(); // Check if there are more pages left to be displayed.  This function sets the pagesLeft variable
   }
   function checkPagesLeft() {
     if (pageNum + 1 <= totalPages) {
@@ -116,7 +51,7 @@
   }
   // This function calculates the number of pages that should be displayed based on the number of events
   function calculatePages() {
-    return Math.ceil(pastEvents.length / 8);
+    return Math.ceil(relevantEvents.length / 8);
   }
 
   // This function is called when the user clicks on the next page button
@@ -159,7 +94,7 @@
       </svg>
     </a>
     <!-- Event Category name -->
-    <h1 class=" ml-5 font-semibold text-xl" style="margin-top:9.8px; font-size:18px;">Past Events</h1>
+    <h1 class=" ml-5 font-semibold text-xl" style="margin-top:9.8px; font-size:18px;">{category} Events</h1>
   </div>
   <!-- Display spinner when page isn't done loading -->
   {#if loading}
@@ -185,7 +120,7 @@
   {:else}
     <!-- Else, display the events -->
     <div class="grid grid-cols-2 grid-rows-4 gap-1 container ml-[17%] w-auto h-[75%] mt-3">
-      {#if pastEvents.length > 0}
+      {#if relevantEvents.length > 0}
         {#each loadedEvents as event, index (event.Name)}
           {#if index <= 7}
             <div class="flex justify-center items-center">
@@ -203,7 +138,10 @@
         class:btn-disabled={pageNum == 1}
         class:bg-unavailable={pageNum == 1}
         class="class: join-item btn bg-light-black text-beaver-orange text-lg hover:bg-light-blackSelected"
-        on:click={loadPreviousEvents}>«</button>
+        on:click={loadPreviousEvents}
+      >
+        «
+      </button>
       <button class="join-item bg-light-black hover:bg-light-black btn text-white">Page {pageNum}</button>
       <button class:btn-disabled={!pagesLeft} class:unavailable={!pagesLeft} class="join-item btn bg-light-black text-beaver-orange text-lg hover:bg-light-blackSelected" on:click={loadNextEvents}>
         »
