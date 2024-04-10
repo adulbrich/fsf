@@ -1,7 +1,8 @@
 import type { Event } from "../../../../interfaces"; // Import the Event interface
-let events: Event[] = [];
-let relevantEvents: Event[] = []; // Array to store the events that are relevant to the category.  Category is determined by the URL parameter
+
 export const load = async ({ locals: { supabase, getSession }, params }) => {
+  let events: Event[] = [];
+  let relevantEvents: Event[] = []; // Array to store the events that are relevant to the category.  Category is determined by the URL parameter
   const session = await getSession();
   const category = params.EventCategory; // Get the category from the URL parameter
   try {
