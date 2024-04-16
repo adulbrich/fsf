@@ -8,6 +8,7 @@ import { getDateString } from "../../../lib/helpers";
 import { useAuth } from "../../../lib/supabase";
 import React from "react";
 import { setActiveEvent } from "../../../store/eventsSlice";
+import { blue } from "react-native-reanimated/lib/typescript/reanimated2/Colors";
 
 export default function EventDetails() {
   const theme = useTheme();
@@ -46,10 +47,11 @@ export default function EventDetails() {
           },
         }}
         />
-      <YStack flex={1} justifyContent="flex-start" alignItems="flex-start" padding="$4" gap={'$4'}>
-        
-        <YStack borderRadius={"$4"} overflow="hidden" width={'100%'} height={'$12'}>
 
+      <YStack flex={1} justifyContent="flex-start" alignItems="flex-start" padding="$4" gap={'$4'} >
+
+        {/* Event image */}
+        <YStack borderRadius={"$4"} overflow="hidden" width={'100%'} height={'$10'}>
           <Image
             width={'100%'}
             height={'100%'}
@@ -58,34 +60,68 @@ export default function EventDetails() {
             />
         </YStack>
 
-        <XStack width={'100%'} justifyContent="space-between" alignItems="center">
-          <Text>Starts: { getDateString(event.StartsAt) }</Text>
-          <Text>Ends: { getDateString(event.EndsAt) }</Text>
-          <Text>Type: { event.Type }</Text>
-        </XStack>
+        {/* Event box for dates, description, and register button */}
+        <YStack 
+          width={'100%'} 
+          padding="$4" 
+          borderWidth={1} 
+          borderRadius={"$4"}
+          borderColor="#898A8D"
+          >
 
-        <YStack width={'100%'}>
-          <Button bg={'#eb7434'} color={'white'} onPress={registerCallback}>Register</Button>
+          {/* Event dates/timeline */}
+          <YStack width="100%" borderWidth={1}>
+            <XStack width={'100%'} justifyContent="space-between" alignItems="center">
+              <Text color='black'>Starts: { getDateString(event.StartsAt) }</Text>
+              <Text color='black'>Ends: { getDateString(event.EndsAt) }</Text>
+              <Text color='black'>Type: { event.Type }</Text>
+            </XStack>
+          </YStack>
+
+          {/* Event Description */}
+          <YStack width={'100%'} padding="$4" borderWidth={1} borderRadius="$4" borderColor="#ccc" backgroundColor="#f8f8f8">
+            <Text color="black">{event.Description}</Text>
+          </YStack>
+
+
+          {/* Rounded Register Button */}
+          <YStack width={'100%'} alignItems="center" padding="$4">
+            <Button
+              bg={'#eb7434'}
+              color={'white'}
+              fontSize="$6"
+              height="$5"
+              width="$14"
+              onPress={registerCallback}
+              borderRadius="$10"
+            >
+              Register
+            </Button>
+          </YStack>
         </YStack>
 
-        <YStack gap={'$4'}>
-          <H3>Top 5 Teams</H3>
-          { teamStats.length === 0 && (
-            <XStack width={'100%'} justifyContent="center">
-              <Text>No stats available</Text>
-            </XStack>
-          )}
-          { teamStats.slice(0, 5).map(ts =>
-            <XStack key={ts.TeamID} width={'100%'} justifyContent="space-between" alignItems="flex-end">
-              <Text>{ ts.Name }</Text>
-              <RN_Text ellipsizeMode="clip" numberOfLines={1} style={[{ flex: 1, marginHorizontal: 12 }]}>
-                .........................................................................
-              </RN_Text>
-              <Text>{ ts.TotalScore ?? 0 }</Text>
-            </XStack>
-          )}
-        </YStack>
       </YStack>
+        
+
+      <YStack gap={'$4'}>
+        <H3>Top 5 Teams</H3>
+        { teamStats.length === 0 && (
+          <XStack width={'100%'} justifyContent="center">
+            <Text>No stats available</Text>
+          </XStack>
+        )}
+        { teamStats.slice(0, 5).map(ts =>
+          <XStack key={ts.TeamID} width={'100%'} justifyContent="space-between" alignItems="flex-end">
+            <Text>{ ts.Name }</Text>
+            <RN_Text ellipsizeMode="clip" numberOfLines={1} style={[{ flex: 1, marginHorizontal: 12 }]}>
+              .........................................................................
+            </RN_Text>
+            <Text>{ ts.TotalScore ?? 0 }</Text>
+          </XStack>
+        )}
+      </YStack>
+
+      
     </>
   )
 }
