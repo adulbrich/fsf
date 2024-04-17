@@ -70,6 +70,7 @@ export interface Database {
       }
       Events: {
         Row: {
+          Description: any
           CreatedAt: string
           CreatedByUserID: string
           EndsAt: string

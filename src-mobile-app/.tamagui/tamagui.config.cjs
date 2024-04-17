@@ -28423,9 +28423,9 @@ var require_cjs32 = __commonJS({
   }
 });
 
-// node_modules/@tamagui/list-item/dist/cjs/ListItem.js
+// node_modules/tamagui/node_modules/@tamagui/list-item/dist/cjs/ListItem.js
 var require_ListItem = __commonJS({
-  "node_modules/@tamagui/list-item/dist/cjs/ListItem.js"(exports2, module2) {
+  "node_modules/tamagui/node_modules/@tamagui/list-item/dist/cjs/ListItem.js"(exports2, module2) {
     var __defProp2 = Object.defineProperty;
     var __getOwnPropDesc2 = Object.getOwnPropertyDescriptor;
     var __getOwnPropNames2 = Object.getOwnPropertyNames;
@@ -28627,9 +28627,9 @@ var require_ListItem = __commonJS({
   }
 });
 
-// node_modules/@tamagui/list-item/dist/cjs/index.js
+// node_modules/tamagui/node_modules/@tamagui/list-item/dist/cjs/index.js
 var require_cjs33 = __commonJS({
-  "node_modules/@tamagui/list-item/dist/cjs/index.js"(exports2, module2) {
+  "node_modules/tamagui/node_modules/@tamagui/list-item/dist/cjs/index.js"(exports2, module2) {
     var __defProp2 = Object.defineProperty;
     var __getOwnPropDesc2 = Object.getOwnPropertyDescriptor;
     var __getOwnPropNames2 = Object.getOwnPropertyNames;
@@ -28990,6 +28990,231 @@ var require_dist2 = __commonJS({
   }
 });
 
+// node_modules/@tamagui/select/node_modules/@tamagui/list-item/dist/cjs/ListItem.js
+var require_ListItem2 = __commonJS({
+  "node_modules/@tamagui/select/node_modules/@tamagui/list-item/dist/cjs/ListItem.js"(exports2, module2) {
+    var __defProp2 = Object.defineProperty;
+    var __getOwnPropDesc2 = Object.getOwnPropertyDescriptor;
+    var __getOwnPropNames2 = Object.getOwnPropertyNames;
+    var __hasOwnProp2 = Object.prototype.hasOwnProperty;
+    var __export2 = /* @__PURE__ */ __name((target, all) => {
+      for (var name in all)
+        __defProp2(target, name, { get: all[name], enumerable: true });
+    }, "__export");
+    var __copyProps2 = /* @__PURE__ */ __name((to, from, except, desc) => {
+      if (from && typeof from == "object" || typeof from == "function")
+        for (let key of __getOwnPropNames2(from))
+          !__hasOwnProp2.call(to, key) && key !== except && __defProp2(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc2(from, key)) || desc.enumerable });
+      return to;
+    }, "__copyProps");
+    var __toCommonJS2 = /* @__PURE__ */ __name((mod) => __copyProps2(__defProp2({}, "__esModule", { value: true }), mod), "__toCommonJS");
+    var ListItem_exports = {};
+    __export2(ListItem_exports, {
+      ListItem: () => ListItem22,
+      ListItemFrame: () => ListItemFrame2,
+      ListItemSubtitle: () => ListItemSubtitle,
+      ListItemText: () => ListItemText,
+      ListItemTitle: () => ListItemTitle,
+      useListItem: () => useListItem2
+    });
+    module2.exports = __toCommonJS2(ListItem_exports);
+    var import_font_size4 = require_cjs28();
+    var import_get_font_sized4 = require_cjs21();
+    var import_get_token13 = require_cjs18();
+    var import_helpers26 = require_cjs12();
+    var import_helpers_tamagui4 = require_cjs29();
+    var import_stacks26 = require_cjs20();
+    var import_text8 = require_cjs22();
+    var import_web16 = require("@tamagui/core");
+    var import_jsx_runtime53 = require("react/jsx-runtime");
+    var NAME3 = "ListItem";
+    var ListItemFrame2 = (0, import_web16.styled)(import_stacks26.ThemeableStack, {
+      name: NAME3,
+      tag: "li",
+      variants: {
+        unstyled: {
+          false: {
+            size: "$true",
+            alignItems: "center",
+            justifyContent: "space-between",
+            flexWrap: "nowrap",
+            width: "100%",
+            borderColor: "$borderColor",
+            maxWidth: "100%",
+            overflow: "hidden",
+            flexDirection: "row",
+            backgroundColor: "$background"
+          }
+        },
+        size: {
+          "...size": (val, { tokens: tokens2 }) => ({
+            minHeight: tokens2.size[val],
+            paddingHorizontal: tokens2.space[val],
+            paddingVertical: (0, import_get_token13.getSpace)(tokens2.space[val], {
+              shift: -4
+            })
+          })
+        },
+        active: {
+          true: {
+            hoverStyle: {
+              backgroundColor: "$background"
+            }
+          }
+        },
+        disabled: {
+          true: {
+            opacity: 0.5,
+            // TODO breaking types
+            pointerEvents: "none"
+          }
+        }
+      },
+      defaultVariants: {
+        unstyled: process.env.TAMAGUI_HEADLESS === "1"
+      }
+    });
+    var ListItemText = (0, import_web16.styled)(import_text8.SizableText, {
+      name: "ListItemText",
+      variants: {
+        unstyled: {
+          false: {
+            color: "$color",
+            size: "$true",
+            flexGrow: 1,
+            flexShrink: 1,
+            ellipse: true,
+            cursor: "default"
+          }
+        }
+      },
+      defaultVariants: {
+        unstyled: process.env.TAMAGUI_HEADLESS === "1"
+      }
+    });
+    var ListItemSubtitle = (0, import_web16.styled)(ListItemText, {
+      name: "ListItemSubtitle",
+      variants: {
+        unstyled: {
+          false: {
+            opacity: 0.6,
+            maxWidth: "100%",
+            color: "$color"
+          }
+        },
+        size: {
+          "...size": (val, extras) => {
+            const oneSmaller = (0, import_get_token13.getSize)(val, {
+              shift: -1,
+              excludeHalfSteps: true
+            });
+            return (0, import_get_font_sized4.getFontSized)(oneSmaller.key, extras);
+          }
+        }
+      },
+      defaultVariants: {
+        unstyled: process.env.TAMAGUI_HEADLESS === "1"
+      }
+    });
+    var ListItemTitle = (0, import_web16.styled)(ListItemText, {
+      name: "ListItemTitle"
+    });
+    var useListItem2 = /* @__PURE__ */ __name((propsIn, {
+      Text: Text4 = ListItemText,
+      Subtitle = ListItemSubtitle,
+      Title = ListItemTitle
+    } = { Text: ListItemText, Subtitle: ListItemSubtitle, Title: ListItemTitle }) => {
+      const props = (0, import_web16.useProps)(propsIn), {
+        children,
+        icon,
+        iconAfter,
+        noTextWrap,
+        theme: themeName,
+        space: space2,
+        spaceFlex,
+        scaleIcon = 1,
+        scaleSpace = 1,
+        unstyled = false,
+        subTitle,
+        title,
+        // text props
+        color: color2,
+        fontWeight,
+        fontSize,
+        fontFamily,
+        letterSpacing,
+        textAlign,
+        ellipse,
+        ...rest
+      } = props, textProps = {
+        color: color2,
+        fontWeight,
+        fontSize,
+        fontFamily,
+        letterSpacing,
+        textAlign,
+        ellipse,
+        children
+      }, size4 = props.size || "$true", iconSize = (0, import_font_size4.getFontSize)(size4) * scaleIcon, getThemedIcon = (0, import_helpers_tamagui4.useGetThemedIcon)({ size: iconSize, color: color2 }), [themedIcon, themedIconAfter] = [icon, iconAfter].map(getThemedIcon), spaceSize = (0, import_web16.getVariableValue)((0, import_web16.getTokens)().space[props.space] ?? iconSize) * scaleSpace, contents = (0, import_text8.wrapChildrenInText)(Text4, textProps);
+      return {
+        props: {
+          ...rest,
+          children: /* @__PURE__ */ (0, import_jsx_runtime53.jsxs)(import_jsx_runtime53.Fragment, { children: [
+            themedIcon ? /* @__PURE__ */ (0, import_jsx_runtime53.jsxs)(import_jsx_runtime53.Fragment, { children: [
+              themedIcon,
+              /* @__PURE__ */ (0, import_jsx_runtime53.jsx)(import_web16.Spacer, { size: spaceSize })
+            ] }) : null,
+            title || subTitle ? /* @__PURE__ */ (0, import_jsx_runtime53.jsxs)(import_stacks26.YStack, { flex: 1, children: [
+              noTextWrap === "all" ? title : /* @__PURE__ */ (0, import_jsx_runtime53.jsx)(Title, { size: size4, children: title }),
+              subTitle ? /* @__PURE__ */ (0, import_jsx_runtime53.jsx)(import_jsx_runtime53.Fragment, { children: typeof subTitle == "string" && noTextWrap !== "all" ? (
+                // TODO can use theme but we need to standardize to alt themes
+                // or standardize on subtle colors in themes
+                /* @__PURE__ */ (0, import_jsx_runtime53.jsx)(Subtitle, { unstyled, size: size4, children: subTitle })
+              ) : subTitle }) : null,
+              contents
+            ] }) : contents,
+            themedIconAfter ? /* @__PURE__ */ (0, import_jsx_runtime53.jsxs)(import_jsx_runtime53.Fragment, { children: [
+              /* @__PURE__ */ (0, import_jsx_runtime53.jsx)(import_web16.Spacer, { size: spaceSize }),
+              themedIconAfter
+            ] }) : null
+          ] })
+        }
+      };
+    }, "useListItem");
+    var ListItemComponent = ListItemFrame2.styleable(
+      function(props, ref) {
+        const { props: listItemProps } = useListItem2(props);
+        return /* @__PURE__ */ (0, import_jsx_runtime53.jsx)(ListItemFrame2, { ref, ...listItemProps });
+      }
+    );
+    var ListItem22 = (0, import_helpers26.withStaticProperties)(ListItemComponent, {
+      Text: ListItemText,
+      Subtitle: ListItemSubtitle
+    });
+  }
+});
+
+// node_modules/@tamagui/select/node_modules/@tamagui/list-item/dist/cjs/index.js
+var require_cjs34 = __commonJS({
+  "node_modules/@tamagui/select/node_modules/@tamagui/list-item/dist/cjs/index.js"(exports2, module2) {
+    var __defProp2 = Object.defineProperty;
+    var __getOwnPropDesc2 = Object.getOwnPropertyDescriptor;
+    var __getOwnPropNames2 = Object.getOwnPropertyNames;
+    var __hasOwnProp2 = Object.prototype.hasOwnProperty;
+    var __copyProps2 = /* @__PURE__ */ __name((to, from, except, desc) => {
+      if (from && typeof from == "object" || typeof from == "function")
+        for (let key of __getOwnPropNames2(from))
+          !__hasOwnProp2.call(to, key) && key !== except && __defProp2(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc2(from, key)) || desc.enumerable });
+      return to;
+    }, "__copyProps");
+    var __reExport2 = /* @__PURE__ */ __name((target, mod, secondTarget) => (__copyProps2(target, mod, "default"), secondTarget && __copyProps2(secondTarget, mod, "default")), "__reExport");
+    var __toCommonJS2 = /* @__PURE__ */ __name((mod) => __copyProps2(__defProp2({}, "__esModule", { value: true }), mod), "__toCommonJS");
+    var src_exports = {};
+    module2.exports = __toCommonJS2(src_exports);
+    __reExport2(src_exports, require_ListItem2(), module2.exports);
+  }
+});
+
 // node_modules/@tamagui/theme/dist/cjs/_mutateTheme.js
 var require_mutateTheme = __commonJS({
   "node_modules/@tamagui/theme/dist/cjs/_mutateTheme.js"(exports2, module2) {
@@ -29227,7 +29452,7 @@ var require_replaceTheme = __commonJS({
 });
 
 // node_modules/@tamagui/theme/dist/cjs/index.js
-var require_cjs34 = __commonJS({
+var require_cjs35 = __commonJS({
   "node_modules/@tamagui/theme/dist/cjs/index.js"(exports2, module2) {
     var __defProp2 = Object.defineProperty;
     var __getOwnPropDesc2 = Object.getOwnPropertyDescriptor;
@@ -44279,7 +44504,7 @@ RadioGroup.displayName = RADIO_GROUP_NAME;
 // node_modules/@tamagui/select/dist/esm/Select.js
 var import_core33 = require("@tamagui/core");
 var import_get_token5 = __toESM(require_cjs18());
-var import_list_item3 = __toESM(require_cjs33());
+var import_list_item3 = __toESM(require_cjs34());
 
 // node_modules/@tamagui/separator/dist/esm/Separator.js
 var import_core27 = require("@tamagui/core");
@@ -44610,7 +44835,7 @@ var SelectInlineImpl = /* @__PURE__ */ __name((props) => {
 }, "SelectInlineImpl");
 
 // node_modules/@tamagui/select/dist/esm/SelectItem.js
-var import_list_item = __toESM(require_cjs33());
+var import_list_item = __toESM(require_cjs34());
 var React26 = __toESM(require("react"));
 var import_jsx_runtime34 = require("react/jsx-runtime");
 var ITEM_NAME2 = "SelectItem";
@@ -44855,7 +45080,7 @@ var SelectScrollButtonImpl = React28.memo(
 );
 
 // node_modules/@tamagui/select/dist/esm/SelectTrigger.js
-var import_list_item2 = __toESM(require_cjs33());
+var import_list_item2 = __toESM(require_cjs34());
 var React29 = __toESM(require("react"));
 var import_jsx_runtime37 = require("react/jsx-runtime");
 var TRIGGER_NAME4 = "SelectTrigger";
@@ -46453,7 +46678,7 @@ function makeContentId(baseId, value) {
 __name(makeContentId, "makeContentId");
 
 // node_modules/tamagui/dist/esm/index.js
-__reExport(esm_exports2, __toESM(require_cjs34()));
+__reExport(esm_exports2, __toESM(require_cjs35()));
 
 // node_modules/@tamagui/toggle-group/dist/esm/ToggleGroup.js
 var import_focusable3 = __toESM(require_cjs30());
