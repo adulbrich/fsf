@@ -42,6 +42,7 @@ export default function EventDetails() {
     <>
       <Stack.Screen
         options={{
+          headerTintColor: "#FFFFFF",
           title: event.Name,
           headerShown: true,
           headerBackTitle: 'Events',
