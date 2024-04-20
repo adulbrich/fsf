@@ -1,6 +1,6 @@
 import { Stack, useLocalSearchParams } from "expo-router";
 import { H3, YStack, Image, XStack, Text, Button, useTheme } from "tamagui";
-import { Text as RN_Text, ScrollView } from 'react-native';
+import { Text as RN_Text, ScrollView, TouchableOpacity } from 'react-native';
 import { useTypedDispatch, useTypedSelector } from "../../../store/store";
 import { SBEvent, SBTeamStats } from "../../../lib/supabase-types";
 import { useAssets } from "expo-asset";
@@ -34,7 +34,14 @@ export default function EventDetails() {
 
   const registerCallback = React.useCallback(() => {
     dispatch(setActiveEvent(event));
+    console.log('Register button pressed!')
   }, [session, event]);
+
+  // const top5teamsCallback = () => {
+  //   const handlePress = () => {
+  //     console.log('Button pressed!');
+  //     // Add your button press logic here
+  // };
 
   if (!event || !assets) return null;
 
@@ -156,31 +163,29 @@ export default function EventDetails() {
             </YStack>
           </YStack>
 
-          {/* Top 5 teams chevron icon button */}
-          <YStack 
-            borderRadius={"$4"} 
-            alignItems="center" 
-            width="50%" 
-            marginLeft="25%" 
+          <YStack gap={'$4'} 
+            borderWidth={1} 
+            padding="$4"
+            borderRadius="$4"
+            borderColor="#898A8D"
             >
-
-            <XStack justifyContent="space-between" alignItems="center">
-              <XStack paddingRight="$2.5">
-                <Text color="#858589" fontSize="$6">Top 5 Teams</Text>
+            <H3 color="black">Top 5 Teams</H3>
+            { teamStats.length === 0 && (
+              <XStack width={'100%'} justifyContent="center">
+                <Text>No stats available</Text>
               </XStack>
-              
-              <Image
-                width={'$2'}
-                height={'$2'}
-                //resizeMode="center"
-                source={{ uri: assets[2].uri, width: assets[2].width!, height: assets[2].height! }}
-                />
-            </XStack>
-            
-
-
+            )}
+            { teamStats.slice(0, 5).map(ts =>
+              <XStack key={ts.TeamID} width={'100%'} justifyContent="space-between" alignItems="flex-end">
+                <Text color="black">{ ts.Name }</Text>
+                <RN_Text ellipsizeMode="clip" numberOfLines={1} style={[{ flex: 1, marginHorizontal: 1 }]}>
+                  ............................................................
+                </RN_Text>
+                <Text color="black">{ ts.TotalScore ?? 0 }</Text>
+              </XStack>
+            )}
           </YStack>
-
+          
 
 
 
