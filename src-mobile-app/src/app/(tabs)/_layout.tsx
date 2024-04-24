@@ -3,6 +3,7 @@ import IconHome from "../../../assets/icons/IconHome";
 import IconCalendar from "../../../assets/icons/IconCalendar";
 import IconProfile from "../../../assets/icons/IconProfile";
 import IconSettings from "../../../assets/icons/IconSettings";
+import IconTeam from "../../../assets/icons/IconTeam";
 import { Text, useTheme } from "tamagui";
 import { useAuth } from "../../features/system/Auth";
 
@@ -62,12 +63,12 @@ export default function ProtectedLayout() {
           },
         }} />
       <Tabs.Screen
-        name="settings"
+        name="team"
         options={{
-          title: "Settings",
-          href: "/settings",
+          title: "Team",
+          href: "/team",
           tabBarIcon: ({ color }) => {
-            return <IconSettings color={color} />;
+            return <IconTeam/>;6
           },
         }}
       />
