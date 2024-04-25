@@ -55,85 +55,49 @@
           </p>
         </div>
         
+        <form>
+            <!-- Grid container for the first row with two columns -->
+            <div class="grid grid-cols-3 gap-6 mb-6 ml-4">
+                <!--Container for Event Name-->
+                <div>
+                    <label for="eventName" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Event Name</label>
+                    <input type="text" id="eventName" name="eventName" value="{form?.eventName ?? eventName}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Event Name" required />
+                </div>
 
-        <!--Container for Event Name-->
-        <div class=" md:w-1/4 px-5 mb-6 md:mb-0">
-          <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="eventName">Event Name</label>
-          <input
-            required
-            name="eventName"
-            id="eventName"
-            value={form?.eventName ?? eventName}
-            class="appearance-none block w-full  text-gray-700 rounded-md border-black border  py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
-            type="text"
-            placeholder="Event Name"
-          />
-        </div>
-
-        <!--Container for Event Type Dropdown-->
-        <div class=" md:w-2/3 px-5 mb-6 md:mb-0">
-          <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="eventType">Type</label>
-
-          <div class="relative">
-            <select
-              required
-              id="eventType"
-              name="eventType"
-              value={form?.eventType ?? eventType}
-              class="block appearance-none w-1/4 rounded-md border-black border text-gray-700 py-3 px-4 pr-8 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-            >
-              <option>Walk (Steps)</option>
-              <option>Run (Distance)</option>
-            </select>
-            <!-- Drop down arrow  -->
-            <div class="absolute" style="left: 20.8%; bottom:12px; pointer-events:none;">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M6 9L12 15L18 9" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-                
+                <!--Container for Event Type Dropdown-->
+                <div>
+                    <label for="eventType" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Event Type</label>
+                    <select id="eventType" name="eventType" value="{form?.eventType ?? eventType}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                        <option>Walk (Steps)</option>
+                        <option>Run (Distance)</option>
+                    </select>
+                </div>
             </div>
-          </div>
-        </div>
 
-        <!--Container for Start Date Input-->
-        <div class=" md:w-1/4 px-5 mb-6 md:mb-0">
-          <label for="startDate" class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">Start Date</label>
-          <input
-            id="startDate"
-            name="startDate"
-            type="date"
-            value={form?.startDate ?? startDate}
-            required
-            class="appearance-none w-3/4  text-gray-700 rounded-md border-black border py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
-          />
-        </div>
+            <!-- Grid container for the second row with two columns -->
+            <div class="grid grid-cols-3 gap-6 mb-6  ml-4">
+                <!--Container for Start Date Input-->
+                <div>
+                    <label for="startDate" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Start Date</label>
+                    <input type="date" id="startDate" name="startDate" value="{form?.startDate ?? startDate}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required />
+                </div>
 
-        <!--Container for End Date Input-->
-        <div class=" md:w-1/4 px-5 mb-6 md:mb-0">
-          <label for="endDate" class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">End Date</label>
-          <input
-            type="date"
-            id="endDate"
-            name="endDate"
-            value={form?.endDate ?? endDate}
-            required
-            class="appearance-none w-3/4  text-gray-700 rounded-md border-black border py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
-          />
-        </div>
+                <!--Container for End Date Input-->
+                <div>
+                    <label for="endDate" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">End Date</label>
+                    <input type="date" id="endDate" name="endDate" value="{form?.endDate ?? endDate}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required />
+                </div>
+            </div>
+        
+
 
         <!--Container for Event Description Input-->
-        <div class="md:w-3/4 px-5 mb-0 md:mb-0">
-          <label for="eventDescription" class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">Event Details</label>
-          <textarea
-            id="eventDescription"
-            name="eventDescription"
-            value={form?.eventDescription ?? eventDescription}
-            required
-            rows="4"
-            class="block p-2.5 w-1/2 text-sm text-black bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 light:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            placeholder="Write details about the event here!"
-          ></textarea>
-        </div>
+          <div class="col-span-3  ml-4">
+              <label for="eventDescription" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Event Description</label>
+              <textarea id="eventDescription" name="eventDescription" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" rows="3" placeholder="Write details about the event here!" required></textarea>
+          </div>
+
+        </form>
 
         <!-- Container for Event Banner Uploading -->
         <div class="px-5 pt-4 md:w-3/4 my-0">

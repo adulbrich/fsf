@@ -1,7 +1,7 @@
 <!-- This Div contains everything for the base layout of the site -->
 
     <!-- Black Vertical Navbar -->
-    <div class="h-screen bg-light-black fixed top-0 left-0 p-2" style="width: 16%">
+    <div class="h-screen bg-light-black fixed top-0 left-0 p-2 z-50" style="width: 16%">
         <!--Logo and Faculty Fitness Text-->
         <img class="h-auto w-auto p-2" src="../../OSU_Logo.png" alt="OSU Logo">
         <p class="text-white mt-1 ml-3 font-bold p-4">Faculty Staff Fitness</p>
