@@ -3,14 +3,20 @@ import { ScrollView, View, Text, Image, StyleSheet, TouchableOpacity } from 'rea
 
 interface ProfileProps {
   username: string;
-  email: string;
   profilePictureUrl?: string;
 }
 
+<<<<<<< HEAD
 const Profile: React.FC<ProfileProps> = ({ username, email, profilePictureUrl }) => {
   const [notificationsEnabled, setNotificationsEnabled] = useState(false);
   const phoneNumber = 'Phone +1 234 567 890';
   const contactEmail = 'contact@example.com';
+=======
+const Profile: React.FC<ProfileProps> = ({ username, profilePictureUrl }) => {
+  const [notificationsEnabled, setNotificationsEnabled] = useState(false);
+  const phoneNumber = 'Phone +1 234 567 890';
+  const contactEmail = 'contact@example.com'; // This might represent an email to contact support or help.
+>>>>>>> c66d64c (remove the button not suing)
   const localImagePath = '../../../assets/images/image.jpg';
 
   return (
@@ -24,7 +30,6 @@ const Profile: React.FC<ProfileProps> = ({ username, email, profilePictureUrl })
           style={styles.profilePic} 
         />
         <Text style={styles.username}>{username}</Text>
-        <Text style={styles.email}>{email}</Text>
         <Text style={styles.additionalEmail}>{contactEmail}</Text>
         <Text style={styles.phone}>{phoneNumber}</Text>
       </View>
@@ -36,6 +41,7 @@ const Profile: React.FC<ProfileProps> = ({ username, email, profilePictureUrl })
           style={styles.button}
           onPress={() => setNotificationsEnabled(!notificationsEnabled)}>
           <Text style={styles.buttonText}>
+<<<<<<< HEAD
             {notificationsEnabled ? 'Notifications  (ON)' : 'Notifications (OFF)'}
           </Text>
         </TouchableOpacity>
@@ -45,6 +51,11 @@ const Profile: React.FC<ProfileProps> = ({ username, email, profilePictureUrl })
         <TouchableOpacity style={styles.button}>
           <Text style={styles.buttonText}>Privacy Policy</Text>
         </TouchableOpacity>
+=======
+            {notificationsEnabled ? 'Notifications (ON)' : 'Notifications (OFF)'}
+          </Text>
+        </TouchableOpacity>
+>>>>>>> c66d64c (remove the button not suing)
       </View>
     </ScrollView>
   );
@@ -83,10 +94,6 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginTop: 20,
   },
-  email: {
-    fontSize: 16,
-    marginTop: 10,
-  },
   additionalEmail: {
     fontSize: 16,
     color: 'gray',
@@ -117,3 +124,4 @@ const styles = StyleSheet.create({
 });
 
 export default Profile;
+
