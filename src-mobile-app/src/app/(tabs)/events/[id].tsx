@@ -195,10 +195,6 @@ export default function EventDetails() {
           </YStack>
           
 
-
-
-
-
         </YStack>
       </ScrollView>
       
