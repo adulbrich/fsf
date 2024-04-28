@@ -97,7 +97,7 @@ export default function EventDetailsSheet() {
       onOpenChange={(open: boolean) => { if (!open) dispatch(setActiveEvent(null)) }}
     >
       <Sheet.Overlay animation="lazy" enterStyle={{ opacity: 0 }} exitStyle={{ opacity: 0 }} />
-      <Sheet.Frame backgroundColor="black" /* ai="center" jc="center" */>
+      <Sheet.Frame /* ai="center" jc="center" */>
         <Sheet.Handle />
 
         <YStack gap="$4">
@@ -116,10 +116,10 @@ export default function EventDetailsSheet() {
             // borderColor="white" 
             justifyContent="center"
             paddingBottom="$20"
-    
             >
             
-            <Button 
+            <Button
+              /* Join Team Button */
               bg={'#eb7434'} 
               color={'white'} 
               /* onPress={joinTeamCallback} */ 
@@ -129,7 +129,8 @@ export default function EventDetailsSheet() {
               fontSize="$8"
               >Join</Button>
 
-            <Button 
+            <Button
+              /* Create Team Button */
               bg={'#eb7434'} 
               color={'white'} 
               /* onPress={createTeamCallback} */
@@ -137,6 +138,7 @@ export default function EventDetailsSheet() {
               width="$12"
               marginLeft="$3"
               fontSize="$8"
+              onPress={joinTeamCallback}
               >Create</Button>
           </XStack>
 
@@ -152,4 +154,9 @@ export default function EventDetailsSheet() {
       </Sheet.Frame>
     </Sheet>
   )
+  
+
+
+
+
 }
