@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { Button, Input, Separator, XStack, YStack } from 'tamagui';
 import { Lock, Mail } from '@tamagui/lucide-icons';
 import { useAuth } from '../system/Auth';
+import { ForgotPasswordForm } from '../password-reset/ForgotPassword';
 
 export default function EmailForm() {
   const [email, setEmail] = useState('')
@@ -11,6 +12,11 @@ export default function EmailForm() {
 
   const [emailFocus, setEmailFocus] = useState(false);
   const [passFocus, setPassFocus] = useState(false);
+
+  const forgotPassword = React.useCallback(() => {
+    console.log("forgot password clicked")
+    
+  }, []);
 
   const signInWithEmail = React.useCallback(async () => {
     if (loading) return;
@@ -79,7 +85,7 @@ export default function EmailForm() {
       <Separator />
 
       <Button onPress={signInWithEmail} marginTop="$2" height={"$5"} color={"white"} borderColor={"black"} borderWidth={2} backgroundColor={"black"}>Sign in to DamFit</Button>
-      <Button position="absolute" bottom={"$2"} left={0} right={0} color={"$gray9"} backgroundColor={'transparent'}>Forgot my password</Button>
+      <Button onPress={forgotPassword} position="absolute" bottom={"$2"} left={0} right={0} color={"$gray9"} backgroundColor={'transparent'}>Forgot my password</Button>
     </YStack>
   )
 }
