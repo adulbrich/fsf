@@ -17,7 +17,7 @@ export default function EmailForm() {
 
   const forgotPassword = React.useCallback(() => {
     console.log("forgot password clicked")
-    router.push(`/forgot-password`);
+    router.navigate(`/forgot-password`);
   }, []);
 
   const signInWithEmail = React.useCallback(async () => {
