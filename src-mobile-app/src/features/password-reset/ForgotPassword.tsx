@@ -12,16 +12,23 @@ export default function ForgotPasswordForm() {
     const sendPasswordEmail = React.useCallback(() => {
         console.log("send that email")
         // perform backend send email here
-        
+
+        //for now, push to "reset password page"
+        router.push(`/reset-password`);
+    }, []);
+
+    const goBackHome = React.useCallback(() => {
+        console.log("go back home")
+        router.navigate(`/sign-in`);
     }, []);
 
     return (
-        <YStack flex={1}>
+        <YStack flex={1} space={"$5"}>
              <XStack width={"100%"} justifyContent="flex-start" alignItems="center">
         
                 <YStack flex={1}>
                 <Input
-                    id="email"
+                    id="curr_email"
                     onChangeText={(text) => setEmail(text)}
                     value={email}
                     placeholder="Email"
@@ -47,6 +54,7 @@ export default function ForgotPasswordForm() {
             <Separator />
 
             <Button onPress={sendPasswordEmail} marginTop="$2" height={"$5"} color={"white"} borderColor={"black"} borderWidth={2} backgroundColor={"black"}>Send Email</Button>
+            <Button onPress={goBackHome} position="absolute" bottom={"$2"} left={0} right={0} color={"$gray9"} backgroundColor={'transparent'}>Back to home</Button>
         </YStack>
     )
 }
