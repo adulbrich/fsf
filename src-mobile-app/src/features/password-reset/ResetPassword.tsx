@@ -3,7 +3,7 @@ import { router } from "expo-router";
 import { Button, Input, Separator, XStack, YStack } from 'tamagui';
 
 
-export function ResetPasswordForm() {
+export default function ResetPasswordForm() {
     return (
         <YStack>
 

@@ -2,7 +2,9 @@ import React, { useState } from 'react'
 import { Button, Input, Separator, XStack, YStack } from 'tamagui';
 import { Lock, Mail } from '@tamagui/lucide-icons';
 import { useAuth } from '../system/Auth';
-import { ForgotPasswordForm } from '../password-reset/ForgotPassword';
+import ForgotPasswordForm from '../password-reset/ForgotPassword';
+import { router } from "expo-router";
+
 
 export default function EmailForm() {
   const [email, setEmail] = useState('')
@@ -15,7 +17,7 @@ export default function EmailForm() {
 
   const forgotPassword = React.useCallback(() => {
     console.log("forgot password clicked")
-    
+    router.push(`/forgot-password`);
   }, []);
 
   const signInWithEmail = React.useCallback(async () => {
