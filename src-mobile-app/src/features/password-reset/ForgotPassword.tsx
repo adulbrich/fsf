@@ -4,13 +4,15 @@ import { Button, Input, Separator, XStack, YStack } from 'tamagui';
 import { Mail } from "@tamagui/lucide-icons";
 
 
-export function ForgotPasswordForm() {
+export default function ForgotPasswordForm() {
 
     const [email, setEmail] = useState('')
     const [emailFocus, setEmailFocus] = useState(false);
 
     const sendPasswordEmail = React.useCallback(() => {
         console.log("send that email")
+        // perform backend send email here
+        
     }, []);
 
     return (
