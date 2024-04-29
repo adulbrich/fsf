@@ -94,6 +94,7 @@ export default function ResetPasswordForm() {
 
             
 
+            </XStack>
         </YStack>
     )
 }
