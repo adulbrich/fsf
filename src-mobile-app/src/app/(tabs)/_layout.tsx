@@ -68,7 +68,7 @@ export default function ProtectedLayout() {
           title: "Team",
           href: "/team",
           tabBarIcon: ({ color }) => {
-            return <IconTeam/>;6
+            return <IconTeam/>;
           },
         }}
       />
