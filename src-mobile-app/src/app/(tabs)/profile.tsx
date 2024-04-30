@@ -1,66 +1,72 @@
 import React, { useState } from 'react';
-import { ScrollView, View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
+import { ScrollView, View, Text, Image, StyleSheet, TouchableOpacity, TextInput } from 'react-native';
 
 interface ProfileProps {
   username: string;
   profilePictureUrl?: string;
 }
 
-<<<<<<< HEAD
-const Profile: React.FC<ProfileProps> = ({ username, email, profilePictureUrl }) => {
+const Profile: React.FC<ProfileProps> = ({ username: initialUsername, profilePictureUrl }) => {
   const [notificationsEnabled, setNotificationsEnabled] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
+  const [username, setUsername] = useState(initialUsername);
+  const [email, setEmail] = useState(''); // Initialize with actual email if available
+  const [password, setPassword] = useState('');
+
   const phoneNumber = 'Phone +1 234 567 890';
-  const contactEmail = 'contact@example.com';
-=======
-const Profile: React.FC<ProfileProps> = ({ username, profilePictureUrl }) => {
-  const [notificationsEnabled, setNotificationsEnabled] = useState(false);
-  const phoneNumber = 'Phone +1 234 567 890';
-  const contactEmail = 'contact@example.com'; // This might represent an email to contact support or help.
->>>>>>> c66d64c (remove the button not suing)
   const localImagePath = '../../../assets/images/image.jpg';
+
+  const onSave = (username: string, email: string, password: string) => {
+    // Here you would handle the saving of the profile data
+    console.log(username, email, password); // Replace with actual save logic
+    setIsEditing(false); // Close the edit mode after saving
+  };
 
   return (
     <ScrollView style={styles.container}>
       <View style={styles.header}>
         <Text style={styles.headerText}>OSU Damfit</Text>
       </View>
-      <View style={styles.profileSection}>
-        <Image 
-          source={profilePictureUrl ? { uri: profilePictureUrl } : require(localImagePath)} 
-          style={styles.profilePic} 
-        />
-        <Text style={styles.username}>{username}</Text>
-        <Text style={styles.additionalEmail}>{contactEmail}</Text>
-        <Text style={styles.phone}>{phoneNumber}</Text>
-      </View>
-      <View style={styles.buttonSection}>
-        <TouchableOpacity style={styles.button}>
-          <Text style={styles.buttonText}>Edit Profile Information</Text>
-        </TouchableOpacity>
-        <TouchableOpacity 
+      {!isEditing ? (
+        <View style={styles.profileSection}>
+          <Image 
+            source={profilePictureUrl ? { uri: profilePictureUrl } : require(localImagePath)} 
+            style={styles.profilePic}
+          />
+          <Text style={styles.username}>{username}</Text>
+          <Text style={styles.phone}>{phoneNumber}</Text>
+          <TouchableOpacity 
+            style={styles.button}
+            onPress={() => setIsEditing(true)}>
+            <Text style={styles.buttonText}>Edit Profile Information</Text>
+          </TouchableOpacity>
+          <TouchableOpacity 
           style={styles.button}
           onPress={() => setNotificationsEnabled(!notificationsEnabled)}>
           <Text style={styles.buttonText}>
-<<<<<<< HEAD
-            {notificationsEnabled ? 'Notifications  (ON)' : 'Notifications (OFF)'}
-          </Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.button}>
-          <Text style={styles.buttonText}>Help & Support</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.button}>
-          <Text style={styles.buttonText}>Privacy Policy</Text>
-        </TouchableOpacity>
-=======
             {notificationsEnabled ? 'Notifications (ON)' : 'Notifications (OFF)'}
           </Text>
         </TouchableOpacity>
->>>>>>> c66d64c (remove the button not suing)
-      </View>
+        </View>
+      ) : (
+        <View style={styles.container}>
+          <Text style={styles.title}>Edit Profile Information</Text>
+          <TextInput
+            placeholder="Name"
+            value={username}
+            onChangeText={setUsername}
+            style={styles.input}
+          />
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => onSave(username, email, password)}>
+            <Text style={styles.buttonText}>Save Changes</Text>
+          </TouchableOpacity>
+        </View>
+      )}
     </ScrollView>
   );
 };
-
 
 const styles = StyleSheet.create({
   container: {
@@ -81,7 +87,6 @@ const styles = StyleSheet.create({
   profileSection: {
     alignItems: 'center',
     marginTop: 20,
-    backgroundColor: 'white',
   },
   profilePic: {
     width: 150,
@@ -93,11 +98,6 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: 'bold',
     marginTop: 20,
-  },
-  additionalEmail: {
-    fontSize: 16,
-    color: 'gray',
-    marginTop: 5,
   },
   phone: {
     fontSize: 16,
@@ -120,6 +120,21 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: 'bold',
     color: 'white',
+  },
+  input: {
+    width: '90%',
+    padding: 10,
+    borderWidth: 1,
+    borderColor: 'gray',
+    borderRadius: 5,
+    marginBottom: 10,
+    alignSelf: 'center',
+  },
+  title: {
+    fontSize: 22,
+    fontWeight: 'bold',
+    marginBottom: 20,
+    textAlign: 'center',
   },
 });
 
