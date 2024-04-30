@@ -74,7 +74,7 @@ const styles = StyleSheet.create({
   teamContainer: {
     height: "70%",
     width: "100%",
-    borderWidth: 0.4,
+    borderWidth: 0.1,
     borderColor: "black",
     borderRadius: 10,
     backgroundColor: "white",
