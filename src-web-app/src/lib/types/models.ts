@@ -9,3 +9,10 @@ export interface SBEvent {
   Exists: boolean;
   EventID: string;
 }
+
+// Blue print for the relevant events object
+export interface RelevantEvents {
+  pastEvents: SBEvent[];
+  ongoingEvent: SBEvent | null;
+  upcomingEvent: SBEvent | null;
+}
