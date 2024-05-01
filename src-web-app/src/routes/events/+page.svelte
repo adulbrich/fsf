@@ -109,16 +109,16 @@
 {:else}
   <div class="flex flex-col gap-8">
     <!-- Top container that holds searchbar, "Events", search icon, and the create event button -->
-    <div class="flex justify-start">
-      <p class="flex event-word" style="margin-top:25px">Events</p>
+    <div class="flex justify-start items-center gap-8 w-full">
+      <p class="flex event-word">Events</p>
       <!-- Searchbar Container -->
-      <form class="relative ml-20" style="margin-top: 13px;" autocomplete="off">
+      <form autocomplete="off">
         <!-- Search Bar -->
         <SearchBar {events} />
       </form>
       <!-- Create Event button -->
-      <a href="/events/create" style="margin-left: 60px; margin-top: 19px;">
-        <button class="btn btn-sm font-normal h-9 font-sans bg-beaver-orange hover:bg-dark-orange text-white rounded-full" style="position: absolute; margin-top: 9px; margin-left: 8px">
+      <a href="/events/create">
+        <button class="btn btn-sm font-normal h-9 font-sans bg-beaver-orange hover:bg-dark-orange text-white rounded-full whitespace-nowrap">
           Create Event
         </button>
       </a>
