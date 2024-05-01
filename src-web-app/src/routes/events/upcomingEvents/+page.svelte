@@ -1,7 +1,7 @@
 <script lang="ts">
   import Layout from "../../Sidebar.svelte";
   import { onMount } from "svelte";
-  import Card from "../ListEventCard.svelte";
+  import Card from "../EventCard.svelte";
 
   let events: Event[] = [];
   export let data;

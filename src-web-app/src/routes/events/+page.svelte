@@ -2,7 +2,7 @@
 <script lang="ts">
   import { onMount } from "svelte";
   export let data;
-  import Card from "./ListEventCard.svelte";
+  import Card from "./EventCard.svelte";
   import SearchBar from "./EventSearchBar.svelte";
   let { supabase } = data;
   $: ({ supabase } = data);
@@ -67,8 +67,8 @@
     events.forEach((event) => {
       determineEventStatus(event, event.StartsAt, event.EndsAt); // Determine the status of each event based on dates
       event.Description = trimDescription(event.Description); // Trim the description of each event
-      event.Exists = true;
     });
+
     console.log("Relevant events: ", relevantEvents);
   });
   // This function trims the description of an event to 140 characters
@@ -158,7 +158,6 @@
         <div class="flex flex-col">
           <p class="inline-block max-w-full px-0 pb-4" style="font-size: 18px; font-weight:628;">Ongoing Events</p>
           <Card
-            existsTF={relevantEvents.ongoingEvent?.Exists}
             ImagePath="../../aerial_2.jpg"
             Name={relevantEvents.ongoingEvent?.Name}
             StartsAt={relevantEvents.ongoingEvent?.StartsAt}
@@ -177,7 +176,6 @@
           </div>
           <div class="pb-2">
             <Card
-              existsTF={relevantEvents.pastEvents[0]?.Exists}
               ImagePath="../../aerial_4.jpg"
               Name={relevantEvents.pastEvents[0]?.Name}
               StartsAt={relevantEvents.pastEvents[0]?.StartsAt}
@@ -188,7 +186,6 @@
           </div>
           {#if relevantEvents.pastEvents[1] !== null}
             <Card
-              existsTF={relevantEvents.pastEvents[1]?.Exists}
               ImagePath="../../aerial_3.jpg"
               Name={relevantEvents.pastEvents[1]?.Name}
               StartsAt={relevantEvents.pastEvents[1]?.StartsAt}
