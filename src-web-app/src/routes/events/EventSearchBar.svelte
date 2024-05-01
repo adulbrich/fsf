@@ -87,11 +87,11 @@
 
 <svelte:window on:keydown={navigateList} />
 <!-- Search Bar -->
-<div class="relative flex mt-4">
+<div class="relative flex">
   <input
     type="text"
     id="event-search"
-    class="block w-[30%] p-2 ps-10 outline-none text-sm bg-white rounded-md border-black border"
+    class="block p-2 ps-10 outline-none text-sm bg-white rounded-md border-black border"
     style="width: 30rem; -webkit-appearance: none; -moz-appearance: none; appearance: none;"
     placeholder="Type to search for an event"
     bind:this={searchInput}
@@ -99,7 +99,7 @@
     on:input={filterEvents}
   />
   <!-- Search Icon -->
-  <svg width="16" height="16" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" style="position: absolute; margin-top: 9px; margin-left: 8px">
+  <svg class="absolute h-full ml-3" width="16" height="16" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path
       d="M9 17C13.4183 17 17 13.4183 17 9C17 4.58172 13.4183 1 9 1C4.58172 1 1 4.58172 1 9C1 13.4183 4.58172 17 9 17Z"
       stroke="black"
