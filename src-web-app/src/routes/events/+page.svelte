@@ -4,22 +4,9 @@
   export let data;
   import Card from "./EventCard.svelte";
   import SearchBar from "./EventSearchBar.svelte";
-  import type { SBEvent } from "$lib/types/models";
+  import type { RelevantEvents, SBEvent } from "$lib/types/models";
   let { supabase } = data;
   $: ({ supabase } = data);
-
-  // Blue print for the relevant events object
-  interface RelevantEvents {
-    pastEvents: SBEvent[];
-    ongoingEvent: SBEvent | null;
-    upcomingEvent: SBEvent | null;
-  }
-
-  // Blue print for the event name and ID object
-  interface EventNameAndID {
-    Name: string;
-    ID: string;
-  }
 
   // Object that holds the relevant events for the event page
   let relevantEvents: RelevantEvents = {
