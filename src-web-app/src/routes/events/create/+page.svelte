@@ -151,6 +151,44 @@
   </form>
 </div>
 
+      <!--Container for Event Description Input-->
+      <div class="md:w-3/4 px-5 mb-0 md:mb-0">
+        <label for="eventDescription" class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">Event Details</label>
+        <textarea
+          id="eventDescription"
+          name="eventDescription"
+          value={form?.eventDescription ?? eventDescription}
+          required
+          rows="4"
+          class="block p-2.5 w-1/2 text-sm text-black bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 light:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          placeholder="Write details about the event here!"
+        ></textarea>
+      </div>
+
+      <!-- Container for Event Banner Uploading -->
+      <div class="px-5 pt-4 md:w-3/4 my-0">
+        <EventBanner
+          {supabase}
+          bind:url={eventBanner}
+          size={10}
+          on:upload={() => {
+            createEventForm.requestSubmit();
+          }}
+        ></EventBanner>
+      </div>
+    </div>
+
+    <div class="px-2">
+      <input
+        type="submit"
+        class="btn bg-light-black text-white primary hover:bg-light-blackSelected appearance-none py-3 px-4 mb-3 "
+        value={loading ? "Loading.." : "Create Event"}
+        disabled={loading}
+      />
+    </div>
+  </form>
+</div>
+
 <style>
   .header-style {
     font-style: normal;
