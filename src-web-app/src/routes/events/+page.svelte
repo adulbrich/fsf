@@ -108,8 +108,8 @@
   </div>
 {:else}
   <!-- Top container that holds searchbar, "Events", search icon, and the create event button -->
-  <div class="flex justify-start ml-[18%]">
-    <p class="flex event-word ml-[3%]" style="margin-top:25px">Events</p>
+  <div class="flex justify-start">
+    <p class="flex event-word" style="margin-top:25px">Events</p>
     <!-- Searchbar Container -->
     <form class="relative ml-20" style="margin-top: 13px;" autocomplete="off">
       <!-- Search Bar -->
@@ -124,11 +124,11 @@
   </div>
 
   <!-- Container for the events -->
-  <div class="flex flex-row ml-[20.5%] w-[72%] h-[80%] custom-border mt-5">
+  <div class="flex flex-row mt-5">
     <!-- Left container for Ongoing and Past events -->
-    <div class="flex flex-col w-[50%] custom-border">
+    <div class="basis-1/2 flex flex-col">
       <!-- Container for ONGOING events -->
-      <div class="flex flex-col w-auto custom-border h-fit pt-3">
+      <div class="flex flex-col custom-border h-fit pt-3">
         <p class="inline-block max-w-full px-0 pb-4" style="font-size: 18px; font-weight:628;">Ongoing Events</p>
         <Card
           existsTF={relevantEvents.ongoingEvent?.Exists}
@@ -142,8 +142,8 @@
       </div>
 
       <!-- Container for PAST events -->
-      <div class="flex flex-col w-auto custom-border h-fit pt-5">
-        <div class="flex flex-row w-[100%] pb-4">
+      <div class="flex flex-col custom-border h-fit pt-5">
+        <div class="flex flex-row pb-4">
           <p class="inline-block" style="font-size: 18px; font-weight:628;">Past Events</p>
           <a href="/events/pastEvents" style="margin-left: 10px;">
             <button class="btn btn-xs font-normal font-sans bg-light-black hover:bg-light-blackSelected text-white rounded-full">View All</button>
@@ -176,8 +176,8 @@
     </div>
 
     <!-- Container for UPCOMING events -->
-    <div class="flex ml-4 flex-col custom-border h-fit w-[50%] pt-3">
-      <div class="flex flex-row w-[100%] pb-4">
+    <div class="flex basis-1/2 flex-col">
+      <div class="flex flex-row pb-4">
         <p class="inline-block" style="font-size: 18px; font-weight:628;">Upcoming Events</p>
         <a href="/events/upcomingEvents" style="margin-left: 10px;">
           <button class="btn btn-xs font-normal font-sans bg-light-black hover:bg-light-blackSelected text-white rounded-full">View All</button>

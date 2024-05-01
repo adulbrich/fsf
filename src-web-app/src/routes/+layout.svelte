@@ -18,7 +18,7 @@
   <div class="drawer lg:drawer-open">
     <input id="drawer-id" type="checkbox" class="drawer-toggle" />
     <!-- Content -->
-    <div class="drawer-content flex flex-col items-center justify-center">
+    <div class="drawer-content flex flex-col mx-12">
       <!-- key is used for triggering page transitions -->
         {#key pathname}
         <div class="absolute h-screen min-h-screen container max-w-screen-lg" in:fade={{ duration: 150, delay: 150 }} out:fade={{ duration: 150, delay: 0 }}>
