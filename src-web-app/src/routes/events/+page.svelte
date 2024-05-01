@@ -4,25 +4,15 @@
   export let data;
   import Card from "./EventCard.svelte";
   import SearchBar from "./EventSearchBar.svelte";
+  import type { SBEvent } from "$lib/types/models";
   let { supabase } = data;
   $: ({ supabase } = data);
 
-  // Blue print for the event object
-  interface Event {
-    Name: string;
-    Type: string;
-    StartsAt: string;
-    EndsAt: string;
-    Status: string;
-    Description: string;
-    Exists: boolean;
-    EventID: string;
-  }
   // Blue print for the relevant events object
   interface RelevantEvents {
-    pastEvents: Event[];
-    ongoingEvent: Event | null;
-    upcomingEvent: Event | null;
+    pastEvents: SBEvent[];
+    ongoingEvent: SBEvent | null;
+    upcomingEvent: SBEvent | null;
   }
 
   // Blue print for the event name and ID object
@@ -30,22 +20,23 @@
     Name: string;
     ID: string;
   }
+
   // Object that holds the relevant events for the event page
   let relevantEvents: RelevantEvents = {
     pastEvents: [],
     ongoingEvent: null,
     upcomingEvent: null,
   };
-  let eventNamesAndID: EventNameAndID[] = []; // Array that holds all the event names and IDs assocaite with the events
+
   let loading = true; // Boolean that determines if the page is still loading
-  let events: Event[] = []; // Array that holds all of the event objects
+  let events: SBEvent[] = []; // Array that holds all of the event objects
 
   // Function that fetches all the events from the database.  Site will not load until this function is finished
   const fetchEvents = async () => {
     try {
-      const { data, error } = await supabase.from("Events").select("*"); // Selects all  rows from the Events table
+      const { data, error } = await supabase.from("Events").select("*").returns<SBEvent[]>(); // Selects all  rows from the Events table
       if (error) console.error("Error fetching events:");
-      events = data;
+      events = data ?? [];
       console.log("events: ", events);
     } catch (error) {
       console.error("Error fetching events:", error as any);
@@ -57,9 +48,6 @@
   // This runs after the component firt renders in the DOM
   onMount(async () => {
     await fetchEvents(); // Fetch all the events but wait for function to finish before continuing
-    events.forEach((event) => {
-      eventNamesAndID.push({ Name: event.Name, ID: event.EventID }); // Push the name and ID of each event to the eventNamesAndID array
-    });
     // For each event, determine the status of the event, trim the description, and set the Exists property to true
     events.forEach((event) => {
       determineEventStatus(event, event.StartsAt, event.EndsAt); // Determine the status of each event based on dates
@@ -68,6 +56,7 @@
 
     console.log("Relevant events: ", relevantEvents);
   });
+  
   // This function trims the description of an event to 140 characters
   function trimDescription(description: string) {
     if (description.length > 140) {
@@ -77,7 +66,7 @@
   }
 
   // This function takes in the start and end date of an event and determines if it is ongoing, upcoming, or past
-  function determineEventStatus(event: Event, startDate: string, endDate: string) {
+  function determineEventStatus(event: SBEvent, startDate: string, endDate: string) {
     const date = new Date(); // Get the current date
 
     startDate = startDate.split("T")[0]; // Split the date and time and only take the date
@@ -138,7 +127,7 @@
       <!-- Searchbar Container -->
       <form class="relative ml-20" style="margin-top: 13px;" autocomplete="off">
         <!-- Search Bar -->
-        <SearchBar events={eventNamesAndID} />
+        <SearchBar {events} />
       </form>
       <!-- Create Event button -->
       <a href="/events/create" style="margin-left: 60px; margin-top: 19px;">
@@ -155,12 +144,7 @@
         <div class="flex flex-col">
           <p class="inline-block max-w-full px-0 pb-4" style="font-size: 18px; font-weight:628;">Ongoing Events</p>
           <Card
-            ImagePath="../../aerial_2.jpg"
-            Name={relevantEvents.ongoingEvent?.Name}
-            StartsAt={relevantEvents.ongoingEvent?.StartsAt}
-            EndsAt={relevantEvents.ongoingEvent?.EndsAt}
-            Description={relevantEvents?.ongoingEvent?.Description}
-            eventID = {relevantEvents.ongoingEvent?.EventID}
+            event={relevantEvents.ongoingEvent}
           />
         </div>
         <!-- Container for PAST events -->
@@ -173,22 +157,12 @@
           </div>
           <div class="pb-2">
             <Card
-              ImagePath="../../aerial_4.jpg"
-              Name={relevantEvents.pastEvents[0]?.Name}
-              StartsAt={relevantEvents.pastEvents[0]?.StartsAt}
-              EndsAt={relevantEvents.pastEvents[0]?.EndsAt}
-              Description={relevantEvents.pastEvents[0]?.Description}
-              eventID = {relevantEvents.pastEvents[0]?.EventID}
+              event={relevantEvents.pastEvents[0]}
             />
           </div>
           {#if relevantEvents.pastEvents[1] !== null}
             <Card
-              ImagePath="../../aerial_3.jpg"
-              Name={relevantEvents.pastEvents[1]?.Name}
-              StartsAt={relevantEvents.pastEvents[1]?.StartsAt}
-              EndsAt={relevantEvents.pastEvents[1]?.EndsAt}
-              Description={relevantEvents.pastEvents[1]?.Description}
-              eventID = {relevantEvents.pastEvents[1]?.EventID}
+              event={relevantEvents.pastEvents[1]}
             />
           {/if}
         </div>
@@ -202,13 +176,7 @@
           </a>
         </div>
         <Card
-          existsTF={relevantEvents.upcomingEvent?.Exists}
-          ImagePath="../../aerial_5.jpg"
-          Name={relevantEvents.upcomingEvent?.Name}
-          StartsAt={relevantEvents.upcomingEvent?.StartsAt}
-          EndsAt={relevantEvents.upcomingEvent?.EndsAt}
-          Description={relevantEvents?.upcomingEvent?.Description}
-          eventID = {relevantEvents.upcomingEvent?.EventID}
+          event={relevantEvents.upcomingEvent}
         />
       </div>
     </div>
