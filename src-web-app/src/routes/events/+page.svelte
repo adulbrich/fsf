@@ -135,8 +135,8 @@
           />
         </div>
         <!-- Container for PAST events -->
-        <div class="flex flex-col gap-8">
-          <div class="flex flex-row pb-4">
+        <div class="flex flex-col gap-4">
+          <div class="flex flex-row gap-4">
             <p class="font-semibold">Past Events</p>
             <a href="/events/pastEvents">
               <button class="btn btn-xs font-normal font-sans bg-light-black hover:bg-light-blackSelected text-white rounded-full">View All</button>
@@ -154,7 +154,7 @@
       </div>
       <!-- Container for UPCOMING events -->
       <div class="flex basis-1/2 flex-col gap-4">
-        <div class="flex flex-row">
+        <div class="flex flex-row gap-4">
           <p class="font-semibold">Upcoming Events</p>
           <a href="/events/upcomingEvents">
             <button class="btn btn-xs font-normal font-sans bg-light-black hover:bg-light-blackSelected text-white rounded-full">View All</button>
