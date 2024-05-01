@@ -73,64 +73,62 @@ function toggleTeamMembers(teamID) {
 </svelte:head>
 
 
-<Layout>
-    <!--This container should keep eveythgint on the right of the vertical navbar-->
-    <div class='container ml-[16%] w-auto'>
-          <!--Teams -->
-          <div class="max-w-full p-4 mx-auto">
-            <!-- Search Bar -->
-            <input
-                type="text"
-                placeholder="Search teams or participants..."
-                class="w-full p-2 border border-gray-300 rounded-md mb-4"
-                bind:value={searchQuery}
-                on:input={() => filterTeamsAndMembers()}
-            />
+<!--This container should keep eveythgint on the right of the vertical navbar-->
+<div class='container ml-[16%] w-auto'>
 
-            <!--Table showing the teams and their members when you click on the team, should also show the teams members-->
-            <table class="table-auto text-left w-full bg-white border border-gray-300 shadow-md rounded-lg">
-              <!--Table Header-->
-              <thead>
-                  <tr class="bg-gray-200">
-                      <th class="px-4 py-2">Team Name</th>
+      <!--Teams -->
+      <div class="max-w-full p-4 mx-auto">
+        <!-- Search Bar -->
+        <input
+            type="text"
+            placeholder="Search teams or participants..."
+            class="w-full p-2 border border-gray-300 rounded-md mb-4"
+            bind:value={searchQuery}
+            on:input={() => filterTeamsAndMembers()}
+        />
 
-                      <th class='px-4 py-2'>Team Score</th>
-                  </tr>
-              </thead>
-              <tbody>
-                <!--Loop through each team-->
-                {#each data.Teams as team (team.TeamID)}
-                  <tr class="border border-gray-300 team-row w-full" data-id={team.TeamID} style="transition: all 0.3s ease-out;">
+        <!--Table showing the teams and their members when you click on the team, should also show the teams members-->
+        <table class="table-auto text-left w-full bg-white border border-gray-300 shadow-md rounded-lg">
+          <!--Table Header-->
+          <thead>
+              <tr class="bg-gray-200">
+                  <th class="px-4 py-2">Team Name</th>
 
-                    <td class="px-4 py-2 cursor-pointer" on:click={() => toggleTeamMembers(team.TeamID)}>
+                  <th class='px-4 py-2'>Team Score</th>
+              </tr>
+          </thead>
+          <tbody>
+            <!--Loop through each team-->
+            {#each data.Teams as team (team.TeamID)}
+              <tr class="border border-gray-300 team-row w-full" data-id={team.TeamID} style="transition: all 0.3s ease-out;">
 
-                      <!--Team Name and chevron to expand-->
-                      <div class='w-full'>
-                        <span class="text-lg">{team.Name}</span>
-                        <i class="fa fa-chevron-down ml-2"></i>
-                      </div>
+                <td class="px-4 py-2 cursor-pointer" on:click={() => toggleTeamMembers(team.TeamID)}>
 
-                      <!--Hidden until chevron icon clicked-->
-                      <div class="hidden mt-2">
-                            <ul class="list-none ml-8">
-                                {#each team.Profiles as member}
-                                  <li>{member.Name}</li>
-                                {/each}
-                            </ul>
-                        </div>
+                  <!--Team Name and chevron to expand-->
+                  <div class='w-full'>
+                    <span class="text-lg">{team.Name}</span>
+                    <i class="fa fa-chevron-down ml-2"></i>
+                  </div>
 
-                    </td>
+                  <!--Hidden until chevron icon clicked-->
+                  <div class="hidden mt-2">
+                        <ul class="list-none ml-8">
+                            {#each team.Profiles as member}
+                              <li>{member.Name}</li>
+                            {/each}
+                        </ul>
+                    </div>
 
-                    <!--Team Score-->
-                    <td class="px-4 py-2">
-                        {team.TeamStats.TotalScore}
-                    </td>
+                </td>
 
-                  </tr>
-                  {/each}
-              </tbody>
-          </table>
-          
-    </div>
+                <!--Team Score-->
+                <td class="px-4 py-2">
+                    {team.TeamStats.TotalScore}
+                </td>
 
-</Layout>
+              </tr>
+              {/each}
+          </tbody>
+      </table>
+      
+</div>
