@@ -12,14 +12,14 @@
 {#if event}
   <!-- Clicking on this event card takes you to a detailed event view -->
   <a href="/events/{event.EventID}/Overview" class="inline-flex h-32">
-    <div class="ring-1 ring-black/10 rounded-lg shadow-md flex flex-column grow-0" class:mr-[10%]={index % 2 != 0} class:ml-[10%]={index % 2 == 0}>
+    <div class="ring-1 ring-black/10 rounded-lg overflow-hidden shadow-md flex" class:mr-[10%]={index % 2 != 0} class:ml-[10%]={index % 2 == 0}>
       <!-- Event Banner  -->
-      <div class="w-[40%] h-full">
-        <img class="h-[100%] w-[100%]" style="border-top-left-radius: 10px; border-bottom-left-radius: 10px;" src="../../aerial_2.jpg" alt="Scenery" />
+      <div class="basis-2/5 h-full">
+        <img class="w-full h-full" src="../../aerial_2.jpg" alt="Scenery" />
       </div>
 
       <!-- Text section for card -->
-      <div class="flex flex-col w-2/3 overflow-hidden h-full grow-0 shrink-0">
+      <div class="basis-3/5 flex flex-col">
         <p class="pt-1 px-2 font-semibold">{event.Name}</p>
         <p class="pt-1 px-2" style="font-size: 12px;">
           From {event.StartsAt} to {event.EndsAt}
