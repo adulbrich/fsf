@@ -107,7 +107,7 @@
     <span class="sr-only">Loading...</span>
   </div>
 {:else}
-  <div class="flex flex-col gap-8">
+  <div class="flex flex-col gap-8 container max-w-screen-lg">
     <!-- Top container that holds searchbar, "Events", search icon, and the create event button -->
     <div class="flex justify-start items-center gap-8 w-full">
       <p class="flex font-semibold text-2xl">Events</p>
@@ -124,9 +124,9 @@
       </a>
     </div>
     <!-- Container for the events -->
-    <div class="flex lg:flex-row flex-col">
+    <div class="flex lg:flex-row flex-col lg:gap-8">
       <!-- Left container for Ongoing and Past events -->
-      <div class="basis-1/2 flex flex-col gap-4">
+      <div class="basis-1/2 flex flex-col gap-8">
         <!-- Container for ONGOING events -->
         <div class="flex flex-col gap-4">
           <p class="font-semibold">Ongoing Events</p>
@@ -135,7 +135,7 @@
           />
         </div>
         <!-- Container for PAST events -->
-        <div class="flex flex-col custom-border h-fit pt-5">
+        <div class="flex flex-col gap-8">
           <div class="flex flex-row pb-4">
             <p class="font-semibold">Past Events</p>
             <a href="/events/pastEvents">
