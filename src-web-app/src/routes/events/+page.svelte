@@ -47,7 +47,7 @@
   // This function trims the description of an event to 140 characters
   function trimDescription(description: string) {
     if (description.length > 140) {
-      return description.slice(0, 140) + "...";
+      return description.slice(0, 80) + "...";
     }
     return description;
   }
@@ -124,7 +124,7 @@
       </a>
     </div>
     <!-- Container for the events -->
-    <div class="flex lg:flex-row flex-col lg:gap-8">
+    <div class="flex lg:flex-row flex-col gap-8">
       <!-- Left container for Ongoing and Past events -->
       <div class="basis-1/2 flex flex-col gap-8">
         <!-- Container for ONGOING events -->
@@ -134,6 +134,7 @@
             event={relevantEvents.ongoingEvent}
           />
         </div>
+
         <!-- Container for PAST events -->
         <div class="flex flex-col gap-4">
           <div class="flex flex-row gap-4">
@@ -152,6 +153,7 @@
           {/if}
         </div>
       </div>
+
       <!-- Container for UPCOMING events -->
       <div class="flex basis-1/2 flex-col gap-4">
         <div class="flex flex-row gap-4">
