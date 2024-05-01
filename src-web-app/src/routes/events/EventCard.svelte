@@ -13,6 +13,8 @@
   export let BannerURL: string = "";
 
   export let index = 1;
+
+  export let event: 
 </script>
 <!-- Clicking on this event card takes you to a detailed event view -->
 <a href="/events/{EventID}/Overview" class="inline-flex h-32">

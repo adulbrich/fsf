@@ -2,9 +2,9 @@
 <script lang="ts">
   import Layout from "../../Sidebar.svelte";
   import { onMount } from "svelte";
-  import Card from "../../ListEventCard.svelte";
-  import CatCard from "../../CategoryEventCard.svelte";
-  import type { Event, RelevantEvents } from "../../../../interfaces";
+  import Card from "../EventCard.svelte";
+
+  let events: Event[] = [];
   export let data;
   let { supabase, events, relevantEvents, category } = data;
   $: ({ supabase, events, relevantEvents, category } = data);
