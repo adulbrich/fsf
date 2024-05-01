@@ -24,8 +24,8 @@ export default function EventDetails() {
     .sort((a, b) => (b.TotalScore ?? 0) - (a.TotalScore ?? 0));
 
   const [assets] = useAssets([
-    require('../../../../assets/images/preview_square.jpg'),
-    require('../../../../assets/images/preview_wide.jpg')
+    require('../../../../assets/images/preview_wide.jpg'),
+    require('../../../../assets/images/preview_square.jpg')
   ]);
 
   const registerCallback = React.useCallback(() => {
