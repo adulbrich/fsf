@@ -1,15 +1,12 @@
 <!-- Searchbar designed for searching events.  Hitting enter will navigate to /events/{event id} -->
 <!-- To use this, you need to pass in an array of events with the type EvenNameAndID as a prop.  See interface below -->
 <script lang="ts">
-  interface EventNameAndID {
-    Name: string;
-    ID: string;
-  }
   import { goto } from "$app/navigation";
+  import type { SBEvent } from "$lib/types/models";
   import SearchItem from "./SearchItem.svelte";
   let searchInput: HTMLInputElement;
   let inputValue: string = "";
-  export let events: EventNameAndID[] = [];
+  export let events: SBEvent[] = [];
   let filteredNames: string[] = [];
   let hiLiteIndex: number = 0;
   // filter the events based on the input value
@@ -74,7 +71,7 @@
   const findIDByName = (name: string) => {
     const eventFound = events.find((event) => event.Name === name);
     if (eventFound) {
-      return eventFound.ID;
+      return eventFound.EventID;
     }
     alert("Event not found");
     return "-1";
