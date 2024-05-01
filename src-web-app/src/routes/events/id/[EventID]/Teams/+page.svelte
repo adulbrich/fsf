@@ -1,6 +1,6 @@
 <script lang="ts">
     export let data;
-    import Layout from '../../../../banner-layout.svelte';
+    import Layout from '../../../Sidebar.svelte';
 
     let searchQuery = '';
 

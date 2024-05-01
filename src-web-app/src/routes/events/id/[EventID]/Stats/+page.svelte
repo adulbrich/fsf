@@ -1,6 +1,6 @@
 <script lang="ts">
   import Chart from "svelte-frappe-charts";
-  import Layout from "../../../../banner-layout.svelte";
+  import Layout from "../../../Sidebar.svelte";
   import { onMount } from "svelte";
   export let data;
   let { supabase } = data;

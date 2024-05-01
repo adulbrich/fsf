@@ -1,6 +1,5 @@
 <script lang="ts">
-  import Layout from "../../banner-layout.svelte";
-  import RewardLabelInput from "./RewardLabelInput.svelte";
+  import Layout from "../../Sidebar.svelte";
   import { enhance } from "$app/forms";
   import type { SubmitFunction } from "@sveltejs/kit";
   import toast from "svelte-french-toast";
