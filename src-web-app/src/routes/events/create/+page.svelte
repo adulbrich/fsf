@@ -1,5 +1,5 @@
 <script lang="ts">
-  import Layout from "../../banner-layout.svelte";
+  import Layout from "../../Sidebar.svelte";
   import { enhance } from "$app/forms";
   import type { SubmitFunction } from "@sveltejs/kit";
   import EventBanner from "./eventbanner.svelte";
