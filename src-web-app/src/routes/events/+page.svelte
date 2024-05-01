@@ -109,7 +109,7 @@
 {:else}
   <div class="flex flex-col gap-8 container max-w-screen-lg">
     <!-- Top container that holds searchbar, "Events", search icon, and the create event button -->
-    <div class="flex justify-start items-center gap-8 w-full">
+    <div class="flex md:flex-row flex-col justify-start items-start gap-8 w-full">
       <p class="flex font-semibold text-2xl">Events</p>
       <!-- Searchbar Container -->
       <form autocomplete="off">
