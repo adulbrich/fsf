@@ -1,5 +1,5 @@
 <script>
-  import Layout from "../../../banner-layout.svelte";
+  import Layout from "../../../Sidebar.svelte";
   export let data;
   import ph from "../../../../../static/calendar_icon.png";
 

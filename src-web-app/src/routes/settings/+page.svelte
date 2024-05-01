@@ -1,5 +1,5 @@
 <script lang='ts'>
-    import Layout from "../banner-layout.svelte";
+    import Layout from "../Sidebar.svelte";
     import { goto } from '$app/navigation';
     export let data;
     let { supabase } = data;

@@ -1,5 +1,5 @@
 <script lang="ts">
-  import Layout from "../../banner-layout.svelte";
+  import Layout from "../../Sidebar.svelte";
   import { onMount } from "svelte";
   import Card from "../ListEventCard.svelte";
 
