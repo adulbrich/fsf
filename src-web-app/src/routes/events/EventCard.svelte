@@ -3,9 +3,6 @@
 
 <script lang="ts">
   import type { SBEvent } from "$lib/types/models";
-
-  export let index = 1;
-
   export let event: SBEvent | null = null;
 </script>
 
