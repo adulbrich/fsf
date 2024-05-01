@@ -28,7 +28,6 @@
   </style>
 </svelte:head>
 
-<Layout></Layout>
 <!-- Container for everything left of the black navbar -->
 <div class="container ml-[16%] w-auto mt-6">
   <!-- container for description -->
