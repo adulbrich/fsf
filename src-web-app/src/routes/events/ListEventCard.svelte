@@ -12,7 +12,7 @@
   export let index = 1;
 </script>
 <!-- Clicking on this event card takes you to a detailed event view -->
-<a href="/events/{EventID}/Overview" class="inline-flex pt-1 h-[100%]">
+<a href="/events/{EventID}/Overview" class="inline-flex h-32">
   <div class="ring-1 ring-black/10 rounded-lg shadow-md flex flex-column grow-0" class:mr-[10%]={index % 2 != 0} class:ml-[10%]={index % 2 == 0}>
     <!-- Event Banner  -->
     <div class="w-[40%] h-full">
