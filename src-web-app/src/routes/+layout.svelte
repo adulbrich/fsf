@@ -21,7 +21,7 @@
     <div class="drawer-content  flex flex-col mx-12">
       <!-- key is used for triggering page transitions -->
         {#key pathname}
-        <div class="flex flex-col items-start justify-start w-full h-full pb-32 md:pt-12 lg:pb-12" in:fade={{ duration: 150, delay: 150 }} out:fade={{ duration: 150, delay: 0 }}>
+        <div class="flex flex-col items-start justify-start w-full h-full pb-32 pt-12 lg:pb-12" in:fade={{ duration: 150, delay: 150 }} out:fade={{ duration: 150, delay: 0 }}>
           <slot />
         </div>
       {/key}
