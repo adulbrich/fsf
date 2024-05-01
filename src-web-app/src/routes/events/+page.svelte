@@ -4,9 +4,22 @@
   export let data;
   import Card from "./EventCard.svelte";
   import SearchBar from "./EventSearchBar.svelte";
-  import type { RelevantEvents, SBEvent } from "$lib/types/models";
+  import type { SBEvent } from "$lib/types/models";
   let { supabase } = data;
   $: ({ supabase } = data);
+
+  // Blue print for the relevant events object
+  interface RelevantEvents {
+    pastEvents: SBEvent[];
+    ongoingEvent: SBEvent | null;
+    upcomingEvent: SBEvent | null;
+  }
+
+  // Blue print for the event name and ID object
+  interface EventNameAndID {
+    Name: string;
+    ID: string;
+  }
 
   // Object that holds the relevant events for the event page
   let relevantEvents: RelevantEvents = {
@@ -114,7 +127,7 @@
       <!-- Searchbar Container -->
       <form class="relative ml-20" style="margin-top: 13px;" autocomplete="off">
         <!-- Search Bar -->
-        <SearchBar events={eventNamesAndID} />
+        <SearchBar {events} />
       </form>
       <!-- Create Event button -->
       <a href="/events/create" style="margin-left: 60px; margin-top: 19px;">
@@ -131,12 +144,7 @@
         <div class="flex flex-col">
           <p class="inline-block max-w-full px-0 pb-4" style="font-size: 18px; font-weight:628;">Ongoing Events</p>
           <Card
-            ImagePath="../../aerial_2.jpg"
-            Name={relevantEvents.ongoingEvent?.Name}
-            StartsAt={relevantEvents.ongoingEvent?.StartsAt}
-            EndsAt={relevantEvents.ongoingEvent?.EndsAt}
-            Description={relevantEvents?.ongoingEvent?.Description}
-            eventID = {relevantEvents.ongoingEvent?.EventID}
+            event={relevantEvents.ongoingEvent}
           />
         </div>
         <!-- Container for PAST events -->
@@ -149,22 +157,12 @@
           </div>
           <div class="pb-2">
             <Card
-              ImagePath="../../aerial_4.jpg"
-              Name={relevantEvents.pastEvents[0]?.Name}
-              StartsAt={relevantEvents.pastEvents[0]?.StartsAt}
-              EndsAt={relevantEvents.pastEvents[0]?.EndsAt}
-              Description={relevantEvents.pastEvents[0]?.Description}
-              eventID = {relevantEvents.pastEvents[0]?.EventID}
+              event={relevantEvents.pastEvents[0]}
             />
           </div>
           {#if relevantEvents.pastEvents[1] !== null}
             <Card
-              ImagePath="../../aerial_3.jpg"
-              Name={relevantEvents.pastEvents[1]?.Name}
-              StartsAt={relevantEvents.pastEvents[1]?.StartsAt}
-              EndsAt={relevantEvents.pastEvents[1]?.EndsAt}
-              Description={relevantEvents.pastEvents[1]?.Description}
-              eventID = {relevantEvents.pastEvents[1]?.EventID}
+              event={relevantEvents.pastEvents[1]}
             />
           {/if}
         </div>
@@ -178,13 +176,7 @@
           </a>
         </div>
         <Card
-          existsTF={relevantEvents.upcomingEvent?.Exists}
-          ImagePath="../../aerial_5.jpg"
-          Name={relevantEvents.upcomingEvent?.Name}
-          StartsAt={relevantEvents.upcomingEvent?.StartsAt}
-          EndsAt={relevantEvents.upcomingEvent?.EndsAt}
-          Description={relevantEvents?.upcomingEvent?.Description}
-          eventID = {relevantEvents.upcomingEvent?.EventID}
+          event={relevantEvents.upcomingEvent}
         />
       </div>
     </div>
