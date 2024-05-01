@@ -18,10 +18,10 @@
   <div class="drawer lg:drawer-open">
     <input id="drawer-id" type="checkbox" class="drawer-toggle" />
     <!-- Content -->
-    <div class="drawer-content  flex flex-col mx-12">
+    <div class="drawer-content flex flex-col items-center justify-center">
       <!-- key is used for triggering page transitions -->
         {#key pathname}
-        <div class="flex flex-col items-start justify-start w-full h-full pb-32 pt-12 lg:pb-12" in:fade={{ duration: 150, delay: 150 }} out:fade={{ duration: 150, delay: 0 }}>
+        <div class="absolute h-screen min-h-screen w-full" in:fade={{ duration: 150, delay: 150 }} out:fade={{ duration: 150, delay: 0 }}>
           <slot />
         </div>
       {/key}

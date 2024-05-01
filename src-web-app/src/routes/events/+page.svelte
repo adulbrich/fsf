@@ -107,65 +107,91 @@
     <span class="sr-only">Loading...</span>
   </div>
 {:else}
-  <div class="flex flex-col gap-8 container max-w-screen-lg">
-    <!-- Top container that holds searchbar, "Events", search icon, and the create event button -->
-    <div class="flex md:flex-row flex-col justify-start items-start gap-8 w-full">
-      <p class="flex font-semibold text-2xl">Events</p>
-      <!-- Searchbar Container -->
-      <form autocomplete="off">
-        <!-- Search Bar -->
-        <SearchBar {events} />
-      </form>
-      <!-- Create Event button -->
-      <a href="/events/create">
-        <button class="btn btn-sm font-normal h-9 font-sans bg-beaver-orange hover:bg-dark-orange text-white rounded-full whitespace-nowrap">
-          Create Event
-        </button>
-      </a>
-    </div>
-    <!-- Container for the events -->
-    <div class="flex lg:flex-row flex-col gap-8">
-      <!-- Left container for Ongoing and Past events -->
-      <div class="basis-1/2 flex flex-col gap-8">
-        <!-- Container for ONGOING events -->
-        <div class="flex flex-col gap-4">
-          <p class="font-semibold">Ongoing Events</p>
-          <Card
-            event={relevantEvents.ongoingEvent}
-          />
-        </div>
+  <!-- Top container that holds searchbar, "Events", search icon, and the create event button -->
+  <div class="flex justify-start ml-[18%]">
+    <p class="flex event-word ml-[3%]" style="margin-top:25px">Events</p>
+    <!-- Searchbar Container -->
+    <form class="relative ml-20" style="margin-top: 13px;" autocomplete="off">
+      <!-- Search Bar -->
+      <SearchBar events={eventNamesAndID} />
+    </form>
+    <!-- Create Event button -->
+    <a href="/events/create" style="margin-left: 60px; margin-top: 19px;">
+      <button class="btn btn-sm font-normal h-9 font-sans bg-beaver-orange hover:bg-dark-orange text-white rounded-full" style="position: absolute; margin-top: 9px; margin-left: 8px">
+        Create Event
+      </button>
+    </a>
+  </div>
 
-        <!-- Container for PAST events -->
-        <div class="flex flex-col gap-4">
-          <div class="flex flex-row gap-4">
-            <p class="font-semibold">Past Events</p>
-            <a href="/events/pastEvents">
-              <button class="btn btn-xs font-normal font-sans bg-light-black hover:bg-light-blackSelected text-white rounded-full">View All</button>
-            </a>
-          </div>
-          <Card
-            event={relevantEvents.pastEvents[0]}
-          />
-          {#if relevantEvents.pastEvents[1] !== null}
-            <Card
-              event={relevantEvents.pastEvents[1]}
-            />
-          {/if}
-        </div>
+  <!-- Container for the events -->
+  <div class="flex flex-row ml-[20.5%] w-[72%] h-[80%] custom-border mt-5">
+    <!-- Left container for Ongoing and Past events -->
+    <div class="flex flex-col w-[50%] custom-border">
+      <!-- Container for ONGOING events -->
+      <div class="flex flex-col w-auto custom-border h-fit pt-3">
+        <p class="inline-block max-w-full px-0 pb-4" style="font-size: 18px; font-weight:628;">Ongoing Events</p>
+        <Card
+          existsTF={relevantEvents.ongoingEvent?.Exists}
+          ImagePath="../../aerial_2.jpg"
+          Name={relevantEvents.ongoingEvent?.Name}
+          StartsAt={relevantEvents.ongoingEvent?.StartsAt}
+          EndsAt={relevantEvents.ongoingEvent?.EndsAt}
+          Description={relevantEvents?.ongoingEvent?.Description}
+          eventID = {relevantEvents.ongoingEvent?.EventID}
+        />
       </div>
 
-      <!-- Container for UPCOMING events -->
-      <div class="flex basis-1/2 flex-col gap-4">
-        <div class="flex flex-row gap-4">
-          <p class="font-semibold">Upcoming Events</p>
-          <a href="/events/upcomingEvents">
+      <!-- Container for PAST events -->
+      <div class="flex flex-col w-auto custom-border h-fit pt-5">
+        <div class="flex flex-row w-[100%] pb-4">
+          <p class="inline-block" style="font-size: 18px; font-weight:628;">Past Events</p>
+          <a href="/events/pastEvents" style="margin-left: 10px;">
             <button class="btn btn-xs font-normal font-sans bg-light-black hover:bg-light-blackSelected text-white rounded-full">View All</button>
           </a>
         </div>
-        <Card
-          event={relevantEvents.upcomingEvent}
-        />
+
+        <div class="pb-2">
+          <Card
+            existsTF={relevantEvents.pastEvents[0]?.Exists}
+            ImagePath="../../aerial_4.jpg"
+            Name={relevantEvents.pastEvents[0]?.Name}
+            StartsAt={relevantEvents.pastEvents[0]?.StartsAt}
+            EndsAt={relevantEvents.pastEvents[0]?.EndsAt}
+            Description={relevantEvents.pastEvents[0]?.Description}
+            eventID = {relevantEvents.pastEvents[0]?.EventID}
+          />
+        </div>
+        {#if relevantEvents.pastEvents[1] !== null}
+          <Card
+            existsTF={relevantEvents.pastEvents[1]?.Exists}
+            ImagePath="../../aerial_3.jpg"
+            Name={relevantEvents.pastEvents[1]?.Name}
+            StartsAt={relevantEvents.pastEvents[1]?.StartsAt}
+            EndsAt={relevantEvents.pastEvents[1]?.EndsAt}
+            Description={relevantEvents.pastEvents[1]?.Description}
+            eventID = {relevantEvents.pastEvents[1]?.EventID}
+          />
+        {/if}
       </div>
+    </div>
+
+    <!-- Container for UPCOMING events -->
+    <div class="flex ml-4 flex-col custom-border h-fit w-[50%] pt-3">
+      <div class="flex flex-row w-[100%] pb-4">
+        <p class="inline-block" style="font-size: 18px; font-weight:628;">Upcoming Events</p>
+        <a href="/events/upcomingEvents" style="margin-left: 10px;">
+          <button class="btn btn-xs font-normal font-sans bg-light-black hover:bg-light-blackSelected text-white rounded-full">View All</button>
+        </a>
+      </div>
+      <Card
+        existsTF={relevantEvents.upcomingEvent?.Exists}
+        ImagePath="../../aerial_5.jpg"
+        Name={relevantEvents.upcomingEvent?.Name}
+        StartsAt={relevantEvents.upcomingEvent?.StartsAt}
+        EndsAt={relevantEvents.upcomingEvent?.EndsAt}
+        Description={relevantEvents?.upcomingEvent?.Description}
+        eventID = {relevantEvents.upcomingEvent?.EventID}
+      />
     </div>
   </div>
 {/if}
