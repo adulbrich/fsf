@@ -10,16 +10,20 @@ import { TeamsState, fetchTeams } from '../../store/teamsSlice';
 import { LinearGradient } from 'tamagui/linear-gradient';
 import React from 'react';
 import { Text as RN_Text} from 'react-native';
+import { ArrowLeft } from '@tamagui/lucide-icons'
 
 import { supabase, useAuth } from '../../lib/supabase';
 
 export default function EventDetailsSheet() {
+  const [showJoinOptions, setShowJoinOptions] = useState(true); // State to manage which join options to display
   const activeEvent = useSelector<RootState, EventsState>(state => state.eventsSlice).activeEvent;
   const eventTeams = useSelector<RootState, TeamsState>(state => state.teamsSlice).teams
     .filter(team => team.BelongsToEventID === activeEvent?.EventID);
 
   const dispatch = useTypedDispatch();
   const { user, session } = useAuth();
+
+  const[registrationStep, setRegistrationStep] = useState('options'); //state to manage the current registration step
 
   useEffect(() => {
     if (activeEvent)
@@ -35,57 +39,64 @@ export default function EventDetailsSheet() {
   const [event, setEvent] = useState<Tables<'Events'>>();
   const [teamID, setTeamID] = useState<string>('New');
 
-  const joinTeamCallback = React.useCallback(() => {
-    const joinEvent = async () => {
-      if (teamID === 'New') {
-        const createTeamResult = await supabase
-          .from('Teams')
-          .upsert({
-            Name: session!.user.email!,
-            BelongsToEventID: event!.EventID
-          })
-          .select()
-          .single();
 
-        if (createTeamResult.error) {
-          console.log(createTeamResult.error);
-          return;
-        }
+  const joinEvent = async () => {
+    if (!activeEvent || !session) return;
 
-        const joinTeamResult = await supabase
-          .from('TeamsProfiles')
-          .upsert({
-            ProfileID: session!.user.id,
-            TeamID: createTeamResult.data.TeamID
-          })
-          .select()
-          .single();
+    if (teamID === 'New') {
+      const createTeamResult = await supabase
+        .from('Teams')
+        .upsert({
+          Name: session!.user.email!,
+          BelongsToEventID: event!.EventID
+        })
+        .select()
+        .single();
 
-        if (joinTeamResult.error) {
-          console.log(joinTeamResult.error);
-          return;
-        }
-      } else {
-        const joinTeamResult = await supabase
-          .from('TeamsProfiles')
-          .upsert({
-            ProfileID: session!.user.id,
-            TeamID: teamID
-          })
-          .select()
-          .single();
-
-        if (joinTeamResult.error) {
-          console.log(joinTeamResult.error);
-          return;
-        }
+      if (createTeamResult.error) {
+        console.log(createTeamResult.error);
+        return;
       }
 
-      console.log('Joined Event');
+      const joinTeamResult = await supabase
+        .from('TeamsProfiles')
+        .upsert({
+          ProfileID: session!.user.id,
+          TeamID: createTeamResult.data.TeamID
+        })
+        .select()
+        .single();
+
+      if (joinTeamResult.error) {
+        console.log(joinTeamResult.error);
+        return;
+      }
+    } else {
+      const joinTeamResult = await supabase
+        .from('TeamsProfiles')
+        .upsert({
+          ProfileID: session!.user.id,
+          TeamID: teamID
+        })
+        .select()
+        .single();
+
+      if (joinTeamResult.error) {
+        console.log(joinTeamResult.error);
+        return;
+      }
     }
 
-    joinEvent();
-  }, [session, teamID]);
+    console.log('Joined Event');
+
+    setShowJoinOptions(false);
+  }
+
+  const handleBack = () => {
+    setShowJoinOptions(true); // Close the modal by setting activeEvent to null
+  };
+
+  //joinEvent();
 
   return (
     <Sheet
@@ -100,63 +111,67 @@ export default function EventDetailsSheet() {
       <Sheet.Frame /* ai="center" jc="center" */>
         <Sheet.Handle />
 
-        <YStack gap="$4">
-          <YStack 
-            // borderColor="white" 
-            paddingBottom="$12"
-            paddingTop="$2" 
-            alignItems="center"
-            >
-            <H2 paddingBottom="$3">Registration</H2>
-            <Text color="white">- Select an option to register for a team -</Text>
-
-          </YStack>
-          
-          <XStack 
-            // borderColor="white" 
-            justifyContent="center"
-            paddingBottom="$20"
-            >
+        <YStack>
+          <YStack paddingBottom="$12" paddingTop="0%" alignItems="center">
             
-            <Button
-              /* Join Team Button */
-              bg={'#eb7434'} 
-              color={'white'} 
-              /* onPress={joinTeamCallback} */ 
-              height="$13"
-              width="$12"
-              marginRight="$3"
-              fontSize="$8"
-              >Join</Button>
+            {showJoinOptions ? ( //Conditionally render join options
+              <>
+                <H2 paddingBottom="$3">Registration</H2>
+                <Text color="white" paddingBottom="$12">- Select an option to register for a team -</Text>
+                <XStack justifyContent="center" paddingBottom="$20">
+                  <Button
+                    /* Join Team Button */
+                    bg={'#eb7434'} 
+                    color={'white'} 
+                    height="$13"
+                    width="$12"
+                    marginRight="$3"
+                    fontSize="$8"
+                    onPress={joinEvent}
+                  >
+                    Join
+                  </Button>
 
-            <Button
-              /* Create Team Button */
-              bg={'#eb7434'} 
-              color={'white'} 
-              /* onPress={createTeamCallback} */
-              height="$13"
-              width="$12"
-              marginLeft="$3"
-              fontSize="$8"
-              onPress={joinTeamCallback}
-              >Create</Button>
-          </XStack>
+                  <Button
+                    /* Create Team Button */
+                    bg={'#eb7434'} 
+                    color={'white'} 
+                    /* onPress={createTeamCallback} */
+                    height="$13"
+                    width="$12"
+                    marginLeft="$3"
+                    fontSize="$8"
+                  >
+                    Create
+                  </Button>
+                </XStack>
+              </>
+            ) : (
+              <YStack width="100%">
+                <XStack marginTop="$0" width="$16">
+                  <Button 
+                    icon={<ArrowLeft size="$2"/>} 
+                    fontSize="$6" 
+                    padding="$2" 
+                    marginLeft="$2"
+                    backgroundColor={"$backgroundTransparent"}
+                    onPress={handleBack}
+                  >
+                    Registration Options
+                  </Button>
+                </XStack>
+                <YStack height="85%" borderWidth="$0.5" backgroundColor="#898A8D" margin="$4" borderRadius="$5">
 
+                </YStack>
+                
+              </YStack>
+              
+              
+              //<Text color="green">You have successfully joined the event!</Text> //success message</Sheet.Frame>
+            )}
+          </YStack>
         </YStack>
-
-        {/* <Button
-          size="$6"
-          circular
-          icon={ChevronDown}
-          onPress={() => dispatch(setActiveEvent(null))}
-        /> */}
-
       </Sheet.Frame>
     </Sheet>
-  )
-  
-
-
-
-
+  );
 }
