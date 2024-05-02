@@ -46,7 +46,7 @@ export default function ForgotPasswordForm() {
                 </YStack>
 
                 <YStack justifyContent="center" position="absolute" left={"$3"}>
-                <Mail color={"$gray8"} />
+                    <Mail color={"$gray8"} />
                 </YStack>
 
             </XStack>

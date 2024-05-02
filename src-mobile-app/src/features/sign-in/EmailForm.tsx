@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Button, Input, Separator, XStack, YStack } from 'tamagui';
-import { Lock, Mail } from '@tamagui/lucide-icons';
+import { EyeOff, Lock, Mail } from '@tamagui/lucide-icons';
 import { useAuth } from '../system/Auth';
 import ForgotPasswordForm from '../password-reset/ForgotPassword';
 import { router } from "expo-router";
@@ -80,6 +80,10 @@ export default function EmailForm() {
 
         <YStack justifyContent="center" position="absolute" left={"$3"}>
           <Lock color={"$gray8"} />
+        </YStack>
+
+        <YStack justifyContent="center" position="absolute" right={"$3"}>
+            <EyeOff color={"$gray8"} />
         </YStack>
 
       </XStack>

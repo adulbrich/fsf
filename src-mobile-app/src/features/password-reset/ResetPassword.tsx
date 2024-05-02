@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { router } from "expo-router";
 import { Button, Input, Separator, XStack, YStack } from 'tamagui';
-import { Lock, Unlock } from "@tamagui/lucide-icons";
+import { EyeOff, Lock, Unlock } from "@tamagui/lucide-icons";
 
 
 export default function ResetPasswordForm() {
@@ -14,6 +14,12 @@ export default function ResetPasswordForm() {
 
     const resetPassword = React.useCallback(() => {
         console.log("reset password brudda")
+
+        // run supabase reset password
+
+        // redirect to home screen
+
+
     }, []);
 
     return (
@@ -41,7 +47,11 @@ export default function ResetPasswordForm() {
                 </YStack>
 
                 <YStack justifyContent="center" position="absolute" left={"$3"}>
-                    <Unlock color={"$gray8"} />
+                    <Lock color={"$gray8"} />
+                </YStack>
+                
+                <YStack justifyContent="center" position="absolute" right={"$3"}>
+                    <EyeOff color={"$gray8"} />
                 </YStack>
 
             </XStack>
@@ -72,11 +82,16 @@ export default function ResetPasswordForm() {
                     <Lock color={"$gray8"} />
                 </YStack>
 
-                <Separator />
-
-                <Button onPress={resetPassword} marginTop="$2" height={"$5"} color={"white"} borderColor={"black"} borderWidth={2} backgroundColor={"black"}>Reset Password</Button>
+                <YStack justifyContent="center" position="absolute" right={"$3"}>
+                    <EyeOff color={"$gray8"} />
+                </YStack>
 
             </XStack>
+
+            <Separator />
+
+            <Button onPress={resetPassword} marginTop="$2" height={"$5"} color={"white"} borderColor={"black"} borderWidth={2} backgroundColor={"black"}>Reset Password</Button>
+
         </YStack>
     )
 }
