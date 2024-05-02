@@ -92,7 +92,8 @@ export default function ResetPasswordForm() {
 
             <Button onPress={resetPassword} marginTop="$2" height={"$5"} color={"white"} borderColor={"black"} borderWidth={2} backgroundColor={"black"}>Reset Password</Button>
 
-            </XStack>
+            
+
         </YStack>
     )
 }
