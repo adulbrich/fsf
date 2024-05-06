@@ -13,9 +13,12 @@ import { Text as RN_Text} from 'react-native';
 import { ArrowLeft } from '@tamagui/lucide-icons'
 
 import { supabase, useAuth } from '../../lib/supabase';
+import { fetchEvents } from '../../store/eventsSlice';
 
 export default function EventDetailsSheet() {
+  //
   const [showJoinOptions, setShowJoinOptions] = useState(true); // State to manage which join options to display
+ //
   const activeEvent = useSelector<RootState, EventsState>(state => state.eventsSlice).activeEvent;
   const eventTeams = useSelector<RootState, TeamsState>(state => state.teamsSlice).teams
     .filter(team => team.BelongsToEventID === activeEvent?.EventID);
@@ -40,58 +43,27 @@ export default function EventDetailsSheet() {
   const [teamID, setTeamID] = useState<string>('New');
 
 
-  const joinEvent = async () => {
-    if (!activeEvent || !session) return;
-
-    if (teamID === 'New') {
-      const createTeamResult = await supabase
-        .from('Teams')
-        .upsert({
-          Name: session!.user.email!,
-          BelongsToEventID: event!.EventID
-        })
-        .select()
-        .single();
-
-      if (createTeamResult.error) {
-        console.log(createTeamResult.error);
-        return;
-      }
-
-      const joinTeamResult = await supabase
-        .from('TeamsProfiles')
-        .upsert({
-          ProfileID: session!.user.id,
-          TeamID: createTeamResult.data.TeamID
-        })
-        .select()
-        .single();
-
-      if (joinTeamResult.error) {
-        console.log(joinTeamResult.error);
-        return;
-      }
-    } else {
-      const joinTeamResult = await supabase
-        .from('TeamsProfiles')
-        .upsert({
-          ProfileID: session!.user.id,
-          TeamID: teamID
-        })
-        .select()
-        .single();
-
-      if (joinTeamResult.error) {
-        console.log(joinTeamResult.error);
-        return;
-      }
-    }
-
-    console.log('Joined Event');
-
+  const registrationOptions = async () => {
     setShowJoinOptions(false);
+    console.log("Displaying registration options");
+
+
+
+
   }
 
+  const fetchTeamsByEvent = async (EventID) => {
+    const { data, error } = await supabase
+      .from('teams')
+      .select('*')
+      .eq('event_id', EventID); // Filter teams by event_id
+    if (error) {
+      console.error('Error fetching teams:', error.message);
+      return [];
+    }
+    return data || [];
+  };
+  
   const handleBack = () => {
     setShowJoinOptions(true); // Close the modal by setting activeEvent to null
   };
@@ -127,7 +99,7 @@ export default function EventDetailsSheet() {
                     width="$12"
                     marginRight="$3"
                     fontSize="$8"
-                    onPress={joinEvent}
+                    onPress={registrationOptions}
                   >
                     Join
                   </Button>
