@@ -1,7 +1,7 @@
 import 'react-native-url-polyfill/auto';
 import { Session, User, createClient } from '@supabase/supabase-js';
 import { createContext, useContext, useState } from 'react';
-import { Alert } from 'react-native';
+import { Alert, Linking } from 'react-native';
 import { useTypedDispatch } from '../../store/store';
 import { setUserID } from '../../store/systemSlice';
 import { supabase } from '../../lib/supabase';
@@ -13,6 +13,7 @@ export interface AuthSessionState {
   signIn: (email: string, pass: string) => Promise<void>
   signOut: () => Promise<void>
   getSession: () => Promise<void>
+  forgotPassword: (email: string) => Promise<void>
 }
 
 const initialState = {
@@ -88,6 +89,26 @@ export function AuthSessionProvider({ children }: { children: React.ReactNode })
             user: data?.session?.user ?? null,
             isReady: true
           });
+        },
+        forgotPassword: async (email) => {
+          // Attempt to send user email reset link and redirect
+          const {data, error} = await supabase.auth.resetPasswordForEmail(email, {
+            redirectTo: 'exp://172.20.10.2:8081/reset-password'
+          }); 
+
+          if (error) {
+            Alert.alert(error.message);
+            return;
+          }
+
+          // // Update local context state
+          // setState({
+          //   ...state,
+          //   session: data,
+          //   user: data?.user ?? null,
+          //   isReady: true
+          // })
+
         }
       }}
     >

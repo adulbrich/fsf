@@ -2,21 +2,26 @@ import React, { useState } from "react";
 import { router } from "expo-router";
 import { Button, Input, Separator, XStack, YStack } from 'tamagui';
 import { Mail } from "@tamagui/lucide-icons";
+import { useAuth } from '../system/Auth';
 
 
 export default function ForgotPasswordForm() {
 
     const [email, setEmail] = useState('')
     const [emailFocus, setEmailFocus] = useState(false);
+    const { forgotPassword } = useAuth();
+    const [loading, setLoading] = useState(false)
 
-    const sendPasswordEmail = React.useCallback(() => {
-        console.log("send that email")
+    const sendPasswordEmail = React.useCallback(async () => {
+        if (loading) return;
+        setLoading(true);
         // perform backend send email here
-
-        //for now, push to "reset password page"
-        router.push(`/reset-password`);
-    }, []);
-
+        await forgotPassword(email);
+        setLoading(false);
+        // router.push(`/reset-password`);
+        console.log("sending email");
+    }, [email]);
+   
     const goBackHome = React.useCallback(() => {
         console.log("go back home")
         router.navigate(`/sign-in`);
