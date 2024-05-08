@@ -32,15 +32,24 @@ export const actions = {
       const startDate = formData.get('startDate') as string;
       const endDate = formData.get('endDate') as string;
       const eventDescription = formData.get('eventDescription') as string;
+      const RewardSingular = formData.get('singularReward') as string;
+      const RewardPlural = formData.get('pluralReward') as string;
+      const tier1String = formData.get('tier1');
+      const RewardTierOneThreshold = tier1String ? Number(tier1String) : null;
+      const tier2String = formData.get('tier2');
+      const RewardTierTwoThreshold = tier2String ? Number(tier2String) : null;
+      const tier3String = formData.get('tier3');
+      const RewardTierThreeThreshold = tier3String ? Number(tier3String) : null;
+      
       // Event banner image, it should be a base64 encoded string.
       const eventBanner = formData.get('eventBanner') as File;
 
-      console.log(eventBanner);
+      console.log("Event Banner", eventBanner);
 
       // Current user session ID.
       const userID = session?.user.id;
 
-      console.log(userID);
+      console.log("User Id: ", userID);
 
       // If no user session ID, error out, they have no business creating an event.
       // Honestly this should never happen unless someone is attempting to
@@ -53,6 +62,11 @@ export const actions = {
           startDate,
           endDate,
           eventDescription,
+          RewardSingular,
+          RewardPlural,
+          RewardTierOneThreshold,
+          RewardTierTwoThreshold,
+          RewardTierThreeThreshold,
         });
       }
   
@@ -66,7 +80,12 @@ export const actions = {
           StartsAt: startDate,
           EndsAt: endDate,
           CreatedByUserID: userID,
-          Description: eventDescription
+          Description: eventDescription,
+          RewardSingular: RewardSingular,
+          RewardPlural: RewardPlural,
+          RewardTierOneThreshold: RewardTierOneThreshold,
+          RewardTierTwoThreshold: RewardTierTwoThreshold,
+          RewardTierThreeThreshold: RewardTierThreeThreshold,
         })
         // Select the data we just created so we can use it for the banner.
         .select()
@@ -84,6 +103,11 @@ export const actions = {
           startDate,
           endDate,
           eventDescription,
+          RewardSingular,
+          RewardPlural,
+          RewardTierOneThreshold,
+          RewardTierTwoThreshold,
+          RewardTierThreeThreshold,
         });
       }
 
@@ -116,6 +140,11 @@ export const actions = {
           startDate,
           endDate,
           eventDescription,
+          RewardSingular,
+          RewardPlural,
+          RewardTierOneThreshold,
+          RewardTierTwoThreshold,
+          RewardTierThreeThreshold,
         });
       }
 
@@ -129,6 +158,11 @@ export const actions = {
         startDate,
         endDate,
         eventDescription,
+        RewardSingular,
+        RewardPlural,
+        RewardTierOneThreshold,
+        RewardTierTwoThreshold,
+        RewardTierThreeThreshold,
       };
     },
   };
