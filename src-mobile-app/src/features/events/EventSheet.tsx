@@ -14,11 +14,20 @@ import { ArrowLeft } from '@tamagui/lucide-icons'
 
 import { supabase, useAuth } from '../../lib/supabase';
 import { fetchEvents } from '../../store/eventsSlice';
+import { ScrollView as RN_ScrollView } from "react-native";
+
+// Event Join Team here:
+import TeamCard from '../teams/TeamCard';
+import { setGestureState } from 'react-native-reanimated';
+//
+
 
 export default function EventDetailsSheet() {
   //
   const [showJoinOptions, setShowJoinOptions] = useState(true); // State to manage which join options to display
  //
+  const [dragEnabled, setDragEnabled] = useState(true);
+
   const activeEvent = useSelector<RootState, EventsState>(state => state.eventsSlice).activeEvent;
   const eventTeams = useSelector<RootState, TeamsState>(state => state.teamsSlice).teams
     .filter(team => team.BelongsToEventID === activeEvent?.EventID);
@@ -41,34 +50,37 @@ export default function EventDetailsSheet() {
 
   const [event, setEvent] = useState<Tables<'Events'>>();
   const [teamID, setTeamID] = useState<string>('New');
-
+  const [selectedTeam, setSelectedTeam] = useState<Tables<'Teams'> | null>(null); // State to store selected team
 
   const registrationOptions = async () => {
     setShowJoinOptions(false);
-    console.log("Displaying registration options");
-
-
-
-
+    setDragEnabled(false);
+    
+    eventTeams.forEach((team) => {
+      console.log(`- ${team.Name}`); // Print each team's name on a new line with a bullet
+    });
   }
 
-  const fetchTeamsByEvent = async (EventID) => {
-    const { data, error } = await supabase
-      .from('teams')
-      .select('*')
-      .eq('event_id', EventID); // Filter teams by event_id
-    if (error) {
-      console.error('Error fetching teams:', error.message);
-      return [];
+
+  const scrollHandling = () => {
+    if(!dragEnabled){
+      return true;
     }
-    return data || [];
-  };
+    return false;
+  }
+
   
   const handleBack = () => {
     setShowJoinOptions(true); // Close the modal by setting activeEvent to null
+    setDragEnabled(true);
   };
 
-  //joinEvent();
+  
+  //put join event logic here:
+  //
+  console.log('Joined Event');
+  
+
 
   return (
     <Sheet
@@ -77,7 +89,9 @@ export default function EventDetailsSheet() {
       animation="medium"
       open={activeEvent !== null}
       dismissOnSnapToBottom
-      onOpenChange={(open: boolean) => { if (!open) dispatch(setActiveEvent(null)) }}
+      disableDrag={!dragEnabled}
+
+      onOpenChange={(open: boolean) => { if (!open) dispatch(setActiveEvent(null)); setDragEnabled(true); }}
     >
       <Sheet.Overlay animation="lazy" enterStyle={{ opacity: 0 }} exitStyle={{ opacity: 0 }} />
       <Sheet.Frame /* ai="center" jc="center" */>
@@ -85,7 +99,6 @@ export default function EventDetailsSheet() {
 
         <YStack>
           <YStack paddingBottom="$12" paddingTop="0%" alignItems="center">
-            
             {showJoinOptions ? ( //Conditionally render join options
               <>
                 <H2 paddingBottom="$3">Registration</H2>
@@ -120,26 +133,43 @@ export default function EventDetailsSheet() {
               </>
             ) : (
               <YStack width="100%">
-                <XStack marginTop="$0" width="$16">
-                  <Button 
-                    icon={<ArrowLeft size="$2"/>} 
-                    fontSize="$6" 
-                    padding="$2" 
-                    marginLeft="$2"
-                    backgroundColor={"$backgroundTransparent"}
-                    onPress={handleBack}
-                  >
-                    Registration Options
-                  </Button>
+                <XStack width="100%" borderWidth="$1" borderColor="blue" alignItems='center' justifyContent="space-between">
+                  <XStack borderWidth="$1" borderColor="yellow" alignItems='center' paddingRight="20%">
+
+                    <Button 
+                      icon={<ArrowLeft size="$2"/>} 
+                      padding="$2" 
+                      marginLeft="$2"
+                      marginRight="$2"
+                      backgroundColor={"$backgroundTransparent"}
+                      borderWidth="$1"
+                      borderColor="orange"
+                      onPress={handleBack}
+                    >
+                      
+                    </Button>
+                  </XStack>
+
+                  <XStack borderWidth="$1" paddingRight="60%">
+                      <Text fontSize="$4">Available Teams</Text>
+                  </XStack>
+
                 </XStack>
-                <YStack height="85%" borderWidth="$0.5" backgroundColor="#898A8D" margin="$4" borderRadius="$5">
+
+                
+                  
+                
+
+                
+                <YStack justifyContent='space-between' borderWidth="$1">
+                  <RN_ScrollView>
+                    {eventTeams.map(team => <TeamCard key={team.TeamID} team={team} /> )}
+                  </RN_ScrollView>
 
                 </YStack>
+
                 
               </YStack>
-              
-              
-              //<Text color="green">You have successfully joined the event!</Text> //success message</Sheet.Frame>
             )}
           </YStack>
         </YStack>

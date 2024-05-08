@@ -31,7 +31,7 @@ export default function EventCard({ event }: Props) {
     else
       return `Ended ${new Date(event.EndsAt).toLocaleDateString()}`;
   }
-
+  
   const pressCallback = React.useCallback(() => {
     router.push(`/events/${event.EventID}`);
   }, [event]);
@@ -81,8 +81,8 @@ export default function EventCard({ event }: Props) {
             borderBottomLeftRadius={"$4"}
             borderBottomRightRadius={"$4"}
           >
-            <H3>{event.Name}</H3>
-            <Text marginTop={"$2"} fontSize={"$1"}>{ getDateString() }</Text>
+            <H3 color="black">{event.Name}</H3>
+            <Text color="black" marginTop={"$2"} fontSize={"$4"}>{ getDateString() }</Text>
           </XStack>
       
         </Card>
