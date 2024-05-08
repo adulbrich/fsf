@@ -3,19 +3,19 @@
   import { enhance } from "$app/forms";
   import type { SubmitFunction } from "@sveltejs/kit";
   import EventBanner from "./eventbanner.svelte";
+  import toast from "svelte-french-toast"
 
   export let data;
-  export let form: {
-    eventName?: string;
-    eventType?: string;
-    startDate?: string;
-    endDate?: string;
-    eventDescription?: string;
-    eventBanner?: string;
-  } = {};
-
+  export let form;
   let { session, supabase, event } = data;
   $: ({ session, supabase, event } = data);
+  
+  $: if (form) {
+    if (form.errorMessage)
+      toast.error(form.errorMessage);
+    else
+      toast.success('Event created!');
+  }
 
   let createEventForm: HTMLFormElement;
   let loading = false;
@@ -27,17 +27,21 @@
   let eventBanner: string = event?.event_banner ?? "";
 
   const handleSubmit: SubmitFunction = () => {
-    loading = true;
-    return async () => {
-      loading = false;
-    };
-  };
+		loading = true;
+  	return async ({ update }) => {
+			loading = false;
+
+      // Update form variable so we can do stuff like display
+      // an error message (if applicable).
+      update();
+		}
+	}
 </script>
 
 <Layout>
   <div class="p-7 h-auto">
     <!--Form Attributes-->
-    <form class="form-widget flex-1 ml-[17%]" method="post" action="?/create" use:enhance={handleSubmit} bind:this={createEventForm}>
+    <form class="flex-1 ml-[17%]" enctype="multipart/form-data" method="post" action="?/createEvent" use:enhance={handleSubmit} bind:this={createEventForm}>
       <div class="flex flex-wrap -mx-3 mb-6">
         <a href="/events" style="margin-left: 10px; margin-top:15px;">
           <!-- Arrow that redirects to /events -->
@@ -82,8 +86,8 @@
               value={form?.eventType ?? eventType}
               class="block appearance-none w-1/4 rounded-md border-black border text-gray-700 py-3 px-4 pr-8 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
             >
-              <option>Walk (Steps)</option>
-              <option>Run (Distance)</option>
+              <option>Steps</option>
+              <option>Distance</option>
             </select>
             <!-- Drop down arrow  -->
             <div class="absolute" style="left: 20.8%; bottom:12px; pointer-events:none;">
@@ -135,19 +139,21 @@
           ></textarea>
         </div>
 
-        <!-- Container for Event Banner Uploading -->
-        <div class="px-5 pt-4 md:w-3/4 my-0">
-          <EventBanner
-            {supabase}
-            bind:url={eventBanner}
-            size={10}
-            on:upload={() => {
-              createEventForm.requestSubmit();
-            }}
-          ></EventBanner>
-        </div>
+       
       </div>
-
+ <!-- Container for Event Banner Uploading -->
+        <div class = "ml-2 mb-3 my-0 btn primary bg-beaver-orange text-white hover:bg-dark-orange">
+          <label class="button primary block" for="eventBanner">
+            Upload Banner
+          </label>
+          <input
+            style="position:absolute; visibility:hidden;"
+            type="file"
+            id="eventBanner"
+            name="eventBanner"
+            accept="image/*"
+          />
+        </div>
       <div class="px-2">
         <input
           type="submit"
