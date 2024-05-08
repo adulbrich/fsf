@@ -148,6 +148,12 @@
       </a>
     </div>
 
+
+
+
+
+
+    
     <!-- Container for the events -->
     <div class="flex flex-row ml-[20.5%] w-[72%] h-[80%] custom-border mt-5">
       <!-- Left container for Ongoing and Past events -->
@@ -175,7 +181,7 @@
             </a>
           </div>
 
-          <div class="pb-2">
+          <div class="pb-4">
             <Card
               existsTF={relevantEvents.pastEvents[0]?.Exists}
               ImagePath="../../aerial_4.jpg"
@@ -219,6 +225,26 @@
         />
       </div>
     </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
   {/if}
 </Layout>
 
@@ -236,4 +262,7 @@
   .custom-border {
     border: 0px solid #c7c7cd;
   }
+
+
+
 </style>
