@@ -14,10 +14,10 @@
             </a>
             <!-- The settings icon was more fidgety than other icons, so the style is more custom -->
         </div>
-        
-<!-- This is where your content will go if you use the layout -->
-    <slot>
+    </div>
+    <!-- This is where your content will go if you use the layout -->
+    
 
-    </slot>
-</div>
+<slot>
 
+</slot>
