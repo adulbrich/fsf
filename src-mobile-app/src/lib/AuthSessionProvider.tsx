@@ -4,7 +4,6 @@ import { supabase } from './supabaseClient'; // Ensure this correctly points to 
 
 interface User {
   id: string;
-  email: string;
 }
 
 interface AuthSessionContextType {

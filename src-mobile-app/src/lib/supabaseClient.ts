@@ -1,4 +1,3 @@
-// src/lib/supabaseClient.ts
 import { Alert } from 'react-native';
 import { supabase } from './supabase'; // Ensure the path to your initialized Supabase client is correct
 
