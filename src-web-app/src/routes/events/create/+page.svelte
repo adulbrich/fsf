@@ -1,49 +1,31 @@
 <script lang="ts">
   import Layout from "../../banner-layout.svelte";
+  import RewardLabelInput from "./RewardLabelInput.svelte";
   import { enhance } from "$app/forms";
   import type { SubmitFunction } from "@sveltejs/kit";
-  import EventBanner from "./eventbanner.svelte";
-  import toast from "svelte-french-toast"
-
+  import toast from "svelte-french-toast";
+  import RewardTierInput from "./RewardTierInput.svelte";
   export let data;
   export let form;
   let { session, supabase, event } = data;
   $: ({ session, supabase, event } = data);
-  
+
   $: if (form) {
-    if (form.errorMessage)
-      toast.error(form.errorMessage);
-    else
-      toast.success('Event created!');
+    if (form.errorMessage) toast.error(form.errorMessage);
+    else toast.success("Event created!");
   }
 
   let createEventForm: HTMLFormElement;
   let loading = false;
-  let eventName: string = event?.event_name ?? "";
-  let eventType: string = event?.event_type ?? "Walk (steps)";
-  let startDate: string = event?.event_start_date ?? "";
-  let endDate: string = event?.event_end_date ?? "";
-  let eventDescription: string = event?.event_description ?? "";
-  let eventBanner: string = event?.event_banner ?? "";
-  let singularReward: string =  "";
-  let pluralReward: string =  "";
-  let tier1Reward: number =  0;
-  let tier2Reward: number =  0;
-  let tier3Reward: number =  0;
-
-
-  let iconImage: string = event?.icon_image ?? "";
-
   const handleSubmit: SubmitFunction = () => {
-		loading = true;
-  	return async ({ update }) => {
-			loading = false;
-
+    loading = true;
+    return async ({ update }) => {
+      loading = false;
       // Update form variable so we can do stuff like display
       // an error message (if applicable).
       update();
-		}
-	}
+    };
+  };
 </script>
 
 <Layout>
@@ -149,21 +131,14 @@
             placeholder="Write details about the event here!"
           ></textarea>
         </div>
-
+        <!-- Container for Both Create Event and Upload Banner button -->
         <div class="flex w-full flex-col h-auto ml-4">
           <!-- Container for Event Banner Uploading -->
-          <div class = "mt-3 w-[25%] mb-3 my-0 btn primary bg-beaver-orange text-white hover:bg-dark-orange">
-            <label class="button primary block" for="eventBanner">
-              Upload Banner
-            </label>
-            <input
-              style="position:absolute; visibility:hidden;"
-              type="file"
-              id="eventBanner"
-              name="eventBanner"
-              accept="image/*"
-            />
+          <div class="mt-3 w-[25%] mb-3 my-0 btn primary bg-beaver-orange text-white hover:bg-dark-orange">
+            <label class="button primary block" for="eventBanner">Upload Banner</label>
+            <input style="position:absolute; visibility:hidden;" type="file" id="eventBanner" name="eventBanner" accept="image/*" />
           </div>
+          <!-- Container for Create Event Button -->
           <div class=" pt-3">
             <input
               type="submit"
@@ -176,84 +151,34 @@
       </div>
       <!-- Container for the Reward config -->
       <div class="flex flex-col w-[30%] ml-[5%] mt-[7%]">
-        <div class=" md:w-[60%] mb-6 md:mb-0">
-          <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="eventName">Singular Reward</label>
-          <input
-            required
-            name="singularReward"
-            id="singularReward"
-            value=""
-            class="appearance-none block w-full text-gray-700 rounded-md border-black border py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
-            type="text"
-            placeholder="Leaf"
-          />
+        <!-- Labels for reward inputs -->
+        <RewardLabelInput id="singularReward" name="singularReward" placeholder="Leaf" label="Singular Reward" />
+        <RewardLabelInput id="pluralReward" name="pluralReward" placeholder="Leaves" label="Plural Reward" />
+        <!-- Button for uploading reward icon -->
+        <div class="w-[35%]">
+          <label class="btn primary bg-beaver-orange text-white hover:bg-dark-orange" for="rewardIcon">
+            Upload Icon
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M19 13V17C19 17.5304 18.7893 18.0391 18.4142 18.4142C18.0391 18.7893 17.5304 19 17 19H3C2.46957 19 1.96086 18.7893 1.58579 18.4142C1.21071 18.0391 1 17.5304 1 17V13"
+                stroke="white"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path d="M15 6L10 1L5 6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+              <path d="M10 1V13" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+            <input style="position:absolute; visibility:hidden;" type="file" id="rewardIcon" name="rewardIcon" accept="image/*" />
+          </label>
         </div>
-        <div class=" md:w-[60%] mb-6 md:mb-0">
-          <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="eventName">Plural Reward</label>
-          <input
-            required
-            name="pluralReward"
-            id="pluralReward"
-            value=""
-            class="appearance-none block w-full text-gray-700 rounded-md border-black border py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
-            type="text"
-            placeholder="Leaves"
-          />
-        </div>
-
-        <label class="btn primary w-[35%] bg-beaver-orange text-white hover:bg-dark-orange" for="single">
-          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path
-              d="M19 13V17C19 17.5304 18.7893 18.0391 18.4142 18.4142C18.0391 18.7893 17.5304 19 17 19H3C2.46957 19 1.96086 18.7893 1.58579 18.4142C1.21071 18.0391 1 17.5304 1 17V13"
-              stroke="white"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            />
-            <path d="M15 6L10 1L5 6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-            <path d="M10 1V13" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-          </svg>
-          {"Upload Icon"}
-        </label>
-
+        <!-- Inputs for the reward tiers -->
         <h2 class="daily-tiers-text mt-7">Tier Rewards</h2>
-        <div class=" md:w-[40%] mb-6 md:mb-0">
-          <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="eventName">Teir 1</label>
-          <input
-            required
-            name="tier1"
-            id="tier1"
-            value=""
-            class="appearance-none block w-full text-gray-700 rounded-md border-black border py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
-            type="text"
-            placeholder="3000"
-          />
+        <div>
+          <RewardTierInput id="tier1" name="tier1" placeholder="3000" label="Tier 1" />
+          <RewardTierInput id="tier2" name="tier2" placeholder="5000" label="Tier 2" />
+          <RewardTierInput id="tier3" name="tier3" placeholder="9000" label="Tier 3" />
         </div>
-        <div class=" md:w-[40%] mb-6 md:mb-0">
-          <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="eventName">Teir 2</label>
-          <input
-            required
-            name="tier2"
-            id="tier2"
-            value=""
-            class="appearance-none block w-full text-gray-700 rounded-md border-black border py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
-            type="text"
-            placeholder="3000"
-          />
-        </div>
-        <div class=" md:w-[40%] mb-6 md:mb-0">
-          <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="eventName">Teir 3</label>
-          <input
-            required
-            name="tier3"
-            id="tier3"
-            value=""
-            class="appearance-none block w-full text-gray-700 rounded-md border-black border py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
-            type="text"
-            placeholder="3000"
-          />
-        </div>
-
       </div>
     </form>
   </div>
