@@ -44,12 +44,15 @@
   // Function that fetches all the events from the database.  Site will not load until this function is finished
   const fetchEvents = async () => {
     try {
-      const { data, error } = await supabase.from("Events").select("*"); // Selects all  rows from the Events table
-      if (error) console.error("Error fetching events:");
-      events = data;
-      console.log("events: ", events);
+      const { data, error } = await supabase.from("Events").select("*"); // Selects all rows from the Events table
+      if (error) {
+        console.error("Error fetching events!!!:", error);
+      } else {
+        console.log("Events successfully fetched:", data);  // Print message when fetching succeeds
+        events = data;
+      }
     } catch (error) {
-      console.error("Error fetching events:", error as any);
+      console.error("Error fetching events:", error);
     } finally {
       loading = false; // Set loading to false after fetching the events
     }

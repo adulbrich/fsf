@@ -27,8 +27,11 @@
   let eventBanner: string = event?.event_banner ?? "";
 
   const handleSubmit: SubmitFunction = () => {
+    console.log("Attempting to create event...");
     loading = true;
     return async () => {
+      await new Promise(resolve => setTimeout(resolve, 2000)); // simulate delay
+      console.log("Event data submitted to the server");
       loading = false;
     };
   };
