@@ -70,6 +70,7 @@
     "jest-expo": "~50.0.1",
     "react-native-svg": "^14.1.0",
     "react-test-renderer": "18.2.0",
+    "supabase": "^1.167.4",
     "typescript": "^5.3.3"
   },
   "private": true
