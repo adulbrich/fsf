@@ -93,8 +93,8 @@ export function AuthSessionProvider({ children }: { children: React.ReactNode })
         forgotPassword: async (email) => {
           // Attempt to send user email reset link and redirect
           const {data, error} = await supabase.auth.resetPasswordForEmail(email, {
-            redirectTo: 'exp://172.20.10.2:8081/reset-password'
-          }); 
+            redirectTo: 'https://osu-fsf.vercel.app/auth/resetPassword'
+          });  
 
           if (error) {
             Alert.alert(error.message);
