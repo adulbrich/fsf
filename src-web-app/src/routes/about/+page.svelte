@@ -1,3 +1,6 @@
+<script lang="ts">
+  import SVGComponents from "./SVGComponents.svelte";
+</script>
 
 <div class="flex flex-col items-center w-full gap-8 my-16">
   <!-- Header -->
@@ -7,6 +10,9 @@
       <div class="text-3xl">Faculty Staff Fitness</div>
     </div>
     <div class="text-xl italic">Bringing you the next generation of fitness tracking</div>
+    <a href="https://github.com/OregonStateUniversity/osu-fsf" target="_blank">
+      <SVGComponents svgLabel="github-logo" width="49" height="48" />
+    </a>
   </div>
 
   <!-- Screenshot -->
