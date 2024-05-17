@@ -2,7 +2,8 @@
   import SVGComponents from "./SVGComponents.svelte";
   import Person from "./Person.svelte";
   import Clipboard from "./Clipboard.svelte";
-
+  import Accordion from "./Accordion.svelte";
+  import Divider from "./Divider.svelte";
   let problemStatementText = "OSU FSF is your go-to platform for faculty and staff to track steps and engage in friendly competition. Join our community to track your fitness progress, compete with colleagues, and step up your wellness game together!"
 </script>
 
@@ -35,12 +36,6 @@
     <p class="text-3xl">Ever Wondered How to Combine Fitness with Friendly Competition?</p>
     <div class="flex w-1/3 items-center">
       <p class="text-center text-2xl italic mt-4">{problemStatementText}</p>
-    </div>
-  </div>
-  <div class="flex items-center flex-col">
-    <p class="text-3xl">Ever Wondered How to Combine Fitness with Friendly Competition?</p>
-    <div class="flex w-1/3 items-center">
-      <p class="text-center text-2xl italic mt-4">{problemStatementText} </p>
     </div>
   </div>
 
@@ -103,7 +98,15 @@
     <Person imgName="edson" name="Edson Fuentes" />
     <Person imgName="ryan" name="Ryan Remington" />
   </div>
+  <!-- Accordion -->
 
+  <div class="text-3xl mt-10">
+    <div>Frequently Asked Questions</div>
+  </div>
+  <div class="w-1/3">
+    <Accordion />
+  </div>
+  
  
   
 
