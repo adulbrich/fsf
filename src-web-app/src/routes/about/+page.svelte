@@ -15,8 +15,9 @@
   </div>
 
   <!-- Screenshot -->
-  <div class="max-w-screen-md pointer-events-none">
-    <img alt="screenshot" src="/about/web_screenshot.png" />
+  <div class="w-full h-[512px] max-w-screen-md pointer-events-none flex justify-center items-end gap-8">
+    <img class="h-full drop-shadow-lg" alt="screenshot" src="/about/web_screenshot.png" />
+    <img class="h-5/6 z-10 drop-shadow-lg" alt="mobile screenshot" src="/about/mobile_screenshot.png" />
   </div>
 
   <!-- Source code -->
