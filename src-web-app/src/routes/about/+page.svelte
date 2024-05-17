@@ -2,14 +2,20 @@
   import SVGComponents from "./SVGComponents.svelte";
   import Person from "./Person.svelte";
   import Clipboard from "./Clipboard.svelte";
+
+  let problemStatementText = "OSU FSF is your go-to platform for faculty and staff to track steps and engage in friendly competition. Join our community to track your fitness progress, compete with colleagues, and step up your wellness game together!"
 </script>
 
 <div class="flex flex-col items-center w-full gap-8 my-16">
   <!-- Header -->
   <div class="flex text-center gap-16 items-center">
-    <div class="flex flex-col text-left font-serif">
-      <div class="text-4xl">Oregon State University</div>
-      <div class="text-3xl">Faculty Staff Fitness</div>
+    <div class="flex flex-row">
+      <img alt="logo" src="/about/logo.png" class="w-24 h-24 mr-4 mt--2" />
+      <div class="flex-col flex text-left font-serif mt-2">
+        <div class="text-4xl">Oregon State University</div>
+        <div class="text-3xl">Faculty Staff Fitness</div>
+      </div>
+
     </div>
     <div class="text-xl italic">Bringing you the next generation of fitness tracking</div>
   </div>
@@ -20,16 +26,26 @@
   </div>
 
   <!-- Source code -->
-  <div class="w-auto flex flex-row items-center my-8 mt-4">
-    <div class="text-2xl mr-4">OSU FSF on Github</div>
-    <a href="https://github.com/OregonStateUniversity/osu-fsf" target="_blank">
-      <SVGComponents svgLabel="github-logo" width="49" height="48" />
-    </a>
+  <div class="w-auto">
+    <Divider />
+  </div>
+  
+  <div class="flex items-center flex-col">
+    <p class="text-3xl">Ever Wondered How to Combine Fitness with Friendly Competition?</p>
+    <div class="flex w-1/3 items-center">
+      <p class="text-center text-2xl italic mt-4">{problemStatementText}</p>
+    </div>
+  </div>
+  <div class="flex items-center flex-col">
+    <p class="text-3xl">Ever Wondered How to Combine Fitness with Friendly Competition?</p>
+    <div class="flex w-1/3 items-center">
+      <p class="text-center text-2xl italic mt-4">{problemStatementText} </p>
+    </div>
   </div>
 
   <!-- Features header -->
-  <div class="text-3xl">
-    <div>Designed to keep you moving!</div>
+  <div class="text-3xl mt-20">
+    <div>Designed to keep you moving! (Expand on this)</div>
   </div>
 
   <!-- Features (double column) -->
@@ -63,7 +79,7 @@
       </div>
     </div>
   </div>
-  
+  <!-- Authors -->
   <div class="text-3xl mt-20">
     <div>Authors</div>
   </div>
@@ -73,6 +89,7 @@
     <Person imgName="alex" name="Alex Ulbrich" />
     <Person imgName="bill" name="Bill Pfiel" />
   </div>
+  <!-- Contributors -->
   <div class="text-3xl">
     <div>Meet the team</div>
   </div>
@@ -81,9 +98,9 @@
     <Person imgName="aiden" name="Aiden Ross" />
     <Person imgName="jason" name="Jason Ho" />
     <Person imgName="lei" name="Lei Sun" />
-    <Person imgName="ryan" name="Ryan Remington" />
     <Person imgName="yang" name="Yang" />
     <Person imgName="edson" name="Edson Fuentes" />
+    <Person imgName="ryan" name="Ryan Remington" />
   </div>
 
  
@@ -103,7 +120,7 @@
     <div class="grid grid-flow-col gap-4">
       <a href="https://github.com/OregonStateUniversity/osu-fsf" class="link link-hover">Github</a>
       <a href="#" class="link link-hover">About us</a>
-      <a href="#" class="link link-hover">Docs</a>
+      <a href="https://osu-fsf-docs.vercel.app/reference/00welcome" class="link link-hover">Docs</a>
     </div>
   </nav>
 </footer>
