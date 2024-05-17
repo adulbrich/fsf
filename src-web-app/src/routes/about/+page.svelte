@@ -41,7 +41,7 @@
 
   <!-- Features header -->
   <div class="text-3xl mt-20">
-    <div>Designed to keep you moving! (Expand on this)</div>
+    <div>Designed to keep you moving! (Expand on this and make it look better)</div>
   </div>
 
   <!-- Features (double column) -->
