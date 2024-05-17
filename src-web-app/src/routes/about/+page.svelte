@@ -68,7 +68,7 @@
     <div>Authors</div>
   </div>
 
-  <div class="flex flex-wrap gap-6 h-auto flex-grow-0">
+  <div class="flex flex-wrap gap-6">
     <Person imgName="nicole" name="Nicole Kurth" />
     <Person imgName="alex" name="Alex Ulbrich" />
     <Person imgName="bill" name="Bill Pfiel" />
@@ -76,7 +76,7 @@
   <div class="text-3xl">
     <div>Meet the team</div>
   </div>
-  <div class="flex flex-wrap gap-6 h-auto flex-grow-0">
+  <div class="flex flex-wrap gap-6">
     <Person imgName="steph" name="Stephen Fike" />
     <Person imgName="aiden" name="Aiden Ross" />
     <Person imgName="jason" name="Jason Ho" />
