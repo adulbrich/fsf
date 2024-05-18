@@ -4,6 +4,7 @@
   import Clipboard from "./Clipboard.svelte";
   import Accordion from "./Accordion.svelte";
   import Divider from "./Divider.svelte";
+  import FeatureList from "./Feature_list.svelte";
   let problemStatementText = "OSU FSF is your go-to platform for faculty and staff to track steps and engage in friendly competition. Join our community to track your fitness progress, compete with colleagues, and step up your wellness game together!"
 </script>
 
@@ -41,40 +42,15 @@
 
   <!-- Features header -->
   <div class="text-3xl mt-20">
-    <div>Designed to keep you moving! (Expand on this and make it look better)</div>
+    <div>Designed to keep you moving!</div>
   </div>
 
   <!-- Features (double column) -->
-  <div class="flex gap-8">
-    <div class="flex flex-col gap-8">
-      <div class="flex gap-4 items-center">
-        <div class="font-bold">Track your progress</div>
-      </div>
-      <div class="flex gap-4 items-center">
-        <div class="font-bold">Set goals</div>
-      </div>
-      <div class="flex gap-4 items-center">
-        <div class="font-bold">Stay motivated</div>
-      </div>
-      <div class="flex gap-4 items-center">
-        <div class="font-bold">Share with friends</div>
-      </div>
-    </div>
-    <div class="flex flex-col gap-8">
-      <div class="flex gap-4 items-center">
-        <div>Keep track of your workouts and see your progress over time.</div>
-      </div>
-      <div class="flex gap-4 items-center">
-        <div>Set goals for yourself and track your progress towards them.</div>
-      </div>
-      <div class="flex gap-4 items-center">
-        <div>Stay motivated with reminders and notifications.</div>
-      </div>
-      <div class="flex gap-4 items-center">
-        <div>Share your progress with friends and family.</div>
-      </div>
-    </div>
+  <div>
+    <FeatureList />
   </div>
+
+
   <!-- Authors -->
   <div class="text-3xl mt-20">
     <div>Authors</div>

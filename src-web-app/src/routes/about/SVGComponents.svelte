@@ -131,4 +131,36 @@
       </g>
     </g>
   </svg>
+  {:else if svgLabel === "setting-goals"}
+  <svg {width} {height} viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="32" cy="32" r="30" fill="none" stroke="#000" stroke-width="4"/>
+    <circle cx="32" cy="32" r="20" fill="none" stroke="#000" stroke-width="4"/>
+    <circle cx="32" cy="32" r="10" fill="none" stroke="#000" stroke-width="4"/>
+    <circle cx="32" cy="32" r="5" fill="#000"/>
+  </svg>
+  {:else if svgLabel === "staying-motivated"}
+  <svg  {width} {height} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M4.1 38.2C1.4 34.2 0 29.4 0 24.6C0 11 11 0 24.6 0H133.9c11.2 0 21.7 5.9 27.4 
+    15.5l68.5 114.1c-48.2 6.1-91.3 28.6-123.4 61.9L4.1 38.2zm503.7 0L405.6 191.5c-32.1-33.3-75.2-55.8-123.4-61.9L350.7 15.5C356.5 5.9 366.9 0 378.1 0H487.4C501 0 
+    512 11 512 24.6c0 4.8-1.4 9.6-4.1 13.6zM80 336a176 176 0 1 1 352 0A176 176 0 1 1 80 336zm184.4-94.9c-3.4-7-13.3-7-16.8 0l-22.4 45.4c-1.4 2.8-4 4.7-7 5.1L168 298.9c-7.7 
+    1.1-10.7 10.5-5.2 16l36.3 35.4c2.2 2.2 3.2 5.2 2.7 8.3l-8.6 49.9c-1.3 7.6 6.7 13.5 13.6 9.9l44.8-23.6c2.7-1.4 6-1.4 8.7 0l44.8 23.6c6.9 3.6 14.9-2.2 13.6-9.9l-8.6-49.9c-.5-3 .5-6.1 
+    2.7-8.3l36.3-35.4c5.6-5.4 2.5-14.8-5.2-16l-50.1-7.3c-3-.4-5.7-2.4-7-5.1l-22.4-45.4z"/>
+  </svg>
+  {:else if svgLabel === "sharing-with-friends"}
+  <svg {width} {height} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
+    <path d="M96 128a128 128 0 1 1 256 0A128 128 0 1 1 96 128zM0 482.3C0 383.8 79.8 304 178.3 304h91.4C368.2 
+    304 448 383.8 448 482.3c0 16.4-13.3 29.7-29.7 29.7H29.7C13.3 512 0 498.7 0 482.3zM609.3 512H471.4c5.4-9.4 
+    8.6-20.3 8.6-32v-8c0-60.7-27.1-115.2-69.8-151.8c2.4-.1 4.7-.2 7.1-.2h61.4C567.8 320 640 392.2 640 481.3c0 17-13.8 30.7-30.7 30.7zM432 
+    256c-31 0-59-12.6-79.3-32.9C372.4 196.5 384 163.6 384 128c0-26.8-6.6-52.1-18.3-74.3C384.3 40.1 407.2 32 432 32c61.9 0 112 50.1 112 112s-50.1 112-112 112z"/>
+  </svg>
+{:else if svgLabel === "progress"}
+  <svg {width} {height} viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+    <path d="M4 60 L60 60 L60 4" stroke="#000" stroke-width="4" fill="none"/>
+    <circle cx="10" cy="50" r="3" fill="#000"/>
+    <circle cx="20" cy="40" r="3" fill="#000"/>
+    <circle cx="30" cy="30" r="3" fill="#000"/>
+    <circle cx="40" cy="20" r="3" fill="#000"/>
+    <circle cx="50" cy="10" r="3" fill="#000"/>
+    <path d="M10 50 L20 40 L30 30 L40 20 L50 10" stroke="#000" stroke-width="2" fill="none"/>
+  </svg>
+
 {/if}
