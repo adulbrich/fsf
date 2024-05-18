@@ -10,6 +10,6 @@
 
 /* Scroll bar flicker fix */
 /* https://css-tricks.com/elegant-fix-jumping-scrollbar-issue/ */
-html {
+/* html {
   margin-left: calc(100vw - 100%);
-}
+} */
