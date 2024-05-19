@@ -18,8 +18,6 @@ export default function ForgotPasswordForm() {
         // perform backend send email here
         await forgotPassword(email);
         setLoading(false);
-        // router.push(`/reset-password`);
-        console.log("sending email");
     }, [email]);
    
     const goBackHome = React.useCallback(() => {

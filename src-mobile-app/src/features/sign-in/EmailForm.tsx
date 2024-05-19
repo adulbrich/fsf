@@ -16,7 +16,6 @@ export default function EmailForm() {
   const [passFocus, setPassFocus] = useState(false);
 
   const forgotPassword = React.useCallback(() => {
-    console.log("forgot password clicked")
     router.navigate(`/forgot-password`);
   }, []);
 
