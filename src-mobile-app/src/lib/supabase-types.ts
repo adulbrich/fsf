@@ -123,7 +123,6 @@ export type Database = {
       }
       Events: {
         Row: {
-          Description: any
           CreatedAt: string
           CreatedByUserID: string
           Description: string | null

@@ -12,7 +12,7 @@ import React from 'react';
 import { Text as RN_Text} from 'react-native';
 import { ArrowLeft } from '@tamagui/lucide-icons'
 
-import { supabase, useAuth } from '../../lib/supabase';
+import { supabase } from '../../lib/supabase';
 import { fetchEvents } from '../../store/eventsSlice';
 import { ScrollView as RN_ScrollView } from "react-native";
 
@@ -33,7 +33,7 @@ export default function EventDetailsSheet() {
     .filter(team => team.BelongsToEventID === activeEvent?.EventID);
 
   const dispatch = useTypedDispatch();
-  const { user, session } = useAuth();
+  //const { user, session } = useAuth();
 
   const[registrationStep, setRegistrationStep] = useState('options'); //state to manage the current registration step
 
@@ -155,10 +155,6 @@ export default function EventDetailsSheet() {
                   </XStack>
 
                 </XStack>
-
-                
-                  
-                
 
                 
                 <YStack justifyContent='space-between' borderWidth="$1">
