@@ -1,7 +1,6 @@
 import { Slot, SplashScreen } from "expo-router";
-import { AuthSessionProvider } from "../lib/supabase";
 import React, { ReactNode, useCallback, useEffect, useMemo, useState } from "react";
-import { TamaguiProvider, View, createTamagui } from 'tamagui';
+import { TamaguiProvider, View } from 'tamagui';
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { Asset, useAssets } from 'expo-asset';
 import { Animated, ImageURISource, useColorScheme } from "react-native";
@@ -14,6 +13,8 @@ import { Provider } from 'react-redux';
 import { persistor, store } from "../store/store";
 import { PersistGate } from 'redux-persist/integration/react';
 import { config as tamaguiConfig } from '../../tamagui.config';
+import { AuthSessionProvider } from "../features/system/Auth";
+import ProgressService from "../features/system/ProgressService";
 
 // Instruct SplashScreen not to hide yet, we want to do this manually
 SplashScreen.preventAutoHideAsync();
@@ -43,6 +44,9 @@ export default function RootLayout() {
               <View backgroundColor={"$background"} flex={1}>
                 <Slot />
               </View>
+
+              {/* Pedometer */}
+              <ProgressService />
             </AuthSessionProvider>
           </PersistGate>
         </Provider>

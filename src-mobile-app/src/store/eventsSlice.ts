@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSelector, createSlice } from '@reduxjs/toolkit';
-import { SBEvent } from '../lib/supabase-types';
 import { supabase } from '../lib/supabase';
 import { RootState } from './store';
+import { SBEvent } from '../lib/models';
 
 export enum SBEventStatus {
   UPCOMING,
@@ -31,11 +31,15 @@ export interface EventsState {
   activeEvent: SBEvent | null
   events: SBEvent[]
   selectedStatus: SBEventStatus
+
+  // Events that we can submit results for
+  myEvents: SBEvent[]
 }
 
 const initialState: EventsState = {
   activeEvent: null,
   events: [],
+  myEvents: [],
   selectedStatus: SBEventStatus.ONGOING
 }
 
@@ -48,6 +52,34 @@ export const fetchEvents = createAsyncThunk<SBEvent[], undefined, { rejectValue:
   return data ?? [];
 });
 
+// Fetches events that are current and that the user is participating in
+export const fetchMyEvents = createAsyncThunk<SBEvent[], undefined, { rejectValue: string }>(
+  'events/fetchMyEvents',
+  async (_, { rejectWithValue, getState }) => {
+    console.log('fetchMyEvents()');
+    // Extract user ID from system slice
+    const userID = (getState() as RootState).systemSlice.userID;
+    if (!userID) return rejectWithValue('User ID not found');
+
+    // Find relevent events
+    const { data, error } = await supabase
+      .from('Profiles')
+      .select(`
+        *,
+        Teams(
+          *,
+          Events(*)
+        )
+      `)
+      .eq('ProfileID', userID)
+      .maybeSingle();
+
+    if (error) return rejectWithValue(error.message);
+    return data?.Teams.flatMap(t => t.Events ?? []) ?? [];
+  }
+);
+
+// Create the events slice
 const eventsSlice = createSlice({
   name: 'events',
   initialState,
@@ -62,17 +94,50 @@ const eventsSlice = createSlice({
   extraReducers: builder => {
     builder.addCase(fetchEvents.fulfilled, (state, action) => {
       return { ...state, events: action.payload }
-    })
+    });
+
+    builder.addCase(fetchMyEvents.fulfilled, (state, action) => {
+      return { ...state, myEvents: action.payload }
+    });
   }
 });
 
+// Actions and reducers
 export const { setActiveEvent, setSelectedStatus } = eventsSlice.actions;
 export default eventsSlice.reducer;
 
+// Select this slice
+const selectSelf = (state: RootState) => state.eventsSlice;
+
+export const selectActiveEvent = createSelector(
+  selectSelf,
+  (state) => state.activeEvent
+);
+
+// Selectors
 export const selectFilteredEvents = createSelector(
-  (state: RootState) => state.eventsSlice.events,
-  (state: RootState) => state.eventsSlice.selectedStatus,
-  (events, status) => {
-    return filterSBEventsByStatus(events, status);
+  selectSelf,
+  (state) => {
+    return filterSBEventsByStatus(state.events, state.selectedStatus);
   }
+);
+
+export const selectEvents = createSelector(
+  selectSelf,
+  (state) => state.events
+);
+
+// Select the current user profile
+export const selectMyEvents = createSelector(
+  selectSelf,
+  (state) => state.myEvents
+);
+
+// Select the current user profile
+export const selectMyOngoingEvents = createSelector(
+  selectSelf,
+  (state) => state.myEvents.filter(
+    e => new Date(e.StartsAt).getTime() < new Date().getTime() &&
+         new Date(e.EndsAt).getTime()   > new Date().getTime()
+  )
 );

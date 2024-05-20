@@ -5,22 +5,19 @@ import starlight from '@astrojs/starlight';
 export default defineConfig({
 	integrations: [
 		starlight({
-			title: 'My Docs',
+			title: 'DamFit Documentation',
 			social: {
-				github: 'https://github.com/withastro/starlight',
+				github: 'https://github.com/OregonStateUniversity/osu-fsf',
 			},
 			sidebar: [
-				{
-					label: 'Guides',
-					items: [
-						// Each item here is one entry in the navigation menu.
-						{ label: 'Example Guide', link: '/guides/example/' },
-					],
-				},
 				{
 					label: 'Reference',
 					autogenerate: { directory: 'reference' },
 				},
+				{
+					label: 'Architecture',
+					autogenerate: { directory: 'arch' },
+				}
 			],
 		}),
 	],

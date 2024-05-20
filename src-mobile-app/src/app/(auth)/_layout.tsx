@@ -1,5 +1,5 @@
-import { useAuth } from "../../lib/supabase";
 import { Redirect, Slot } from "expo-router";
+import { useAuth } from "../../features/system/Auth";
 
 export default function AuthLayout() {
   const { session, isReady } = useAuth();
