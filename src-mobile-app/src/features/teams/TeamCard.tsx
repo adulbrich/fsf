@@ -37,34 +37,41 @@ export default function TeamCard({ team }: Props) {
 					width="100%" 
 					elevation={"$1"} 
 					backgroundColor="white" 
-					borderWidth="$1" 
-					borderColor="red"
 					borderTopLeftRadius={"$3"}
 					borderTopRightRadius={"$3"}
+					
 				>
 					<XStack
+						width="50%"
+						position="absolute"
+						paddingVertical={"$2"}
+						paddingHorizontal={"$3"}
+						backgroundColor={"#EEEEEEEE"}
+						borderBottomWidth="$0.5"
+						borderTopLeftRadius={"$3"}
+						borderWidth="$1"
+						borderColor="red"
+					>
+						<H3 color="black">{TeamName({ team })}</H3>
+					</XStack>
+
+					<XStack
+						width="50%"
+						alignSelf="flex-end"
 						position="absolute"
 						justifyContent="center"
 						paddingVertical={"$2"}
 						paddingHorizontal={"$3"}
-						//bottom={0}
-						left={0}
-						right={0}
 						backgroundColor={"#EEEEEEEE"}
-						borderBottomWidth="$1"
-						
-						//box radius
-						borderTopLeftRadius={"$2"}
-						borderTopRightRadius={"$2"}
+						borderBottomWidth="$0.5"
+						borderWidth="$1"
 						borderColor="blue"
-						
-						
 					>
-						<H3 color="black">{TeamName({ team })}</H3>
 
-						<Text color="black" marginTop={"$2"} fontSize={"$4"}>Sample Text</Text>
-						
+
+					<Text color="black" marginTop={"$2"} fontSize={"$4"}>Sample Text</Text>
 					</XStack>
+
 				</Card>
 			</YStack>
     </AnimatePresence>

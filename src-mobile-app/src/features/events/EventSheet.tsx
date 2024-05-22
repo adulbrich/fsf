@@ -133,8 +133,8 @@ export default function EventDetailsSheet() {
               </>
             ) : (
               <YStack width="100%">
-                <XStack width="100%" borderWidth="$1" borderColor="blue" alignItems='center' justifyContent="space-between">
-                  <XStack borderWidth="$1" borderColor="yellow" alignItems='center' paddingRight="20%">
+                <XStack width="100%" alignItems='center' paddingBottom="$3">
+                  <XStack alignItems='center' paddingRight="10%">
 
                     <Button 
                       icon={<ArrowLeft size="$2"/>} 
@@ -142,22 +142,20 @@ export default function EventDetailsSheet() {
                       marginLeft="$2"
                       marginRight="$2"
                       backgroundColor={"$backgroundTransparent"}
-                      borderWidth="$1"
-                      borderColor="orange"
                       onPress={handleBack}
                     >
                       
                     </Button>
                   </XStack>
 
-                  <XStack borderWidth="$1" paddingRight="60%">
-                      <Text fontSize="$4">Available Teams</Text>
+                  <XStack paddingLeft="$6" >
+                      <Text fontSize="$7" >Available Teams</Text>
                   </XStack>
 
                 </XStack>
 
                 
-                <YStack justifyContent='space-between' borderWidth="$1">
+                <YStack justifyContent='space-between'>
                   <RN_ScrollView>
                     {eventTeams.map(team => <TeamCard key={team.TeamID} team={team} /> )}
                   </RN_ScrollView>
