@@ -24,6 +24,7 @@
     "@tamagui/config": "^1.91.4",
     "@tamagui/font-inter": "^1.91.4",
     "@tamagui/lucide-icons": "^1.91.4",
+    "@tamagui/metro-plugin": "^1.91.4",
     "@tamagui/toast": "^1.91.4",
     "add": "^2.0.6",
     "babel-plugin-transform-inline-environment-variables": "^0.4.4",
