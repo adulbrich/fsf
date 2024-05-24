@@ -47,6 +47,7 @@
       await updateEventDetails();
       loading = false;
     };
+    goto('/events');
   };
 
   const updateEventDetails = async () => {
