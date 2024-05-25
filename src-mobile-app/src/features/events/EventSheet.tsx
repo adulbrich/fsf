@@ -61,7 +61,6 @@ export default function EventDetailsSheet() {
     });
   }
 
-
   const scrollHandling = () => {
     if(!dragEnabled){
       return true;
@@ -69,7 +68,6 @@ export default function EventDetailsSheet() {
     return false;
   }
 
-  
   const handleBack = () => {
     setShowJoinOptions(true); // Close the modal by setting activeEvent to null
     setDragEnabled(true);
@@ -78,9 +76,8 @@ export default function EventDetailsSheet() {
   
   //put join event logic here:
   //
-  console.log('Joined Event');
+  //console.log('Joined Event');
   
-
 
   return (
     <Sheet
@@ -155,7 +152,9 @@ export default function EventDetailsSheet() {
                 </XStack>
 
                 
-                <YStack justifyContent='space-between'>
+                <YStack justifyContent='space-between'
+
+                >
                   <RN_ScrollView>
                     {eventTeams.map(team => <TeamCard key={team.TeamID} team={team} /> )}
                   </RN_ScrollView>

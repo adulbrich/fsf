@@ -8,7 +8,7 @@ import { useEffect, useState } from "react";
 export default function Profile() {
   const myProfileStats = useTypedSelector(selectMyProfileStats);
   const myProfile = useTypedSelector(selectMyProfile);
-
+  
   const [header, setHeader] = useState('Good evening.');
 
   useEffect(() => {
