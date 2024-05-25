@@ -11,6 +11,8 @@ export interface Event {
   Description: string;
   Status?: "Upcoming" | "Ongoing" | "Past";
   Exists?: boolean;
+  BannerURL?: string;
+  BannerBuffer?: number[];
 }
 // Blue print for the relevant events object
 export interface RelevantEvents {

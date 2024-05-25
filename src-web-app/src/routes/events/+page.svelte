@@ -24,7 +24,16 @@
     });
     // For each event, determine the status of the event, trim the description, and set the Exists property to true
     trimAllEventDescriptions();
+    events.forEach(event => {
+      if (event.BannerBuffer) {
+        const uint8Array = new Uint8Array(event.BannerBuffer);
+        const blob = new Blob([uint8Array], { type: 'image/jpeg' }); // Adjust type if necessary
+        event.BannerURL = URL.createObjectURL(blob);
+        console.log("Event with banner url", event.BannerURL);
+      }
+    });
     loading = false; // Set loading to false
+    console.log("Events with url hopefully", events);
   });
 
   // This function trims the description of an event to 140 characters
@@ -108,6 +117,7 @@
             EndsAt={relevantEvents.ongoingEvent?.EndsAt}
             Description={relevantEvents?.ongoingEvent?.Description}
             eventID={relevantEvents.ongoingEvent?.EventID}
+            bannerURL={relevantEvents.ongoingEvent?.BannerURL}
           />
         </div>
 
@@ -129,6 +139,7 @@
               EndsAt={relevantEvents.pastEvents[0]?.EndsAt}
               Description={relevantEvents.pastEvents[0]?.Description}
               eventID={relevantEvents.pastEvents[0]?.EventID}
+              bannerURL={relevantEvents.pastEvents[0]?.BannerURL}
             />
           </div>
           {#if relevantEvents.pastEvents[1] !== null}
@@ -140,6 +151,7 @@
               EndsAt={relevantEvents.pastEvents[1]?.EndsAt}
               Description={relevantEvents.pastEvents[1]?.Description}
               eventID={relevantEvents.pastEvents[1]?.EventID}
+              bannerURL={relevantEvents.pastEvents[1]?.BannerURL}
             />
           {/if}
         </div>
@@ -161,6 +173,7 @@
           EndsAt={relevantEvents.upcomingEvent?.EndsAt}
           Description={relevantEvents?.upcomingEvent?.Description}
           eventID={relevantEvents.upcomingEvent?.EventID}
+          bannerURL={relevantEvents.upcomingEvent?.BannerURL}
         />
       </div>
     </div>

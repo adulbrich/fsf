@@ -2,33 +2,33 @@
 <!-- This is the card component that will be used to display the events in the events page -->
 
 <script lang="ts">
+  import BannerLayout from "../banner-layout.svelte";
+
   // Props
   export let Name: string = "";
   export let StartsAt: string = "";
   export let EndsAt: string = "";
   export let Description: string = "";
   export let EventID: string = ""; 
-
+  export let BannerURL: string = "";
   export let index = 1;
 </script>
 <!-- Clicking on this event card takes you to a detailed event view -->
-<a href="/events/id/{EventID}/Overview" class="inline-flex w-[80%] pt-1 h-[100%]">
-  <div class="custom-border drop-shadow-xl flex flex-column grow-0" class:mr-[10%]={index % 2 != 0} class:ml-[10%]={index % 2 == 0}>
-    <!-- Event Banner  -->
-    <div class="w-[40%] h-full">
-      <img class="h-[100%] w-[100%]" style="border-top-left-radius: 10px; border-bottom-left-radius: 10px;" src="../../aerial_2.jpg" alt="Scenery" />
-    </div>
+<!-- Card for the events in the category page.  clicking on a card takes you to a detailed event view -->
+<a href="/events/id/{EventID}/Overview" class="flex flex-row drop-shadow-xl w-full">
+  <!-- Image for card -->
+  <div class = "w-[40%] h-full flex-shrink-0">
+    <img class="aspect-w-9 aspect-h-5 h-[100%] w-[100%]" loading="lazy" style = "border-top-left-radius: 10px; border-bottom-left-radius: 10px;" src="{BannerURL}" alt="{BannerURL}">
+  </div>
+  <!-- Text section for card -->
+  <div class="flex flex-col h-full w-full card-border flex-grow-0 overflow-hidden">
+    <p class = "pt-1 px-2 font-semibold">{Name}</p>
+    <p class = "pt-1 px-2" style="font-size: 12px;">{StartsAt} to {EndsAt}</p>
+    <p class="pt-2 px-2 overflow-hidden" style="font-size: 12px;"> {Description}</p>
+  </div>
 
-    <!-- Text section for card -->
-    <div class="flex flex-col w-2/3 card-border overflow-hidden h-full grow-0 shrink-0">
-      <p class="pt-1 px-2 font-semibold">{Name}</p>
-      <p class="pt-1 px-2" style="font-size: 12px;">
-        From {StartsAt} to {EndsAt}
-      </p>
-      <p class="pt-2 px-2 overflow-hidden" style="font-size: 12px;">
-        {Description}
-      </p>
-    </div>
+  <div class="flex flex-col h-full w-[100%] card-border flex-grow-0 overflow-hidden">
+    <p class = "pt-1 px-2 font-semibold">Empty</p>
   </div>
 </a>
 
