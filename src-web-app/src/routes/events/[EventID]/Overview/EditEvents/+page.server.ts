@@ -37,9 +37,9 @@ export const actions = {
       const endDate = formData.get('endDate') as string;
       const eventDescription = formData.get('eventDescription') as string;
       const eventBanner = formData.get('eventBanner') as string;
-  
+
       const session = await getSession();
-  
+
       const { error } = await supabase.from('event').upsert({
         id: session?.user.id,
         event_name: eventName,
@@ -50,7 +50,7 @@ export const actions = {
         event_banner: eventBanner,
         updated_at: new Date(),
       });
-  
+
       if (error) {
         return fail(500, {
           eventName,
@@ -61,7 +61,7 @@ export const actions = {
           eventBanner,
         });
       }
-  
+
       return {
         eventName,
         eventType,
