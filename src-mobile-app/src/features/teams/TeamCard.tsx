@@ -15,15 +15,14 @@ import { useSelector } from 'react-redux';
 //Purpose: defines a card for a team. The card contains the team name, number of members, and a "Join" button
 type Props = {
 	team: Tables<'Teams'>
-	profile: Tables<'Profiles'>
 }
 
-export default function TeamCard({ team, profile }: Props) {
+export default function TeamCard({ team }: Props) {
   const theme = useTheme();
   const dispatch = useDispatch();
 
 	// grab current userID
-	// const myProfile = useSelector((state: RootState) => selectMyProfile(state));
+	const myProfile = useSelector((state: RootState) => selectMyProfile(state));
 
 	// handle a user joining a team
 	const handleJoinTeam = async () => {
@@ -31,25 +30,28 @@ export default function TeamCard({ team, profile }: Props) {
 			dispatch(setActiveEvent(team));
 			
 
-			if(!profile) {
+			if(!myProfile) {
 				console.error('No user profile found');
 				return;
 			}
+			
+			// fetch userID
+			const userID = myProfile.ProfileID;
+			
+			// insert data in TeamsProfiles
+			const { error } = await supabase
+        .from('TeamsProfiles') // The join table name
+        .insert([
+          { TeamID: team.TeamID, ProfileID: userID }
+      	]);
 
-			const userID = profile.ProfileID;
-			console.log('User ID:', userID);
-
-
-			// Insert the user into the team (replace 'team_members' with your actual join table name)
-			const { data, error } = await supabase
-				.from('Profiles') // The join table name
-				.update({ BelongsToTeamID: team.TeamID })
-				.eq('ProfileID', userID);
+			console.log('User ID:', userID); 			 // print user ID
+			console.log('Team ID:', team.TeamID);  // print team ID
 
 			if (error) {
 				throw error;
 			}
-			console.log('User joined the team successfully:', data);
+			console.log('User joined the team successfully:');
 
 		} catch (error) {
 			console.error('Error joining the team:');
