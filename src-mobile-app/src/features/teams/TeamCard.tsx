@@ -8,36 +8,43 @@ import React from "react";
 import { router } from "expo-router";
 import { AlignCenter } from "@tamagui/lucide-icons";
 import { supabase } from "../../lib/supabase"; // Import your Supabase client
-import { createAsyncThunk, createSelector, createSlice } from '@reduxjs/toolkit';
-import { RootState } from './store';
+import { selectMyProfile } from "../../store/profilesSlice";
+import { RootState } from '../../store/store';
+import { useSelector } from 'react-redux';
 
 //Purpose: defines a card for a team. The card contains the team name, number of members, and a "Join" button
 type Props = {
 	team: Tables<'Teams'>
+	profile: Tables<'Profiles'>
 }
 
-export default function TeamCard({ team }: Props) {
+export default function TeamCard({ team, profile }: Props) {
   const theme = useTheme();
   const dispatch = useDispatch();
 
 	// grab current userID
-
+	// const myProfile = useSelector((state: RootState) => selectMyProfile(state));
 
 	// handle a user joining a team
 	const handleJoinTeam = async () => {
 		try {
 			dispatch(setActiveEvent(team));
 			
-			const userID = (getState() as RootState).systemSlice.userID;
 
-			const userId = "your_user_id"; // replace with some cool shit later stupid fucker
+			if(!profile) {
+				console.error('No user profile found');
+				return;
+			}
+
+			const userID = profile.ProfileID;
+			console.log('User ID:', userID);
+
 
 			// Insert the user into the team (replace 'team_members' with your actual join table name)
 			const { data, error } = await supabase
-				.from('team_members') // The join table name
-				.insert([
-					{ team_id: team.TeamID, user_id: userId }
-				]);
+				.from('Profiles') // The join table name
+				.update({ BelongsToTeamID: team.TeamID })
+				.eq('ProfileID', userID);
 
 			if (error) {
 				throw error;
