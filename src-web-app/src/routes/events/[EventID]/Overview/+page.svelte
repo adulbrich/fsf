@@ -2,6 +2,13 @@
   import Layout from "../../../banner-layout.svelte";
   export let data;
   import ph from "../../../../../static/calendar_icon.png";
+
+  import { goto } from '$app/navigation';
+
+  function goToEditEventPage() {
+    goto(`/events/${data.eventDetails.EventID}/Overview/EditEvents`, { replace: false });
+  }
+  
 </script>
 
 <svelte:head>
@@ -28,7 +35,15 @@
   </style>
 </svelte:head>
 
-<Layout></Layout>
+
+
+
+
+
+
+<Layout>  
+
+</Layout>
 <!-- Container for everything left of the black navbar -->
 <div class="container ml-[16%] w-auto mt-6">
   <!-- container for description -->
@@ -148,5 +163,25 @@
     </div>
 
   </div>
+
+  
+  <div>
+      <button class="btn-primary bg-beaver-orange hover:bg-dark-orange" on:click={goToEditEventPage}>Edit Event</button>
+  </div>
   
 </div>
+
+<style>  
+
+  .btn-primary {
+    margin-top: 20px;
+    margin-left: 26px;
+    padding: 10px 20px;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+
+</style>

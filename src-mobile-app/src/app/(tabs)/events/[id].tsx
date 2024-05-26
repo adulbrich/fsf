@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useAuth } from "../../../features/system/Auth";
 import { useAssets } from "expo-asset";
 import { useLocalSearchParams, Stack } from "expo-router";
@@ -8,6 +8,7 @@ import { SBEvent, SBTeamStats } from "../../../lib/supabase-types";
 import { useTypedDispatch, useTypedSelector } from "../../../store/store";
 import { Text as RN_Text } from "react-native";
 import { setActiveEvent } from "../../../store/eventsSlice";
+import { supabase } from "../../../lib/supabase";
 
 export default function EventDetails() {
   const theme = useTheme();
@@ -26,9 +27,15 @@ export default function EventDetails() {
   console.log(teamStats);
 
   const [assets] = useAssets([
+
+    require('../../../../assets/images/preview_square.jpg'),
     require('../../../../assets/images/preview_wide.jpg'),
-    require('../../../../assets/images/preview_square.jpg')
+    // Event banner (if exists) in the public event assets bucket
+    supabase.storage.from('EventAssets').getPublicUrl(`Banners/${slugEventID}`).data.publicUrl
+
   ]);
+
+  const [useFallback, setUseFallback] = useState(false);
 
   const registerCallback = React.useCallback(() => {
     dispatch(setActiveEvent(event));
@@ -56,7 +63,12 @@ export default function EventDetails() {
             width={'100%'}
             height={'100%'}
             resizeMode="stretch"
-            source={{ uri: assets[1].uri, width: assets[1].width!, height: assets[1].height! }}
+            source={{
+              uri: useFallback ? assets[1].uri : assets[2].uri,
+              width: useFallback ? assets[1].width! : assets[2].width!,
+              height: useFallback ? assets[1].height! : assets[2].height!
+            }}
+            onError={() => setUseFallback(true)}
             />
         </YStack>
 
