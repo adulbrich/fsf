@@ -32,10 +32,10 @@ export default function Home() {
   // Sort the new array
   newAllTeamStats_sorted.sort((a, b) => b.TotalScore - a.TotalScore);
 
-  const huh = myTeamStats[0].TeamID
+  const logged_user_team = myTeamStats[0].TeamID
   let index = 0;
   for(let i = 0; i < newAllTeamStats_sorted.length; i++) {
-    if(newAllTeamStats_sorted[i].TeamID === huh) {
+    if(newAllTeamStats_sorted[i].TeamID === logged_user_team) {
       index = i + 1;
       break;
     }
@@ -57,6 +57,9 @@ export default function Home() {
     require('../../../assets/images/preview_wide.jpg')
   ]);
 
+  //console.log('vm', vm[0]);
+  //console.log('vm', vm[1]);
+
   return (
     <SafeAreaView>
       <ScrollView height={'100%'} padding="$3">
@@ -69,7 +72,7 @@ export default function Home() {
           {/* Current Event */}
           {vm.map(ts => (
 
-             <YStack alignSelf="flex-start" marginTop="$2" width={"90%"} >
+             <YStack alignSelf="flex-start" marginTop="$2" width={"93%"} >
 
                 <H3 alignSelf="flex-start" marginBottom="$2" style={{textAlign: 'center'}}>Current Event</H3>
                 <XStack borderRadius={15} backgroundColor={theme.background.get()} width={"100%"} shadowColor="black" shadowRadius={1} shadowOffset={{width: 1, height: 1}} shadowOpacity={0.5} >
@@ -87,19 +90,26 @@ export default function Home() {
                </XStack>
 
                 {/* Team and Individual Scores */}
-                <YStack marginTop="$5">
-                  <XStack>
-                    <H4>Your Score    </H4>
-                    <H4 color={'#D73F09'}>{myProfileStats?.TotalScore}</H4>
-                  </XStack>
-                  <XStack marginTop="$3">
-                    <H4>Team Score    </H4>
-                    <H4 color={'#D73F09'}>{ts.TotalScore}</H4>
-                  </XStack>
-                </YStack>
+                <XStack marginTop="$5" width={"100%"} justifyContent="space-between">
+
+                  <YStack alignItems="center" margin="$3">
+                    <H4>Your Score</H4>
+                    <H3 fontSize="$8" color={'#D73F09'} marginTop="$3">{myProfileStats.TotalScore}</H3>
+                  </YStack>
+
+                  {/* Vertical Line */}
+                  <XStack style={{borderLeftWidth: 1, borderColor: 'black', height: 100}} />
+
+
+                  <YStack alignItems="center" margin="$3">
+                    <H4>Team Score</H4>
+                    <H3 fontSize="$8" color={'#D73F09'} marginTop="$3">{ts.TotalScore}</H3>
+                  </YStack>
+
+                </XStack>
 
                 {/* Leaderboard show top 3 teams and their scores and placement*/}
-                <H3 margin="$5"  alignSelf='center' style={{textAlign: 'center'}}>Leaderboard</H3>
+                <H3 margin="$4"  alignSelf='center' style={{textAlign: 'center'}}>Leaderboard</H3>
 
                 <YStack width={"95%"}>
                   {newAllTeamStats_sorted === 0 ? <Text>No data yet</Text> : null}
@@ -107,22 +117,22 @@ export default function Home() {
                   {newAllTeamStats_sorted.slice(0, 3).map(ts => (
                     
                     
-                    <XStack marginBottom="$5" width={"100%"} justifyContent="space-between">
+                    <XStack marginBottom="$4" width={"100%"} justifyContent="space-between">
                       {/* Idealy the teams banner should be in place here but placeholder for now... */}
                       <Image
-                        width={20}
-                        height={20}
+                        width={25}
+                        height={25}
                         borderRadius={50}
                         alignSelf="center"
                         marginRight="$2"
                         source={assets ? assets[0] : require('../../../assets/images/preview_wide.jpg')}>
                       </Image>
                       {/* The current place of the team */}
-                      <Text alignSelf="center">{newAllTeamStats_sorted.indexOf(ts) + 1} </Text>
+                      <Text fontWeight={800} alignSelf="center">{newAllTeamStats_sorted.indexOf(ts) + 1} </Text>
                       <XStack width={"100%"}>
-                        <XStack width={"100%"} justifyContent="space-between">
-                         <Text>{ts.Name}</Text>
-                         <Text>{ts.TotalScore}</Text>
+                        <XStack marginLeft="$1" width={"100%"} justifyContent="space-between">
+                         <Text fontWeight={600} alignSelf="center">{ts.Name}</Text>
+                         <Text fontSize={16} fontWeight={800}>{ts.TotalScore}</Text>
                         </XStack>
                      </XStack>
                     </XStack>
@@ -130,39 +140,41 @@ export default function Home() {
 
                   ))}
 
-                  
-                  
-                  {/* Show the Current Place of the users team and their score */}
-                  <XStack padding="$2" borderRadius={15} backgroundColor={"#FBCEB1"} marginBottom="$3" width={"100%"}>
+                </YStack>
+                    {/* Show the Current Place of the users team and their score */}
+                   <XStack borderColor={'#D73F09'}
+                     borderWidth={1} 
+                     alignItems="center" 
+                     alignSelf="center" 
+                     width={"110%"}
+                     flex={1}
+                     borderRadius={10}
+                      backgroundColor={"#FBCEB1"} 
+                      margin="$2"
+                      padding="$2" justifyContent="space-around" style={{position: 'relative', left: 10, right: 0}} >
                      {/* Idealy the teams banner should be in place here but placeholder for now... */}
-                     <Image
-                        width={20}
-                        height={20}
-                        borderRadius={50}
-                        alignSelf="center"
-                        marginRight="$2"
-                        source={assets ? assets[0] : require('../../../assets/images/preview_wide.jpg')}>
-                      </Image>
-                      {/* The place of the team of the currently logged in user*/}
-                      <Text alignSelf="center">{index}</Text>
-                      <XStack height={"100%"} borderRadius={15} backgroundColor={"#FBCEB1"} marginLeft="$1.5" width={"100%"}>
-                        <XStack padding="$2" width={"100%"} justifyContent="space-between">
-                         <Text>{myTeamStats[0]?.TeamName}</Text>
-                         <Text color={'#D73F09'}>{myTeamStats[0]?.TotalScore}</Text>
-                        </XStack>
+                     <XStack width={"50%"} justifyContent="space-around" >
+                      <Image
+                          width={25}
+                          height={25}
+                          borderRadius={50}
+                          alignSelf="center"
+                          source={assets ? assets[0] : require('../../../assets/images/preview_wide.jpg')}>
+                        </Image>
+                        {/* The current place of the team  of logged in user*/}
+                        <Text fontWeight={800} alignSelf="center">{index}</Text>
+                        <Text alignSelf="center">{myTeamStats[0].TeamName}</Text>
+                     </XStack>
+                        <Text fontWeight={800} marginLeft="$12" alignSelf="center">{myTeamStats[0].TotalScore}</Text>
                      </XStack>
 
 
-
-                  </XStack>
-
-                      
-
-                </YStack>
-
-
             </YStack>
+
+                    
+
           ))}
+
 
         </YStack>
       </ScrollView>
