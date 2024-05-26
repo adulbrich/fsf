@@ -7,10 +7,20 @@ export const load = async ({ locals: { supabase, getSession } }: { locals: { sup
     throw redirect(303, "/events");
   }
 
-  const { data: event } = await supabase.from("event").select(`event_name, event_type, event_start_date, event_end_date, event_description, event_banner`).eq("id", session.user.id).single();
+    const { data: event, error } = await supabase
+     .from('event')
+     .select(`event_name, event_type, event_start_date, event_end_date, event_description, event_banner`)
+     .eq('id', session.user.id)
+     .single()
 
-  return { session, event };
-};
+    if (error) {
+        console.error('Failed to fetch event:', error);
+    } else {
+        console.log('Event data successfully fetched');
+    }
+
+    return { session, event }
+}
 
 export const actions = {
   createEvent: async (event) => {
