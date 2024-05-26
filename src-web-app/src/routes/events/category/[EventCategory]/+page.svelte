@@ -122,7 +122,7 @@
     <!-- Else, display the events -->
     <div class="grid grid-cols-2 grid-rows-4 gap-1 container ml-[17%] w-auto h-[75%] mt-3">
       {#if relevantEvents.length > 0}
-        {#each loadedEvents as event, index (event.Name)}
+        {#each loadedEvents as event, index (event.EventID)}
           {#if index <= 7}
             <div class="flex justify-center items-center">
               <Card {...event} {index} />
