@@ -101,14 +101,6 @@ export function AuthSessionProvider({ children }: { children: React.ReactNode })
             return;
           }
 
-          // // Update local context state
-          // setState({
-          //   ...state,
-          //   session: data,
-          //   user: data?.user ?? null,
-          //   isReady: true
-          // })
-
         }
       }}
     >
