@@ -6,7 +6,7 @@
   import { goto } from '$app/navigation';
 
   function goToEditEventPage() {
-    goto(`/events/${data.eventDetails.EventID}/Overview/EditEvents`, { replace: false });
+    goto(`/events/id/${data.eventDetails.EventID}/Overview/EditEvents`, { replace: false });
   }
   
 </script>
