@@ -1,15 +1,20 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { SafeAreaView, ScrollView } from "react-native";
-import { H3, H4, H5, XStack, YStack, Button, Input, Image, Text } from "tamagui";
+import { H3, H4, H5, XStack, YStack, Button, Input, Text } from "tamagui";
 import { useTypedSelector } from "../../store/store";
 import { selectMyProfileStats } from "../../store/profileStatsSlice";
 import { selectMyProfile } from "../../store/profilesSlice";
+import { createClient } from '@supabase/supabase-js';
+
+// Initialize Supabase client
+const supabaseUrl = 'https://your-supabase-url.supabase.co';
+const supabaseKey = 'your-supabase-anon-key';
+const supabase = createClient(supabaseUrl, supabaseKey);
 
 const Profile = () => {
   const myProfileStats = useTypedSelector(selectMyProfileStats);
   const myProfile = useTypedSelector(selectMyProfile);
   const [header, setHeader] = useState('Good evening.');
-  const [notificationsEnabled, setNotificationsEnabled] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [username, setUsername] = useState(myProfile?.Name?.split(' ')[0] || '');
 
@@ -20,10 +25,16 @@ const Profile = () => {
     }
   }, [myProfile]);
 
-  const localImagePath = '../../../assets/images/image.jpg';
+  const changeName = useCallback(() => {
+    if (!myProfile) return;
+
+    supabase.from('Profiles')
+      .update({ Name: 'John Doe' }) // Adjust as necessary to use the `username` state variable
+      .eq('ProfileID', myProfile?.ProfileID);
+  }, [myProfile]);
 
   const onSave = (username) => {
-    // Here you would handle the saving of the profile data
+    changeName(); // Call the changeName function here
     console.log(username); // Replace with actual save logic
     setHeader(`Good evening, ${username.split(' ')[0]}.`);
     setIsEditing(false); // Close the edit mode after saving
@@ -50,17 +61,8 @@ const Profile = () => {
           </Text>
           {!isEditing ? (
             <YStack alignItems="center" space="$4">
-              <Image 
-                source={myProfile?.profilePictureUrl ? { uri: myProfile.profilePictureUrl } : require(localImagePath)} 
-                width={150} 
-                height={150} 
-                borderRadius={75} 
-              />
               <Text fontSize="$6" fontWeight="bold">{username}</Text>
               <Button onPress={() => setIsEditing(true)}>Edit Profile Information</Button>
-              <Button onPress={() => setNotificationsEnabled(!notificationsEnabled)}>
-                {notificationsEnabled ? 'Notifications (ON)' : 'Notifications (OFF)'}
-              </Button>
             </YStack>
           ) : (
             <YStack space="$4" paddingHorizontal="$6">
@@ -76,5 +78,3 @@ const Profile = () => {
 };
 
 export default Profile;
-
-
