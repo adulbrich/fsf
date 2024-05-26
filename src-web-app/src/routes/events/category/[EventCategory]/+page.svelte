@@ -124,8 +124,8 @@
       {#if relevantEvents.length > 0}
         {#each loadedEvents as event, index (event.Name)}
           {#if index <= 7}
-            <div class="flex justify-center items-center flex-shrink-0 min-w-[500px] max-w-[500px]">
-              <CatCard {...event} {index} />
+            <div class="flex justify-center items-center">
+              <Card {...event} {index} />
             </div>
           {/if}
         {/each}
@@ -139,10 +139,7 @@
         class:btn-disabled={pageNum == 1}
         class:bg-unavailable={pageNum == 1}
         class="class: join-item btn bg-light-black text-beaver-orange text-lg hover:bg-light-blackSelected"
-        on:click={loadPreviousEvents}
-      >
-        «
-      </button>
+        on:click={loadPreviousEvents}>«</button>
       <button class="join-item bg-light-black hover:bg-light-black btn text-white">Page {pageNum}</button>
       <button class:btn-disabled={!pagesLeft} class:unavailable={!pagesLeft} class="join-item btn bg-light-black text-beaver-orange text-lg hover:bg-light-blackSelected" on:click={loadNextEvents}>
         »
@@ -150,6 +147,7 @@
     </div>
   {/if}
 </Layout>
+
 
 <style>
 </style>
