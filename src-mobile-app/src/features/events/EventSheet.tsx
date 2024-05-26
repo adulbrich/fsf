@@ -115,14 +115,13 @@ export default function EventDetailsSheet() {
                   </Button>
 
                   <Button
-                    /* Create Team Button */
                     bg={'#eb7434'} 
                     color={'white'} 
-                    /* onPress={createTeamCallback} */
                     height="$13"
                     width="$12"
                     marginLeft="$3"
                     fontSize="$8"
+                    onPress={}
                   >
                     Create
                   </Button>

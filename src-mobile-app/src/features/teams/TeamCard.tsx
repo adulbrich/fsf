@@ -21,50 +21,50 @@ export default function TeamCard({ team }: Props) {
   const theme = useTheme();
   const dispatch = useDispatch();
 
-	// grab current userID
-	const myProfile = useSelector((state: RootState) => selectMyProfile(state));
-
-	// handle a user joining a team
-	const handleJoinTeam = async () => {
-		try {
-			dispatch(setActiveEvent(team));
-			
-
-			if(!myProfile) {
-				console.error('No user profile found');
-				return;
-			}
-			
-			// fetch userID
-			const userID = myProfile.ProfileID;
-			
-			// insert data in TeamsProfiles
-			const { error } = await supabase
-        .from('TeamsProfiles') // The join table name
-        .insert([
-          { TeamID: team.TeamID, ProfileID: userID }
-      	]);
-
-			console.log('User ID:', userID); 			 // print user ID
-			console.log('Team ID:', team.TeamID);  // print team ID
-
-			if (error) {
-				throw error;
-			}
-			console.log('User joined the team successfully:');
-
-		} catch (error) {
-			console.error('Error joining the team:');
-		}
-	};
-	
-
-  // fetch team name
+	// fetch team name
   function TeamName({ team }: Props) {
 		const teamname = team && team.Name;
 		console.log(teamname);
 		return teamname;
   }
+	// grab current userID (user that's currently logged into the app)
+	const myProfile = useSelector((state: RootState) => selectMyProfile(state));
+
+	// function to handle a user joining a team
+	const handleJoinTeam = async () => {
+		try {
+			dispatch(setActiveEvent(team));
+			
+			// check if profile even exists (for some weird edge case)
+			if(!myProfile) {
+				console.error('No user profile found');
+				return;
+			}
+			// fetch the current user's userID using myProfile (outside of the async)
+			const userID = myProfile.ProfileID;
+			// print the current user's ProfileID 
+			console.log('Profile ID:', userID); 			 
+			// print the current team's TeamID
+			console.log('Team ID:', team.TeamID);  
+			
+			// insert data in TeamsProfiles (ProfileID and TeamID)
+			const { error, status } = await supabase
+				.from('TeamsProfiles') // The join table name
+				.insert([
+					{ TeamID: team.TeamID, ProfileID: userID }
+				]);
+
+				if(error && status == 409){
+					console.log('You\'re already registered for this team!');
+					return;
+				}
+				console.log('User joined the team successfully:');
+				return;
+			} catch (error) {
+				console.log('Error joining the team:');
+			}
+	};
+	
 
   return(
     <AnimatePresence exitBeforeEnter>
