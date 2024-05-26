@@ -41,7 +41,7 @@ const supabase: Handle = async function ({ event, resolve }) {
 // Auth checker for all pages but root '/'
 const authGuard: Handle = async function ({ event, resolve }) {
   // Protect requests to all routes that aren't '/' or start with /auth
-  if (event.url.pathname !== '/' && !event.url.pathname.startsWith('/auth')) {
+  if (event.url.pathname !== '/' && !event.url.pathname.startsWith('/auth') && !event.url.pathname.startsWith('/about')) {
     const session = await event.locals.getSession();
 
     // Is the user not logged in?

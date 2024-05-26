@@ -8,7 +8,6 @@
     export let BannerURL: string = '';
     export let index = 1;
 </script>
-    
 
 <!-- Card for the events in the category page.  clicking on a card takes you to a detailed event view -->
 <a href="/events/id/{EventID}/Overview" class="w-full">
@@ -27,7 +26,38 @@
   </div>
 </a>
 
+
+
+
+
+
+
+
+
+
+
 <style>
+  .event-card-container {
+    display: flex;
+    flex-direction: row;
+    width: 90%;
+    height: auto; /* Auto-adjust the card height based on content */
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  }
+
+  .image-container {
+    flex-basis: 40%;
+    background-color: #EEE; /* Placeholder in case the image fails to load */
+  }
+
+  .event-image {
+    display: block;
+    width: 100%; /* Image will fill the container */
+    height: auto; /* Height will be adjusted automatically to maintain the aspect ratio */
+    object-fit: cover; /* This will ensure that the image covers the area without distortion */
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+  }
     .card-border {
         box-sizing: border-box;
         background: #FFFFFF;

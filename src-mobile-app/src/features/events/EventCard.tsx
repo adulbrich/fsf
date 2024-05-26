@@ -2,8 +2,9 @@ import { AnimatePresence, Card, H3, Image, Text, XStack, YStack } from "tamagui"
 import { Tables } from "../../lib/supabase-types";
 import { useAssets } from "expo-asset";
 import { LinearGradient } from 'tamagui/linear-gradient'
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { router } from "expo-router";
+import { supabase } from "../../lib/supabase";
 
 type Props = {
   event: Tables<'Events'>
@@ -12,8 +13,13 @@ type Props = {
 export default function EventCard({ event }: Props) {
   const [assets] = useAssets([
     require('../../../assets/images/preview_square.jpg'),
-    require('../../../assets/images/preview_wide.jpg')
+    require('../../../assets/images/preview_wide.jpg'),
+    // Event banner (if exists) in the public event assets bucket
+    supabase.storage.from('EventAssets').getPublicUrl(`Banners/${event.EventID}`).data.publicUrl
   ]);
+
+  // Display the fallback image if the event banner is not available
+  const [useFallback, setUseFallback] = useState(false);
 
   function getDateString() {
     const starts = new Date(event.StartsAt).getTime();
@@ -47,7 +53,12 @@ export default function EventCard({ event }: Props) {
                 height={'100%'}
                 marginLeft={-1}
                 resizeMode="stretch"
-                source={{ uri: assets[1].uri, width: assets[1].width!, height: assets[1].height! }}
+                source={{
+                  uri: useFallback ? assets[1].uri : assets[2].uri,
+                  width: useFallback ? assets[1].width! : assets[2].width!,
+                  height: useFallback ? assets[1].height! : assets[2].height!
+                }}
+                onError={() => setUseFallback(true)}
                 />
             </YStack>
           )}
