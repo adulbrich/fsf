@@ -26,10 +26,6 @@
     <p class = "pt-1 px-2" style="font-size: 12px;">{StartsAt} to {EndsAt}</p>
     <p class="pt-2 px-2 overflow-hidden" style="font-size: 12px;"> {Description}</p>
   </div>
-
-  <div class="flex flex-col h-full w-[100%] card-border flex-grow-0 overflow-hidden">
-    <p class = "pt-1 px-2 font-semibold">Empty</p>
-  </div>
 </a>
 
 

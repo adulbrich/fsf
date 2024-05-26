@@ -24,16 +24,7 @@
     });
     // For each event, determine the status of the event, trim the description, and set the Exists property to true
     trimAllEventDescriptions();
-    events.forEach(event => {
-      if (event.BannerBuffer) {
-        const uint8Array = new Uint8Array(event.BannerBuffer);
-        const blob = new Blob([uint8Array], { type: 'image/jpeg' }); // Adjust type if necessary
-        event.BannerURL = URL.createObjectURL(blob);
-        console.log("Event with banner url", event.BannerURL);
-      }
-    });
     loading = false; // Set loading to false
-    console.log("Events with url hopefully", events);
   });
 
   // This function trims the description of an event to 140 characters
@@ -43,6 +34,7 @@
     }
     return description;
   }
+
   // This function trims the description of all the events
   function trimAllEventDescriptions() {
     pastEvents.forEach((event) => {
@@ -110,14 +102,12 @@
         <div class="flex flex-col w-auto custom-border h-fit pt-3">
           <p class="inline-block max-w-full px-0 pb-4" style="font-size: 18px; font-weight:628;">Ongoing Events</p>
           <Card
-            existsTF={relevantEvents.ongoingEvent?.Exists}
-            ImagePath="../../aerial_2.jpg"
             Name={relevantEvents.ongoingEvent?.Name}
             StartsAt={relevantEvents.ongoingEvent?.StartsAt}
             EndsAt={relevantEvents.ongoingEvent?.EndsAt}
             Description={relevantEvents?.ongoingEvent?.Description}
-            eventID={relevantEvents.ongoingEvent?.EventID}
-            bannerURL={relevantEvents.ongoingEvent?.BannerURL}
+            EventID={relevantEvents.ongoingEvent?.EventID}
+            BannerURL={relevantEvents.ongoingEvent?.BannerURL}
           />
         </div>
 
@@ -132,26 +122,22 @@
 
           <div class="pb-2">
             <Card
-              existsTF={relevantEvents.pastEvents[0]?.Exists}
-              ImagePath="../../aerial_4.jpg"
               Name={relevantEvents.pastEvents[0]?.Name}
               StartsAt={relevantEvents.pastEvents[0]?.StartsAt}
               EndsAt={relevantEvents.pastEvents[0]?.EndsAt}
               Description={relevantEvents.pastEvents[0]?.Description}
-              eventID={relevantEvents.pastEvents[0]?.EventID}
-              bannerURL={relevantEvents.pastEvents[0]?.BannerURL}
+              EventID={relevantEvents.pastEvents[0]?.EventID}
+              BannerURL={relevantEvents.pastEvents[0]?.BannerURL}
             />
           </div>
           {#if relevantEvents.pastEvents[1] !== null}
             <Card
-              existsTF={relevantEvents.pastEvents[1]?.Exists}
-              ImagePath="../../aerial_3.jpg"
               Name={relevantEvents.pastEvents[1]?.Name}
               StartsAt={relevantEvents.pastEvents[1]?.StartsAt}
               EndsAt={relevantEvents.pastEvents[1]?.EndsAt}
               Description={relevantEvents.pastEvents[1]?.Description}
-              eventID={relevantEvents.pastEvents[1]?.EventID}
-              bannerURL={relevantEvents.pastEvents[1]?.BannerURL}
+              EventID={relevantEvents.pastEvents[1]?.EventID}
+              BannerURL={relevantEvents.pastEvents[1]?.BannerURL}
             />
           {/if}
         </div>
@@ -166,14 +152,12 @@
           </a>
         </div>
         <Card
-          existsTF={relevantEvents.upcomingEvent?.Exists}
-          ImagePath="../../aerial_5.jpg"
           Name={relevantEvents.upcomingEvent?.Name}
           StartsAt={relevantEvents.upcomingEvent?.StartsAt}
           EndsAt={relevantEvents.upcomingEvent?.EndsAt}
           Description={relevantEvents?.upcomingEvent?.Description}
-          eventID={relevantEvents.upcomingEvent?.EventID}
-          bannerURL={relevantEvents.upcomingEvent?.BannerURL}
+          EventID={relevantEvents.upcomingEvent?.EventID}
+          BannerURL={relevantEvents.upcomingEvent?.BannerURL}
         />
       </div>
     </div>

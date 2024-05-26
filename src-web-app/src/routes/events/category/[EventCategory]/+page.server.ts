@@ -13,18 +13,12 @@ export const load = async ({ locals: { supabase, getSession }, params }) => {
 
     for (let event of events) {
       const imagePath = "Banners/" + event.EventID;
-      const { data: bannerData, error: bannerError } = await supabase.storage.from("EventAssets").download(imagePath);
+      const { data: bannerData, error: bannerError } = await supabase.storage.from("EventAssets").getPublicUrl(imagePath);
       if (bannerError) {
-        console.error(`Error fetching banner for event ${event.EventID}:`, bannerError);
         continue;
       }
-      if (bannerData instanceof Blob) {
-        console.log(`Successfully fetched banner for event ${event.EventID}`);
-        const arrayBuffer = await bannerData.arrayBuffer();
-        event.BannerBuffer = Array.from(new Uint8Array(arrayBuffer));
-      } else {
-        console.error(`Unexpected banner data type for event ${event.EventID}:`, bannerData);
-      }
+      event.BannerURL = bannerData.publicUrl;
+      
     }
   } catch (error) {
     console.error("Error fetching events:", error as any);

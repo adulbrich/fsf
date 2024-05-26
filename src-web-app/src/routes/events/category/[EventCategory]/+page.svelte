@@ -3,6 +3,7 @@
   import Layout from "../../../banner-layout.svelte";
   import { onMount } from "svelte";
   import Card from "../../ListEventCard.svelte";
+  import CatCard from "../../CategoryEventCard.svelte";
   import type { Event, RelevantEvents } from "../../../../interfaces";
   export let data;
   let { supabase, events, relevantEvents, category } = data;
@@ -22,14 +23,6 @@
     });
     totalPages = calculatePages(); // Calculate the number of pages that should be displayed
     loadEventsArray(); // Load the events array when the page first loads
-    events.forEach(event => {
-      if (event.BannerBuffer) {
-        const uint8Array = new Uint8Array(event.BannerBuffer);
-        const blob = new Blob([uint8Array], { type: 'image/jpeg' }); // Adjust type if necessary
-        event.BannerURL = URL.createObjectURL(blob);
-        console.log("Event with banner url", event.BannerURL);
-      }
-    });
     loading = false; // Set loading to false after fetching the events
   });
   // This function trims the description of an event to 140 characters
@@ -131,8 +124,8 @@
       {#if relevantEvents.length > 0}
         {#each loadedEvents as event, index (event.Name)}
           {#if index <= 7}
-            <div class="flex justify-center items-center w-[50%]">
-              <Card {...event} {index} />
+            <div class="flex justify-center items-center flex-shrink-0 min-w-[500px] max-w-[500px]">
+              <CatCard {...event} {index} />
             </div>
           {/if}
         {/each}
