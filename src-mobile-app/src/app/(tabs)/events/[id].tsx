@@ -27,10 +27,12 @@ export default function EventDetails() {
   console.log(teamStats);
 
   const [assets] = useAssets([
+
     require('../../../../assets/images/preview_square.jpg'),
     require('../../../../assets/images/preview_wide.jpg'),
     // Event banner (if exists) in the public event assets bucket
     supabase.storage.from('EventAssets').getPublicUrl(`Banners/${slugEventID}`).data.publicUrl
+
   ]);
 
   const [useFallback, setUseFallback] = useState(false);
