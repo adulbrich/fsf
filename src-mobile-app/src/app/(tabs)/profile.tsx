@@ -4,12 +4,7 @@ import { H3, H4, H5, XStack, YStack, Button, Input, Text } from "tamagui";
 import { useTypedSelector } from "../../store/store";
 import { selectMyProfileStats } from "../../store/profileStatsSlice";
 import { selectMyProfile } from "../../store/profilesSlice";
-import { createClient } from '@supabase/supabase-js';
-
-// Initialize Supabase client
-const supabaseUrl = 'https://your-supabase-url.supabase.co';
-const supabaseKey = 'your-supabase-anon-key';
-const supabase = createClient(supabaseUrl, supabaseKey);
+import { supabase } from "../../lib/supabase";
 
 const Profile = () => {
   const myProfileStats = useTypedSelector(selectMyProfileStats);
@@ -25,20 +20,18 @@ const Profile = () => {
     }
   }, [myProfile]);
 
-  const changeName = useCallback(() => {
+  const changeName = async () => {
     if (!myProfile) return;
-
-    supabase.from('Profiles')
+    await supabase.from('Profiles')
       .update({ Name: username }) // Use the `username` state variable here
-      .eq('ProfileID', myProfile?.ProfileID);
-  }, [myProfile, username]);
+      .eq('ProfileID', myProfile.ProfileID);
+  };
 
-  const onSave = () => {
+  const onSave = useCallback(() => {
     changeName(); // Call the changeName function here
-    console.log(username); // Replace with actual save logic
     setHeader(`Good evening, ${username.split(' ')[0]}.`);
     setIsEditing(false); // Close the edit mode after saving
-  };
+  }, [username]);
 
   const signOut = useCallback(() => {
     auth.signOut();
