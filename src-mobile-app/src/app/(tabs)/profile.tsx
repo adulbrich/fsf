@@ -5,8 +5,10 @@ import { useTypedSelector } from "../../store/store";
 import { selectMyProfileStats } from "../../store/profileStatsSlice";
 import { selectMyProfile } from "../../store/profilesSlice";
 import { supabase } from "../../lib/supabase";
+import { useAuth } from "../../features/system/Auth";
 
 const Profile = () => {
+  const auth = useAuth();
   const myProfileStats = useTypedSelector(selectMyProfileStats);
   const myProfile = useTypedSelector(selectMyProfile);
   const [header, setHeader] = useState('Good evening.');
@@ -64,7 +66,9 @@ const Profile = () => {
               <Button onPress={onSave}>Save Changes</Button>
             </YStack>
           )}
+          <Button bg={'black'} color={'white'} onPress={signOut}>Sign Out</Button>
         </YStack>
+        
       </ScrollView>
     </SafeAreaView>
   );
