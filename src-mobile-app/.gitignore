@@ -41,4 +41,6 @@ expo-env.d.ts
 # @end expo-cli
 
 # tamagui
+.tamagui/
+# tamagui
 .tamagui

@@ -26,10 +26,14 @@ export default function EventDetails() {
     .filter(ts => ts.BelongsToEventID === slugEventID)
     .sort((a, b) => (b.TotalScore ?? 0) - (a.TotalScore ?? 0));
 
+  console.log(teamStats);
+
   const [assets] = useAssets([
+
     require('../../../../assets/images/preview_square.jpg'),
     require('../../../../assets/images/preview_wide.jpg'),
     require('../../../../assets/icons/down-chevron.png')
+
   ]);
 
   const registerCallback = React.useCallback(() => {

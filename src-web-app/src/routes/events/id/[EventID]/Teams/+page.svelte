@@ -1,6 +1,6 @@
 <script lang="ts">
     export let data;
-    import Layout from '../../../banner-layout.svelte';
+    import Layout from '../../../../banner-layout.svelte';
 
     let searchQuery = '';
 
@@ -76,7 +76,6 @@ function toggleTeamMembers(teamID) {
 <Layout>
     <!--This container should keep eveythgint on the right of the vertical navbar-->
     <div class='container ml-[16%] w-auto'>
-
           <!--Teams -->
           <div class="max-w-full p-4 mx-auto">
             <!-- Search Bar -->
