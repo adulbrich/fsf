@@ -13,6 +13,7 @@ export interface AuthSessionState {
   signIn: (email: string, pass: string) => Promise<void>
   signOut: () => Promise<void>
   getSession: () => Promise<void>
+  forgotPassword: (email: string) => Promise<void>
 }
 
 const initialState = {
@@ -88,6 +89,18 @@ export function AuthSessionProvider({ children }: { children: React.ReactNode })
             user: data?.session?.user ?? null,
             isReady: true
           });
+        },
+        forgotPassword: async (email) => {
+          // Attempt to send user email reset link and redirect
+          const {data, error} = await supabase.auth.resetPasswordForEmail(email, {
+            redirectTo: 'https://osu-fsf.vercel.app/auth/resetPassword'
+          });  
+
+          if (error) {
+            Alert.alert(error.message);
+            return;
+          }
+
         }
       }}
     >
