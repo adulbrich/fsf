@@ -29,11 +29,11 @@ const Profile = () => {
     if (!myProfile) return;
 
     supabase.from('Profiles')
-      .update({ Name: 'John Doe' }) // Adjust as necessary to use the `username` state variable
+      .update({ Name: username }) // Use the `username` state variable here
       .eq('ProfileID', myProfile?.ProfileID);
-  }, [myProfile]);
+  }, [myProfile, username]);
 
-  const onSave = (username) => {
+  const onSave = () => {
     changeName(); // Call the changeName function here
     console.log(username); // Replace with actual save logic
     setHeader(`Good evening, ${username.split(' ')[0]}.`);
@@ -68,7 +68,7 @@ const Profile = () => {
             <YStack space="$4" paddingHorizontal="$6">
               <Text fontSize="$7" fontWeight="bold">Edit Profile Information</Text>
               <Input placeholder="Name" value={username} onChangeText={setUsername} />
-              <Button onPress={() => onSave(username)}>Save Changes</Button>
+              <Button onPress={onSave}>Save Changes</Button>
             </YStack>
           )}
         </YStack>
