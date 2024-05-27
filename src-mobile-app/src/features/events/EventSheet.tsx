@@ -79,7 +79,7 @@ export default function EventDetailsSheet( {team} : Props) {
   const handleRegister = async () => {
     if (!activeEvent?.EventID) {
       console.error('Active event ID is undefined');
-      // Handle the case where the active event ID is undefined
+      // case where the active event ID is undefined
       return;
     }
   
@@ -87,13 +87,14 @@ export default function EventDetailsSheet( {team} : Props) {
     dispatch(createTeam({ name: teamName, eventID: activeEvent.EventID }))
       .then((resultAction) => {
         if (createTeam.fulfilled.match(resultAction)) {
+
           // Team creation succeeded
           console.log('New team created:', resultAction.payload);
           alert('New team created successfully!');
           
-          // Optionally, update your local state or perform additional actions
-          dispatch(fetchTeams()); // Refetch teams to include the new one
+          dispatch(fetchTeams()); 
         } else if (createTeam.rejected.match(resultAction)) {
+
           // Team creation failed
           console.error('Error creating team:', resultAction.payload);
           alert('Error creating team: ' + resultAction.payload);
