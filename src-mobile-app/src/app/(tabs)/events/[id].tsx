@@ -153,9 +153,6 @@ export default function EventDetails() {
                 onPress={registerCallback}
                 borderRadius="$10"
                 pressStyle={{ opacity: 1 }} // Optional: Adjust opacity on press
-                // $platform-web={{
-                //   boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.2)', // Add box shadow for web platform (optional)
-                // }}
                 shadowColor={'#000'} // Shadow color
                 shadowOffset={{ width: 0, height: 2 }} // Shadow offset
                 shadowOpacity={0.3} // Shadow opacity
