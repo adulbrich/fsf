@@ -17,7 +17,7 @@ export default function ForgotPassword() {
   });
 
   const [headerImage] = useAssets([
-    require('../../../assets/images/signin_damfit.png'),
+    require('../../../assets/images/signin_header.png'),
     require('../../../assets/images/osu_name_only.png'),
   ]);
 
