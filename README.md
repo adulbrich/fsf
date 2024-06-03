@@ -3,7 +3,7 @@
 # Faculty Staff Fitness
 
 ## Description
-FSF (Faculty Staff Fitness) is an app where users join teams and compete against other teams based on the number of steps they take. It is event-based with one event held each month. The project consists of two parts: a web application for event organizers and a mobile application for users.
+FSF (Faculty Staff Fitness) is an app where users join teams and compete against other teams based on the number of steps they take. It is event-based with one event held each month. The project consists of two parts: a web application for event organizers and a mobile application for users.  We are also using Starlight for the documentation of the project.
 
 ## Table of Contents
 - [Installation](#installation)
@@ -62,6 +62,28 @@ FSF (Faculty Staff Fitness) is an app where users join teams and compete against
     npm run start
     ```
 
+#### Starlight Documentation
+
+Everything you need to know about the project is in the Starlight documentation. 
+
+1. Clone the repository:
+    ```bash
+    git clone https://github.com/OregonStateUniversity/osu-fsf.git
+    ```
+2. Navigate to the Starlight directory:
+    ```bash
+    cd src-docs
+    ```
+3. Install the dependencies:
+    ```bash
+    npm install
+    ```
+4. Start the development server:
+    ```bash
+    npm run dev
+    ```
+
+
 
 ## Usage
 
@@ -112,3 +134,4 @@ The mobile application is used by users to join events, track their steps, and c
 - [Tamagui Documentation](https://tamagui.dev/)
 - [Redux Documentation](https://redux.js.org/introduction/getting-started)
 - [Supabase Documentation](https://supabase.io/docs)
+- [Starlight Documentation](https://starlight.astro.build/)
