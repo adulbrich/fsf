@@ -17,6 +17,10 @@ export default defineConfig({
 				{
 					label: 'Architecture',
 					autogenerate: { directory: 'arch' },
+				},
+				{
+					label: 'Documents',
+					autogenerate: { directory: 'docs' },
 				}
 			],
 		}),
