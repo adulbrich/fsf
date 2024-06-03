@@ -18,3 +18,8 @@ If Expo asks you to log in, you can try...
 `npx expo start --offline`
 
 Scan the QR code to open the app in Expo Go.
+
+### Starlight Docs
+**NOTE**: Run this from `/src-doc`
+
+`npm run dev`

@@ -11,7 +11,9 @@ description: Common Supabase commands.
 ### Reset *local* database
 `supabase db reset --local`
 
-**NOTE**: Do not run this on the linked database!!!
+**NOTE**: Do not run this on the linked database unless you are sure.
+Use the `--help` flag to find the correct flag to reset the linked database.
+I will not give it outright here, since this is potentially a dangerous operation.
 
 This will wipe the database and apply existing migrations. The
 `seed.sql` file will be applied as the final step.

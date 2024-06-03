@@ -3,45 +3,25 @@ title: Welcome
 description: How to get set up and writing code.
 ---
 
-### System Prerequisites
-1. [Docker Desktop](https://www.docker.com/products/docker-desktop/)
+### Project Overview
 
-**NOTE**: Run these commands from the root level!
+Both the React Native (mobile) and SvelteKit (web) projects
+use a Supabase backend. Refer to the document on [Development
+Environment](/reference/dev_env) to ensure both projects communicate with the Supabase
+backend.
 
-### Reset *local* database
-`supabase db reset --local`
+In order to simplify the development workflow, both front-end
+projects "speak" to the online managed Supabase backend by default.
+Having all team members develop on local Supabase instances (via Docker)
+was difficult, so this is the remedial solution.
 
-**NOTE**: Do not run this on the linked database!!!
+The managed Supabase backend (and the local one) can be reset at any
+time, up to the latest migration script found in `supabase/migrations`.
+For specific commands and corresponding descriptions,
+look at [Supabase Commands](/reference/supabase).
+Reseting the Supabase backend means that the database will be wiped, all
+migration scripts executed, and the database seeded according to `seed.sql`.
 
-This will wipe the database and apply existing migrations. The
-`seed.sql` file will be applied as the final step.
-
-### Generate a database migration
-`supabase db diff --linked --file {MIGRATION NAME HERE}`
-* Change `--linked` to `--local` to compare existing migrations against your local database schema.
-
-### Dump database data
-`supabase db dump --linked --data-only --file supabase/seed.sql`
-* Change `--linked` to `--local` to dump local database data.
-
-### Generate TypeScript definitions
-`supabase gen types typescript --linked --schema public > src-web-app/src/lib/types/supabase.ts`
-* Change `--linked` to `--local` to generate definitions from local database schema.
-
-## Local Dev
-When running the projects in development, they will look for a local instance of Supabase. Ensure
-the local Docker verison of Supabase is running. All commands are run from the root repo folder, `/`.
-
-A testing account exists with the email `amy@test.com` and password `damfit`.
-
-#### Start Local Supabase
-`npx supabase start`
-
-#### Stop Local Supabase
-`npx supabase stop`
-
-#### Wipe and seed a fresh database
-`npx supabase db reset`
-
-#### View the overall status
-`npx supabase status`
+Once the Supabase (managed or local) instance is running and the `.env` variables set,
+both front-end projects will run. Reference [Running The Project](/reference/running) for specific
+commands to launch each project.
