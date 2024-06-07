@@ -1,12 +1,12 @@
 import { Image, YStack } from "tamagui";
-import EmailForm from "../../features/sign-in/EmailForm";
+import ForgotPasswordForm from "../../features/password-reset/ForgotPassword";
 import React from "react";
 import { useAnimatedKeyboard, useAnimatedStyle } from 'react-native-reanimated';
 import Animated from "react-native-reanimated";
 import { useAssets } from "expo-asset";
 import { ImageURISource, useWindowDimensions } from "react-native";
 
-export default function SignIn() {
+export default function ForgotPassword() {
   const keyboard = useAnimatedKeyboard();
   const { width, height } = useWindowDimensions();
   const translateStyle = useAnimatedStyle(() => {
@@ -41,7 +41,7 @@ export default function SignIn() {
           <Image top={0} width={width / 2} height={headerImage[1].height! / 4} resizeMode="contain" source={headerImage[1] as ImageURISource} />
         )}
 
-        <EmailForm />
+        <ForgotPasswordForm />
       </YStack>
 
       

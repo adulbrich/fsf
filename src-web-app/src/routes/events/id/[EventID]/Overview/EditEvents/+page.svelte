@@ -108,18 +108,18 @@
             <div class="grid grid-cols-3 gap-6 mb-6 ml-4">
                 <!--Container for Event Name-->
               <div>
-                <label for="eventName" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Event Name</label>
+                <label for="eventName" class="block mb-2 text-sm font-medium text-gray-900 ">Event Name</label>
                 <input type="text" id="eventName" name="eventName"
                   bind:value={eventDetails.EventName}
-                  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
                   placeholder="Event Name" required />
               </div>
 
                 <!--Container for Event Type Dropdown-->
               <div>
-                <label for="eventType" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Event Type</label>
+                <label for="eventType" class="block mb-2 text-sm font-medium text-gray-900 ">Event Type</label>
                 <select id="eventType" name="eventType" bind:value={eventDetails.eventType}
-                  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 ">
                   <option>Walk (Steps)</option>
                   <option>Run (Distance)</option>
                 </select>
@@ -130,14 +130,14 @@
             <div class="grid grid-cols-3 gap-6 mb-6  ml-4">
                 <!--Container for Start Date Input-->
                 <div>
-                    <label for="startDate" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Start Date</label>
-                    <input type="date" id="startDate" name="startDate" bind:value={eventDetails.EventStartDate} class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required />
+                    <label for="startDate" class="block mb-2 text-sm font-medium text-gray-900 ">Start Date</label>
+                    <input type="date" id="startDate" name="startDate" bind:value={eventDetails.EventStartDate} class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " required />
                 </div>
 
                 <!--Container for End Date Input-->
                 <div>
-                    <label for="endDate" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">End Date</label>
-                    <input type="date" id="endDate" name="endDate" bind:value={eventDetails.EventEndDate} class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required />
+                    <label for="endDate" class="block mb-2 text-sm font-medium text-gray-900 ">End Date</label>
+                    <input type="date" id="endDate" name="endDate" bind:value={eventDetails.EventEndDate} class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " required />
                 </div>
             </div>
         
@@ -145,8 +145,8 @@
 
         <!--Container for Event Description Input-->
           <div class="col-span-3  ml-4">
-              <label for="eventDescription" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Event Description</label>
-              <textarea id="eventDescription" name="eventDescription" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" rows="3"
+              <label for="eventDescription" class="block mb-2 text-sm font-medium text-gray-900">Event Description</label>
+              <textarea id="eventDescription" name="eventDescription" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " rows="3"
                 bind:value={eventDetails.Description}
                 placeholder="Write details about the event here!" required></textarea>
           </div>
