@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "DamFit",
-    "slug": "damfit",
+    "slug": "trektrak",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/osu_badge.png",
@@ -40,9 +40,9 @@
         "origin": false
       },
       "eas": {
-        "projectId": "119fc5fe-3acb-4b22-845d-bda6a913a54a"
+        "projectId": "6e08a6bc-788a-443f-8298-12743306d9fd"
       }
     },
-    "owner": "traveno"
+    "owner": "elective0206"
   }
 }
