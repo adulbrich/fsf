@@ -1,6 +1,8 @@
 ---
 title: Welcome 
 description: How to get set up and writing code.
+sidebar:
+  order: 1
 ---
 
 ### Project Overview

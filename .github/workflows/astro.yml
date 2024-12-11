@@ -1,8 +1,4 @@
-# Sample workflow for building and deploying an Astro site to GitHub Pages
-#
-# To get started with Astro see: https://docs.astro.build/en/getting-started/
-#
-name: Deploy Astro site to Pages
+name: Deploy Astro Documentation site to Pages
 
 on:
   # Runs on pushes targeting the default branch
@@ -26,7 +22,6 @@ concurrency:
 
 env:
   BUILD_PATH: "./src-doc" # default value when not using subfolders
-  # BUILD_PATH: subfolder
 
 jobs:
   build:

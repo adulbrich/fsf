@@ -1,12 +1,12 @@
 ---
-title: Oregon State University DamFit Project 
+title: TrekTrak
 template: splash
 hero:
   image:
     file: ../../assets/houston.webp
   actions:
     - text: Overview 
-      link: /reference/00welcome
+      link: reference/welcome
       icon: right-arrow
       variant: primary
 ---
