@@ -164,10 +164,10 @@
 
   </div>
 
-  
   <div>
-      <button class="btn-primary bg-beaver-orange hover:bg-dark-orange" on:click={goToEditEventPage}>Edit Event</button>
+    <button class="btn-primary bg-[#81c745] hover:bg-[#81c745]" on:click={goToEditEventPage}>Edit Event</button>
   </div>
+  
   
 </div>
 
