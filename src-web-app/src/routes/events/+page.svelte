@@ -146,22 +146,26 @@
       </div>
 
       <!-- Container for UPCOMING events -->
-      <!-- <div class="flex ml-4 flex-col custom-border h-fit w-[50%] pt-3">
+      <div class="flex ml-4 flex-col custom-border h-fit w-[50%] pt-3">
         <div class="flex flex-row w-[100%] pb-4">
           <p class="inline-block" style="font-size: 18px; font-weight:628;">Upcoming Events</p>
           <a href="/events/category/Upcoming" style="margin-left: 10px;">
             <button class="btn btn-xs font-normal font-sans bg-light-black hover:bg-light-blackSelected text-white rounded-full">View All</button>
           </a>
         </div>
-        <Card
-          Name={relevantEvents.upcomingEvent?.Name}
-          StartsAt={relevantEvents.upcomingEvent?.StartsAt}
-          EndsAt={relevantEvents.upcomingEvent?.EndsAt}
-          Description={relevantEvents?.upcomingEvent?.Description}
-          EventID={relevantEvents.upcomingEvent?.EventID}
-          BannerURL={relevantEvents.upcomingEvent?.BannerURL}
-        />
-      </div> -->
+        {#if upcomingEvents.length > 0}
+          <Card
+            Name={relevantEvents.upcomingEvent?.Name}
+            StartsAt={relevantEvents.upcomingEvent?.StartsAt}
+            EndsAt={relevantEvents.upcomingEvent?.EndsAt}
+            Description={relevantEvents?.upcomingEvent?.Description}
+            EventID={relevantEvents.upcomingEvent?.EventID}
+            BannerURL={relevantEvents.upcomingEvent?.BannerURL}
+          />
+        {:else}
+          <p>No upcoming events</p>
+        {/if}
+      </div>
     </div>
   {/if}
 </Layout>
