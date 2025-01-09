@@ -131,14 +131,6 @@
                 BannerURL={relevantEvents.pastEvents[0]?.BannerURL}
               />
             </div>
-            <Card
-              Name={relevantEvents.pastEvents[1]?.Name}
-              StartsAt={relevantEvents.pastEvents[1]?.StartsAt}
-              EndsAt={relevantEvents.pastEvents[1]?.EndsAt}
-              Description={relevantEvents.pastEvents[1]?.Description}
-              EventID={relevantEvents.pastEvents[1]?.EventID}
-              BannerURL={relevantEvents.pastEvents[1]?.BannerURL}
-            />
           {:else}
             <p>No events found</p>
           {/if}
