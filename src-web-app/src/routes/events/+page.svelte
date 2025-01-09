@@ -88,9 +88,9 @@
       </form>
       <!-- Create Event button -->
       <a href="/events/create" style="margin-left: 60px; margin-top: 19px;">
-        <button class="btn btn-sm font-normal h-9 font-sans bg-beaver-orange hover:bg-dark-orange text-white rounded-full" style="position: absolute; margin-top: 9px; margin-left: 8px">
+        <button class="btn btn-sm font-normal h-9 font-sans hover:bg-dark-orange text-white rounded-full" style="position: absolute; margin-top: 9px; margin-left: 8px; background-color: #81c745;">
           Create Event
-        </button>
+        </button>        
       </a>
     </div>
 
@@ -150,7 +150,7 @@
       </div>
 
       <!-- Container for UPCOMING events -->
-      <div class="flex ml-4 flex-col custom-border h-fit w-[50%] pt-3">
+      <!-- <div class="flex ml-4 flex-col custom-border h-fit w-[50%] pt-3">
         <div class="flex flex-row w-[100%] pb-4">
           <p class="inline-block" style="font-size: 18px; font-weight:628;">Upcoming Events</p>
           <a href="/events/category/Upcoming" style="margin-left: 10px;">
@@ -165,7 +165,7 @@
           EventID={relevantEvents.upcomingEvent?.EventID}
           BannerURL={relevantEvents.upcomingEvent?.BannerURL}
         />
-      </div>
+      </div> -->
     </div>
 
 

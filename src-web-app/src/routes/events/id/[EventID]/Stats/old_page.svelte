@@ -2,7 +2,6 @@
   import Chart from "svelte-frappe-charts";
   import Layout from "../../../../banner-layout.svelte";
   import { onMount } from "svelte";
-  import { createClient } from '@supabase/supabase-js';
   export let data;
   let { supabase } = data;
   $: ({ supabase } = data);
@@ -10,10 +9,6 @@
     active_date: string;
     user_count: number;
   }
-
-  const supabaseUrl = 'your-supabase-url';
-  const supabaseKey = 'your-anon-key';
-  // const supabase = createClient(supabaseUrl, supabaseKey);
 
   let activityData: activityRow[] = []; 
   let eventStartDateStr: string = data.Event ? data.Event.StartsAt : "";
@@ -36,50 +31,34 @@
   let tableLength = "Table Length: ";
 
   onMount(async () => {
-    // const { data, error } = await supabase.rpc("test1", {
-    //   start_date_param: "2023-10-23",
-    //   end_date_param: "2023-10-30",
-    // });
+    const { data, error } = await supabase.rpc("test1", {
+      start_date_param: "2023-10-23",
+      end_date_param: "2023-10-30",
+    });
 
-    // if (error) {
-    //   errorMessage = "Error Fetching Activity Data";  // Set error message instead of alert
-    //   loading = false;
-    //   return;
-    // }
+    if (error) {
+      errorMessage = "Error Fetching Activity Data";  // Set error message instead of alert
+      loading = false;
+      return;
+    }
 
-    // let table = data;
-    // if (table.length === 0) {
-    //   errorMessage = "No data found";  // Set error message instead of alert
-    //   dataErrorMessage = "No data found";
-    //   loading = false;
-    //   tableLength += table.length;
-    //   return;
-    // }
-    // else if (table.length == null) {
-    //   tableLength = "Table Length: 0";
-    //   loading = false;
-    //   return;
-    // }
+    let table = data;
+    if (table.length === 0) {
+      errorMessage = "No data found";  // Set error message instead of alert
+      dataErrorMessage = "No data found";
+      loading = false;
+      tableLength += table.length;
+      return;
+    }
+    else if (table.length == null) {
+      tableLength = "Table Length: 0";
+      loading = false;
+      return;
+    }
 
-    // table.forEach((row: activityRow) => {
-    //   activityData.push(row);
-    // });
-    
-    // Dummy data for activity rows
-    activityData = [
-      { active_date: "2023-10-26", user_count: 233 },
-      { active_date: "2023-10-27", user_count: 516 },
-      { active_date: "2023-10-28", user_count: 159 },
-      { active_date: "2023-10-29", user_count: 966 },
-      { active_date: "2023-10-30", user_count: 201 },
-      { active_date: "2023-10-31", user_count: 1 },
-      { active_date: "2023-11-01", user_count: 100 },
-    ];
-
-    // Dummy event dates
-    eventStartDateStr = "2023-10-25";
-    eventEndDateStr = "2023-11-01";
-
+    table.forEach((row: activityRow) => {
+      activityData.push(row);
+    });
 
     let dateLabels = getDatesBetweenDates(eventStartDateStr, eventEndDateStr);
     let values = loadValuesArray(activityData, dateLabels);
@@ -187,23 +166,19 @@
   <div class="mt-[3%] w-[70%] ml-[22%]">
     <Chart data={chartData} type="line" />
   </div>
-  <div
-  class="stats shadow flex justify-center items-center mx-auto mt-[3%]"
-  style="width: fit-content;"
->
-  <div class="stat place-items-center">
-    <div class="stat-title">Peak Users</div>
-    <div class="stat-value">{maxActiveUsers}</div>
+  <div class="stats shadow ml-[45.6%] mt-[3%]">
+    <div class="stat place-items-center">
+      <div class="stat-title">Peak Users</div>
+      <div class="stat-value">{maxActiveUsers}</div>
+    </div>
+    <div class="stat place-items-center">
+      <div class="stat-title">Min Users</div>
+      <div class="stat-value">{minActiveUsers}</div>
+    </div>
+    <div class="stat place-items-center">
+      <div class="stat-title">Avg Users</div>
+      <div class="stat-value">{avgActiveUsers}</div>
+    </div>
   </div>
-  <div class="stat place-items-center">
-    <div class="stat-title">Minimum Users</div>
-    <div class="stat-value">{minActiveUsers}</div>
-  </div>
-  <div class="stat place-items-center">
-    <div class="stat-title">Average Users</div>
-    <div class="stat-value">{avgActiveUsers.toFixed(2)}</div>
-  </div>
-</div>
-
 {/if}
 
