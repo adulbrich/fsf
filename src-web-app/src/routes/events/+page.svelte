@@ -11,12 +11,13 @@
 
   let eventNamesAndID: EventNameAndID[] = []; // Array that holds all the event names and IDs assocaite with the events
   let loading = true; // Boolean that determines if the page is still loading
-  let relevantEvents = { // Object that holds the relevant events
+  let relevantEvents = {
+    // Object that holds the relevant events
     pastEvents: pastEvents,
     upcomingEvent: upcomingEvents[0],
     ongoingEvent: ongoingEvents[0],
-  }; 
-  
+  };
+
   // This runs after the component firt renders in the DOM
   onMount(async () => {
     events.forEach((event) => {
@@ -90,16 +91,10 @@
       <a href="/events/create" style="margin-left: 60px; margin-top: 19px;">
         <button class="btn btn-sm font-normal h-9 font-sans hover:bg-dark-orange text-white rounded-full" style="position: absolute; margin-top: 9px; margin-left: 8px; background-color: #81c745;">
           Create Event
-        </button>        
+        </button>
       </a>
     </div>
 
-
-
-
-
-
-    
     <!-- Container for the events -->
     <div class="flex flex-row ml-[20.5%] w-[72%] h-[80%] custom-border mt-5">
       <!-- Left container for Ongoing and Past events -->
@@ -107,14 +102,13 @@
         <!-- Container for ONGOING events -->
         <div class="flex flex-col w-auto custom-border h-fit pt-3">
           <p class="inline-block max-w-full px-0 pb-4" style="font-size: 18px; font-weight:628;">Ongoing Events</p>
-          <Card
-            Name={relevantEvents.ongoingEvent?.Name}
-            StartsAt={relevantEvents.ongoingEvent?.StartsAt}
-            EndsAt={relevantEvents.ongoingEvent?.EndsAt}
-            Description={relevantEvents?.ongoingEvent?.Description}
-            EventID={relevantEvents.ongoingEvent?.EventID}
-            BannerURL={relevantEvents.ongoingEvent?.BannerURL}
-          />
+          {#if ongoingEvents.length > 0}
+            {#each ongoingEvents as event, index (index)}
+              <Card Name={event?.Name} StartsAt={event?.StartsAt} EndsAt={event?.EndsAt} Description={event?.Description} EventID={event?.EventID} BannerURL={event?.BannerURL} {index} />
+            {/each}
+          {:else}
+            <p>No ongoing events</p>
+          {/if}
         </div>
 
         <!-- Container for PAST events -->
@@ -126,17 +120,17 @@
             </a>
           </div>
 
-          <div class="pb-4">
-            <Card
-              Name={relevantEvents.pastEvents[0]?.Name}
-              StartsAt={relevantEvents.pastEvents[0]?.StartsAt}
-              EndsAt={relevantEvents.pastEvents[0]?.EndsAt}
-              Description={relevantEvents.pastEvents[0]?.Description}
-              EventID={relevantEvents.pastEvents[0]?.EventID}
-              BannerURL={relevantEvents.pastEvents[0]?.BannerURL}
-            />
-          </div>
-          {#if relevantEvents.pastEvents[1] !== null}
+          {#if relevantEvents.pastEvents.length > 0}
+            <div class="pb-4">
+              <Card
+                Name={relevantEvents.pastEvents[0]?.Name}
+                StartsAt={relevantEvents.pastEvents[0]?.StartsAt}
+                EndsAt={relevantEvents.pastEvents[0]?.EndsAt}
+                Description={relevantEvents.pastEvents[0]?.Description}
+                EventID={relevantEvents.pastEvents[0]?.EventID}
+                BannerURL={relevantEvents.pastEvents[0]?.BannerURL}
+              />
+            </div>
             <Card
               Name={relevantEvents.pastEvents[1]?.Name}
               StartsAt={relevantEvents.pastEvents[1]?.StartsAt}
@@ -145,6 +139,8 @@
               EventID={relevantEvents.pastEvents[1]?.EventID}
               BannerURL={relevantEvents.pastEvents[1]?.BannerURL}
             />
+          {:else}
+            <p>No events found</p>
           {/if}
         </div>
       </div>
@@ -167,26 +163,6 @@
         />
       </div> -->
     </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
   {/if}
 </Layout>
 
@@ -204,7 +180,4 @@
   .custom-border {
     border: 0px solid #c7c7cd;
   }
-
-
-
 </style>
