@@ -15,9 +15,6 @@ export const load = async ({ locals: { supabase, getSession }, params }) => {
       ongoingCount = 0;
     for (let event of events) {
       const eventStatus = determineEventStatus(event, event.StartsAt, event.EndsAt);
-      if ((eventStatus === "Past" && pastCount >= 2) || (eventStatus === "Upcoming" && upcomingCount >= 2) || (eventStatus === "Ongoing" && ongoingCount >= 1)) {
-        continue;
-      }
 
       const imagePath = "Banners/" + event.EventID;
       const { data: bannerData, error: bannerError } = await supabase.storage.from("EventAssets").getPublicUrl(imagePath);
