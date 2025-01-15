@@ -1,10 +1,6 @@
 {
   "expo": {
-<<<<<<< HEAD
-    "name": "DamFit",
-=======
     "name": "TrekTrak",
->>>>>>> fedcc66 (Rebrand Changes Mobile Side)
     "slug": "trektrak",
     "version": "1.0.0",
     "orientation": "portrait",
