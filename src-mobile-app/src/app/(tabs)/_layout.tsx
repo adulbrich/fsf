@@ -20,16 +20,17 @@ export default function ProtectedLayout() {
   return (
     <Tabs screenOptions={{
       tabBarStyle: {
-        backgroundColor: theme.backgroundTransparent.get(),
-        borderBlockColor: theme.borderColorHover.get()
+        backgroundColor: '#356122',
+        borderBlockColor: '#31C746'
       },
-      tabBarActiveTintColor: '#D3832B',
+      tabBarActiveTintColor: '#FFFFFF',
+      tabBarInactiveTintColor: '#31C746',
       headerShown: false,
-      headerTintColor: '#FFF',
+      headerTintColor: '#FFFFFF',
       headerTitleAlign: 'left',
       headerTitle: '',
       headerRight: () => {
-        return <Text>Faculty Staff Fitness</Text>
+        return <Text>TrekTraK</Text>
       },
       headerRightContainerStyle: {
         paddingRight: 25

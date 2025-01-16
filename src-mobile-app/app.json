@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "DamFit",
+    "name": "TrekTrak",
     "slug": "trektrak",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -10,7 +10,8 @@
     "splash": {
       "image": "./assets/images/osu_badge.png",
       "resizeMode": "contain",
-      "backgroundColor": "#D73F09"
+      "imageResizeMode": "contain",
+      "backgroundColor": "#3F6122"
     },
     "assetBundlePatterns": [
       "**/*"
@@ -21,7 +22,7 @@
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
+        "backgroundColor": "#FFFFFF"
       }
     },
     "web": {

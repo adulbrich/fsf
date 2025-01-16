@@ -51,20 +51,20 @@ export default function Events() {
         marginTop={"$4"}
         paddingBottom={"$4"}
         stickyHeaderIndices={[1]}
-        refreshControl={<RefreshControl refreshing={refreshing} onRefresh={() => onRefresh()} title="Refresh!" titleColor={'black'} />}
+        refreshControl={<RefreshControl refreshing={refreshing} onRefresh={() => onRefresh()} title="Refresh!" titleColor={'#426B1F'} />}
         onScroll={handleScroll}
         scrollEventThrottle={2}
       >
 
         <YStack flex={1} paddingHorizontal={"$4"} paddingBottom={"$8"} space>
           <XStack justifyContent="space-between" alignItems="center">
-            <H2>{ getSelectedText() }</H2>
+            <H2 color="#426B1F">{ getSelectedText() }</H2>
 
 
             <AnimatePresence>
               <Popover>
                 <Popover.Trigger asChild>
-                  <Button circular icon={<MoreHorizontal size={"$1"} />} transparent></Button>
+                  <Button circular icon={<MoreHorizontal size={"$1"} color="#426B1F" />} transparent></Button>
                 </Popover.Trigger>
 
                 <Adapt when="sm" platform="touch">
@@ -81,36 +81,36 @@ export default function Events() {
                 </Adapt>
 
 
-                <Popover.Content elevate backgroundColor={"$background"} enterStyle={{ x: -10, opacity: 0 }} animation="quick">
-                  <Popover.Arrow borderWidth={1} borderColor="$borderColor" />
+                <Popover.Content elevate backgroundColor={"#FFFFFF"} enterStyle={{ x: -10, opacity: 0 }} animation="quick">
+                  <Popover.Arrow borderWidth={1} borderColor="#81C746" />
                   
                   <YStack width={"100%"} flex={1} gap={0} alignItems="center">
 
-                    <H4>Filter events</H4>
+                    <H4 color="#426B1F">Filter events</H4>
                   
                     <Group width={'100%'} padding="$4">
                       <Popover.Close asChild>
-                        <Button backgroundColor={selectedStatus === SBEventStatus.ONGOING ? "#eb7434" : "$orange3"} onPress={() => {
+                        <Button backgroundColor={selectedStatus === SBEventStatus.ONGOING ? "#426B1F" : "#81C746"} onPress={() => {
                           setPopover(!popover);
                           dispatch(setSelectedStatus(SBEventStatus.ONGOING))
                         }} borderBottomRightRadius={0} borderBottomLeftRadius={0}>
-                          <Text color={selectedStatus === SBEventStatus.ONGOING ? "white" : "$gray12"} fontWeight={"400"}>Ongoing</Text>
+                          <Text color={selectedStatus === SBEventStatus.ONGOING ? "#FFFFFF" : "#426B1F"} fontWeight={"400"}>Ongoing</Text>
                         </Button>
                       </Popover.Close>
                       <Popover.Close asChild>
-                        <Button backgroundColor={selectedStatus === SBEventStatus.UPCOMING ? "#eb7434" : "$orange3"} onPress={() => {
+                        <Button backgroundColor={selectedStatus === SBEventStatus.UPCOMING ? "#426B1F" : "#81C746"} onPress={() => {
                           setPopover(!popover);
                           dispatch(setSelectedStatus(SBEventStatus.UPCOMING))
                         }} borderRadius={0}>
-                          <Text color={selectedStatus === SBEventStatus.UPCOMING ? "$gray12" : "$gray12"} fontWeight={"400"}>Upcoming</Text>
+                          <Text color={selectedStatus === SBEventStatus.UPCOMING ? "#FFFFFF" : "#426B1F"} fontWeight={"400"}>Upcoming</Text>
                         </Button>
                       </Popover.Close>
                       <Popover.Close asChild>
-                        <Button backgroundColor={selectedStatus === SBEventStatus.PAST ? "#eb7434" : "$orange3"} onPress={() => {
+                        <Button backgroundColor={selectedStatus === SBEventStatus.PAST ? "#426B1F" : "#81C746"} onPress={() => {
                           setPopover(!popover);
                           dispatch(setSelectedStatus(SBEventStatus.PAST))
                         }} borderTopRightRadius={0} borderTopLeftRadius={0}>
-                          <Text color={selectedStatus === SBEventStatus.PAST ? "white" : "$gray12"} fontWeight={"400"}>Past</Text>
+                          <Text color={selectedStatus === SBEventStatus.PAST ? "#FFFFFF" : "#426B1F"} fontWeight={"400"}>Past</Text>
                         </Button>
                       </Popover.Close>
                     </Group>
@@ -147,10 +147,10 @@ export default function Events() {
               enterStyle={{ opacity: 0, y: 100 }}
               exitStyle={{ opacity: 0, y: 100 }}
               animation="medium"
-              backgroundColor={"#D3832B"}
+              backgroundColor={"#36C122"}
               padding={"$3"}
             >
-              <ArrowUp />
+              <ArrowUp color="#FFFFFF" />
             </Circle>
           )}
         </AnimatePresence>
@@ -163,7 +163,7 @@ const TabsRovingIndicator = ({ active, ...props }: { active?: boolean } & StackP
   return (
     <YStack
       position="absolute"
-      backgroundColor="$color5"
+      backgroundColor="#426B1F"
       opacity={0.7}
       animation="100ms"
       enterStyle={{
@@ -173,7 +173,7 @@ const TabsRovingIndicator = ({ active, ...props }: { active?: boolean } & StackP
         opacity: 0,
       }}
       {...(active && {
-        backgroundColor: '$color8',
+        backgroundColor: '#36C122',
         opacity: 0.6,
       })}
       {...props}

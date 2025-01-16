@@ -85,7 +85,7 @@ export default function EmailForm() {
       
       <Separator />
 
-      <Button onPress={signInWithEmail} marginTop="$2" height={"$5"} color={"white"} borderColor={"black"} borderWidth={2} backgroundColor={"black"}>Sign in to DamFit</Button>
+      <Button onPress={signInWithEmail} marginTop="$2" height={"$5"} color={"white"} borderColor={"black"} borderWidth={2} backgroundColor={"black"}>Sign in to TrekTrak</Button>
       <Button onPress={forgotPassword} position="absolute" bottom={"$2"} left={0} right={0} color={"$gray9"} backgroundColor={'transparent'}>Forgot my password</Button>
     </YStack>
   )
