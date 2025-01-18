@@ -206,7 +206,7 @@
         <!-- Dynamically Render Achievement Inputs -->
         {#each Array(Number(AchievementCount)) as _, index}
         <div>
-        <RewardTierInput id="Achievement {index + 1}" name="Achievement {index + 1}" placeholder="Achievement {index + 1}" label="Achievement {index + 1}" />
+        <RewardTierInput id="Tier {index + 1}" name="Tier {index + 1}" placeholder="Tier {index + 1}" label="Tier {index + 1}" />
         </div>
         {/each}
     </form>
