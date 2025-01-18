@@ -26,9 +26,9 @@
   let endDate: string = event?.event_end_date ?? "";
   let eventDescription: string = event?.event_description ?? "";
   let eventBanner: string = event?.event_banner ?? "";
+  let AchievementsCount: number = 1; // Default achievement count
+  let Achievements: string[] = [""]; // Default list of achievements
 
-
-  
   export let eventDetails = {
     Description: data.Event?.Description,
     EventName: data.Event?.Name,
@@ -36,8 +36,16 @@
     // edit it to html format, so we can pre-populate the form
     EventStartDate: data.Event?.StartsAt ? data.Event?.StartsAt.split('T')[0] : '', 
     EventEndDate: data.Event?.EndsAt ? data.Event?.EndsAt.split('T')[0] : '',
-    EventID: data.Event?.EventID
+    EventID: data.Event?.EventID,
   };
+
+  $: {
+    if (AchievementsCount > Achievements.length) {
+      while (Achievements.length < AchievementsCount) Achievements.push("");
+    } else if (AchievementsCount < Achievements.length) {
+      Achievements = Achievements.slice(0, AchievementsCount);
+    }
+  }
 
   const handleSubmit: SubmitFunction = async () => {
     loading = true;
@@ -60,7 +68,8 @@
           Type: eventDetails.EventType,
           StartsAt: eventDetails.EventStartDate,
           EndsAt: eventDetails.EventEndDate,
-          Description: eventDetails.Description
+          Description: eventDetails.Description,
+          Achievements: Achievements,
         })
         .eq('EventID', eventDetails.EventID);
 
@@ -122,7 +131,7 @@
                 <!--Container for Event Type Dropdown-->
               <div>
                 <label for="eventType" class="block mb-2 text-sm font-medium text-gray-900 ">Event Type</label>
-                <select id="eventType" name="eventType" bind:value={eventDetails.eventType}
+                <select id="eventType" name="eventType" bind:value={eventDetails.EventType}
                   class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 ">
                   <option>Walk (Steps)</option>
                   <option>Run (Distance)</option>
@@ -144,10 +153,8 @@
                     <input type="date" id="endDate" name="endDate" bind:value={eventDetails.EventEndDate} class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " required />
                 </div>
             </div>
-        
 
-
-        <!--Container for Event Description Input-->
+          <!--Container for Event Description Input-->
           <div class="col-span-3  ml-4">
               <label for="eventDescription" class="block mb-2 text-sm font-medium text-gray-900">Event Description</label>
               <textarea id="eventDescription" name="eventDescription" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " rows="3"
@@ -155,8 +162,40 @@
                 placeholder="Write details about the event here!" required></textarea>
           </div>
 
-        </form>
-      </div>
+          <!-- Dropdown to select number of achievements -->
+          <div class="mb-6">
+            <label
+              for="achievementsCount"
+              class="block mb-2 text-sm font-medium text-gray-900"
+            >
+              Number of Achievements
+            </label>
+            <select
+              id="AchievementsCount"
+              bind:value={AchievementsCount}
+              class="bg-gray-50 border w-40 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+            >
+              {#each Array(7).fill(0).map((_, i) => i + 1) as count}
+                <option value={count}>{count}</option>
+              {/each}
+            </select>
+          </div>
+
+          <!-- Inputs for achievements -->
+    <div class="mb-6">
+      <label class="block mb-2 text-sm font-medium text-gray-900">Achievements</label>
+      {#each Array(Number(AchievementsCount)) as _, index}
+        <div class="mb-3">
+          <input
+            type="text"
+            bind:value={Achievements[index]}
+            class="bg-gray-50 border w-40 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+            placeholder={`Achievement ${index + 1}`}
+            required
+          />
+        </div>
+      {/each}
+    </div>
 
       <div class="px-2">
         <input
@@ -168,8 +207,8 @@
       </div>
     </form>
   </div>
-
-
+  </form>
+</div>
 <style>
 
 .header-style {
