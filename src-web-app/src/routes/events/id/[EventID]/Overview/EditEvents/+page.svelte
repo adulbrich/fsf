@@ -12,6 +12,8 @@
     startDate?: string;
     endDate?: string;
     eventDescription?: string;
+    achievementsCount?: string;
+    Tiers?: string;
     eventBanner?: string;
   } = {};
 
@@ -27,7 +29,7 @@
   let eventDescription: string = event?.event_description ?? "";
   let eventBanner: string = event?.event_banner ?? "";
   let AchievementsCount: number = 1; // Default achievement count
-  let Achievements: string[] = [""]; // Default list of achievements
+  let Tiers: string[] = [""]; // Default list of achievements
 
   export let eventDetails = {
     Description: data.Event?.Description,
@@ -40,10 +42,10 @@
   };
 
   $: {
-    if (AchievementsCount > Achievements.length) {
-      while (Achievements.length < AchievementsCount) Achievements.push("");
-    } else if (AchievementsCount < Achievements.length) {
-      Achievements = Achievements.slice(0, AchievementsCount);
+    if (AchievementsCount > Tiers.length) {
+      while (Tiers.length < AchievementsCount) Tiers.push("");
+    } else if (AchievementsCount < Tiers.length) {
+      Tiers = Tiers.slice(0, AchievementsCount);
     }
   }
 
@@ -69,7 +71,7 @@
           StartsAt: eventDetails.EventStartDate,
           EndsAt: eventDetails.EventEndDate,
           Description: eventDetails.Description,
-          Achievements: Achievements,
+          Achievements: Tiers,
         })
         .eq('EventID', eventDetails.EventID);
 
@@ -183,14 +185,14 @@
 
           <!-- Inputs for achievements -->
     <div class="mb-6">
-      <label class="block mb-2 text-sm font-medium text-gray-900">Achievements</label>
+      <label class="block mb-2 text-sm font-medium text-gray-900">Tiers</label>
       {#each Array(Number(AchievementsCount)) as _, index}
         <div class="mb-3">
           <input
             type="text"
-            bind:value={Achievements[index]}
+            bind:value={Tiers[index]}
             class="bg-gray-50 border w-40 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-            placeholder={`Achievement ${index + 1}`}
+            placeholder={`Tier ${index + 1}`}
             required
           />
         </div>
