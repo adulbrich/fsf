@@ -36,12 +36,13 @@ export default function TeamCard({ team }: Props) {
 			dispatch(setActiveEvent(team));
 			
 			// check if profile even exists (for some weird edge case)
-			if(!myProfile) {
-				console.error('No user profile found');
-				return;
-			}
+			// if(!myProfile) {
+			// 	console.error('No user profile found');
+			// 	return;
+			// }
 			// fetch the current user's userID using myProfile (outside of the async)
-			const userID = myProfile.ProfileID;
+			//const userID = myProfile.ProfileID;
+			const userID = "1793178b-f4a9-4401-bae1-cf440a9baaf7" //temporary replacement until Profile can be sorted out
 			// print the current user's ProfileID 
 			console.log('Profile ID:', userID); 			 
 			// print the current team's TeamID

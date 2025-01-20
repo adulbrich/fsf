@@ -45,6 +45,8 @@ export function AuthSessionProvider({ children }: { children: React.ReactNode })
             return;
           }
 
+          //console.log("User ID: ", data?.session?.user?.id) User ID is received from login, need to get profile using the ID
+
           // Update our Redux store with the new user ID
           dispatch(setUserID(data?.session?.user?.id));
 
