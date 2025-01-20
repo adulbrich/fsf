@@ -19,11 +19,16 @@ const Profile = () => {
     if (myProfile?.Name) {
       setHeader(`Good evening, ${myProfile.Name.split(' ')[0]}.`);
       setUsername(myProfile.Name);
+    } else {
+      console.log("No Profile Found")
     }
   }, [myProfile]);
 
   const changeName = async () => {
-    if (!myProfile) return;
+    if (!myProfile){
+      console.log("No Profile Exists")
+      return
+    } 
     await supabase.from('Profiles')
       .update({ Name: username })
       .eq('ProfileID', myProfile.ProfileID);
