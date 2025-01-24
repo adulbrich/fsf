@@ -13,7 +13,7 @@
     endDate?: string;
     eventDescription?: string;
     achievementsCount?: string;
-    Tiers?: string;
+    achivements?: string;
     eventBanner?: string;
   } = {};
 
@@ -28,7 +28,7 @@
   let endDate: string = event?.event_end_date ?? "";
   let eventDescription: string = event?.event_description ?? "";
   let eventBanner: string = event?.event_banner ?? "";
-  let AchievementsCount: number = 1; // Default achievement count
+  let AchievementsCount: number = event?.AchievementCount ?? 0; // Default achievement count
   let Tiers: string[] = [""]; // Default list of achievements
 
   export let eventDetails = {
@@ -39,6 +39,7 @@
     EventStartDate: data.Event?.StartsAt ? data.Event?.StartsAt.split('T')[0] : '', 
     EventEndDate: data.Event?.EndsAt ? data.Event?.EndsAt.split('T')[0] : '',
     EventID: data.Event?.EventID,
+    AchievementsCount: data.Event?.AchievementsCount,
   };
 
   $: {
@@ -174,7 +175,7 @@
             </label>
             <select
               id="AchievementsCount"
-              bind:value={AchievementsCount}
+              bind:value={eventDetails.AchievementsCount}
               class="bg-gray-50 border w-40 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
             >
               {#each Array(7).fill(0).map((_, i) => i + 1) as count}
@@ -185,14 +186,14 @@
 
           <!-- Inputs for achievements -->
     <div class="mb-6">
-      <label class="block mb-2 text-sm font-medium text-gray-900">Tiers</label>
+      <label class="block mb-2 text-sm font-medium text-gray-900">Achievements</label>
       {#each Array(Number(AchievementsCount)) as _, index}
         <div class="mb-3">
           <input
             type="text"
             bind:value={Tiers[index]}
             class="bg-gray-50 border w-40 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-            placeholder={`Tier ${index + 1}`}
+            placeholder={`Achievement ${index + 1}`}
             required
           />
         </div>
