@@ -17,6 +17,9 @@
 
   let createEventForm: HTMLFormElement;
   let loading = false;
+
+  let AchievementCount = 1;
+
   const handleSubmit: SubmitFunction = () => {
     loading = true;
     return async ({ update }) => {
@@ -172,14 +175,40 @@
             <input style="position:absolute; visibility:hidden;" type="file" id="rewardIcon" name="rewardIcon" accept="image/*" />
           </label>
         </div>
-        <!-- Inputs for the reward tiers -->
-        <h2 class="daily-tiers-text mt-7">Tier Rewards</h2>
-        <div>
-          <RewardTierInput id="tier1" name="tier1" placeholder="3000" label="Tier 1" />
-          <RewardTierInput id="tier2" name="tier2" placeholder="5000" label="Tier 2" />
-          <RewardTierInput id="tier3" name="tier3" placeholder="9000" label="Tier 3" />
+        <!-- Add Dropdown for Selecting Number of Achievements -->
+        <div class=" md:w-[70%] mb-6 md:mb-0">
+          <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="AchievementCount">
+            Number of Achievements
+          </label>
+          <div class="relative">
+            <select
+              id="AchievementCount"
+              name="AchievementCount"
+              bind:value={AchievementCount}
+              class="block appearance-none w-full rounded-md border-black border text-gray-700 py-3 px-4 pr-8 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+            >
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+            </select>
+            <!-- Drop down arrow -->
+            <div class="absolute" style="right: 5.8%; bottom:12px; pointer-events:none;">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M6 9L12 15L18 9" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </div>
+          </div>
         </div>
-      </div>
+        <!-- Dynamically Render Achievement Inputs -->
+        {#each Array(Number(AchievementCount)) as _, index}
+        <div>
+        <RewardTierInput id="Achievement{index + 1}" name="Achievement{index + 1}" placeholder="Achievement {index + 1}" label="Achievement {index + 1}" />
+        </div>
+        {/each}
     </form>
   </div>
 </Layout>

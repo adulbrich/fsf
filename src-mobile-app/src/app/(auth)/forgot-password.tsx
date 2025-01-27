@@ -22,29 +22,49 @@ export default function ForgotPassword() {
   ]);
 
   return (
-    <Animated.View style={ translateStyle }>
+    <Animated.View style={translateStyle}>
       <YStack
         flex={0.3}
         flexBasis={0.25}
         height={"100%"}
-        backgroundColor={'#D73F09'}
+        backgroundColor={'#426B1F'}
         alignItems="flex-start"
         justifyContent="flex-end"
       >
-        { headerImage && (
-          <Image position="absolute" bottom={-80.5} width={width} height={headerImage[0].height!} resizeMode="contain" source={headerImage[0] as ImageURISource} />
+        {headerImage && (
+          <Image
+            position="absolute"
+            bottom={-80.5}
+            width={width}
+            height={headerImage[0].height!}
+            resizeMode="contain"
+            source={headerImage[0] as ImageURISource}
+          />
         )}
       </YStack>
 
-      <YStack flex={1} flexBasis={0.75} justifyContent="flex-start" alignItems="center" paddingHorizontal="$8" paddingTop="$8" paddingBottom="$4" space="$8">
-        { headerImage && (
-          <Image top={0} width={width / 2} height={headerImage[1].height! / 4} resizeMode="contain" source={headerImage[1] as ImageURISource} />
+      <YStack
+        flex={1}
+        flexBasis={0.75}
+        justifyContent="flex-start"
+        alignItems="center"
+        paddingHorizontal="$8"
+        paddingTop="$8"
+        paddingBottom="$4"
+        space="$8"
+      >
+        {headerImage && (
+          <Image
+            top={0}
+            width={width / 2}
+            height={headerImage[1].height! / 4}
+            resizeMode="contain"
+            source={headerImage[1] as ImageURISource}
+          />
         )}
 
         <ForgotPasswordForm />
       </YStack>
-
-      
     </Animated.View>
-  )
+  );
 }

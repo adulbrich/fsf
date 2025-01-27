@@ -43,12 +43,10 @@ export const actions = {
     const eventDescription = formData.get("eventDescription") as string;
     const RewardSingular = formData.get("singularReward") as string;
     const RewardPlural = formData.get("pluralReward") as string;
-    const tier1String = formData.get("tier1");
-    const RewardTierOneThreshold = tier1String ? Number(tier1String) : null;
-    const tier2String = formData.get("tier2");
-    const RewardTierTwoThreshold = tier2String ? Number(tier2String) : null;
-    const tier3String = formData.get("tier3");
-    const RewardTierThreeThreshold = tier3String ? Number(tier3String) : null;
+    const AchievementCount = formData.get("AchievementCount") as string;
+    const Achievements = Array.from({ length: parseInt(AchievementCount) }, (_, i) =>
+      formData.get(`Achievement${i + 1}`) as string
+    );
 
     // Event banner image, it should be a base64 encoded string.
     const eventBanner = formData.get("eventBanner") as File;
@@ -75,9 +73,8 @@ export const actions = {
         eventDescription,
         RewardSingular,
         RewardPlural,
-        RewardTierOneThreshold,
-        RewardTierTwoThreshold,
-        RewardTierThreeThreshold,
+        AchievementCount,
+        Achievements,
       });
     }
 
@@ -94,9 +91,8 @@ export const actions = {
         Description: eventDescription,
         RewardSingular: RewardSingular,
         RewardPlural: RewardPlural,
-        RewardTierOneThreshold: RewardTierOneThreshold,
-        RewardTierTwoThreshold: RewardTierTwoThreshold,
-        RewardTierThreeThreshold: RewardTierThreeThreshold,
+        AchievementCount: AchievementCount,
+        Achievements: Achievements,
       })
       // Select the data we just created so we can use it for the banner.
       .select()
@@ -116,9 +112,8 @@ export const actions = {
         eventDescription,
         RewardSingular,
         RewardPlural,
-        RewardTierOneThreshold,
-        RewardTierTwoThreshold,
-        RewardTierThreeThreshold,
+        AchievementCount,
+        Achievements,
       });
     }
 
@@ -153,9 +148,8 @@ export const actions = {
         eventDescription,
         RewardSingular,
         RewardPlural,
-        RewardTierOneThreshold,
-        RewardTierTwoThreshold,
-        RewardTierThreeThreshold,
+        AchievementCount,
+        Achievements,
       });
     }
 
@@ -171,9 +165,8 @@ export const actions = {
       eventDescription,
       RewardSingular,
       RewardPlural,
-      RewardTierOneThreshold,
-      RewardTierTwoThreshold,
-      RewardTierThreeThreshold,
+      AchievementCount,
+      Achievements,
     };
   },
 };

@@ -114,7 +114,6 @@
         </a>
       </div>
     </div>
-    
 
     <!-- Container for the events -->
     <div class="flex flex-row ml-[20.5%] w-[72%] h-[80%] custom-border mt-5">

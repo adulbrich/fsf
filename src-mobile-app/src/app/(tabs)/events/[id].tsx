@@ -27,12 +27,10 @@ export default function EventDetails() {
   console.log(teamStats);
 
   const [assets] = useAssets([
-
     require('../../../../assets/images/preview_square.jpg'),
     require('../../../../assets/images/preview_wide.jpg'),
     // Event banner (if exists) in the public event assets bucket
     supabase.storage.from('EventAssets').getPublicUrl(`Banners/${slugEventID}`).data.publicUrl
-
   ]);
 
   const [useFallback, setUseFallback] = useState(false);
@@ -54,11 +52,9 @@ export default function EventDetails() {
             backgroundColor: theme.background.get()
           },
         }}
-        />
+      />
       <YStack flex={1} justifyContent="flex-start" alignItems="flex-start" padding="$4" gap={'$4'}>
-        
         <YStack borderRadius={"$4"} overflow="hidden" width={'100%'} height={'$12'}>
-
           <Image
             width={'100%'}
             height={'100%'}
@@ -69,7 +65,7 @@ export default function EventDetails() {
               height: useFallback ? assets[1].height! : assets[2].height!
             }}
             onError={() => setUseFallback(true)}
-            />
+          />
         </YStack>
 
         <XStack width={'100%'} justifyContent="space-between" alignItems="center">
@@ -79,7 +75,7 @@ export default function EventDetails() {
         </XStack>
 
         <YStack width={'100%'}>
-          <Button bg={'#eb7434'} color={'white'} onPress={registerCallback}>Register</Button>
+          <Button bg={'#81C746'} color={'white'} onPress={registerCallback}>Register</Button>
         </YStack>
 
         <YStack gap={'$4'}>
@@ -103,3 +99,5 @@ export default function EventDetails() {
     </>
   )
 }
+
+<userStyle>Normal</userStyle>

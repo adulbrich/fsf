@@ -197,7 +197,7 @@ export default function EventDetailsSheet() {
             </Select.Content>
           </Select>
 
-          <Button bg={'#eb7434'} color={'white'} onPress={joinTeamCallback}>Join</Button>
+          <Button bg={'#36C122'} color={'white'} onPress={joinTeamCallback}>Join</Button>
         </YStack>
 
         {/* <Button
