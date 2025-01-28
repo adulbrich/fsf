@@ -2,6 +2,8 @@ import { PUBLIC_SUPABASE_URL, PUBLIC_SUPABASE_ANON_KEY } from '$env/static/publi
 import type { LayoutLoad } from './$types';
 import { combineChunks, createBrowserClient, isBrowser, parse } from '@supabase/ssr';
 
+// export const ssr = false; //uncomment to prevent server side rendering
+
 export const load: LayoutLoad = async ({ url, fetch, data, depends }) => {
   depends('supabase:auth');
 
@@ -10,13 +12,14 @@ export const load: LayoutLoad = async ({ url, fetch, data, depends }) => {
     PUBLIC_SUPABASE_ANON_KEY,
     {
       global: {
-        fetch
+        fetch //supabase defines fetch in the background
       },
       cookies: {
-        get(key) {
+        get(key) { 
           if (!isBrowser())
             return JSON.stringify(data.session);
-
+          
+          //if on browser
           const cookie = combineChunks(key, (name) => {
             const cookies = parse(document.cookie);
             return cookies[name];
