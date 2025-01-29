@@ -8,9 +8,12 @@ import React from "react";
 import { router } from "expo-router";
 import { AlignCenter } from "@tamagui/lucide-icons";
 import { supabase } from "../../lib/supabase"; // Import your Supabase client
-import { selectMyProfile } from "../../store/profilesSlice";
+import { selectMyProfile} from "../../store/profilesSlice";
+import { selectProfile } from "../../store/profileSlice";
+import { selectUserID } from "../../store/systemSlice";
 import { RootState } from '../../store/store';
 import { useSelector } from 'react-redux';
+
 
 //Purpose: defines a card for a team. The card contains the team name, number of members, and a "Join" button
 type Props = {
@@ -28,7 +31,11 @@ export default function TeamCard({ team }: Props) {
 		return teamname;
   }
 	// grab current userID (user that's currently logged into the app)
-	const myProfile = useSelector((state: RootState) => selectMyProfile(state));
+	const myProfile = useSelector((state: RootState) => selectProfile(state));
+	//const myProfile = useSelector(selectUserProfile)
+	const UserID = useSelector(selectUserID)
+	console.log("USER ID: ", UserID)
+	console.log(myProfile)
 
 	// function to handle a user joining a team
 	const handleJoinTeam = async () => {
@@ -36,13 +43,20 @@ export default function TeamCard({ team }: Props) {
 			dispatch(setActiveEvent(team));
 			
 			// check if profile even exists (for some weird edge case)
-			// if(!myProfile) {
-			// 	console.error('No user profile found');
-			// 	return;
-			// }
+			if(!myProfile) {
+				console.error('No user profile found');
+				console.log(myProfile)
+				return;
+			}
+
+			if(!UserID){
+				return;
+			}
+
 			// fetch the current user's userID using myProfile (outside of the async)
-			//const userID = myProfile.ProfileID;
-			const userID = "1793178b-f4a9-4401-bae1-cf440a9baaf7" //temporary replacement until Profile can be sorted out
+			const userID = myProfile.ProfileID
+			console.log(userID)
+			//const userID = "1793178b-f4a9-4401-bae1-cf440a9baaf7" //temporary replacement until Profile can be sorted out
 			// print the current user's ProfileID 
 			console.log('Profile ID:', userID); 			 
 			// print the current team's TeamID
@@ -52,7 +66,7 @@ export default function TeamCard({ team }: Props) {
 			const { error, status } = await supabase
 				.from('TeamsProfiles') // The join table name
 				.insert([
-					{ TeamID: team.TeamID, ProfileID: userID }
+					{ TeamID: team.TeamID, ProfileID: UserID }
 				]);
 
 				if(error && status == 409){
