@@ -1,27 +1,69 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { SafeAreaView, ScrollView, StyleSheet } from "react-native";
 import { Text, View, Button } from "tamagui";
 import { useNavigation } from "@react-navigation/native";
+import { useAuth } from "../features/system/Auth";
+import { supabase } from "../lib/supabase"; // Adjust this path if needed
 
-const TeamLeaderboards = () => {
-  const navigation = useNavigation(); // Access navigation
+const TeamLeaderboard = () => {
+  const navigation = useNavigation();
+  const { session, isReady, getSession } = useAuth();
+  const [teamStats, setTeamStats] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchAllTeams = async () => {
+      try {
+        const { data, error } = await supabase
+          .from("TeamStats")
+          .select("*")
+          .order("TotalScore", { ascending: false }); // Sort teams by score
+
+        if (error) throw error;
+        setTeamStats(data || []);
+      } catch (error) {
+        console.error("Error fetching team stats:", error.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    if (isReady) {
+      fetchAllTeams();
+    } else {
+      getSession();
+    }
+  }, [isReady, getSession]);
+
+  if (!isReady || loading) {
+    return <Text>Loading...</Text>;
+  }
 
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollView}>
-        <Text style={styles.heading}>Team Leaderboards</Text>
+        <Text style={styles.heading}>Team Leaderboard</Text>
         <View style={styles.leaderboardContainer}>
-          {/* Placeholder for leaderboard data */}
-          <Text style={styles.placeholderText}>Leaderboard data coming soon!</Text>
+          {teamStats.length === 0 ? (
+            <Text style={styles.placeholderText}>No leaderboard data available!</Text>
+          ) : (
+            teamStats.map((team, index) => (
+              <View key={team.TeamID} style={styles.teamRow}>
+                <Text style={styles.teamName}>
+                  {index + 1}. {team.Name}
+                </Text>
+                <Text style={styles.teamScore}>{team.TotalScore ?? 0}</Text>
+              </View>
+            ))
+          )}
         </View>
-        {/* Back Button */}
         <Button
           bg="#426B1F"
           color="#FFFFFF"
-          onPress={() => navigation.goBack()} // Navigate back to the previous screen
+          onPress={() => navigation.goBack()}
           style={styles.backButton}
         >
-          Back to Team
+          Back to Profile
         </Button>
       </ScrollView>
     </SafeAreaView>
@@ -54,6 +96,21 @@ const styles = StyleSheet.create({
     shadowRadius: 4,
     marginBottom: 20,
   },
+  teamRow: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginVertical: 8,
+  },
+  teamName: {
+    fontSize: 18,
+    fontWeight: "500",
+    color: "#333",
+  },
+  teamScore: {
+    fontSize: 18,
+    fontWeight: "bold",
+    color: "#426B1F",
+  },
   placeholderText: {
     fontSize: 18,
     textAlign: "center",
@@ -68,4 +125,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default TeamLeaderboards;
+export default TeamLeaderboard;
