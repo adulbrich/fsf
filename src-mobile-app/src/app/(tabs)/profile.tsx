@@ -3,14 +3,15 @@ import { SafeAreaView, ScrollView } from "react-native";
 import { H3, H4, H5, XStack, YStack, Button, Input, Text } from "tamagui";
 import { useTypedSelector } from "../../store/store";
 import { selectMyProfileStats } from "../../store/profileStatsSlice";
-import { selectMyProfile } from "../../store/profilesSlice";
+import { selectProfile } from "../../store/profileSlice";
 import { supabase } from "../../lib/supabase";
 import { useAuth } from "../../features/system/Auth";
+import { useSelector } from 'react-redux';
 
 const Profile = () => {
   const auth = useAuth();
   const myProfileStats = useTypedSelector(selectMyProfileStats);
-  const myProfile = useTypedSelector(selectMyProfile);
+  const myProfile = useSelector(selectProfile);
   const [header, setHeader] = useState('Good evening.');
   const [isEditing, setIsEditing] = useState(false);
   const [username, setUsername] = useState(myProfile?.Name?.split(' ')[0] || '');

@@ -21,7 +21,7 @@ const initialState: ProfileState = {
 
 export const fetchProfile = createAsyncThunk(
     'profile/fetchProfile',
-    async (userID: string | null, thunkAPI) => {
+    async (userID: string | null, thunkAPI) => { 
         console.log("Fetching Profile for User: ", userID)
         try {
             const { data, error } = await supabase
@@ -30,9 +30,11 @@ export const fetchProfile = createAsyncThunk(
                 .eq('ProfileID', userID ?? "")
                 .limit(1)
                 .single()
+
             console.log("PROFILE: ", data ?? "not found")
             if (error) throw error;
             return data
+    
         } catch (error) {
             return thunkAPI.rejectWithValue(error)
         }
@@ -63,4 +65,4 @@ const profileSlice = createSlice({
 
 export default profileSlice.reducer
 const selectSelf = (state: RootState) => state.profileSlice;
-export const selectProfile = createSelector(selectSelf, (state) => state)
+export const selectProfile = selectSelf

@@ -31,34 +31,18 @@ export default function TeamCard({ team }: Props) {
 		return teamname;
   }
 	// grab current userID (user that's currently logged into the app)
-	const myProfile = useSelector((state: RootState) => selectProfile(state));
-	//const myProfile = useSelector(selectUserProfile)
 	const UserID = useSelector(selectUserID)
 	console.log("USER ID: ", UserID)
-	console.log(myProfile)
 
 	// function to handle a user joining a team
 	const handleJoinTeam = async () => {
 		try {
 			dispatch(setActiveEvent(team));
 			
-			// check if profile even exists (for some weird edge case)
-			if(!myProfile) {
-				console.error('No user profile found');
-				console.log(myProfile)
-				return;
-			}
-
 			if(!UserID){
 				return;
 			}
-
-			// fetch the current user's userID using myProfile (outside of the async)
-			const userID = myProfile.ProfileID
-			console.log(userID)
-			//const userID = "1793178b-f4a9-4401-bae1-cf440a9baaf7" //temporary replacement until Profile can be sorted out
-			// print the current user's ProfileID 
-			console.log('Profile ID:', userID); 			 
+ 			 
 			// print the current team's TeamID
 			console.log('Team ID:', team.TeamID);  
 			
