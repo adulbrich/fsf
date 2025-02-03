@@ -13,7 +13,7 @@ const Profile = () => {
   const navigation = useNavigation();
   const auth = useAuth();
   const myProfileStats = useTypedSelector(selectMyProfileStats);
-  const myProfile = useTypedSelector(selectMyProfile);
+  const myProfile = useSelector(selectProfile);
   const [header, setHeader] = useState("Good evening.");
   const [isEditing, setIsEditing] = useState(false);
   const [username, setUsername] = useState(myProfile?.Name?.split(" ")[0] || "");
