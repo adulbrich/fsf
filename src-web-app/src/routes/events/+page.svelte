@@ -87,12 +87,32 @@
         <!-- Search Bar -->
         <SearchBar events={eventNamesAndID} />
       </form>
-      <!-- Create Event button -->
-      <a href="/events/create" style="margin-left: 60px; margin-top: 19px;">
-        <button class="btn btn-sm font-normal h-9 font-sans hover:bg-dark-orange text-white rounded-full" style="position: absolute; margin-top: 9px; margin-left: 8px; background-color: #81c745;">
-          Create Event
-        </button>
-      </a>
+      <!-- Button Container -->
+      <div class="flex flex-col items-start ml-20" style="margin-top: 19px;">
+        <!-- Create Event button -->
+        <a href="/events/create">
+          <button 
+            class="btn btn-sm font-normal h-9 font-sans hover:bg-dark-orange text-white rounded-full" 
+            style="background-color: #81c745; margin-bottom: 10px;">
+            Create Event
+          </button>
+        </a>
+        <!-- View Organizations button -->
+        <a href="/orgs">
+          <button 
+            class="btn btn-sm font-normal h-9 font-sans hover:bg-dark-orange text-white rounded-full" 
+            style="background-color: #81c745; margin-bottom: 10px;">
+            View Organizations
+          </button>
+        </a>
+        <a href="/users">
+          <button 
+            class="btn btn-sm font-normal h-9 font-sans hover:bg-dark-orange text-white rounded-full" 
+            style="background-color: #81c745;">
+            Add Users
+          </button>
+        </a>
+      </div>
     </div>
 
     <!-- Container for the events -->

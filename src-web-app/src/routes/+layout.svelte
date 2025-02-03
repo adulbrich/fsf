@@ -1,6 +1,7 @@
 
 <script lang="ts">
   import { fade } from "svelte/transition";
+  import { Auth } from '@supabase/auth-ui-svelte';
   import "../app.css";
   import { Toaster } from 'svelte-french-toast';
 

@@ -37,6 +37,10 @@ export const actions = {
       const endDate = formData.get('endDate') as string;
       const eventDescription = formData.get('eventDescription') as string;
       const eventBanner = formData.get('eventBanner') as string;
+      const AchievementCount = formData.get("AchievementCount") as string;
+      const Achievements = Array.from({ length: parseInt(AchievementCount) }, (_, i) =>
+        formData.get(`Achievement ${i + 1}`) as string
+      );
 
       const session = await getSession();
 
@@ -48,6 +52,8 @@ export const actions = {
         event_end_date: endDate,
         event_description: eventDescription,
         event_banner: eventBanner,
+        AchievementCount: AchievementCount,
+        Achievements: Achievements,
         updated_at: new Date(),
       });
 
@@ -59,6 +65,8 @@ export const actions = {
           endDate,
           eventDescription,
           eventBanner,
+          AchievementCount,
+          Achievements,
         });
       }
 
@@ -69,6 +77,8 @@ export const actions = {
         endDate,
         eventDescription,
         eventBanner,
+        AchievementCount,
+        Achievements,
       };
     },
   };
