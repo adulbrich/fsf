@@ -51,37 +51,33 @@
 
   $: Achievements = Array.from({ length: AchievementsCount }, (_, i) => Achievements[i] || "");
 
-  const handleSubmit: SubmitFunction = async () => {
-    loading = true;
-    await updateEventDetails();
-    loading = false;
-    goto('/events');
-  };
+  let successMessage = "";
+  let showSuccess = false;
 
-  const updateEventDetails = async () => {
-      loading = true;
+  const handleSubmit: SubmitFunction = async ({ form, data }) => {
+    try {
+      const response = await fetch(form.action, {
+        method: form.method,
+        body: data,
+      });
 
-      const { data: updatedData, error } = await supabase
-        .from('Events')
-        .update({
-          Name: eventDetails.EventName,
-          Type: eventDetails.EventType,
-          StartsAt: eventDetails.EventStartDate,
-          EndsAt: eventDetails.EventEndDate,
-          Description: eventDetails.Description,
-          AchievementsCount: eventDetails.AchievementsCount,
-          Achievements:  eventDetails.Achievements,
-        })
-        .eq('EventID', eventDetails.EventID);
+      if (response.ok) {
+        successMessage = "Event updated successfully! Please go back to the previous page to look for the changes.";
+        showSuccess = true;
 
-      if (error) {
-        console.error('Error updating event:', error);
-        alert('Failed to update event.');
+        // Auto-hide after 3 seconds
+        setTimeout(() => (showSuccess = false), 3000);
       } else {
-        console.log('Event updated successfully:', updatedData);
+        throw new Error("Failed to update the event.");
       }
-      loading = false;
+    } catch (error) {
+      successMessage = "Failed to update the event. Please try again.";
+      showSuccess = true;
+
+      setTimeout(() => (showSuccess = false), 3000);
+    }
   };
+
 
   
 </script>
@@ -102,59 +98,60 @@
     </div>
   </div>
 
-
-
   <div class="p-7 h-auto">
     <!--Form Attributes-->
-    <form class="form-widget flex-1 ml-[17%]" method="post" action="?/create" use:enhance={handleSubmit} bind:this={createEventForm}>
-      <div class="flex flex-wrap -mx-3 mb-6">
-        <a href="/events" style="margin-left: 10px; margin-top:15px;">
-            
-        </a>
-        <!--Header-->
-        <div class="w-full">
-
-        </div>
+    <div class="form-widget flex-1 ml-[17%] flex flex-wrap -mx-3 mb-6">
+      <a href="/events" style="margin-left: 10px; margin-top:15px;">   
+      </a>
+      <!--Header-->
+      <div class="w-full">
+    </div>
         
-        <form method='POST' action='?/edit'>
-            <!-- Grid container for the first row with two columns -->
-            <div class="grid grid-cols-3 gap-6 mb-6 ml-4">
-              <input type="hidden" id="eventID" name="eventID"
-              bind:value={eventDetails.EventID}/>
-              <!--Container for Event Name-->
-              <div>
-                <label for="eventName" class="block mb-2 text-sm font-medium text-gray-900 ">Event Name</label>
-                <input type="text" id="eventName" name="eventName"
-                  bind:value={eventDetails.EventName}
-                  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
-                  placeholder="Event Name" required />
-              </div>
+      <form method='POST' action='?/edit' use:enhance={handleSubmit}>
+        {#if showSuccess}
+          <div class="success-message bg-green-500 text-white text-center py-2 rounded-md mb-4">
+            {successMessage}
+          </div>
+        {/if}
 
-                <!--Container for Event Type Dropdown-->
-              <div>
-                <label for="eventType" class="block mb-2 text-sm font-medium text-gray-900 ">Event Type</label>
-                <select id="eventType" name="eventType" bind:value={eventDetails.EventType}
-                  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 ">
-                  <option selected>Steps</option>
-                  <option>Distance</option>
-                </select>
-              </div>
+          <!-- Grid container for the first row with two columns -->
+          <div class="grid grid-cols-3 gap-6 mb-6 ml-4">
+            <input type="hidden" id="eventID" name="eventID"
+            bind:value={eventDetails.EventID}/>
+            <!--Container for Event Name-->
+            <div>
+              <label for="eventName" class="block mb-2 text-sm font-medium text-gray-900 ">Event Name</label>
+              <input type="text" id="eventName" name="eventName"
+                bind:value={eventDetails.EventName}
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+                placeholder="Event Name" required />
             </div>
 
-            <!-- Grid container for the second row with two columns -->
-            <div class="grid grid-cols-3 gap-6 mb-6  ml-4">
-                <!--Container for Start Date Input-->
-                <div>
-                    <label for="startDate" class="block mb-2 text-sm font-medium text-gray-900 ">Start Date</label>
-                    <input type="date" id="startDate" name="startDate" bind:value={eventDetails.EventStartDate} class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " required />
-                </div>
-
-                <!--Container for End Date Input-->
-                <div>
-                    <label for="endDate" class="block mb-2 text-sm font-medium text-gray-900 ">End Date</label>
-                    <input type="date" id="endDate" name="endDate" bind:value={eventDetails.EventEndDate} class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " required />
-                </div>
+            <!--Container for Event Type Dropdown-->
+            <div>
+              <label for="eventType" class="block mb-2 text-sm font-medium text-gray-900 ">Event Type</label>
+              <select id="eventType" name="eventType" bind:value={eventDetails.EventType}
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 ">
+                <option selected>Steps</option>
+                <option>Distance</option>
+              </select>
             </div>
+          </div>
+
+          <!-- Grid container for the second row with two columns -->
+          <div class="grid grid-cols-3 gap-6 mb-6  ml-4">
+              <!--Container for Start Date Input-->
+              <div>
+                  <label for="startDate" class="block mb-2 text-sm font-medium text-gray-900 ">Start Date</label>
+                  <input type="date" id="startDate" name="startDate" bind:value={eventDetails.EventStartDate} class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " required />
+              </div>
+
+              <!--Container for End Date Input-->
+              <div>
+                  <label for="endDate" class="block mb-2 text-sm font-medium text-gray-900 ">End Date</label>
+                  <input type="date" id="endDate" name="endDate" bind:value={eventDetails.EventEndDate} class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " required />
+              </div>
+          </div>
 
           <!--Container for Event Description Input-->
           <div class="col-span-3  ml-4">
@@ -201,31 +198,20 @@
             {/each}
           </div>
 
-      <div class="px-2">
-        <input
-          type="submit"
-          class="btn  text-white primary hover:bg-dark-orange bg-beaver-orange appearance-none py-3 px-4 mb-3 "
-          value={loading ? "Loading.." : "Edit"}
-          disabled={loading}
-        />
-      </div>
-    </form>
-  </div>
-  </form>
-</div>
-<style>
+        <div class="px-2">
+          <input
+            type="submit"
+            class="btn  text-white primary hover:bg-dark-orange bg-beaver-orange appearance-none py-3 px-4 mb-3 "
+            value={loading ? "Loading.." : "Edit"}
+            disabled={loading}
+          />
+        </div>
 
-.header-style {
-    font-style: normal;
-    font-weight: 628;
-    font-size: 28px;
-    line-height: 44px;
-  }
-  .active {
-    background-color: #4A708B; /* Softer blue */
-    border-radius: 5px;
-    color: white; /* Ensuring text is easily readable */
-  }
+      </form>
+    </div>
+  </div>
+
+<style>
   .flex.items-center {
     display: flex;
     align-items: center; /* Vertically aligns the items in the center */
