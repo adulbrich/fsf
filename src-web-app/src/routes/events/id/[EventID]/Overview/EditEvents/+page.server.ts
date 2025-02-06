@@ -23,7 +23,7 @@ export const actions = {
     }
 
     const formData = await request.formData();
-    const eventID = formData.get("EventID") as string; // Ensure EventID is retrieved correctly
+    const eventID = formData.get("eventID") as string; // Ensure EventID is retrieved correctly
     const eventName = formData.get("eventName") as string;
     const eventType = formData.get("eventType") as "Steps" | "Distance";
     const startDate = formData.get("startDate") as string;
@@ -31,15 +31,16 @@ export const actions = {
     const eventDescription = formData.get("eventDescription") as string;
     const AchievementCount = Number(formData.get("AchievementsCount"));
     const Achievements = Array.from({ length: AchievementCount }, (_, i) =>
-      formData.get(`Achievement${i + 1}`) as string
+      formData.get(`Achievement${i}`)
     );
 
     const eventBanner = formData.get("eventBanner") as File | null;
 
     console.log("Updating event:", eventID, eventName);
-
+    console.log("Form data", formData);
+    console.log('Achievements', Achievements);
     // Update event details in the database
-    const { error: editEventError } = await supabase
+    const { error: editEventError, data: editEventData } = await supabase
       .from("Events")
       .update({
         Name: eventName,
@@ -50,7 +51,10 @@ export const actions = {
         AchievementCount: AchievementCount,
         Achievements: Achievements
       })
-      .eq("EventID", eventID);
+      .eq("EventID", eventID)
+      .select();
+    
+    console.log(editEventData);
 
     if (editEventError) {
       console.log("Failed to update event:", editEventError.message);

@@ -27,7 +27,7 @@
   let endDate: string = Event?.EndsAt ?? "";
   let eventDescription: string = Event?.Description ?? "";
   let AchievementsCount: number = Event?.AchievementCount ?? 0; // Default achievement count
-  let Achievements: string[] = [""]; // Default list of achievements
+  let Achievements: string[] = Event?.Achievements ?? [""]; // Default list of achievements
 
   export let eventDetails = {
     Description: data.Event?.Description,
@@ -116,10 +116,12 @@
 
         </div>
         
-        <form>
+        <form method='POST' action='?/edit'>
             <!-- Grid container for the first row with two columns -->
             <div class="grid grid-cols-3 gap-6 mb-6 ml-4">
-                <!--Container for Event Name-->
+              <input type="hidden" id="eventID" name="eventID"
+              bind:value={eventDetails.EventID}/>
+              <!--Container for Event Name-->
               <div>
                 <label for="eventName" class="block mb-2 text-sm font-medium text-gray-900 ">Event Name</label>
                 <input type="text" id="eventName" name="eventName"
@@ -133,8 +135,8 @@
                 <label for="eventType" class="block mb-2 text-sm font-medium text-gray-900 ">Event Type</label>
                 <select id="eventType" name="eventType" bind:value={eventDetails.EventType}
                   class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 ">
-                  <option>Walk (Steps)</option>
-                  <option>Run (Distance)</option>
+                  <option selected>Steps</option>
+                  <option>Distance</option>
                 </select>
               </div>
             </div>
@@ -171,6 +173,7 @@
               Number of Achievements
             </label>
             <select
+              name="AchievementsCount"
               id="AchievementsCount"
               bind:value={AchievementsCount}
               class="bg-gray-50 border w-40 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
@@ -188,11 +191,11 @@
             {#each Array(Number(AchievementsCount)) as _, index}
               <div class="mb-3">
                 <input
+                  name={'Achievement'+index}
                   type="text"
                   bind:value={Achievements[index]}
                   class="bg-gray-50 border w-40 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                  placeholder={`Achievement ${index + 1}`}
-                  required
+                  placeholder={Achievements[index]}
                 />
               </div>
             {/each}
