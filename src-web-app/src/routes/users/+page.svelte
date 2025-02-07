@@ -34,8 +34,10 @@
     let profiles: Profile[] = [];
     let orgName = "";
     let userName = "";
+    let userPassword = "";
+    let userEmail = "";
     let userRole: "participant" | "admin" | "developer" = "participant"; // Default role
-    let errorMessage = "";
+    let formMessage = "";
     let organizations: Organization[] = [];
 
     const fetchOrganizations = async () => {
@@ -57,62 +59,70 @@
     };
 
     const addProfile = async () => {
-        errorMessage = "";
+        formMessage = "";
 
-        if (!userName || !userRole || !orgName) {
-            errorMessage = "All fields are required.";
+        if (!userName || !userPassword || !userEmail || !userRole || !orgName) {
+            formMessage = "All fields are required.";
             return;
         }
 
-        // Check if the organization exists
-        const organizationExists = organizations.some((org) => org.org_name.toLowerCase() === orgName.toLowerCase());
-        if (!organizationExists) {
-            errorMessage = "The organization does not exist.";
+        // Step 1: Create a new user in auth.users
+        const { data: newUser, error: signUpError } = await supabase.auth.signUp({
+            // email: `${crypto.randomUUID()}@example.com`, // Use a temporary email
+            // email: `tuthi@oregonstate.edu`, // Use a temporary email
+            email: userEmail,
+            // password: crypto.randomUUID(), // Generate a secure random password
+            password: userPassword,
+        });
+
+        if (signUpError || !newUser || !newUser.user) {
+            formMessage = "Failed to create a new user.";
+            console.error("Error creating user:", signUpError);
             return;
         }
 
-        // Check if the profile name already exists
-        const { data: existingProfile, error: profileCheckError } = await supabase
-            .from("Profiles")
+        const newProfileID = newUser.user.id; // Get the new user's ID
+        const currentTimestamp = new Date().toISOString();
+
+        // Step 2: Check if the organization exists
+        const { data: orgData, error: orgError } = await supabase
+            .from("Organizations")
             .select("*")
-            .eq("Name", userName);
+            .eq("org_name", orgName);
 
-        if (profileCheckError) {
-            console.error("Error checking profile existence:", profileCheckError);
+        if (orgError || orgData.length === 0) {
+            formMessage = "The organization does not exist.";
             return;
         }
 
-        if (existingProfile && existingProfile.length > 0) {
-            errorMessage = "A profile with this name already exists.";
-            return;
-        }
+        // Step 3: Insert the new profile into Profiles table
+        const { error: insertError } = await supabase.from("Profiles").insert([
+            {
+                ProfileID: newProfileID, // Use the new user's ID
+                CreatedAt: currentTimestamp,
+                UpdatedAt: currentTimestamp,
+                Name: userName,
+                Role: userRole,
+                Organization: orgName,
+            },
+        ]);
 
-        const currentTimestamp = new Date().toISOString(); // Generate current timestamp in the desired format
-
-        const newProfileID = uuidv4(); // Generate unique ID for ProfileID
-
-        // Insert new profile into Profiles table
-        const newProfile: Profile = {
-            ProfileID: newProfileID,
-            CreatedAt: currentTimestamp,
-            UpdatedAt: currentTimestamp,
-            Name: userName,
-            Role: userRole,
-            Organization: orgName,
-        };
-
-        const { error: insertError } = await supabase.from("Profiles").insert([newProfile]);
-        if (insertError) {
-            console.error("Error adding profile:", insertError);
-            errorMessage = "Failed to add user.";
-        } else {
-            console.log("Profile added successfully");
-            userName = "";
-            userRole = "participant"; // Reset to default
-            orgName = "";
-            await fetchProfiles(); // Refresh profile list
-        }
+        // if (insertError) {
+        //     console.error("Error adding profile:", insertError);
+        //     formMessage = "Failed to add profile.";
+        // } else {
+        console.log("Profile added successfully");
+        userName = "";
+        userPassword = "";
+        userEmail = "";
+        userRole = "participant"; // Reset to default
+        orgName = "";
+        formMessage = "Profile added successfully";
+        await fetchProfiles(); // Refresh profile list
+        // }
     };
+
+
 
     // Fetch organizations and profiles on component load
     fetchOrganizations();
@@ -135,6 +145,32 @@
                         type="text"
                         bind:value={userName}
                         placeholder="Enter user name"
+                        class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                        required
+                    />
+                </div>
+                <div class="flex flex-col">
+                    <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="userPassword">
+                        Password
+                    </label>
+                    <input
+                        id="userPassword"
+                        type="password"
+                        bind:value={userPassword}
+                        placeholder="Enter password"
+                        class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                        required
+                    />
+                </div>                
+                <div class="flex flex-col">
+                    <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="userEmail">
+                        Email
+                    </label>
+                    <input
+                        id="userEmail"
+                        type="email"
+                        bind:value={userEmail}
+                        placeholder="Enter user email"
                         class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                         required
                     />
@@ -166,8 +202,8 @@
                         required
                     />
                 </div>
-                {#if errorMessage}
-                    <p class="text-red-500 text-sm">{errorMessage}</p>
+                {#if formMessage}
+                    <p class="text-red-500 text-sm">{formMessage}</p>
                 {/if}
                 <button
                     type="submit"
