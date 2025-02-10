@@ -16,10 +16,8 @@ export default function IndividualLeaderboard() {
     const fetchLeaderboard = async () => {
       try {
         const { data, error } = await supabase
-          .from("ActivityProgress")
-          .select("CreatedByProfileID, Profiles(Name), sum(RawProgress) as TotalScore")
-          .eq("ActivityType", "Steps") // Optional: filter only for "Steps" activity
-          .group("CreatedByProfileID, Profiles.Name")
+          .from("ProfileStats")
+          .select("Name, TotalScore") // Select Name and TotalScore
           .order("TotalScore", { ascending: false }); // Order by TotalScore descending
 
         if (error) throw error;
@@ -50,9 +48,9 @@ export default function IndividualLeaderboard() {
           <Text>No data available</Text>
         ) : (
           leaderboard.map((user, index) => (
-            <View key={user.CreatedByProfileID} style={styles.row}>
+            <View key={index} style={styles.row}>
               <Text style={styles.name}>
-                {index + 1}. {user.Profiles?.Name ?? "Unnamed"}
+                {index + 1}. {user.Name ?? "Unnamed"}
               </Text>
               <Text style={styles.score}>{user.TotalScore ?? 0}</Text>
             </View>
@@ -75,6 +73,7 @@ const styles = StyleSheet.create({
   scrollView: {
     alignItems: "center",
     padding: 16,
+    paddingTop: 50, // Added padding to bring content lower on the page
   },
   heading: {
     fontSize: 24,
