@@ -10,6 +10,7 @@ import React from "react";
 import { setActiveEvent } from "../../../store/eventsSlice";
 import { blue } from "react-native-reanimated/lib/typescript/reanimated2/Colors";
 import { widths } from "@tamagui/config";
+import { FlatList } from "react-native";
 
 
 export default function EventDetails() {
@@ -19,6 +20,13 @@ export default function EventDetails() {
   const slugEventID = useLocalSearchParams().id;
   const event = useTypedSelector<SBEvent[]>(store => store.eventsSlice.events)
     .find(ev => ev.EventID === slugEventID);
+
+  var typeUnit = "";
+  if (event?.Type == "Distance"){
+    typeUnit = "mi";
+  } else if (event?.Type == "Steps"){
+    typeUnit = "steps";
+  }
 
   //const { user, session } = useAuth();
 
@@ -87,45 +95,19 @@ export default function EventDetails() {
             borderColor="#898A8D"
             >
 
-            {/* Event dates/timeline */}
-            <YStack
-              // borderTopWidth={1}
-              // borderTopColor={"#898A8D"}
-              borderBottomWidth={1} 
-              borderBottomColor={"#c9c9c9"}
-              >
-              
-              <YStack marginBottom="$2">
-                  <Text 
-                  color="black"
-                  fontSize="$5"
-                  >Dates</Text>
-              </YStack>
-            </YStack>
-            
-            <YStack borderBottomWidth={1} borderBottomColor={"#c9c9c9"}>
-              <YStack width="100%" alignItems="center" marginBottom="$2.5" marginTop="$2.5">
-                <XStack width={'100%'} justifyContent="space-between">
+            {/* Event Name */}
+            <YStack>
+              <Text color="black" fontSize="$9" fontWeight="bold" paddingVertical="$1">
+                {event.Name}
+              </Text>
 
-                  <XStack borderWidth="1" borderRadius="$3" padding="$1.5" backgroundColor="#D9D9D9">
-                    <Text color='black'>Starts: { getDateString(event.StartsAt) }</Text>
-                  </XStack>
-                  
-                  <XStack borderWidth="1" borderRadius="$3" padding="$1.5" backgroundColor="#D9D9D9">
-                    <Text color='black'>Ends: { getDateString(event.EndsAt) }</Text>
-                  </XStack>
+              <Text color='black' fontSize="$5" paddingVertical="$1">
+                { getDateString(event.StartsAt) } - { getDateString(event.EndsAt) }
+              </Text>
 
-                  <XStack borderWidth="1" borderRadius="$3" padding="$1.5" backgroundColor="#D9D9D9">
-                    <Text color='black'>Type: { event.Type }</Text>
-                  </XStack>
-                </XStack>
-              </YStack>
-            </YStack>
-
-            
-            {/* Event Description */}
-            <YStack marginTop="$2.5">
-              <Text color="black" fontSize="$5">Description</Text>
+              <Text color='black' fontSize="$5" paddingVertical="$1">
+                Competition Type: { event.Type }
+              </Text>
 
               <YStack marginVertical="$2.5" alignItems="center">
                 <YStack width={'100%'} 
@@ -143,6 +125,19 @@ export default function EventDetails() {
                   <Text color="black" fontSize="$5">{event.Description}</Text>
                 </YStack>
               </YStack>
+
+              <Text color='black' fontSize="$7" paddingVertical="$1">
+                Reward Tiers:
+              </Text>
+
+              <FlatList
+                data={event.Achievements}
+                renderItem={({item}) => 
+                  <Text color="black" fontSize="$5">{item} {typeUnit}</Text>
+                }>
+                
+              </FlatList>
+
             </YStack>
 
 
@@ -155,7 +150,7 @@ export default function EventDetails() {
                 height="$5"
                 width="$14"
                 onPress={registerCallback}
-                borderRadius="$10"
+                borderRadius="$4"
                 pressStyle={{ opacity: 1 }} // Optional: Adjust opacity on press
                 shadowColor={'#000'} // Shadow color
                 shadowOffset={{ width: 0, height: 2 }} // Shadow offset
