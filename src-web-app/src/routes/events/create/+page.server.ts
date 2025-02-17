@@ -82,7 +82,7 @@ export const actions = {
         RewardSingular: RewardSingular,
         RewardPlural: RewardPlural,
         AchievementCount: AchievementCount,
-        Achievements: Achievements,
+        Tiers: Achievements,
       })
       // Select the data we just created so we can use it for the banner.
       .select()
