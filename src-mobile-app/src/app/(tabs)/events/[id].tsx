@@ -1,5 +1,5 @@
 import { Stack, useLocalSearchParams } from "expo-router";
-import { H3, YStack, Image, XStack, Text, Button, useTheme } from "tamagui";
+import { H3, YStack, Image, XStack, Text, Button, useTheme, View } from "tamagui";
 import { Text as RN_Text, ScrollView, TouchableOpacity } from 'react-native';
 import { useTypedDispatch, useTypedSelector } from "../../../store/store";
 import { SBEvent, SBTeamStats } from "../../../lib/supabase-types";
@@ -130,13 +130,16 @@ export default function EventDetails() {
                 Reward Tiers:
               </Text>
 
-              <FlatList
-                data={event.Achievements}
-                renderItem={({item}) => 
-                  <Text color="black" fontSize="$5">{item} {typeUnit}</Text>
-                }>
-                
-              </FlatList>
+              <View>
+                {event.Achievements.map((tier, index) => (
+                  <View key={index}>
+                    <Text color="black" fontSize="$5">
+                      {index + 1}: {tier} {typeUnit}
+                    </Text>
+                  </View>
+                ))
+                }
+              </View>
 
             </YStack>
 
