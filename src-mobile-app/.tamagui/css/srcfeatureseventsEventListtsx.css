@@ -12,7 +12,6 @@
 :root ._fs-0{flex-shrink:0;}
 :root ._jc-441309761{justify-content:space-between;}
 :root ._ai-center{align-items:center;}
-:root ._col-675002279{color:var(--color);}
 :root ._tt-230633015{text-transform:var(--f-tr-9);}
 :root ._ff-299667014{font-family:var(--f-fa);}
 :root ._fow-233016295{font-weight:var(--f-we-9);}
@@ -27,6 +26,7 @@
 :root ._mb-0px{margin-bottom:0px;}
 :root ._ml-0px{margin-left:0px;}
 :root ._ussel-auto{user-select:auto;-webkit-user-select:auto;}
+:root ._col-426B1F35{color:#426B1F;}
 :root ._w-10037{width:100%;}
 :root ._gap-0px{gap:0px;}
 :root ._tt-230632953{text-transform:var(--f-tr-7);}
@@ -34,8 +34,8 @@
 :root ._ls-167744152{letter-spacing:var(--f-21-7);}
 :root ._fos-229441313{font-size:var(--f-si-7);}
 :root ._lh-222976666{line-height:var(--f-li-7);}
-:root ._col-white{color:white;}
-:root ._col-1218753916{color:var(--gray12);}
+:root ._col-675002279{color:var(--color);}
+:root ._col-FFFFFF35{color:#FFFFFF;}
 :root ._fow-400{font-weight:400;}
 :root ._pos-absolute{position:absolute;}
 :root ._b-2px{bottom:2px;}

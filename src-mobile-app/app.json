@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "DamFit",
-    "slug": "damfit",
+    "name": "TrekTrak",
+    "slug": "trektrak",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/osu_badge.png",
@@ -10,7 +10,8 @@
     "splash": {
       "image": "./assets/images/osu_badge.png",
       "resizeMode": "contain",
-      "backgroundColor": "#D73F09"
+      "imageResizeMode": "contain",
+      "backgroundColor": "#3F6122"
     },
     "assetBundlePatterns": [
       "**/*"
@@ -21,7 +22,7 @@
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
+        "backgroundColor": "#FFFFFF"
       }
     },
     "web": {
@@ -30,7 +31,9 @@
       "favicon": "./assets/images/favicon.png"
     },
     "plugins": [
-      "expo-router"
+      "expo-router",
+      "expo-font",
+      "expo-secure-store"
     ],
     "experiments": {
       "typedRoutes": true
@@ -40,9 +43,9 @@
         "origin": false
       },
       "eas": {
-        "projectId": "119fc5fe-3acb-4b22-845d-bda6a913a54a"
+        "projectId": "6e08a6bc-788a-443f-8298-12743306d9fd"
       }
     },
-    "owner": "traveno"
+    "owner": "capucity"
   }
 }

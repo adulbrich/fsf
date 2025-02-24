@@ -1,4 +1,5 @@
 import { fail, redirect } from "@sveltejs/kit";
+import { randomUUID } from "crypto";
 
 export const load = async ({ locals: { supabase, getSession } }: { locals: { supabase: any; getSession: () => Promise<any> } }) => {
   const session = await getSession();
@@ -7,19 +8,7 @@ export const load = async ({ locals: { supabase, getSession } }: { locals: { sup
     throw redirect(303, "/events");
   }
 
-    const { data: event, error } = await supabase
-     .from('event')
-     .select(`event_name, event_type, event_start_date, event_end_date, event_description, event_banner`)
-     .eq('id', session.user.id)
-     .single()
-
-    if (error) {
-        console.error('Failed to fetch event:', error);
-    } else {
-        console.log('Event data successfully fetched');
-    }
-
-    return { session, event }
+  return { session }
 }
 
 export const actions = {
@@ -43,12 +32,10 @@ export const actions = {
     const eventDescription = formData.get("eventDescription") as string;
     const RewardSingular = formData.get("singularReward") as string;
     const RewardPlural = formData.get("pluralReward") as string;
-    const tier1String = formData.get("tier1");
-    const RewardTierOneThreshold = tier1String ? Number(tier1String) : null;
-    const tier2String = formData.get("tier2");
-    const RewardTierTwoThreshold = tier2String ? Number(tier2String) : null;
-    const tier3String = formData.get("tier3");
-    const RewardTierThreeThreshold = tier3String ? Number(tier3String) : null;
+    const AchievementCount = formData.get("AchievementCount") as string;
+    const Achievements = Array.from({ length: parseInt(AchievementCount) }, (_, i) =>
+      formData.get(`Achievement${i + 1}`) as string
+    );
 
     // Event banner image, it should be a base64 encoded string.
     const eventBanner = formData.get("eventBanner") as File;
@@ -75,9 +62,8 @@ export const actions = {
         eventDescription,
         RewardSingular,
         RewardPlural,
-        RewardTierOneThreshold,
-        RewardTierTwoThreshold,
-        RewardTierThreeThreshold,
+        AchievementCount,
+        Achievements,
       });
     }
 
@@ -86,6 +72,7 @@ export const actions = {
       .from("Events")
       .upsert({
         // Column names must match case acccording to schema.
+        EventID: randomUUID(),
         Name: eventName,
         Type: eventType,
         StartsAt: startDate,
@@ -94,9 +81,8 @@ export const actions = {
         Description: eventDescription,
         RewardSingular: RewardSingular,
         RewardPlural: RewardPlural,
-        RewardTierOneThreshold: RewardTierOneThreshold,
-        RewardTierTwoThreshold: RewardTierTwoThreshold,
-        RewardTierThreeThreshold: RewardTierThreeThreshold,
+        AchievementCount: AchievementCount,
+        Achievements: Achievements,
       })
       // Select the data we just created so we can use it for the banner.
       .select()
@@ -106,7 +92,7 @@ export const actions = {
 
     // Error handle.
     if (createEventError) {
-      console.log(createEventError);
+      console.log('Failed to create event: ', createEventError.message);
       return fail(500, {
         errorMessage: createEventError.message,
         eventName,
@@ -116,9 +102,8 @@ export const actions = {
         eventDescription,
         RewardSingular,
         RewardPlural,
-        RewardTierOneThreshold,
-        RewardTierTwoThreshold,
-        RewardTierThreeThreshold,
+        AchievementCount,
+        Achievements,
       });
     }
 
@@ -141,9 +126,13 @@ export const actions = {
     const { error: uploadRewardIconError } = await supabase.storage.from("EventAssets").upload(`RewardIcons/${createEventData.EventID}`, rewardIcon, {
       contentType: rewardIcon.type,
     });
+    if (uploadRewardIconError) {
+      console.log("Failed to upload reward icon: ", uploadRewardIconError.message);
+    }
 
     // Error handle.
     if (uploadBannerError) {
+      console.log("Failed to upload banner: ", uploadBannerError.message);
       return fail(500, {
         errorMessage: uploadBannerError.message,
         eventName,
@@ -153,14 +142,12 @@ export const actions = {
         eventDescription,
         RewardSingular,
         RewardPlural,
-        RewardTierOneThreshold,
-        RewardTierTwoThreshold,
-        RewardTierThreeThreshold,
+        AchievementCount,
+        Achievements,
       });
     }
 
-    console.log(uploadBannerError);
-    console.log(uploadRewardIconError);
+    console.log('Successfully created an event');
     // Done.
     return {
       errorMessage: null,
@@ -171,9 +158,8 @@ export const actions = {
       eventDescription,
       RewardSingular,
       RewardPlural,
-      RewardTierOneThreshold,
-      RewardTierTwoThreshold,
-      RewardTierThreeThreshold,
+      AchievementCount,
+      Achievements,
     };
   },
 };

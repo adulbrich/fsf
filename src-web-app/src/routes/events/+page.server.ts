@@ -1,9 +1,10 @@
 import type { Event } from "../../interfaces"; // Import the Event interface
-let events: Event[] = [];
-let pastEvents: Event[] = [];
-let upcomingEvents: Event[] = [];
-let ongoingEvents: Event[] = [];
+
 export const load = async ({ locals: { supabase, getSession }, params }) => {
+  let events: Event[] = [];
+  let pastEvents: Event[] = [];
+  let upcomingEvents: Event[] = [];
+  let ongoingEvents: Event[] = [];
   const session = await getSession();
   try {
     const { data, error } = await supabase.from("Events").select("*");
@@ -14,12 +15,9 @@ export const load = async ({ locals: { supabase, getSession }, params }) => {
       ongoingCount = 0;
     for (let event of events) {
       const eventStatus = determineEventStatus(event, event.StartsAt, event.EndsAt);
-      if ((eventStatus === "Past" && pastCount >= 2) || (eventStatus === "Upcoming" && upcomingCount >= 2) || (eventStatus === "Ongoing" && ongoingCount >= 1)) {
-        continue;
-      }
 
       const imagePath = "Banners/" + event.EventID;
-      const { data: bannerData, error: bannerError} = await supabase.storage.from("EventAssets").getPublicUrl(imagePath);
+      const { data: bannerData, error: bannerError } = await supabase.storage.from("EventAssets").getPublicUrl(imagePath);
       if (bannerError)
         continue;
       event.BannerURL = bannerData.publicUrl;

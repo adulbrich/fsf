@@ -27,7 +27,7 @@ export default function SignIn() {
         flex={0.3}
         flexBasis={0.25}
         height={"100%"}
-        backgroundColor={'#D73F09'}
+        backgroundColor={'#426B1F'}
         alignItems="flex-start"
         justifyContent="flex-end"
       >
