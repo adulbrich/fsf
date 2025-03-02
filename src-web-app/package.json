@@ -12,6 +12,7 @@
 	"devDependencies": {
 		"@sveltejs/adapter-auto": "^2.0.0",
 		"@sveltejs/kit": "^1.20.4",
+		"@types/papaparse": "^5.3.15",
 		"@types/uuid": "^10.0.0",
 		"autoprefixer": "^10.4.16",
 		"daisyui": "^4.6.3",
@@ -31,6 +32,7 @@
 		"@supabase/supabase-js": "^2.38.4",
 		"daisyui": "^4.6.2",
 		"frappe-charts": "^1.6.2",
+		"papaparse": "^5.5.2",
 		"svelte-frappe-charts": "^1.10.0",
 		"svelte-french-toast": "^1.2.0",
 		"uuid": "^11.0.5",
