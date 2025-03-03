@@ -113,6 +113,16 @@
           </button>
         </a>
       </div>
+      <div class="flex flex-col items-start ml-20" style="margin-top: 19px;">
+        <!-- Create Event button -->
+        <a href="/events/importuserscsv">
+          <button 
+            class="btn btn-sm font-normal h-9 font-sans hover:bg-dark-orange text-white rounded-full" 
+            style="background-color: #81c745; margin-bottom: 10px;">
+            Import users csv
+          </button>
+        </a>
+      </div>
     </div>
 
     <!-- Container for the events -->
